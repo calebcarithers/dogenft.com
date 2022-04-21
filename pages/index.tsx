@@ -41,7 +41,7 @@ const Home: NextPage = () => {
       <main className={css("grow", "font-bold", "grid", "grid-cols-12")}>
         <div className={css("flex", "flex-col", "justify-between", "col-span-3")}>
           <div className={css("flex", "items-center", "justify-center", "grow")}>
-            <div className={css("text-4xl", "flex", "flex-col", "gap-7", "px-10")}>
+            <div className={css("text-4xl", "flex", "flex-col", "gap-8", "px-10")}>
               {navItems.map(item => {
                 const isSelected = item.id === navSelection
                 return <div key={item.id} className={css("relative", "inline-block", "max-w-max")}>

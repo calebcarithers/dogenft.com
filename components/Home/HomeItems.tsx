@@ -10,10 +10,12 @@ interface HomeFeatureProps {
 const Doge= ({id, height}: HomeFeatureProps) => {
   return <HomeFeature id={id} height={height}>
     <div>
-      <div className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1")} style={{height: "600px"}}>
+      <div
+        className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1")}
+        style={{height: "500px"}}>
         <Image src={"/kabosu.png"} layout={"fill"} objectFit={"contain"}/>
       </div>
-      <div className={css("text-2xl", "mt-10")}>
+      <div className={css("mt-10")}>
         The Mona Lisa of the internet, Doge, grew to infamy in the early 2000's when Atsuko Sato posted 8 photos to her blog of her adopted Shiba Inu, Kabosu.</div>
     </div>
   </HomeFeature>
@@ -21,25 +23,27 @@ const Doge= ({id, height}: HomeFeatureProps) => {
 
 const DogeNFT = ({id, height}: HomeFeatureProps) => {
   return <HomeFeature id={id} height={height}>
-    dogenft
+    In 2021, Atsuko Satō minted her 8 original images on the Ethereum blockchain
+    as NFTs. The most iconic image “Doge”, was purchased by PleasrDAO at auction for 1696.9 ETH.
   </HomeFeature>
 }
 
 const Dog = ({id, height}: HomeFeatureProps) => {
   return <HomeFeature id={id} height={height}>
-    $dog
+    Shortly after the aquisition of The Doge NFT, PleasrDao fractionalized it, birthing the
+    fungible $DOG token to the world, allowing any and all to own part of The Doge NFT.
   </HomeFeature>
 }
 
 const Daoge = ({id, height}: HomeFeatureProps) => {
   return <HomeFeature id={id} height={height}>
-    daoge
+    After fractionalization, the DAOge was formed to govern the The Doge NFT ecosystem.
   </HomeFeature>
 }
 
 const BarkTank = ({id, height}: HomeFeatureProps) => {
   return <HomeFeature id={id} height={height}>
-    barktank
+    Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and everything Doge. Pitch your idea and get funded today!
   </HomeFeature>
 }
 
