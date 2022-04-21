@@ -1,6 +1,7 @@
 import {css} from "../../helpers/css";
 import Image from "next/image";
 import HomeFeature from "./HomeFeature";
+import Link from "../Link/Link";
 
 interface HomeFeatureProps {
   id: string;
@@ -16,15 +17,17 @@ const Doge= ({id, height}: HomeFeatureProps) => {
         <Image src={"/kabosu.png"} layout={"fill"} objectFit={"contain"}/>
       </div>
       <div className={css("mt-10")}>
-        The Mona Lisa of the internet, Doge, grew to infamy in the early 2000's when Atsuko Sato posted 8 photos to her blog of her adopted Shiba Inu, Kabosu.</div>
+        The Mona Lisa of the internet, <Link isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link>, grew to infamy in the early 2000's when Atsuko Sato posted 8 photos to <Link href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu, Kabosu.</div>
     </div>
   </HomeFeature>
 }
 
 const DogeNFT = ({id, height}: HomeFeatureProps) => {
   return <HomeFeature id={id} height={height}>
-    In 2021, Atsuko Satō minted her 8 original images on the Ethereum blockchain
-    as NFTs. The most iconic image “Doge”, was purchased by PleasrDAO at auction for 1696.9 ETH.
+    <div>
+      <span>In 2021, Atsuko Satō minted her 8 original images on the Ethereum blockchain as NFTs. The most iconic image “Doge”, was purchased by <Link isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at </span>
+        <Link isExternal href={"https://very.auction/doge/doge"}>auction</Link> <span>for 1696.9 ETH.</span>
+    </div>
   </HomeFeature>
 }
 
