@@ -7,10 +7,7 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import Image from "next/image"
 
 const Home: NextPage = () => {
-  const navItems = ['Doge', 'The Doge NFT', '$DOG', 'DAOge', 'Bark Tank']
-
-
-  const _navItems = [
+  const navItems = [
     {title: 'Doge', id: "doge"},
     {title: 'The Doge NFT', id: "dogenft"},
     {title: '$DOG', id: "dog"},
@@ -19,6 +16,7 @@ const Home: NextPage = () => {
   ]
 
   const [fullSize, setFullSize] = useState(0)
+  const [navSelection, setNavSelection] = useState("doge")
 
   const containerRef = useCallback<any>((node: HTMLDivElement) => {
     if (node) {
@@ -41,8 +39,9 @@ const Home: NextPage = () => {
         <div className={css("flex", "flex-col", "justify-between", "col-span-3")}>
           <div className={css("flex", "items-center", "justify-center", "grow")}>
             <div className={css("text-4xl", "flex", "flex-col", "gap-7")}>
-              {_navItems.map(item => <NavItem key={item.id} onClick={() => {
+              {navItems.map(item => <NavItem key={item.id} isSelected={item.id === navSelection} onClick={() => {
                 document.getElementById(item.id)?.scrollIntoView({behavior: "smooth"})
+                setNavSelection(item.id)
               }}>
                 {item.title}
               </NavItem>)}

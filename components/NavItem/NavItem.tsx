@@ -11,7 +11,8 @@ const NavItem: React.FC<PropsWithChildren<NavItemProps>> = ({
                                                               onClick,
                                                               children}) => {
   return <div className={css("hover:cursor-pointer", "hover:underline")} onClick={onClick && onClick}>
-    {children}
+    {isSelected && `❇ ${children} ❇`}
+    {!isSelected && children}
   </div>
 }
 
