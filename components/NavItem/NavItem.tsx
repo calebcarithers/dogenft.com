@@ -11,7 +11,10 @@ const NavItem: React.FC<PropsWithChildren<NavItemProps>> = ({
                                                               onClick,
                                                               children}) => {
   return <div className={css("hover:cursor-pointer", "hover:underline")} onClick={onClick && onClick}>
-    {isSelected && `❇ ${children} ❇`}
+    {isSelected && <div className={css("inline-flex")}>
+      <span>{children}</span>
+      <span className={css("relative")}>✨</span>
+    </div>}
     {!isSelected && children}
   </div>
 }
