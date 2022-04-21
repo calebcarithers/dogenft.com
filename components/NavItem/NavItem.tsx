@@ -17,6 +17,8 @@ const NavItem: React.FC<PropsWithChildren<NavItemProps>> = ({
                                                               isSelected = false,
                                                               onClick,
                                                               children}) => {
+  // next will complain if this component gets rendered on the server as the style prop is randomly generated
+  // and will not equal the client generated prop
   return <NoSsr>
     <div
       className={css("hover:cursor-pointer", "hover:underline", "inline-block")}

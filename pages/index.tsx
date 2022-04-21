@@ -6,6 +6,8 @@ import NavItem from "../components/NavItem/NavItem";
 import {useCallback, useState} from "react";
 import Image from "next/image"
 import {vars} from "../environment/vars";
+import HomeFeature from "../components/Home/HomeFeature";
+import HomeItems from "../components/Home/HomeItems";
 
 const Home: NextPage = () => {
   const navItems = [
@@ -56,7 +58,6 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className={css("flex", "flex-col", "items-start", "gap-4", "py-5")}>
-            {/* TODO  */}
             <Button onClick={() => {
               window.open(vars.NEXT_PUBLIC_DISCORD_LINK, '_blank')
             }}>discord</Button>
@@ -71,27 +72,7 @@ const Home: NextPage = () => {
         </div>
         <div className={css("col-span-8", "text-4xl", "overflow-x-hidden", "text-center")} ref={containerRef}>
           <div style={{maxHeight: "300px"}}>
-            <div id={"doge"} className={css("flex", "items-center", "justify-center", "bg-red-100")} style={{height: `${fullSize}px`}}>
-              <div>
-                <div className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1")} style={{height: "500px"}}>
-                  <Image src={"/kabosu.png"} layout={"fill"} objectFit={"contain"}/>
-                </div>
-                <div className={css("text-2xl", "mt-10")}>
-                  The Mona Lisa of the internet, Doge, grew to infamy in the early 2000's when Atsuko Sato posted 8 photos to her blog of her adopted Shiba Inu, Kabosu.</div>
-              </div>
-            </div>
-            <div id={"dogenft"} className={css("flex", "items-center", "justify-center", "bg-red-200")} style={{height: `${fullSize}px`}}>
-              doge nft
-            </div>
-            <div id={"dog"} className={css("flex", "items-center", "justify-center", "bg-red-300")} style={{height: `${fullSize}px`}}>
-              dog stuff
-            </div>
-            <div id={"daoge"} className={css("flex", "items-center", "justify-center", "bg-red-400")} style={{height: `${fullSize}px`}}>
-              daoge
-            </div>
-            <div id={"barktank"} className={css("flex", "items-center", "justify-center", "bg-red-500")} style={{height: `${fullSize}px`}}>
-              barktank
-            </div>
+            <HomeItems height={fullSize}/>
           </div>
         </div>
       </main>
