@@ -6,18 +6,9 @@ import NavItem from "../components/NavItem/NavItem";
 import {useCallback, useState} from "react";
 import Image from "next/image"
 import {vars} from "../environment/vars";
-import HomeFeature from "../components/Home/HomeFeature";
-import HomeItems from "../components/Home/HomeItems";
+import HomeItems, {navItems} from "../components/Home/HomeItems";
 
 const Home: NextPage = () => {
-  const navItems = [
-    {title: 'Doge', id: "doge"},
-    {title: 'The Doge NFT', id: "dogenft"},
-    {title: '$DOG', id: "dog"},
-    {title: 'DAOge', id: "daoge"},
-    {title: 'Bark Tank', id: "barktank"}
-  ]
-
   const [fullSize, setFullSize] = useState(0)
   const [navSelection, setNavSelection] = useState("doge")
 
@@ -41,7 +32,7 @@ const Home: NextPage = () => {
       <main className={css("grow", "font-bold", "grid", "grid-cols-12")}>
         <div className={css("flex", "flex-col", "justify-between", "col-span-3")}>
           <div className={css("flex", "items-center", "justify-center", "grow")}>
-            <div className={css("text-4xl", "flex", "flex-col", "gap-8", "px-10")}>
+            <div className={css("text-4xl", "flex", "flex-col", "gap-10", "px-10")}>
               {navItems.map(item => {
                 const isSelected = item.id === navSelection
                 return <div key={item.id} className={css("relative", "inline-block", "max-w-max")}>
@@ -78,7 +69,8 @@ const Home: NextPage = () => {
       </main>
 
       <footer className={css("grow-0", "flex", "justify-between", "mt-10")}>
-        <Image src={"/logo-framed.svg"} height={40} width={100}/>
+        {/*<Image src={"/logo-framed.svg"} height={40} width={100}/>*/}
+        <div>✨ pleasr ✨</div>
         <div>more stuff here</div>
       </footer>
     </div>

@@ -22,6 +22,12 @@ const Doge= ({id, height}: HomeFeatureProps) => {
   </HomeFeature>
 }
 
+const Pixels = ({id, height}: HomeFeatureProps) => {
+  return <HomeFeature id={id} height={height}>
+    <div>checkout these pixels</div>
+  </HomeFeature>
+}
+
 const DogeNFT = ({id, height}: HomeFeatureProps) => {
   return <HomeFeature id={id} height={height}>
     <div>
@@ -46,14 +52,22 @@ const Daoge = ({id, height}: HomeFeatureProps) => {
 
 const BarkTank = ({id, height}: HomeFeatureProps) => {
   return <HomeFeature id={id} height={height}>
-    Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and everything Doge. Pitch your idea and get funded today!
+    <div>
+      <div>
+        Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and everything Doge. Pitch your idea and get funded today!
+      </div>
+      <div>
+        <Link href={"/barktank"}>see more!</Link>
+      </div>
+    </div>
   </HomeFeature>
 }
 
 
-const navItems = [
+export const navItems = [
   {title: 'Doge', id: "doge", component: Doge},
   {title: 'The Doge NFT', id: "dogenft", component: DogeNFT},
+  {title: 'Pixels', id: 'pixels', component: Pixels},
   {title: '$DOG', id: "dog", component: Dog},
   {title: 'DAOge', id: "daoge", component: Daoge},
   {title: 'Bark Tank', id: "barktank", component: BarkTank}

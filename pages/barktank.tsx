@@ -11,9 +11,15 @@ interface BarktankProps {
 
 const Barktank: React.FC<BarktankProps> = ({fundedProjects}) => {
   return <div className={css("flex", "gap-5", "flex-col")}>
-    {/*{fundedProjects.map(project => <div>*/}
-    {/*  {jsonify(project)}*/}
-    {/*</div>)}*/}
+    {fundedProjects.map(project => <div key={project.projectName} className={css("text-xl", "mb-3")}>
+      {/*{jsonify(project)}*/}
+      <div>
+        {project.projectName} :: {project.cost} :: FUNDED
+      </div>
+      <div>
+        {project.idea}
+      </div>
+    </div>)}
   </div>
 }
 
