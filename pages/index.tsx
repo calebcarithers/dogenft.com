@@ -38,7 +38,7 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
 
       <main className={css("grow", "font-bold", "flex", "flex-col", "md:grid", "grid-cols-12")}>
         <div className={css("flex", "flex-col", "justify-between", "col-span-3")}>
-          <div className={css("flex", "items-center", "justify-center", "grow", "border-b-2", "md:border-b-0", "border-grey-400", "border-dashed", "mb-8", "md:mb-0")}>
+          <div className={css("flex", "items-center", "justify-center", "grow", "border-b-2", "md:border-b-0", "border-grey-400", "border-dashed")}>
             <div className={css("text-4xl", "flex", "md:flex-col", "gap-10", "px-10",)}>
               {navItems.map(item => {
                 const isSelected = item.id === navSelection
