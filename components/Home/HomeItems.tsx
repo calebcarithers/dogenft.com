@@ -159,7 +159,7 @@ const HomeItems = ({height, onIntersection, projects}: HomeItemsProps) => {
       return <HomeFeature key={`home-item-${item.id}`} id={item.id} height={height} onIntersection={onIntersection}>
         {/* TODO: change this, very bad */}
         {/*//@ts-ignore*/}
-        {Content.name === "BarkTank" ? <Content projects={projects}/> : <Content/>}
+         <Content projects={projects}/>
       </HomeFeature>
     })}
   </>
