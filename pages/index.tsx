@@ -86,7 +86,7 @@ export const getServerSideProps: GetServerSideProps<any> = async () => {
   const fundedProjects = await airtable.getProjects(3)
   return {
     props: {
-      fundedProjects: JSON.parse(jsonify(fundedProjects))
+      fundedProjects: JSON.parse(jsonify(fundedProjects ? fundedProjects : []))
     }
   }
 }
