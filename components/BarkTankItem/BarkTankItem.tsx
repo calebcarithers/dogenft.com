@@ -14,13 +14,13 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project, 
     >
       <div className={css("text-left", "flex", "justify-between", "p-1")}>
         <div>
-          <div className={css("mb-2", "group-hover:bg-doge-orange", "px-1", "break-all",
+          <div className={css("mb-1", "group-hover:bg-doge-orange", "px-1", "break-all",
             "border-2", "border-solid", "border-transparent", "group-hover:border-black")}>
             {project.projectName}
           </div>
           <div className={css("text-lg", "group-hover:bg-doge-orange", "inline-block",
-            "px-1","border-2", "border-solid", "border-transparent", "group-hover:border-black", "text-red-500")}>
-            {"<description>"}
+            "px-1","border-2", "border-solid", "border-transparent", "group-hover:border-black")}>
+            {project.description}
           </div>
         </div>
         <div className={css("text-lg", "border-2", "border-solid", "border-black",

@@ -28,13 +28,15 @@ class _Airtable {
           const cost = record.get("How much money do you need to create this idea?")
           const idea = record.get("What's your idea?")
           const isVisible = record.get("Website Visible")
-          const status = record.get("Status")
+          const status = record.get("Status") as AirtableProjectStatus
+          const description = record.get("Website Description")
           if (isVisible) {
             toRet.push({
               projectName,
               cost,
               idea,
-              status
+              status,
+              description
             })
           }
         })
