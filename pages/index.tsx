@@ -36,8 +36,8 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={css("grow", "font-bold", "md:grid", "md:grid-cols-12", "block")}>
-        <div className={css("hidden", "md:flex", "flex-col", "justify-between", "col-span-3")}>
+      <main className={css("grow", "font-bold", "grid", "grid-cols-12", "block")}>
+        <div className={css("flex", "flex-col", "justify-between", "col-span-3")}>
           <div className={css("flex", "items-center", "justify-center", "grow")}>
             <div className={css("text-4xl", "flex", "flex-col", "gap-10", "px-10")}>
               {navItems.map(item => {
@@ -67,13 +67,10 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
         <div className={css("flex", "justify-center")}>
           <div className={css("border-grey", "border-dashed", "col-span-1")} style={{width: "1px", borderWidth: "1px"}}/>
         </div>
-        <div className={css("hidden", "md:block", "col-span-8", "text-4xl", "overflow-x-hidden", "text-center")} ref={containerRef}>
+        <div className={css("col-span-8", "text-4xl", "overflow-x-hidden", "text-center")} ref={containerRef}>
           <div style={{maxHeight: "300px"}}>
             <HomeItems projects={fundedProjects} height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
           </div>
-        </div>
-        <div className={css("md:hidden", "block")}>
-          <HomeItems projects={fundedProjects} height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
         </div>
       </main>
 
