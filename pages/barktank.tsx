@@ -47,7 +47,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
           <div>
             Projects
           </div>
-          {projects.map(project => <BarkTankItem key={project.projectName} project={project}/>)}
+          {projects.map(project => <BarkTankItem onClick={(name) => alert(`open: ${name} page`)} key={project.projectName} project={project}/>)}
         </div>
       </div>
     </div>

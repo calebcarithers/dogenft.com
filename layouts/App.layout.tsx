@@ -7,7 +7,7 @@ const AppLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
     {children}
     <footer className={css("grow-0", "flex", "justify-between", "mt-10")}>
       <Image alt={"pleasr logo"} src={"/pleasrlogo.svg"} height={40} width={100}/>
-      <div>more stuff here</div>
+      <div className={css("text-red-600")}>the important links here!</div>
     </footer>
   </div>
 }

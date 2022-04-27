@@ -3,11 +3,12 @@ import {PropsWithChildren} from "react";
 import {css} from "../../helpers/css";
 
 interface BarkTankItemProps {
-  project: AirtableSubmissionProject
+  project: AirtableSubmissionProject;
+  onClick?: (name: string) => void;
 }
 
-const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project}) => {
-  return <div className={css("relative", "inline-block", "z-10", "group")}>
+const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project, onClick}) => {
+  return <div className={css("relative", "inline-block", "z-10", "group")} onClick={() => onClick && onClick(project.projectName)}>
     <div className={css("active:translate-x-1", "active:translate-y-1", "border-2",
       "border-black", "border-solid", "bg-white", "cursor-pointer", "p-2", "bg-contain", "group-hover:bg-doge")}
     >
@@ -18,8 +19,8 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project})
             {project.projectName}
           </div>
           <div className={css("text-lg", "group-hover:bg-doge-orange", "inline-block",
-            "px-1","border-2", "border-solid", "border-transparent", "group-hover:border-black")}>
-            description
+            "px-1","border-2", "border-solid", "border-transparent", "group-hover:border-black", "text-red-500")}>
+            {"<description>"}
           </div>
         </div>
         <div className={css("text-lg", "border-2", "border-solid", "border-black",

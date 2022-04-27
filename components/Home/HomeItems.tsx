@@ -41,35 +41,35 @@ const DogeNFT = () => {
     <div className={css("flex", "flex-wrap", "gap-5")}>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"doge"} src={'/kabosu.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"feisty"} src={'/feisty.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"yelling"} src={'/yelling.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"curious"} src={'/curious.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"angry"} src={'/angry.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"shocked"} src={'/shocked.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"sad"} src={'/sad.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"cuddle"} src={'/cuddle.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
       </div>
     </div>
     <div className={css("mt-16")}>
@@ -87,7 +87,7 @@ const Dog = () => {
   return <div>
     <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)} style={{maxWidth: "600px"}}>
       <Image alt={"doge"} src={'/kabosu.png'} layout={"responsive"} width={640} height={480}/>
-      <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+      {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
     </div>
     <div className={css("mt-10")}>
       After the auction, PleasrDAO <Link isExternal href={"https://fractional.art/vaults/0xbaac2b4491727d78d2b78815144570b9f2fe8899"}>fractionalized</Link> The Doge NFT into a fungible token, $DOG, allowing any and all to own a piece of the meme.
@@ -138,7 +138,7 @@ const BarkTank = ({projects}: {projects: AirtableSubmissionProject[]}) => {
     <div className={css("mt-14", "text-left")}>
       <div className={css("mb-2", "text-xl")}>Recent Projects</div>
       <div className={css("flex", "flex-col", "gap-3", "mr-4")}>
-        {projects.slice(0, 3).map(project => <BarkTankItem key={project.projectName} project={project}/>)}
+        {projects.slice(0, 3).map(project => <BarkTankItem onClick={(name) => alert(`todo: open ${name} page`)} key={project.projectName} project={project}/>)}
       </div>
     </div>
   </div>
