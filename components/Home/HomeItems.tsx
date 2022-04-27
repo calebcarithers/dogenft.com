@@ -6,13 +6,15 @@ import HelperContent from "../HelperContent/HelperContent";
 import styles from "./HomeItems.module.css"
 import {useEffect} from "react";
 import airtable from "../../services/Airtable";
-import {FundedProject} from "../../interfaces";
+import {AirtableSubmissionProject} from "../../interfaces";
 import {jsonify} from "../../helpers/strings";
 import BarkTankItem from "../BarkTankItem/BarkTankItem";
+import Button from "../Button/Button";
+import {useRouter} from "next/router";
 
 const Doge= () => {
   return <div>
-    <div className={css("relative", "z-10")}>
+    <div className={css("relative", "z-10", "mx-5")}>
       <div
         className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "m-auto", "flex-1", "border-2", "border-solid", "border-black")}
         style={{maxWidth: "700px"}}
@@ -114,23 +116,28 @@ const Daoge = () => {
   </div>
 }
 
-const BarkTank = ({projects}: {projects: FundedProject[]}) => {
+const BarkTank = ({projects}: {projects: AirtableSubmissionProject[]}) => {
+  const router = useRouter()
   return <div>
     <div>
       Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and everything Doge. Pitch your idea and get funded today!
     </div>
     <div className={css("mt-5")}>
       <div>
-        <Link isExternal href={"https://airtable.com/shrRPV5wZdTUNhmn2"}>apply</Link>
+        <Button onClick={() => window.open("https://airtable.com/shrRPV5wZdTUNhmn2", "_blank")}>
+          <div className={css("text-base")}>apply</div>
+        </Button>
       </div>
-      <div>
-        <Link href={"/barktank"}>view all projects</Link>
+      <div className={css("mt-3")}>
+        <Button onClick={() => router.push("/barktank")}>
+          <div className={css("text-base")}>View all projects</div>
+        </Button>
       </div>
     </div>
     <div className={css("mt-14", "text-left")}>
       <div className={css("mb-2", "text-2xl")}>Recent Projects</div>
-      <div className={css("flex", "flex-col", "gap-3")}>
-        {projects.map(project => <BarkTankItem key={project.projectName} project={project}/>)}
+      <div className={css("flex", "flex-col", "gap-3", "mr-4")}>
+        {projects.slice(0, 3).map(project => <BarkTankItem key={project.projectName} project={project}/>)}
       </div>
     </div>
   </div>
@@ -147,7 +154,7 @@ export const navItems = [
 ]
 
 interface HomeItemsProps {
-  projects: FundedProject[];
+  projects: AirtableSubmissionProject[];
   height: number;
   onIntersection?: (id: string) => void
 }

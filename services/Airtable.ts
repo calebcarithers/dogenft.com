@@ -1,5 +1,5 @@
 import Airtable from "airtable";
-import {FundedProject} from "../interfaces";
+import {AirtableSubmissionProject} from "../interfaces";
 
 export enum AirtableProjectStatus {
   Funded = "FUNDED",
@@ -16,10 +16,10 @@ class _Airtable {
     console.log(this.submissionsBase('SUBMISSIONS'))
   }
 
-  async getProjects(maxRecords: number, status?: AirtableProjectStatus) {
-    const toRet: FundedProject[] = []
-    const thing = await this.submissionsBase(process.env.AIRTABLE_SUBMISSIONS_BASE_ID as string).select({
-      maxRecords: maxRecords,
+  async getProjects(status?: AirtableProjectStatus) {
+    const toRet: AirtableSubmissionProject[] = []
+    await this.submissionsBase(process.env.AIRTABLE_SUBMISSIONS_BASE_ID as string).select({
+      maxRecords: 100,
       view: "Kanban: Submissions",
       filterByFormula: status ? `IF({STATUS} = '${status}', TRUE(), FALSE())` : `IF(OR({STATUS} = '${AirtableProjectStatus.Funded}', {STATUS} = '${AirtableProjectStatus.Funding}'), TRUE(), FALSE())`
     }).eachPage((records, fetchNextPage) => {
@@ -27,15 +27,21 @@ class _Airtable {
           const projectName = record.get("Project Name")
           const cost = record.get("How much money do you need to create this idea?")
           const idea = record.get("What's your idea?")
-          toRet.push({
-            projectName,
-            cost,
-            idea
-          })
+          const isVisible = record.get("Website Visible")
+          const status = record.get("Status")
+          console.log(record)
+          if (isVisible) {
+            toRet.push({
+              projectName,
+              cost,
+              idea,
+              status
+            })
+            console.log(toRet)
+          }
         })
       fetchNextPage()
     })
-    console.log(thing)
     return toRet
   }
 }

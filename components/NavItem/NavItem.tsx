@@ -21,7 +21,7 @@ const NavItem: React.FC<PropsWithChildren<NavItemProps>> = ({
   // and will not equal the client generated prop
   return <NoSsr>
     <div
-      className={css("hover:cursor-pointer", "hover:underline", "inline-block")}
+      className={css("hover:cursor-pointer", "md:hover:underline", "hover:no-underline", "inline-block")}
       onClick={onClick && onClick}>
       {[...children].map((char, index) => {
         let color = "inherit"

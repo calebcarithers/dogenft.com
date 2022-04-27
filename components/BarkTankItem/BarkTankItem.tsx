@@ -1,10 +1,9 @@
-import {FundedProject} from "../../interfaces";
-import {PropsWithChildren, useCallback, useEffect, useState} from "react";
+import {AirtableSubmissionProject} from "../../interfaces";
+import {PropsWithChildren} from "react";
 import {css} from "../../helpers/css";
-import Button from "../Button/Button";
 
 interface BarkTankItemProps {
-  project: FundedProject
+  project: AirtableSubmissionProject
 }
 
 const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project}) => {
@@ -14,10 +13,19 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project})
     >
       <div className={css("text-left", "flex", "justify-between", "p-1")}>
         <div>
-          <div className={css("mb-2", "group-hover:bg-doge-orange", "p-1")}>{project.projectName}</div>
-          <div className={css("text-lg", "group-hover:bg-doge-orange", "inline-block")}>description</div>
+          <div className={css("mb-2", "group-hover:bg-doge-orange", "px-1", "break-all",
+            "border-2", "border-solid", "border-transparent", "group-hover:border-black")}>
+            {project.projectName}
+          </div>
+          <div className={css("text-lg", "group-hover:bg-doge-orange", "inline-block",
+            "px-1","border-2", "border-solid", "border-transparent", "group-hover:border-black")}>
+            description
+          </div>
         </div>
-        <div>status</div>
+        <div className={css("text-lg", "border-2", "border-solid", "border-black",
+          "bg-doge-orange", "self-start", "px-2")}>
+          {project.status}
+        </div>
       </div>
     </div>
     <div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: "6px", left: "6px", zIndex: -1}}/>

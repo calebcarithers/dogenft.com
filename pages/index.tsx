@@ -9,13 +9,13 @@ import {vars} from "../environment/vars";
 import HomeItems, {navItems} from "../components/Home/HomeItems";
 import airtable from "../services/Airtable";
 import {jsonify} from "../helpers/strings";
-import {FundedProject} from "../interfaces";
+import {AirtableSubmissionProject} from "../interfaces";
 
 interface HomeProps {
-  fundedProjects: FundedProject[]
+  projects: AirtableSubmissionProject[]
 }
 
-const Home: NextPage<HomeProps> = ({fundedProjects}) => {
+const Home: NextPage<HomeProps> = ({projects}) => {
   const [fullSize, setFullSize] = useState(0)
   const [navSelection, setNavSelection] = useState("doge")
 
@@ -39,7 +39,7 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
       <main className={css("grow", "font-bold", "flex", "flex-col", "md:grid", "grid-cols-12")}>
         <div className={css("flex", "flex-col", "justify-between", "col-span-3")}>
           <div className={css("flex", "items-center", "justify-center", "grow", "border-b-2", "md:border-b-0", "border-grey-400", "border-dashed")}>
-            <div className={css("text-4xl", "flex", "md:flex-col", "gap-10", "px-10",)}>
+            <div className={css("text-3xl", "flex", "md:flex-col", "gap-10", "px-10",)}>
               {navItems.map(item => {
                 const isSelected = item.id === navSelection
                 return <div key={item.id} className={css("relative", "md:inline-block", "max-w-max", "mb-3", "md:mb-0", {"hidden": !isSelected})}>
@@ -67,26 +67,21 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
         <div className={css("hidden", "md:flex", "justify-center")}>
           <div className={css("border-grey", "border-dashed", "col-span-1")} style={{width: "1px", borderWidth: "1px"}}/>
         </div>
-        <div className={css("col-span-8", "text-xl", "md:text-4xl", "overflow-x-hidden", "text-center", "flex-grow")} ref={containerRef}>
+        <div className={css("col-span-8", "text-xl", "md:text-3xl", "overflow-x-hidden", "text-center", "flex-grow")} ref={containerRef}>
           <div style={{maxHeight: "300px"}}>
-            <HomeItems projects={fundedProjects} height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
+            <HomeItems projects={projects} height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
           </div>
         </div>
       </main>
-
-      <footer className={css("grow-0", "flex", "justify-between", "mt-10")}>
-        <Image alt={"pleasr logo"} src={"/pleasrlogo.svg"} height={40} width={100}/>
-        <div>more stuff here</div>
-      </footer>
     </>
   )
 }
 
 export const getServerSideProps: GetServerSideProps<any> = async () => {
-  const fundedProjects = await airtable.getProjects(3)
+  const projects = await airtable.getProjects()
   return {
     props: {
-      fundedProjects: JSON.parse(jsonify(fundedProjects ? fundedProjects : []))
+      projects: JSON.parse(jsonify(projects))
     }
   }
 }

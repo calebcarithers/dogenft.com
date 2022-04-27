@@ -1,38 +1,65 @@
 import airtable from "../services/Airtable";
-import {FundedProject} from "../interfaces";
+import {AirtableSubmissionProject} from "../interfaces";
 import {GetServerSideProps} from "next";
 import React from "react";
 import {jsonify} from "../helpers/strings";
 import {css} from "../helpers/css";
-import Link from "../components/Link/Link";
+import Link, {LinkSize} from "../components/Link/Link";
+import Head from "next/head";
+import NavItem from "../components/NavItem/NavItem";
+import BarkTankItem from "../components/BarkTankItem/BarkTankItem";
+import Button from "../components/Button/Button";
 
 interface BarktankProps {
-  fundedProjects: FundedProject[]
+  projects: AirtableSubmissionProject[]
 }
 
-const Barktank: React.FC<BarktankProps> = ({fundedProjects}) => {
-  return <div className={css("flex", "gap-5", "flex-col")}>
-    <div>
-      <Link href={"/"}>Back</Link>
+const Barktank: React.FC<BarktankProps> = ({projects}) => {
+  return <>
+    <Head>
+      <title>The Doge NFT | Bark Tank</title>
+    </Head>
+    <div className={css("flex", "gap-5", "flex-col")}>
+      <div>
+        <Link href={"/"}>Home</Link>
+      </div>
+
+      <div className={css("flex", "justify-center", "text-4xl")}>
+        <NavItem isSelected>
+          The Bark Tank
+        </NavItem>
+      </div>
+
+      <div className={css("flex", "flex-col","justify-center", "items-center")}>
+        <div className={css("text-center", "text-3xl", "p-2", "max-w-3xl")}>
+          Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and all Doge related projects. Pitch your
+          idea and get funded today!
+        </div>
+        <div className={css("mt-3")}>
+          <Button onClick={() => window.open("https://airtable.com/shrRPV5wZdTUNhmn2", "_blank")}>
+            <div className={css("text-base")}>apply</div>
+          </Button>
+        </div>
+      </div>
+
+      <div className={css("flex", "justify-center", "mt-6")}>
+        <div className={css("flex", "flex-col", "max-w-4xl", "w-full", "gap-5", "text-2xl")}>
+          <div>
+            Projects
+          </div>
+          {projects.map(project => <BarkTankItem project={project}/>)}
+        </div>
+      </div>
     </div>
-    {fundedProjects.map(project => <div key={project.projectName} className={css("text-xl", "mb-3")}>
-      {/*{jsonify(project)}*/}
-      <div>
-        {project.projectName} :: {project.cost} :: FUNDED
-      </div>
-      <div>
-        {project.idea}
-      </div>
-    </div>)}
-  </div>
+  </>
 }
 
 
 export const getServerSideProps: GetServerSideProps<BarktankProps> = async () => {
-  const fundedProjects = await airtable.getProjects(100)
+  const projects = await airtable.getProjects()
   return {
     props: {
-      fundedProjects: JSON.parse(jsonify(fundedProjects))
+      projects: JSON.parse(jsonify(projects))
     }
   }
 }
