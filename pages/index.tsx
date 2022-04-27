@@ -39,7 +39,7 @@ const Home: NextPage = () => {
                   {isSelected && <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>}
                   <NavItem isSelected={isSelected} onClick={() => {
                     document.getElementById(item.id)?.scrollIntoView({behavior: "smooth"})
-                    setNavSelection(item.id)
+                    // setNavSelection(item.id)
                   }}>
                     {item.title}
                   </NavItem>
@@ -63,14 +63,14 @@ const Home: NextPage = () => {
         </div>
         <div className={css("col-span-8", "text-4xl", "overflow-x-hidden", "text-center")} ref={containerRef}>
           <div style={{maxHeight: "300px"}}>
-            <HomeItems height={fullSize}/>
+            <HomeItems height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
           </div>
         </div>
       </main>
 
       <footer className={css("grow-0", "flex", "justify-between", "mt-10")}>
-        {/*<Image src={"/logo-framed.svg"} height={40} width={100}/>*/}
-        <div>✨ pleasr ✨</div>
+        <Image src={"/pleasrlogo.svg"} height={40} width={100}/>
+        {/*<div>✨ pleasr ✨</div>*/}
         <div>more stuff here</div>
       </footer>
     </div>
