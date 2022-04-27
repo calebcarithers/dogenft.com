@@ -30,6 +30,7 @@ const NavItem: React.FC<PropsWithChildren<NavItemProps>> = ({
           color = dogeColors[colorName]
         }
         return <span
+          key={`nav-item-selection-${char}-${index}`}
           style={{color: color}}>
           {char}
         </span>

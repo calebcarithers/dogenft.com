@@ -8,10 +8,10 @@ const Doge= () => {
     <div
       className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1")}
       style={{height: "500px"}}>
-      <Image src={"/kabosu.png"} layout={"fill"} objectFit={"contain"}/>
+      <Image alt={"doge"} src={"/kabosu.png"} layout={"fill"} objectFit={"contain"}/>
     </div>
     <div className={css("mt-10", "px-16")}>
-      The Mona Lisa of the internet, <Link isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link>, grew to infamy in the early 2000's when Atsuko Sato posted 8 photos to <Link href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu, Kabosu.</div>
+      The Mona Lisa of the internet, <Link isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link>, grew to infamy in the early {"2000's"} when Atsuko Sato posted 8 photos to <Link href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu, Kabosu.</div>
   </div>
 }
 
@@ -20,28 +20,28 @@ const DogeNFT = () => {
   return <div>
     <div className={css("grid", "grid-cols-3", "gap-5")}>
       <div style={{maxHeight: imageHeight}} className={css("relative", "w-full", "h-full")}>
-        <Image src={'/kabosu.png'} layout={"fill"} objectFit={"contain"}/>
+        <Image alt={"doge"} src={'/kabosu.png'} layout={"fill"} objectFit={"contain"}/>
       </div>
       <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image src={'/feisty.png'} layout={"fill"} objectFit={"contain"}/>
+        <Image alt={"feisty"} src={'/feisty.png'} layout={"fill"} objectFit={"contain"}/>
       </div>
       <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image src={'/yelling.png'} layout={"fill"} objectFit={"contain"}/>
+        <Image alt={"yelling"} src={'/yelling.png'} layout={"fill"} objectFit={"contain"}/>
       </div>
       <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image src={'/curious.png'} layout={"fill"} objectFit={"contain"}/>
+        <Image alt={"curious"} src={'/curious.png'} layout={"fill"} objectFit={"contain"}/>
       </div>
       <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image src={'/angry.png'} layout={"fill"} objectFit={"contain"}/>
+        <Image alt={"angry"} src={'/angry.png'} layout={"fill"} objectFit={"contain"}/>
       </div>
       <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image src={'/shocked.png'} layout={"fill"} objectFit={"contain"}/>
+        <Image alt={"shocked"} src={'/shocked.png'} layout={"fill"} objectFit={"contain"}/>
       </div>
       <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image src={'/sad.png'} layout={"fill"} objectFit={"contain"}/>
+        <Image alt={"sad"} src={'/sad.png'} layout={"fill"} objectFit={"contain"}/>
       </div>
       <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image src={'/cuddle.png'} layout={"fill"} objectFit={"contain"}/>
+        <Image alt={"cuddle"} src={'/cuddle.png'} layout={"fill"} objectFit={"contain"}/>
       </div>
     </div>
     <div className={css("mt-10")}>
@@ -93,7 +93,7 @@ const HomeItems = ({height, onIntersection}: {height: number, onIntersection?: (
   return <>
     {navItems.map((item) => {
       const Content = item.content
-      return <HomeFeature id={item.id} height={height} onIntersection={onIntersection}>
+      return <HomeFeature key={`home-item-${item.id}`} id={item.id} height={height} onIntersection={onIntersection}>
         <Content/>
       </HomeFeature>
     })}

@@ -69,7 +69,7 @@ const Home: NextPage = () => {
       </main>
 
       <footer className={css("grow-0", "flex", "justify-between", "mt-10")}>
-        <Image src={"/pleasrlogo.svg"} height={40} width={100}/>
+        <Image alt={"pleasr logo"} src={"/pleasrlogo.svg"} height={40} width={100}/>
         {/*<div>✨ pleasr ✨</div>*/}
         <div>more stuff here</div>
       </footer>

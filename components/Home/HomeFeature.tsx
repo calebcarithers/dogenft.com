@@ -18,7 +18,7 @@ const HomeFeature = ({id, height, className, children, onIntersection}: HomeFeat
       console.log("isOnScreenRunning", id)
       onIntersection(id)
     }
-  }, [isOnScreen])
+  }, [isOnScreen, id, onIntersection])
   return <div
     ref={ref}
     id={id}
