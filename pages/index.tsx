@@ -38,11 +38,11 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
 
       <main className={css("grow", "font-bold", "flex", "flex-col", "md:grid", "grid-cols-12")}>
         <div className={css("flex", "flex-col", "justify-between", "col-span-3")}>
-          <div className={css("flex", "items-center", "justify-center", "grow")}>
-            <div className={css("text-4xl", "flex", "md:flex-col", "gap-10", "px-10")}>
+          <div className={css("flex", "items-center", "justify-center", "grow", "border-b-2", "md:border-b-0", "border-grey-400", "border-dashed", "mb-8", "md:mb-0")}>
+            <div className={css("text-4xl", "flex", "md:flex-col", "gap-10", "px-10",)}>
               {navItems.map(item => {
                 const isSelected = item.id === navSelection
-                return <div key={item.id} className={css("relative", "md:inline-block", "max-w-max", {"hidden": !isSelected})}>
+                return <div key={item.id} className={css("relative", "md:inline-block", "max-w-max", "mb-3", "md:mb-0", {"hidden": !isSelected})}>
                   {isSelected && <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>}
                   <NavItem isSelected={isSelected} onClick={() => {
                     document.getElementById(item.id)?.scrollIntoView({behavior: "smooth"})
@@ -67,7 +67,7 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
         <div className={css("hidden", "md:flex", "justify-center")}>
           <div className={css("border-grey", "border-dashed", "col-span-1")} style={{width: "1px", borderWidth: "1px"}}/>
         </div>
-        <div className={css("col-span-8", "text-4xl", "overflow-x-hidden", "text-center", "flex-grow")} ref={containerRef}>
+        <div className={css("col-span-8", "text-xl", "md:text-4xl", "overflow-x-hidden", "text-center", "flex-grow")} ref={containerRef}>
           <div style={{maxHeight: "300px"}}>
             <HomeItems projects={fundedProjects} height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
           </div>

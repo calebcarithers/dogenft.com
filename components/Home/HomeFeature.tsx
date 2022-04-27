@@ -22,8 +22,8 @@ const HomeFeature = ({id, height, className, children, onIntersection}: HomeFeat
   return <div
     ref={ref}
     id={id}
-    className={css("flex", "items-center", "justify-center", "text-3xl", "px-16", className)}
-    style={{height: `${height}px`}}
+    className={css("flex", "items-center", "justify-center", "px-0", "md:px-16", className)}
+    style={{minHeight: `${height}px`}}
   >
     {children}
   </div>
