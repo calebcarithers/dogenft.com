@@ -30,7 +30,9 @@ const Doge= () => {
       {/*<div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: "6px", left: "6px", zIndex: -1}}/>*/}
     </div>
     <div className={css("mt-16", "px-16")}>
-      The Mona Lisa of the internet, <Link isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link>, grew to infamy in the early {"2000's"} when Atsuko Sato posted 8 photos to <Link href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu, Kabosu.</div>
+      <Link isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link> grew to prominence in the early {"2000's"} when Atsuko Sato posted 8 photos
+      to <Link href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu, Kabosu.
+    </div>
   </div>
 }
 
@@ -71,8 +73,7 @@ const DogeNFT = () => {
       </div>
     </div>
     <div className={css("mt-16")}>
-      <span>In 2021, Atsuko Satō minted her 8 original images on the Ethereum blockchain as NFTs. The most iconic image “Doge”, was purchased by <Link isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at </span>
-      <Link isExternal href={"https://very.auction/doge/doge"}>auction</Link> <span>for 1696.9 ETH.</span>
+      In 2021, Ms. Satō minted he famous photos on Ethereum as NFTs. The most iconic image `&quot;`Doge`&quot;`, was purchased by <Link isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link isExternal href={"https://very.auction/doge/doge"}>auction</Link> for 1696.9 ETH ($4.8 M at the time)
     </div>
     <div className={css("mt-10")}>
       <HelperContent>
@@ -89,8 +90,7 @@ const Dog = () => {
       <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
     </div>
     <div className={css("mt-10")}>
-      Shortly after the acquisition of The Doge NFT, PleasrDao <Link isExternal href={"https://fractional.art/vaults/0xbaac2b4491727d78d2b78815144570b9f2fe8899"}>fractionalized</Link> it, birthing the
-      fungible $DOG token to the world, allowing any and all to own part of The Doge NFT.
+      After the auction, PleasrDAO <Link isExternal href={"https://fractional.art/vaults/0xbaac2b4491727d78d2b78815144570b9f2fe8899"}>fractionalized</Link> The Doge NFT into a fungible token, $DOG, allowing any and all to own a piece of the meme.
     </div>
     <HelperContent>
       Fractionalization? Learn more <Link isExternal href={"https://medium.com/fractional-art/what-is-fractional-dd4f86e6458a#:~:text=Fractional%20is%20a%20decentralized%20protocol%20where%20NFT%20owners%20can%20mint,the%20NFT%20that%20they%20own."}>here</Link>
@@ -104,15 +104,15 @@ const Pixels = () => {
       <Image alt={"doge"} src={'/pixel.png'} layout={"responsive"} width={253} height={287}/>
     </div>
     <div className={css("mt-10")}>
-      Given the 6.9B tokens and the full resolution of the image, a single pixel of The Doge NFT costs 55,240 $DOG.
-      You can actually purchase a pixels of the image at the <Link isExternal href={"https://pixels.thedao.ge"}>Doge Pixel Portal</Link>
+      The total supply of $DOG is 16.97B. The total amount of pixels in The Doge NFT is 307,200 (640 x 480 resolution).
+      Therefore, a single pixel is equivalent to 55,240 $DOG. Holders can lock $DOG to mint `&apos;`Doge Pixel`&apos;` NFTs at the <Link isExternal href={"https://pixels.thedao.ge"}>Doge Pixel Portal</Link>
     </div>
   </div>
 }
 
 const Daoge = () => {
   return <div>
-    After fractionalization, the DAOge was formed to govern the The Doge NFT ecosystem.
+    After fractionalization, DAOge was formed to manage the community fund and guide The Doge NFT ecosystem.
   </div>
 }
 
@@ -120,7 +120,8 @@ const BarkTank = ({projects}: {projects: AirtableSubmissionProject[]}) => {
   const router = useRouter()
   return <div>
     <div>
-      Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and everything Doge. Pitch your idea and get funded today!
+      Bark Tank acts an an incubator for the expansion of The Doge NFT ecosystem. Submit your ideas here. Great ideas,
+      favored by the community, are eligible to receive funding from the DAOge.
     </div>
     <div className={css("mt-5")}>
       <div>
@@ -135,7 +136,7 @@ const BarkTank = ({projects}: {projects: AirtableSubmissionProject[]}) => {
       </div>
     </div>
     <div className={css("mt-14", "text-left")}>
-      <div className={css("mb-2", "text-2xl")}>Recent Projects</div>
+      <div className={css("mb-2", "text-xl")}>Recent Projects</div>
       <div className={css("flex", "flex-col", "gap-3", "mr-4")}>
         {projects.slice(0, 3).map(project => <BarkTankItem key={project.projectName} project={project}/>)}
       </div>

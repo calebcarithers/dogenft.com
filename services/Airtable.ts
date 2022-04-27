@@ -29,7 +29,6 @@ class _Airtable {
           const idea = record.get("What's your idea?")
           const isVisible = record.get("Website Visible")
           const status = record.get("Status")
-          console.log(record)
           if (isVisible) {
             toRet.push({
               projectName,
@@ -37,7 +36,6 @@ class _Airtable {
               idea,
               status
             })
-            console.log(toRet)
           }
         })
       fetchNextPage()
