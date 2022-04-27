@@ -14,7 +14,7 @@ const HomeFeature = ({id, height, className, children, onIntersection}: HomeFeat
   const ref = useRef(null)
   const isOnScreen = useOnScreen(ref)
   useEffect(() => {
-    if (isOnScreen && onIntersection) {
+    if (onIntersection && isOnScreen) {
       console.log("isOnScreenRunning", id)
       onIntersection(id)
     }

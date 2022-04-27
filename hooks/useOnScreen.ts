@@ -8,7 +8,7 @@ export default function useOnScreen(ref: React.RefObject<any>) {
       ([entry]) => setIntersecting(entry.isIntersecting),
       {
         root: document.querySelector("#root"),
-        threshold: 0.5
+        threshold: 0.8
       }
     )
     observer.observe(ref.current)

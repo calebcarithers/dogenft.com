@@ -8,7 +8,7 @@ interface LinkProps {
   href: string;
   children?: string;
   type?: LinkType;
-  size?: LinkSize
+  size?: LinkSize;
 }
 
 const Link: React.FC<LinkProps> = ({isExternal, href, children, type = LinkType.Primary, size = LinkSize.sm}: LinkProps) => {

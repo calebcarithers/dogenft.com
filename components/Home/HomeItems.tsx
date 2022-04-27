@@ -2,63 +2,106 @@ import {css} from "../../helpers/css";
 import Image from "next/image";
 import HomeFeature from "./HomeFeature";
 import Link from "../Link/Link";
+import HelperContent from "../HelperContent/HelperContent";
+import styles from "./HomeItems.module.css"
+import {useEffect} from "react";
+import airtable from "../../services/Airtable";
+import {FundedProject} from "../../interfaces";
+import {jsonify} from "../../helpers/strings";
+import BarkTankItem from "../BarkTankItem/BarkTankItem";
 
 const Doge= () => {
   return <div>
     <div
-      className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1")}
-      style={{height: "500px"}}>
-      <Image alt={"doge"} src={"/kabosu.png"} layout={"fill"} objectFit={"contain"}/>
+      className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "m-auto", "flex-1")}
+      style={{maxWidth: "700px"}}
+    >
+      <Image
+        alt={"doge"}
+        src={"/kabosu.png"}
+        layout={"responsive"}
+        width={640}
+        height={480}
+      />
     </div>
-    <div className={css("mt-10", "px-16")}>
+    <div className={css("mt-16", "px-16")}>
       The Mona Lisa of the internet, <Link isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link>, grew to infamy in the early {"2000's"} when Atsuko Sato posted 8 photos to <Link href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu, Kabosu.</div>
   </div>
 }
 
 const DogeNFT = () => {
-  const imageHeight = 250
   return <div>
-    <div className={css("grid", "grid-cols-3", "gap-5")}>
-      <div style={{maxHeight: imageHeight}} className={css("relative", "w-full", "h-full")}>
-        <Image alt={"doge"} src={'/kabosu.png'} layout={"fill"} objectFit={"contain"}/>
+    <div className={css("flex", "flex-wrap", "gap-5")}>
+      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
+        <Image alt={"doge"} src={'/kabosu.png'} layout={"responsive"} width={640} height={480}/>
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
-      <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image alt={"feisty"} src={'/feisty.png'} layout={"fill"} objectFit={"contain"}/>
+      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
+        <Image alt={"feisty"} src={'/feisty.png'} layout={"responsive"} width={640} height={480}/>
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
-      <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image alt={"yelling"} src={'/yelling.png'} layout={"fill"} objectFit={"contain"}/>
+      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
+        <Image alt={"yelling"} src={'/yelling.png'} layout={"responsive"} width={640} height={480}/>
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
-      <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image alt={"curious"} src={'/curious.png'} layout={"fill"} objectFit={"contain"}/>
+      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
+        <Image alt={"curious"} src={'/curious.png'} layout={"responsive"} width={640} height={480}/>
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
-      <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image alt={"angry"} src={'/angry.png'} layout={"fill"} objectFit={"contain"}/>
+      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
+        <Image alt={"angry"} src={'/angry.png'} layout={"responsive"} width={640} height={480}/>
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
-      <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image alt={"shocked"} src={'/shocked.png'} layout={"fill"} objectFit={"contain"}/>
+      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
+        <Image alt={"shocked"} src={'/shocked.png'} layout={"responsive"} width={640} height={480}/>
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
-      <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image alt={"sad"} src={'/sad.png'} layout={"fill"} objectFit={"contain"}/>
+      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
+        <Image alt={"sad"} src={'/sad.png'} layout={"responsive"} width={640} height={480}/>
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
-      <div style={{maxHeight: imageHeight}} className={css("relative", "w-full")}>
-        <Image alt={"cuddle"} src={'/cuddle.png'} layout={"fill"} objectFit={"contain"}/>
+      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
+        <Image alt={"cuddle"} src={'/cuddle.png'} layout={"responsive"} width={640} height={480}/>
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
     </div>
-    <div className={css("mt-10")}>
+    <div className={css("mt-16")}>
       <span>In 2021, Atsuko Satō minted her 8 original images on the Ethereum blockchain as NFTs. The most iconic image “Doge”, was purchased by <Link isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at </span>
       <Link isExternal href={"https://very.auction/doge/doge"}>auction</Link> <span>for 1696.9 ETH.</span>
+    </div>
+    <div className={css("mt-10")}>
+      <HelperContent>
+        Lost? Read <Link isExternal href={"https://medium.com/the-doge-times/what-is-the-doge-nft-dog-c9277236f072"}>this</Link>
+      </HelperContent>
     </div>
   </div>
 }
 
-const Pixels = () => {
-  return <div>checkout these pixels</div>
-}
-
 const Dog = () => {
   return <div>
-    Shortly after the aquisition of The Doge NFT, PleasrDao fractionalized it, birthing the
-    fungible $DOG token to the world, allowing any and all to own part of The Doge NFT.
+    <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)} style={{maxWidth: "600px"}}>
+      <Image alt={"doge"} src={'/kabosu.png'} layout={"responsive"} width={640} height={480}/>
+      <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
+    </div>
+    <div className={css("mt-10")}>
+      Shortly after the acquisition of The Doge NFT, PleasrDao <Link isExternal href={"https://fractional.art/vaults/0xbaac2b4491727d78d2b78815144570b9f2fe8899"}>fractionalized</Link> it, birthing the
+      fungible $DOG token to the world, allowing any and all to own part of The Doge NFT.
+    </div>
+    <HelperContent>
+      Fractionalization? Learn more <Link isExternal href={"https://medium.com/fractional-art/what-is-fractional-dd4f86e6458a#:~:text=Fractional%20is%20a%20decentralized%20protocol%20where%20NFT%20owners%20can%20mint,the%20NFT%20that%20they%20own."}>here</Link>
+    </HelperContent>
+  </div>
+}
+
+const Pixels = () => {
+  return <div>
+    <div className={css("relative", "w-full", "m-auto", "flex-1")} style={{maxWidth: "400px"}}>
+      <Image alt={"doge"} src={'/pixel.png'} layout={"responsive"} width={253} height={287}/>
+    </div>
+    <div className={css("mt-10")}>
+      Given the 6.9B tokens and the full resolution of the image, a single pixel of The Doge NFT costs 55,240 $DOG.
+      You can actually purchase a pixels of the image at the <Link isExternal href={"https://pixels.thedao.ge"}>Doge Pixel Portal</Link>
+    </div>
   </div>
 }
 
@@ -68,13 +111,24 @@ const Daoge = () => {
   </div>
 }
 
-const BarkTank = () => {
+const BarkTank = ({projects}: {projects: FundedProject[]}) => {
   return <div>
     <div>
       Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and everything Doge. Pitch your idea and get funded today!
     </div>
-    <div>
-      <Link href={"/barktank"}>see more!</Link>
+    <div className={css("mt-5")}>
+      <div>
+        <Link isExternal href={"https://airtable.com/shrRPV5wZdTUNhmn2"}>apply</Link>
+      </div>
+      <div>
+        <Link href={"/barktank"}>view all projects</Link>
+      </div>
+    </div>
+    <div className={css("mt-14", "text-left")}>
+      <div>Projects</div>
+      <div className={css("flex", "flex-col", "gap-3")}>
+        {projects.map(project => <BarkTankItem project={project}/>)}
+      </div>
     </div>
   </div>
 }
@@ -83,18 +137,24 @@ const BarkTank = () => {
 export const navItems = [
   {title: 'Doge', id: "doge", content: Doge},
   {title: 'The Doge NFT', id: "dogenft", content: DogeNFT},
-  {title: 'Pixels', id: 'pixels', content: Pixels},
   {title: '$DOG', id: "dog", content: Dog},
+  {title: 'Pixels', id: 'pixels', content: Pixels},
   {title: 'DAOge', id: "daoge", content: Daoge},
   {title: 'Bark Tank', id: "barktank", content: BarkTank}
 ]
 
-const HomeItems = ({height, onIntersection}: {height: number, onIntersection?: (id: string) => void}) => {
+interface HomeItemsProps {
+  projects: FundedProject[];
+  height: number;
+  onIntersection?: (id: string) => void
+}
+
+const HomeItems = ({height, onIntersection, projects}: HomeItemsProps) => {
   return <>
     {navItems.map((item) => {
       const Content = item.content
       return <HomeFeature key={`home-item-${item.id}`} id={item.id} height={height} onIntersection={onIntersection}>
-        <Content/>
+        {Content.name === "BarkTank" ? <Content projects={projects}/> : <Content/>}
       </HomeFeature>
     })}
   </>

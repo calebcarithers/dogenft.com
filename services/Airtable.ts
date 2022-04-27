@@ -11,10 +11,10 @@ class _Airtable {
     console.log(this.submissionsBase('SUBMISSIONS'))
   }
 
-  async getFundedProjects() {
+  async getFundedProjects(maxRecords: number) {
     const toRet: FundedProject[] = []
     const thing = await this.submissionsBase(process.env.AIRTABLE_SUBMISSIONS_BASE_ID as string).select({
-      maxRecords: 100,
+      maxRecords: maxRecords,
       view: "Kanban: Submissions",
       filterByFormula: "IF({STATUS} = 'FUNDED', TRUE(), FALSE())"
     }).eachPage((records, fetchNextPage) => {
