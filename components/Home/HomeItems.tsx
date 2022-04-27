@@ -112,7 +112,7 @@ const Pixels = () => {
 
 const Daoge = () => {
   return <div>
-    After fractionalization, DAOge was formed to manage the community fund and guide The Doge NFT ecosystem.
+    After fractionalization, <Link isExternal href={"https://dao.ge"}>DAOge</Link> was formed to manage the community fund and guide The Doge NFT ecosystem.
   </div>
 }
 
