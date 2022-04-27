@@ -73,7 +73,7 @@ const DogeNFT = () => {
       </div>
     </div>
     <div className={css("mt-16")}>
-      In 2021, Ms. Satō minted he famous photos on Ethereum as NFTs. The most iconic image `&quot;`Doge`&quot;`, was purchased by <Link isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link isExternal href={"https://very.auction/doge/doge"}>auction</Link> for 1696.9 ETH ($4.8 M at the time)
+      In 2021, Ms. Satō minted he famous photos on Ethereum as NFTs. The most iconic image &quot;Doge&quot;, was purchased by <Link isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link isExternal href={"https://very.auction/doge/doge"}>auction</Link> for 1696.9 ETH ($4.8 M at the time)
     </div>
     <div className={css("mt-10")}>
       <HelperContent>
@@ -105,7 +105,7 @@ const Pixels = () => {
     </div>
     <div className={css("mt-10")}>
       The total supply of $DOG is 16.97B. The total amount of pixels in The Doge NFT is 307,200 (640 x 480 resolution).
-      Therefore, a single pixel is equivalent to 55,240 $DOG. Holders can lock $DOG to mint `&apos;`Doge Pixel`&apos;` NFTs at the <Link isExternal href={"https://pixels.thedao.ge"}>Doge Pixel Portal</Link>
+      Therefore, a single pixel is equivalent to 55,240 $DOG. Holders can lock $DOG to mint &apos;Doge Pixel&apos; NFTs at the <Link isExternal href={"https://pixels.thedao.ge"}>Doge Pixel Portal</Link>
     </div>
   </div>
 }
