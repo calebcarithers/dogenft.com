@@ -67,10 +67,13 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
         <div className={css("flex", "justify-center")}>
           <div className={css("border-grey", "border-dashed", "col-span-1")} style={{width: "1px", borderWidth: "1px"}}/>
         </div>
-        <div className={css("col-span-8", "text-4xl", "overflow-x-hidden", "text-center")} ref={containerRef}>
+        <div className={css("hidden", "md:block", "col-span-8", "text-4xl", "overflow-x-hidden", "text-center")} ref={containerRef}>
           <div style={{maxHeight: "300px"}}>
             <HomeItems projects={fundedProjects} height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
           </div>
+        </div>
+        <div className={css("md:hidden", "block")}>
+          <HomeItems projects={fundedProjects} height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
         </div>
       </main>
 
@@ -83,7 +86,7 @@ const Home: NextPage<HomeProps> = ({fundedProjects}) => {
 }
 
 export const getServerSideProps: GetServerSideProps<any> = async () => {
-  const fundedProjects = await airtable.getFundedProjects(3)
+  const fundedProjects = await airtable.getProjects(3)
   return {
     props: {
       fundedProjects: JSON.parse(jsonify(fundedProjects))

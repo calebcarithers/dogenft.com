@@ -1,6 +1,11 @@
 import Airtable from "airtable";
 import {FundedProject} from "../interfaces";
 
+export enum AirtableProjectStatus {
+  Funded = "FUNDED",
+  Funding = "FUNDING"
+}
+
 class _Airtable {
   private airtable: Airtable
   private submissionsBase: Airtable.Base
@@ -11,12 +16,12 @@ class _Airtable {
     console.log(this.submissionsBase('SUBMISSIONS'))
   }
 
-  async getFundedProjects(maxRecords: number) {
+  async getProjects(maxRecords: number, status?: AirtableProjectStatus) {
     const toRet: FundedProject[] = []
     const thing = await this.submissionsBase(process.env.AIRTABLE_SUBMISSIONS_BASE_ID as string).select({
       maxRecords: maxRecords,
       view: "Kanban: Submissions",
-      filterByFormula: "IF({STATUS} = 'FUNDED', TRUE(), FALSE())"
+      filterByFormula: status ? `IF({STATUS} = '${status}', TRUE(), FALSE())` : `IF(OR({STATUS} = '${AirtableProjectStatus.Funded}', {STATUS} = '${AirtableProjectStatus.Funding}'), TRUE(), FALSE())`
     }).eachPage((records, fetchNextPage) => {
         records.forEach((record) => {
           const projectName = record.get("Project Name")

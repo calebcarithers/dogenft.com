@@ -12,17 +12,20 @@ import BarkTankItem from "../BarkTankItem/BarkTankItem";
 
 const Doge= () => {
   return <div>
-    <div
-      className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "m-auto", "flex-1")}
-      style={{maxWidth: "700px"}}
-    >
-      <Image
-        alt={"doge"}
-        src={"/kabosu.png"}
-        layout={"responsive"}
-        width={640}
-        height={480}
-      />
+    <div className={css("relative", "z-10")}>
+      <div
+        className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "m-auto", "flex-1", "border-2", "border-solid", "border-black")}
+        style={{maxWidth: "700px"}}
+      >
+        <Image
+          alt={"doge"}
+          src={"/kabosu.png"}
+          layout={"responsive"}
+          width={640}
+          height={480}
+        />
+      </div>
+      {/*<div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: "6px", left: "6px", zIndex: -1}}/>*/}
     </div>
     <div className={css("mt-16", "px-16")}>
       The Mona Lisa of the internet, <Link isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link>, grew to infamy in the early {"2000's"} when Atsuko Sato posted 8 photos to <Link href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu, Kabosu.</div>
@@ -125,7 +128,7 @@ const BarkTank = ({projects}: {projects: FundedProject[]}) => {
       </div>
     </div>
     <div className={css("mt-14", "text-left")}>
-      <div>Projects</div>
+      <div className={css("mb-2", "text-2xl")}>Recent Projects</div>
       <div className={css("flex", "flex-col", "gap-3")}>
         {projects.map(project => <BarkTankItem project={project}/>)}
       </div>
@@ -154,6 +157,8 @@ const HomeItems = ({height, onIntersection, projects}: HomeItemsProps) => {
     {navItems.map((item) => {
       const Content = item.content
       return <HomeFeature key={`home-item-${item.id}`} id={item.id} height={height} onIntersection={onIntersection}>
+        {/* TODO: change this, very bad */}
+        {/*//@ts-ignore*/}
         {Content.name === "BarkTank" ? <Content projects={projects}/> : <Content/>}
       </HomeFeature>
     })}

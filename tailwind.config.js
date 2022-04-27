@@ -16,6 +16,9 @@ module.exports = {
           green: "#5CBE3E",
           orange: "#F3A83C"
         }
+      },
+      backgroundImage: {
+        doge: "url('/doge_tiled.jpeg')"
       }
     },
   },

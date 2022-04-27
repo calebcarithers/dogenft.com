@@ -29,7 +29,7 @@ const Barktank: React.FC<BarktankProps> = ({fundedProjects}) => {
 
 
 export const getServerSideProps: GetServerSideProps<BarktankProps> = async () => {
-  const fundedProjects = await airtable.getFundedProjects(100)
+  const fundedProjects = await airtable.getProjects(100)
   return {
     props: {
       fundedProjects: JSON.parse(jsonify(fundedProjects))
