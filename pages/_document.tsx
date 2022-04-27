@@ -4,11 +4,7 @@ import {css} from "../helpers/css";
 export default function Document() {
   return (
     <Html>
-      <Head title={"test"}>
-      {/*  <link rel="preconnect" href="https://fonts.googleapis.com"/>*/}
-      {/*  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={"true"}/>*/}
-      {/*  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet"/>*/}
-      </Head>
+      <Head title={"The Doge NFT"}/>
       <body className={css("font-ComicNeue")}>
       <Main />
       <NextScript />
