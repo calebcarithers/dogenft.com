@@ -130,7 +130,7 @@ const BarkTank = ({projects}: {projects: FundedProject[]}) => {
     <div className={css("mt-14", "text-left")}>
       <div className={css("mb-2", "text-2xl")}>Recent Projects</div>
       <div className={css("flex", "flex-col", "gap-3")}>
-        {projects.map(project => <BarkTankItem project={project}/>)}
+        {projects.map(project => <BarkTankItem key={project.projectName} project={project}/>)}
       </div>
     </div>
   </div>
