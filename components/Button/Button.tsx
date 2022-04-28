@@ -9,7 +9,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({onClick, block, children}) => {
-  return <div className={css("relative", "inline-block", "z-10", {"w-full": block})}>
+  return <div className={css("relative", "inline-block", "z-10", "h-fit", {"w-full": block})}>
     <button onClick={onClick && onClick} className={css(buttonStyles, "active:translate-x-1", "active:translate-y-1", "border-2", "border-black", "border-solid", {"w-full": block})}>
       {children}
     </button>

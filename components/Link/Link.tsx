@@ -22,9 +22,6 @@ const Link: React.FC<LinkProps> = ({isExternal, href, children, type = LinkType.
       rel={"noreferrer"}
     >
       {children && children}
-      {/*<span className={css("ml-2")}>*/}
-      {/*  <CgExternal size={size === LinkSize.sm ? "16px" : "18px"}/>*/}
-      {/*</span>*/}
     </a>
     : <NextLink href={href}>
         <a className={css(styles)}>
@@ -41,6 +38,7 @@ export enum LinkType {
 }
 
 export enum LinkSize {
+  xs= "xs",
   sm = "sm",
   lg = "lg"
 }
@@ -50,10 +48,11 @@ const baseLinkStyles = css("hover:underline", "hover:cursor-pointer")
 const linkTypeStyles = {
   [LinkType.Primary]: css("text-cyan-400", "underline", "hover:text-cyan-500", baseLinkStyles),
   [LinkType.Secondary]: css("text-black", baseLinkStyles),
-  [LinkType.Grey]: css("text-black", "hover:text-red-400", baseLinkStyles)
+  [LinkType.Grey]: css("text-gray-600", "hover:text-doge-orange", baseLinkStyles)
 }
 
 const linkSizeStyles = {
+  [LinkSize.xs]: css("text-sm"),
   [LinkSize.sm]: css("text-md"),
   [LinkSize.lg]: css("text-lg")
 }

@@ -3,13 +3,14 @@ import Head from 'next/head'
 import {css} from "../helpers/css";
 import Button from "../components/Button/Button";
 import NavItem from "../components/NavItem/NavItem";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Image from "next/image"
 import {vars} from "../environment/vars";
 import HomeItems, {navItems} from "../components/Home/HomeItems";
 import airtable from "../services/Airtable";
 import {jsonify} from "../helpers/strings";
 import {AirtableSubmissionProject} from "../interfaces";
+import {useRouter} from "next/router";
 
 interface HomeProps {
   projects: AirtableSubmissionProject[]
@@ -25,6 +26,15 @@ const Home: NextPage<HomeProps> = ({projects}) => {
       window.addEventListener('resize', () => {
         setFullSize(node.clientHeight)
       })
+    }
+  }, [])
+
+  const router = useRouter()
+  const wow = router.query.wow
+  useEffect(() => {
+    if (wow) {
+      document.getElementById(wow as string)?.scrollIntoView({behavior: "smooth"})
+      setNavSelection(wow as string)
     }
   }, [])
 
@@ -46,6 +56,7 @@ const Home: NextPage<HomeProps> = ({projects}) => {
                   {isSelected && <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>}
                   <NavItem isSelected={isSelected} onClick={() => {
                     document.getElementById(item.id)?.scrollIntoView({behavior: "smooth"})
+                    window.history.replaceState({ ...window.history.state, as: `/?wow=${item.id}`, url: `/?wow=${item.id}` }, '', `/?wow=${item.id}`);
                   }}>
                     {item.title}
                   </NavItem>
@@ -69,7 +80,10 @@ const Home: NextPage<HomeProps> = ({projects}) => {
         </div>
         <div className={css("col-span-8", "text-xl", "md:text-3xl", "overflow-x-hidden", "text-center", "flex-grow")} ref={containerRef}>
           <div style={{maxHeight: "300px"}}>
-            <HomeItems projects={projects} height={fullSize} onIntersection={(id) => setNavSelection(id)}/>
+            <HomeItems projects={projects} height={fullSize} onIntersection={(id) => {
+              setNavSelection(id)
+              window.history.replaceState({ ...window.history.state, as: `/?wow=${id}`, url: `/?wow=${id}` }, '', `/?wow=${id}`);
+            }}/>
           </div>
         </div>
       </main>

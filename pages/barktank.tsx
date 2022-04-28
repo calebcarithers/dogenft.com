@@ -19,7 +19,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
     <Head>
       <title>The Doge NFT | Bark Tank</title>
     </Head>
-    <div className={css("flex", "gap-5", "flex-col")}>
+    <div className={css("flex", "gap-5", "flex-col", "mb-28")}>
       <div>
         <Link href={"/"}>Home</Link>
       </div>
