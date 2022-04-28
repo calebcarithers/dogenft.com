@@ -64,7 +64,7 @@ const Divider = () => {
 }
 
 export const Footer = () => {
-  return <footer className={css("grow-0", "py-4", "block", "mt-4")}>
+  return <footer className={css("grow-0", "py-4", "block", "mt-16")}>
     <div className={css("flex")}>
       <Image alt={"pleasr logo"} src={"/pleasrlogo.svg"} height={51} width={127.5}/>
     </div>

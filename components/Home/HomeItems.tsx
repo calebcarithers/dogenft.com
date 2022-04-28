@@ -73,7 +73,7 @@ const DogeNFT = () => {
       </div>
     </div>
     <div className={css("mt-16")}>
-      In 2021, Ms. Satō minted he famous photos on Ethereum as NFTs. The most iconic image &quot;Doge&quot;, was purchased by <Link isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link isExternal href={"https://very.auction/doge/doge"}>auction</Link> for 1696.9 ETH ($4.8 M at the time)
+      In 2021, Ms. Satō minted the famous photos on Ethereum as NFTs. The most iconic image &quot;Doge&quot;, was purchased by <Link isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link isExternal href={"https://very.auction/doge/doge"}>auction</Link> for 1696.9 ETH ($4.8 M at the time)
     </div>
     <div className={css("mt-10")}>
       <HelperContent>
