@@ -1,17 +1,14 @@
 import type {GetServerSideProps, NextPage} from 'next'
 import Head from 'next/head'
 import {css} from "../helpers/css";
-import Button from "../components/Button/Button";
-import NavItem from "../components/NavItem/NavItem";
-import React, {useCallback, useEffect, useState} from "react";
-import Image from "next/image"
-import {vars} from "../environment/vars";
-import HomeItems, {navItems} from "../components/Home/HomeItems";
+import React, {useCallback, useState} from "react";
+import HomeItems from "../components/Home/HomeItems";
 import airtable from "../services/Airtable";
 import {jsonify} from "../helpers/strings";
 import {AirtableSubmissionProject} from "../interfaces";
-import {useRouter} from "next/router";
-import HomeLayout, {Footer, useNavContext} from "../layouts/home.layout";
+import HomeLayout from "../layouts/Home/Home.layout";
+import {useNavContext} from "../layouts/Home/Nav";
+import {Footer} from "../layouts/Home/Footer";
 
 interface HomeProps {
   projects: AirtableSubmissionProject[]

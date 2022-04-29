@@ -15,7 +15,7 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project, 
       <div className={css("text-left", "flex", "justify-between", "p-1")}>
         <div>
           <div className={css("mb-1", "group-hover:bg-doge-orange", "px-1", "break-all",
-            "border-2", "border-solid", "border-transparent", "group-hover:border-black")}>
+            "border-2", "border-solid", "border-transparent", "group-hover:border-black", "font-bold")}>
             {project.projectName}
           </div>
           <div className={css("text-lg", "group-hover:bg-doge-orange", "inline-block",
