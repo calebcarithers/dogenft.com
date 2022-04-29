@@ -16,7 +16,7 @@ const Nav = () => {
             <div className={css("text-3xl", "flex", "md:flex-col", "gap-10", "px-10",)}>
                 {navItems.map(item => {
                     const isSelected = item.id === selection
-                    return <div key={item.id} className={css("relative", "md:inline-block", "max-w-max", "mb-3", "md:mb-0", {"hidden": !isSelected, "font-bold": isSelected})}>
+                    return <div key={item.id} className={css("relative", "md:inline-block", "max-w-max", "mb-3", "md:mb-0", {"hidden": !isSelected})}>
                         {isSelected && <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>}
                         <NavItem isSelected={isSelected} onClick={() => {
                             document.getElementById(item.id)?.scrollIntoView({behavior: "smooth"})

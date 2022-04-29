@@ -9,25 +9,34 @@ import Head from "next/head";
 import NavItem from "../components/NavItem/NavItem";
 import BarkTankItem from "../components/BarkTankItem/BarkTankItem";
 import Button from "../components/Button/Button";
+import {BsArrowLeft} from "react-icons/bs";
+import PageLayout from "../layouts/Page/Page.layout";
+import {useRouter} from "next/router";
+import ColoredText from "../components/ColoredText/ColoredText";
 
 interface BarktankProps {
   projects: AirtableSubmissionProject[]
 }
 
 const Barktank: React.FC<BarktankProps> = ({projects}) => {
-  return <>
+  const router = useRouter()
+  return <PageLayout>
     <Head>
       <title>The Doge NFT | Bark Tank</title>
     </Head>
     <div className={css("flex", "gap-5", "flex-col", "mb-28")}>
       <div>
-        <Link href={"/"}>Home</Link>
+        <Button onClick={() => router.push("/")}>
+          <BsArrowLeft size={15}/>
+        </Button>
       </div>
 
       <div className={css("flex", "justify-center", "text-4xl")}>
-        <NavItem isSelected>
-          The Bark Tank
-        </NavItem>
+        <div className={css("relative", "font-bold")}>
+          <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>
+          <ColoredText>The Bark Tank</ColoredText>
+          <div className={css("absolute", "text-2xl")} style={{top: "50%", right: -35, transform: "translateY(-50%)"}}>✨</div>
+        </div>
       </div>
 
       <div className={css("flex", "flex-col","justify-center", "items-center")}>
@@ -44,14 +53,14 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
 
       <div className={css("flex", "justify-center", "mt-6")}>
         <div className={css("flex", "flex-col", "max-w-4xl", "w-full", "gap-5", "text-2xl")}>
-          <div>
+          <div className={css("border-dashed", "border-b-2", "inline-block")}>
             Projects
           </div>
           {projects.map(project => <BarkTankItem onClick={(name) => alert(`open: ${name} page`)} key={project.projectName} project={project}/>)}
         </div>
       </div>
     </div>
-  </>
+  </PageLayout>
 }
 
 

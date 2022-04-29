@@ -1,30 +1,30 @@
 import NextLink from "next/link"
 import {css} from "../../helpers/css";
-import {CgExternal} from "react-icons/cg";
 import React from "react";
 
 interface LinkProps {
   isExternal?: boolean;
   href: string;
-  children?: string;
+  children?: any;
   type?: LinkType;
   size?: LinkSize;
+  bold?: boolean
 }
 
-const Link: React.FC<LinkProps> = ({isExternal, href, children, type = LinkType.Primary, size = LinkSize.sm}: LinkProps) => {
+const Link: React.FC<LinkProps> = ({isExternal, href, children, type = LinkType.Primary, size = LinkSize.sm, bold = false}: LinkProps) => {
   const styles = css(linkTypeStyles[type], linkSizeStyles[size])
 
   return <>
     {isExternal ? <a
       href={href}
-      className={css(styles, "inline-flex", "items-center")}
+      className={css(styles, "inline-flex", "items-center", {"font-bold": bold})}
       target={isExternal ? "_blank" : "_self"}
       rel={"noreferrer"}
     >
       {children && children}
     </a>
     : <NextLink href={href}>
-        <a className={css(styles)}>
+        <a className={css(styles, "inline-block")}>
           {children && children}
         </a>
       </NextLink>}

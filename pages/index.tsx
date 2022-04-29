@@ -23,13 +23,13 @@ const Home: NextPage<HomeProps> = ({projects}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomeLayout>
-        <Page projects={projects}/>
+        <HomeContent projects={projects}/>
       </HomeLayout>
     </>
   )
 }
 
-const Page = ({projects}: {projects: any}) => {
+const HomeContent = ({projects}: {projects: any}) => {
   const [_, setNavSelection] = useNavContext()
   const [fullSize, setFullSize] = useState(0)
 
