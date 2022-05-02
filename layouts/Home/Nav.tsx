@@ -3,7 +3,10 @@ import {navItems} from "../../components/Home/HomeItems";
 import NavItem from "../../components/NavItem/NavItem";
 import Button from "../../components/Button/Button";
 import {vars} from "../../environment/vars";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
+import Modal from "../../components/Modal/Modal";
+import Link from "../../components/Link/Link";
+import LinksModal from "./LinksModal";
 
 const NavContext = React.createContext<any>("doge")
 export const NavProvider = NavContext.Provider
@@ -11,6 +14,7 @@ export const useNavContext = () => useContext(NavContext)
 
 const Nav = () => {
     const [selection] = useNavContext()
+    const [isDocsModalVisible, setIsDocsModalVisible] = useState(false)
     return <div className={css("flex", "flex-col", "justify-between", "col-span-2", "sticky")}>
         <div className={css("flex", "items-center", "justify-center", "grow", "border-b-2", "md:border-b-0", "border-grey-400", "border-dashed")}>
             <div className={css("text-3xl", "flex", "md:flex-col", "gap-10", "px-10",)}>
@@ -36,8 +40,9 @@ const Nav = () => {
             <Button onClick={() => {
                 window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
             }}>twitter</Button>
-            <Button>docs</Button>
+            <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
         </div>
+        <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>
     </div>
 }
 

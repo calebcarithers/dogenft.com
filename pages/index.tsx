@@ -8,7 +8,7 @@ import {jsonify} from "../helpers/strings";
 import {AirtableSubmissionProject} from "../interfaces";
 import HomeLayout from "../layouts/Home/Home.layout";
 import {useNavContext} from "../layouts/Home/Nav";
-import {Footer} from "../layouts/Home/Footer";
+import {Footer} from "../components/Footer/Footer";
 
 interface HomeProps {
   projects: AirtableSubmissionProject[]
