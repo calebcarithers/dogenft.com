@@ -134,7 +134,7 @@ const BarkTank = ({projects}: {projects: AirtableSubmissionProject[]}) => {
     <div className={css("mt-14", "text-left")}>
       <div className={css("mb-2", "text-xl")}>Recent Projects</div>
       <div className={css("flex", "flex-col", "gap-3", "mr-4")}>
-        {projects.slice(0, 3).map(project => <BarkTankItem onClick={(name) => alert(`todo: open ${name} page`)} key={project.projectName} project={project}/>)}
+        {projects.slice(0, 3).map(project => <BarkTankItem key={project.projectName} project={project}/>)}
       </div>
     </div>
   </div>
