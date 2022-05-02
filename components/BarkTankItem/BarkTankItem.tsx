@@ -24,7 +24,7 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project})
             {project.shortDescription}
           </div>
         </div>
-        <div className={css("text-lg", "border-2", "border-solid", "border-black",
+        <div className={css("md:text-lg", "text-base", "border-2", "border-solid", "border-black",
           "bg-doge-orange", "self-start", "px-2")}>
           {project.status}
         </div>

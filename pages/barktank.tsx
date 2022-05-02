@@ -25,7 +25,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
       <title>The Doge NFT | Bark Tank</title>
     </Head>
     <div className={css("flex", "gap-5", "flex-col", "mb-28")}>
-      <div>
+      <div className={css("mb-8")}>
         <Button onClick={() => router.push("/")}>
           <BsArrowLeft size={15}/>
         </Button>
@@ -40,7 +40,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
       </div>
 
       <div className={css("flex", "flex-col","justify-center", "items-center")}>
-        <div className={css("text-center", "text-3xl", "p-2", "max-w-3xl")}>
+        <div className={css("text-center", "md:text-3xl", "p-2", "max-w-3xl", "text-xl")}>
           Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and all Doge related projects. Pitch your
           idea and get funded today!
         </div>
@@ -52,7 +52,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
       </div>
 
       <div className={css("flex", "justify-center", "mt-6")}>
-        <div className={css("flex", "flex-col", "max-w-4xl", "w-full", "gap-5", "text-2xl")}>
+        <div className={css("flex", "flex-col", "max-w-4xl", "w-full", "gap-5", "md:text-2xl", "text-lg")}>
           <div className={css("border-dashed", "border-b-2", "inline-block")}>
             Projects
           </div>

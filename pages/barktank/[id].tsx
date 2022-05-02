@@ -23,7 +23,7 @@ const BarkTankProject: React.FC<BarkTankProjectProps> = ({project}) => {
             <title>The Doge NFT | {project.projectName}</title>
         </Head>
         <div>
-            <div>
+            <div className={css("mb-8")}>
                 <Button onClick={() => router.push("/barktank")}>
                     <BsArrowLeft size={15}/>
                 </Button>
