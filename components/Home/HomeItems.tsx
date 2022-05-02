@@ -37,35 +37,35 @@ const DogeNFT = () => {
     <div className={css("flex", "flex-wrap", "gap-5")}>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"doge"} src={'/kabosu.png'} layout={"responsive"} width={640} height={480}/>
-        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"feisty"} src={'/feisty.png'} layout={"responsive"} width={640} height={480}/>
-        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"yelling"} src={'/yelling.png'} layout={"responsive"} width={640} height={480}/>
-        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"curious"} src={'/curious.png'} layout={"responsive"} width={640} height={480}/>
-        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"angry"} src={'/angry.png'} layout={"responsive"} width={640} height={480}/>
-        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"shocked"} src={'/shocked.png'} layout={"responsive"} width={640} height={480}/>
-        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"sad"} src={'/sad.png'} layout={"responsive"} width={640} height={480}/>
-        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
       <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
         <Image alt={"cuddle"} src={'/cuddle.png'} layout={"responsive"} width={640} height={480}/>
-        {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
       </div>
     </div>
     <div className={css("mt-16")}>

@@ -42,7 +42,7 @@ const FooterItem = ({title, items}: FooterItemProps) => {
             {title}
         </div>
         <div className={css("grid", "grid-rows-2", "grid-flow-col", "gap-x-2", "font-normal")}>
-            {items.map(item => <Link size={LinkSize.xs} type={LinkType.Grey} isExternal href={item.link}>{item.title}</Link> )}
+            {items.map(item => <Link key={item.link} size={LinkSize.xs} type={LinkType.Grey} isExternal href={item.link}>{item.title}</Link> )}
         </div>
     </div>
 }
