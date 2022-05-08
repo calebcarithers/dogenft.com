@@ -46,7 +46,7 @@ const FramedImage: React.FC<PropsWithChildren<any>>  = ({imagePath, description}
 
 const DogeNFT = () => {
   return <div>
-    <div className={css("grid", "grid-cols-3", "gap-10", "max-w-2xl", "m-auto")}>
+    <div className={css("grid", "grid-cols-3", "gap-6", "max-w-2xl", "m-auto")}>
       <FramedImage imagePath={"/images/kabosu.png"} description={"Doge"}/>
       <FramedImage imagePath={"/images/feisty.png"} description={"Feisty"}/>
       <FramedImage imagePath={"/images/yelling.png"} description={"Yelling"}/>
