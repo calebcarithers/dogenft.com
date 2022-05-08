@@ -18,7 +18,7 @@ const Doge= () => {
           className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "m-auto", "flex-1", "border-2", "border-solid", "border-black", "max-w-xl")}>
           <Image
             alt={"doge"}
-            src={"/kabosu.png"}
+            src={"/images/kabosu.png"}
             layout={"responsive"}
             width={640}
             height={480}
