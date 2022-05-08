@@ -7,7 +7,7 @@ import {actionLinks, readLinks, socialLinks} from "./Links";
 export const Footer = () => {
     return <footer className={css("grow-0", "py-4", "block", "mt-16")}>
         <div className={css("flex")}>
-            <Image alt={"pleasr logo"} src={"/pleasrlogo.svg"} height={51} width={127.5}/>
+            <Image alt={"pleasr logo"} src={"/images/pleasrlogo.svg"} height={51} width={127.5}/>
         </div>
         <div className={css("grid", "grid-cols-1", "sm:grid-cols-3", "gap-x-20", "gap-y-8", "sm:gap-y-0")}>
             <FooterItem title={"Talk"} items={socialLinks}/>

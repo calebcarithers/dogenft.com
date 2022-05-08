@@ -19,7 +19,7 @@ module.exports = {
         }
       },
       backgroundImage: {
-        doge: "url('/doge_tiled.jpeg')"
+        doge: "url('/images/doge_tiled.jpeg')"
       }
     },
   },

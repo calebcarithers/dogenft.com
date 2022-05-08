@@ -13,19 +13,19 @@ const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean)
             <div>
                 <div className={css("text-lg", "font-bold")}>Social</div>
                 <div className={css("flex", "flex-col")}>
-                    {socialLinks.map(link => <Link isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
+                    {socialLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
                 </div>
             </div>
             <div>
                 <div className={css("text-lg", "font-bold")}>Read</div>
                 <div className={css("flex", "flex-col")}>
-                    {readLinks.map(link => <Link isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
+                    {readLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
                 </div>
             </div>
             <div>
                 <div className={css("text-lg", "font-bold")}>Do</div>
                 <div className={css("flex", "flex-col")}>
-                    {actionLinks.map(link => <Link isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
+                    {actionLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@ const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean)
         <div className={css("mt-10")}>
             <div className={css("text-lg", "font-bold")}>Chains</div>
             <div className={css("flex", "flex-col", "gap-4")}>
-                {chains.map(chain => <div className={css()}>
+                {chains.map(chain => <div key={chain.contractAddress} className={css()}>
                     <div>
                         {chain.chain}
                     </div>

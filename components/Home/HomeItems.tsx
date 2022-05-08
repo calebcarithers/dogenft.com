@@ -8,21 +8,23 @@ import {AirtableSubmissionProject} from "../../interfaces";
 import BarkTankItem from "../BarkTankItem/BarkTankItem";
 import Button from "../Button/Button";
 import {useRouter} from "next/router";
+import {PropsWithChildren} from "react";
 
 const Doge= () => {
   return <div>
     <div className={css("relative", "z-10", "mx-5")}>
-      <div
-        className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "m-auto", "flex-1", "border-2", "border-solid", "border-black")}
-        style={{maxWidth: "700px"}}
-      >
-        <Image
-          alt={"doge"}
-          src={"/kabosu.png"}
-          layout={"responsive"}
-          width={640}
-          height={480}
-        />
+      <div className={css("")}>
+        <div
+          className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "m-auto", "flex-1", "border-2", "border-solid", "border-black", "max-w-xl")}>
+          <Image
+            alt={"doge"}
+            src={"/kabosu.png"}
+            layout={"responsive"}
+            width={640}
+            height={480}
+            style={{zIndex: 1}}
+          />
+        </div>
       </div>
     </div>
     <div className={css("mt-16", "px-16")}>
@@ -32,41 +34,27 @@ const Doge= () => {
   </div>
 }
 
+const FramedImage: React.FC<PropsWithChildren<any>>  = ({imagePath, description}: {imagePath: string, description: string}) => {
+  return <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", styles.overlapGrid)}>
+    <div className={css("relative")} style={{maxWidth: "80%", maxHeight: "80%", left: "50%", top: "-50%", transform: "translate(-50%, 80%)"}}>
+      <Image alt={description} src={imagePath} layout={"responsive"} width={640} height={480}/>
+    </div>
+    <Image alt={"frame"} src={'/images/frame.png'} layout={"responsive"} width={500} height={401}/>
+    <div className={css("inline-block", "text-lg","md:text-2xl", "italic")} style={{gridArea: "auto"}}>{description}</div>
+  </div>
+}
+
 const DogeNFT = () => {
   return <div>
-    <div className={css("flex", "flex-wrap", "gap-5")}>
-      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
-        <Image alt={"doge"} src={'/kabosu.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
-      </div>
-      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
-        <Image alt={"feisty"} src={'/feisty.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
-      </div>
-      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
-        <Image alt={"yelling"} src={'/yelling.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
-      </div>
-      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
-        <Image alt={"curious"} src={'/curious.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
-      </div>
-      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
-        <Image alt={"angry"} src={'/angry.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
-      </div>
-      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
-        <Image alt={"shocked"} src={'/shocked.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
-      </div>
-      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
-        <Image alt={"sad"} src={'/sad.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
-      </div>
-      <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)}>
-        <Image alt={"cuddle"} src={'/cuddle.png'} layout={"responsive"} width={640} height={480}/>
-        <Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>
-      </div>
+    <div className={css("grid", "grid-cols-3", "gap-10", "max-w-2xl", "m-auto")}>
+      <FramedImage imagePath={"/images/kabosu.png"} description={"Doge"}/>
+      <FramedImage imagePath={"/images/feisty.png"} description={"Feisty"}/>
+      <FramedImage imagePath={"/images/yelling.png"} description={"Yelling"}/>
+      <FramedImage imagePath={"/images/curious.png"} description={"Curious"}/>
+      <FramedImage imagePath={"/images/angry.png"} description={"Angry"}/>
+      <FramedImage imagePath={"/images/shocked.png"} description={"Shocked"}/>
+      <FramedImage imagePath={"/images/sad.png"} description={"Sad"}/>
+      <FramedImage imagePath={"/images/cuddle.png"} description={"Cuddle"}/>
     </div>
     <div className={css("mt-16")}>
       In 2021, Ms. Satō minted the famous photos on Ethereum as NFTs. The most iconic image &quot;Doge&quot;, was purchased by <Link bold isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link bold isExternal href={"https://very.auction/doge/doge"}>auction</Link> for 1696.9 ETH ($4.8 M at the time)
@@ -81,9 +69,11 @@ const DogeNFT = () => {
 
 const Dog = () => {
   return <div>
-    <div className={css("relative", "w-full", "m-auto", "flex-1", styles.overlapGrid)} style={{maxWidth: "600px"}}>
-      <Image alt={"doge"} src={'/kabosu.png'} layout={"responsive"} width={640} height={480}/>
-      {/*<Image alt={"frame"} src={'/frame.png'} layout={"responsive"} width={500} height={401}/>*/}
+    <div className={css("relative", "w-full", "md:w-3/5", "m-auto", "flex-1", styles.overlapGrid)}>
+      <div className={css("relative")} style={{maxWidth: "80%", maxHeight: "80%", left: "50%", top: "-50%", transform: "translate(-50%, 80%)"}}>
+        <Image alt={"kabosu"} src={'/images/kabosu.png'} layout={"responsive"} width={640} height={480}/>
+      </div>
+      <Image alt={"frame"} src={'/images/frame.png'} layout={"responsive"} width={500} height={401}/>
     </div>
     <div className={css("mt-10")}>
       After the auction, PleasrDAO <Link bold isExternal href={"https://fractional.art/vaults/0xbaac2b4491727d78d2b78815144570b9f2fe8899"}>fractionalized</Link> The Doge NFT into a fungible token, $DOG, allowing any and all to own a piece of the meme.
@@ -97,7 +87,7 @@ const Dog = () => {
 const Pixels = () => {
   return <div>
     <div className={css("relative", "w-full", "m-auto", "flex-1")} style={{maxWidth: "400px"}}>
-      <Image alt={"doge"} src={'/pixel.png'} layout={"responsive"} width={253} height={287}/>
+      <Image alt={"doge"} src={'/images/pixel.png'} layout={"responsive"} width={253} height={287}/>
     </div>
     <div className={css("mt-10")}>
       The total supply of $DOG is 16.97B. The total amount of pixels in The Doge NFT is 307,200 (640 x 480 resolution).

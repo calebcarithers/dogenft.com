@@ -34,7 +34,7 @@ const BarkTankProject: React.FC<BarkTankProjectProps> = ({project}) => {
                 </div>
                 <div className={css("mt-10")}>
                     {project.imageUrl && <div>
-                      <img className={css("border-solid", "border-2", "border-black", "max-w-3xl", "w-full")} src={project.imageUrl}/>
+                      <img alt={"bark_tank_image"} className={css("border-solid", "border-2", "border-black", "max-w-3xl", "w-full")} src={project.imageUrl}/>
                     </div>}
                     <div className={css("mt-6", "grid", "grid-cols-10")}>
                         <div className={css("font-bold", "col-span-2")}>cost:</div>
@@ -62,6 +62,8 @@ export const getServerSideProps: GetServerSideProps<BarkTankProjectProps> = asyn
     if (!project) {
         throw new Error("Could not find project")
     }
+
+    console.log(project)
     return {
         props: {
             project: JSON.parse(jsonify(project))
