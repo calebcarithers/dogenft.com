@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        ComicNeue: ["Comic Neue", "cursive"]
+        ComicNeue: ["Comic Neue", "cursive"],
+        PressStart: ["PressStart2P"]
       },
       colors: {
         doge: {

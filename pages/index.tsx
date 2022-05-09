@@ -41,7 +41,7 @@ const HomeContent = ({projects}: {projects: any}) => {
       })
     }
   }, [])
-  return <div className={css("col-span-9", "text-xl", "md:text-3xl", "overflow-x-hidden", "text-center", "flex-grow")} ref={containerRef}>
+  return <div className={css("md:col-span-8", "xl:col-span-9", "text-xl", "md:text-3xl", "overflow-x-hidden", "text-center", "flex-grow")} ref={containerRef}>
     <div style={{maxHeight: "300px"}}>
       <HomeItems projects={projects} height={fullSize} onIntersection={(id) => {
         setNavSelection(id)

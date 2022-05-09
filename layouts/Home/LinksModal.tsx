@@ -7,29 +7,28 @@ import Link, {LinkSize, LinkType} from "../../components/Link/Link";
 const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean) => void}) => {
     return <Modal
         open={open}
-        title={"Links"}
+        title={"✨ Links ✨"}
         onChange={onChange}>
         <div className={css("grid", "grid-cols-3")}>
             <div>
                 <div className={css("text-lg", "font-bold")}>Social</div>
                 <div className={css("flex", "flex-col")}>
-                    {socialLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
+                    {socialLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Grey} href={link.link}>{link.title}</Link>)}
                 </div>
             </div>
             <div>
                 <div className={css("text-lg", "font-bold")}>Read</div>
                 <div className={css("flex", "flex-col")}>
-                    {readLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
+                    {readLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Grey} href={link.link}>{link.title}</Link>)}
                 </div>
             </div>
             <div>
                 <div className={css("text-lg", "font-bold")}>Do</div>
                 <div className={css("flex", "flex-col")}>
-                    {actionLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Secondary} href={link.link}>{link.title}</Link>)}
+                    {actionLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Grey} href={link.link}>{link.title}</Link>)}
                 </div>
             </div>
         </div>
-        {/*<div className={css("w-full", "border-2", "border-dashed", "my-8")}/>*/}
         <div className={css("mt-10")}>
             <div className={css("text-lg", "font-bold")}>Chains</div>
             <div className={css("flex", "flex-col", "gap-4")}>
