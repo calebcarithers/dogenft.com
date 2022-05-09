@@ -11,22 +11,21 @@ import {useRouter} from "next/router";
 import {PropsWithChildren, useRef} from "react";
 
 const Doge = () => {
-  return <div>
-    <div className={css("relative", "z-10", "mx-5")}>
-      <div className={css("")}>
-        <div
-          className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "m-auto", "flex-1", "border-2", "border-solid", "border-black", "max-w-xl")}>
-          <Image
-            alt={"doge"}
-            src={"/images/kabosu.png"}
-            layout={"responsive"}
-            width={640}
-            height={480}
-            style={{zIndex: 1}}
-          />
-        </div>
+  return <div className={css("mx-6")}>
+      <div className={css("relative", "z-10", "m-auto", "max-w-xl")}>
+          <div
+            className={css("relative", "w-full", "h-full", "hover:cursor-pointer", "active:translate-x-1", "active:translate-y-1", "flex-1", "border-2", "border-solid", "border-black")}>
+            <Image
+              alt={"doge"}
+              src={"/images/kabosu.png"}
+              layout={"responsive"}
+              width={640}
+              height={480}
+              style={{zIndex: 1}}
+            />
+          </div>
+        <div className={css("bg-black", "absolute", "w-full", "h-full")} style={{top: 5, left: 5, zIndex: -1}}/>
       </div>
-    </div>
     <div className={css("mt-16", "px-16")}>
       <Link bold isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link> grew to prominence in the
       early {"2000's"} when Atsuko Sato posted 8 photos
