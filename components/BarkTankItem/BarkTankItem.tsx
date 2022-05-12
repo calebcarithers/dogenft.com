@@ -1,5 +1,5 @@
 import {AirtableSubmissionProject} from "../../interfaces";
-import {PropsWithChildren} from "react";
+import {PropsWithChildren, useState} from "react";
 import {css} from "../../helpers/css";
 import {useRouter} from "next/router";
 
@@ -9,10 +9,17 @@ interface BarkTankItemProps {
 
 const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project}) => {
   const router = useRouter()
+  const [isHover, setIsHover] = useState(false)
+
+
   return <div className={css("relative", "inline-block", "z-10", "group")}
               onClick={() => router.push(`/barktank/${project.id}`)}>
-    <div className={css("active:translate-x-1", "active:translate-y-1", "border-2",
-      "border-black", "border-solid", "bg-white", "cursor-pointer", "p-2", "bg-contain", "group-hover:bg-doge")}
+    <div
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        className={css("active:translate-x-1", "active:translate-y-1", "border-2",
+      "border-black", "border-solid", "bg-white", "cursor-pointer", "p-2", "bg-contain", "relative")}
+         style={{backgroundImage: isHover ? (project.imageUrl ? `url(${project.imageUrl})` : `url(/images/doge_tiled.jpeg)`) : 'inherit'}}
     >
       <div className={css("text-left", "flex", "justify-between", "p-1")}>
         <div>
