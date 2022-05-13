@@ -37,11 +37,11 @@ const BarkTankProject: React.FC<BarkTankProjectProps> = ({project}) => {
                       <img alt={"bark_tank_image"} className={css("border-solid", "border-2", "border-black", "max-w-3xl", "w-full")} src={project.imageUrl}/>
                     </div>}
                     <div className={css("grid", "grid-cols-10", "mt-10")}>
-                        <div className={css("font-bold", "col-span-2")}>description:</div>
+                        <div className={css("font-bold", "col-span-2")}>Description:</div>
                         <div className={css("col-span-8")}>{project.description}</div>
                     </div>
                     {project.link && <div className={css("grid", "grid-cols-10")}>
-                        <div className={css("font-bold", "col-span-2")}>link:</div>
+                        <div className={css("font-bold", "col-span-2")}>Link:</div>
                         <div className={css("col-span-8")}>
                             <Link isExternal href={project.link}>{project.link}</Link>
                         </div>
