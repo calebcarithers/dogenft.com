@@ -122,23 +122,22 @@ const Pixels = () => {
   </div>
 }
 
-const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string, description: string }>> = ({imagePath, name, description}) => {
+const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string, description?: string }>> = ({imagePath, name, description}) => {
   return <div className={css("relative", "inline-block")}>
     <Image alt={name} src={imagePath} layout={"responsive"} width={400} height={400} className={css("border-2", "border-dashed", "border-gray-300")}/>
     <div className={css("text-lg", "font-bold", "mt-2")}>{name}</div>
-    <div className={css("text-base", "italic")}>{description}</div>
+    {description && <div className={css("text-base", "italic")}>{description}</div>}
   </div>
 }
 
 const Daoge = () => {
   return <div>
-    <div className={css("grid", "grid-cols-4", "lg:grid-cols-6", "gap-6", "mb-6")}>
-      <DaogeMember imagePath={"/images/logo.png"} name={"Tridog"} description={"CEO"}/>
-      <DaogeMember imagePath={"/images/logo.png"} name={"Zona"} description={"Community Lead"}/>
-      <DaogeMember imagePath={"/images/logo.png"} name={"Doge King"} description={"Chief Barketing Officer"}/>
-      <DaogeMember imagePath={"/images/logo.png"} name={"----"} description={"----"}/>
-      <DaogeMember imagePath={"/images/logo.png"} name={"----"} description={"----"}/>
-      <DaogeMember imagePath={"/images/logo.png"} name={"----"} description={"----"}/>
+    <div className={css("grid", "grid-cols-5", "mb-8")}>
+      <DaogeMember imagePath={"/images/logo.png"} name={"Core Team"}/>
+      <div/>
+      <DaogeMember imagePath={"/images/logo.png"} name={"Community Team"}/>
+      <div/>
+      <DaogeMember imagePath={"/images/sparkle.svg"} name={"Pleasr Friends"}/>
     </div>
     <div>
       After fractionalization, <Link bold isExternal href={"https://dao.ge"}>DAOge</Link> was formed to manage the
