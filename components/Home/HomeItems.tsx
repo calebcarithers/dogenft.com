@@ -8,9 +8,10 @@ import {AirtableSubmissionProject} from "../../interfaces";
 import BarkTankItem from "../BarkTankItem/BarkTankItem";
 import Button from "../Button/Button";
 import {useRouter} from "next/router";
-import {PropsWithChildren, useRef} from "react";
+import React, {PropsWithChildren, useRef, useState} from "react";
 import {emojisplosion} from "emojisplosion";
 import cumulativeOffset from "../../helpers/cumulativeOffset";
+import Modal from "../Modal/Modal";
 
 const Doge = () => {
     const ref = useRef<HTMLDivElement | null>(null)
@@ -76,18 +77,30 @@ const Doge = () => {
 }
 
 const FramedImage: React.FC<PropsWithChildren<any>> = ({
-                                                           imagePath,
-                                                           description
-                                                       }: { imagePath: string, description: string }) => {
-    return <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", styles.overlapGrid)}>
-        <div className={css("relative")}
-             style={{maxWidth: "80%", maxHeight: "80%", left: "50%", top: "-50%", transform: "translate(-50%, 80%)"}}>
-            <Image alt={description} src={imagePath} layout={"responsive"} width={640} height={480}/>
+    imagePath,
+    description,
+}: { imagePath: string, description: string }) => {
+    const [showModal, setShowModal] = useState(false)
+    return <>
+        <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", styles.overlapGrid)} onClick={() => setShowModal(true)}>
+            <div className={css("relative")}
+                 style={{maxWidth: "80%", maxHeight: "80%", left: "50%", top: "-50%", transform: "translate(-50%, 80%)"}}>
+                <Image alt={description} src={imagePath} layout={"responsive"} width={640} height={480}/>
+            </div>
+            <Image alt={"frame"} src={'/images/frame.png'} layout={"responsive"} width={500} height={401}/>
+            <div className={css("inline-block", "text-lg", "md:text-xl", "italic")}
+                 style={{gridArea: "auto"}}>{description}</div>
         </div>
-        <Image alt={"frame"} src={'/images/frame.png'} layout={"responsive"} width={500} height={401}/>
-        <div className={css("inline-block", "text-lg", "md:text-2xl", "italic")}
-             style={{gridArea: "auto"}}>{description}</div>
-    </div>
+        <Modal
+            isOpen={showModal}
+            title={"✨ " + description + " ✨"}
+            onChange={(val) => setShowModal(val)}
+        >
+            <div className={css("relative", "border-2", "border-solid", "border-black")} style={{height: 400}}>
+                <Image src={imagePath} layout={"fill"}/>
+            </div>
+        </Modal>
+    </>
 }
 
 const DogeNFT = () => {
@@ -107,13 +120,13 @@ const DogeNFT = () => {
                 <FramedImage imagePath={"/images/feisty.png"} description={"Feisty"}/>
             </div>
         </div>
-        <div className={css("mt-16")}>
+        <div className={css("mt-6")}>
             In 2021, Ms. Satō minted the famous photos on Ethereum as NFTs. The most iconic image &quot;Doge&quot;, was
             purchased by <Link bold isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link bold isExternal
                                                                                                       href={"https://very.auction/doge/doge"}>auction</Link> for
             1696.9 ETH ($4.8 M at the time)
         </div>
-        <div className={css("mt-10")}>
+        <div className={css("mt-6")}>
             <HelperContent>
                 Read <Link bold isExternal
                            href={"https://medium.com/the-doge-times/what-is-the-doge-nft-dog-c9277236f072"}>this</Link> for
@@ -171,8 +184,8 @@ const Pixels = () => {
                 </div>
             </div>
             <div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: 5, right: -5, zIndex: -1}}/>
-
         </div>
+        <div className={css("text-base", "mt-4")}>(an actual pixel of The Doge NFT)</div>
         <div className={css("mt-10")}>
             The total supply of $DOG is 16.97B. The total amount of pixels in The Doge NFT is 307,200 (640 x 480
             resolution).
@@ -184,10 +197,10 @@ const Pixels = () => {
 }
 
 const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string, description?: string }>> = ({
-                                                                                                                 imagePath,
-                                                                                                                 name,
-                                                                                                                 description
-                                                                                                             }) => {
+    imagePath,
+    name,
+    description
+}) => {
     return <div className={css("relative", "inline-block")}>
         <Image alt={name} src={imagePath} layout={"responsive"} width={400} height={400}
                className={css("border-2", "border-dashed", "border-gray-300")}/>
@@ -262,6 +275,7 @@ interface HomeItemsProps {
 }
 
 const HomeItems = ({height, onIntersection, projects}: HomeItemsProps) => {
+    const [isOpen, setIsOpen] = useState(true)
     return <>
         {navItems.map((item) => {
             const Content = item.content

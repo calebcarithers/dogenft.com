@@ -6,7 +6,7 @@ import Link, {LinkSize, LinkType} from "../../components/Link/Link";
 
 const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean) => void}) => {
     return <Modal
-        open={open}
+        isOpen={open}
         title={"✨ Links ✨"}
         onChange={onChange}>
         <div className={css("grid", "grid-cols-3")}>

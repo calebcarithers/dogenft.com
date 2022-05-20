@@ -1,17 +1,18 @@
 import * as RadixDialog from '@radix-ui/react-dialog';
 import {css} from "../../helpers/css";
-import React from "react";
+import React, {PropsWithChildren} from "react";
 import {MdClose} from "react-icons/md";
 
-interface DialogProps extends React.ComponentProps<any> {
-    open?: boolean;
+interface DialogProps {
+    isOpen?: boolean;
     title?: string;
     description?: string;
     onChange?: (value: boolean) => void;
 }
 
-const Modal = ({children, open, title, description, onChange}: DialogProps) => {
-    return <RadixDialog.Root open={open} onOpenChange={(value) => onChange && onChange(value)}>
+const Modal: React.FC<PropsWithChildren<DialogProps>> = ({children, isOpen, title, description, onChange}) => {
+    console.log("debug:: MODAL OPEN", isOpen)
+    return <RadixDialog.Root open={isOpen} onOpenChange={(value) => onChange && onChange(value)}>
         <RadixDialog.Portal>
             <RadixDialog.Overlay className={css("fixed", "bg-black", "inset-0", "opacity-80", "z-50")}/>
             <RadixDialog.Content
