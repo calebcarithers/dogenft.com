@@ -17,6 +17,11 @@ module.exports = {
           magenta: "#DA44D2",
           green: "#5CBE3E",
           orange: "#F3A83C"
+        },
+        pleasr: {
+          lightPurple: "#42114F",
+          purple: "#2C1559",
+          darkPurple: "#202C50"
         }
       },
       backgroundImage: {

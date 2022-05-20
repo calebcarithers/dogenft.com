@@ -25,7 +25,9 @@ const Doge = () => {
                         emojisplosion({
                             process(e){
                                 console.log("debug:: e", e)
-                                e.className += " emojipop"
+                                e.className += " emojipop";
+                                //@ts-ignore
+                                e.style.zIndex = 0;
                             },
                             position: () => {
                                 let x = Math.random() * innerWidth;
@@ -52,8 +54,8 @@ const Doge = () => {
                             }
                         })
                     }
-                    explode(20, -40)
-                    explode(-20, -40)
+                    explode(60, -50)
+                    explode(-60, -50)
                 }}
             >
                 <Image
@@ -82,7 +84,9 @@ const FramedImage: React.FC<PropsWithChildren<any>> = ({
 }: { imagePath: string, description: string }) => {
     const [showModal, setShowModal] = useState(false)
     return <>
-        <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", styles.overlapGrid)} onClick={() => setShowModal(true)}>
+        <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", "relative", "hover:right-2",
+            "hover:bottom-2", "active:translate-x-2", "active:translate-y-2", styles.overlapGrid)}
+             onClick={() => setShowModal(true)}>
             <div className={css("relative")}
                  style={{maxWidth: "80%", maxHeight: "80%", left: "50%", top: "-50%", transform: "translate(-50%, 80%)"}}>
                 <Image alt={description} src={imagePath} layout={"responsive"} width={640} height={480}/>
@@ -96,8 +100,8 @@ const FramedImage: React.FC<PropsWithChildren<any>> = ({
             title={"✨ " + description + " ✨"}
             onChange={(val) => setShowModal(val)}
         >
-            <div className={css("relative", "border-2", "border-solid", "border-black")} style={{height: 400}}>
-                <Image src={imagePath} layout={"fill"}/>
+            <div className={css("relative", "border-2", "border-solid", "border-black")}>
+                <Image src={imagePath} layout={"responsive"} width={640} height={480}/>
             </div>
         </Modal>
     </>
@@ -201,9 +205,12 @@ const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string,
     name,
     description
 }) => {
-    return <div className={css("relative", "inline-block")}>
-        <Image alt={name} src={imagePath} layout={"responsive"} width={400} height={400}
-               className={css("border-2", "border-dashed", "border-gray-300")}/>
+    return <div>
+        <div className={css( "relative", "hover:right-2", "hover:bottom-2", "cursor-pointer", "active:translate-x-2", "active:translate-y-2", "z-10")}>
+            <Image alt={name} src={imagePath} layout={"responsive"} width={400} height={400}
+                   className={css("border-2", "border-dashed", "border-gray-300", "z-10")}/>
+            <div className={css("rounded-full", "w-full", "h-full", "bg-black", "absolute", "top-0", "left-0", "hover:left-2", "hover:top-2", "relative")} style={{zIndex: -1}}/>
+        </div>
         <div className={css("text-lg", "font-bold", "mt-2")}>{name}</div>
         {description && <div className={css("text-base", "italic")}>{description}</div>}
     </div>
@@ -212,11 +219,11 @@ const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string,
 const Daoge = () => {
     return <div>
         <div className={css("grid", "grid-cols-5", "mb-8")}>
-            <DaogeMember imagePath={"/images/logo.png"} name={"Core Team"}/>
+            <DaogeMember imagePath={"/images/doage.png"} name={"Core Team"}/>
             <div/>
             <DaogeMember imagePath={"/images/logo.png"} name={"Community Team"}/>
             <div/>
-            <DaogeMember imagePath={"/images/sparkle.svg"} name={"Pleasr Friends"}/>
+            <DaogeMember imagePath={"/images/pleasr.png"} name={"Pleasr Friends"}/>
         </div>
         <div>
             After fractionalization, <Link bold isExternal href={"https://dao.ge"}>DAOge</Link> was formed to manage the
