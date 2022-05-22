@@ -12,6 +12,7 @@ import React, {PropsWithChildren, useRef, useState} from "react";
 import {emojisplosion} from "emojisplosion";
 import cumulativeOffset from "../../helpers/cumulativeOffset";
 import Modal, {DialogSize} from "../Modal/Modal";
+import {objectKeys} from "../../helpers/arrays";
 
 export const Doge = () => {
     const ref = useRef<HTMLDivElement | null>(null)
@@ -83,14 +84,16 @@ export const FramedImage: React.FC<PropsWithChildren<any>> = ({
 }: { imagePath: string, description: string }) => {
     const [showModal, setShowModal] = useState(false)
     return <>
-        <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", "relative", "md:hover:right-2",
-            "md:hover:bottom-2", "active:translate-x-2", "active:translate-y-2", styles.overlapGrid)}
-             onClick={() => setShowModal(true)}>
-            <div className={css("relative")}
-                 style={{maxWidth: "80%", maxHeight: "80%", left: "50%", top: "-50%", transform: "translate(-50%, 80%)"}}>
-                <Image alt={description} src={imagePath} layout={"responsive"} width={640} height={480}/>
+        <div className={css("relative")}>
+            <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", "relative", "md:hover:right-2",
+                "md:hover:bottom-2", "active:translate-x-2", "active:translate-y-2", "z-10", styles.overlapGrid)}
+                 onClick={() => setShowModal(true)}>
+                <div className={css("relative")}
+                     style={{maxWidth: "80%", maxHeight: "80%", left: "50%", top: "-50%", transform: "translate(-50%, 80%)"}}>
+                    <Image alt={description} src={imagePath} layout={"responsive"} width={640} height={480}/>
+                </div>
+                <Image alt={"frame"} src={'/images/frame.png'} layout={"responsive"} width={500} height={401}/>
             </div>
-            <Image alt={"frame"} src={'/images/frame.png'} layout={"responsive"} width={500} height={401}/>
             <div className={css("inline-block", "text-lg", "md:text-xl", "italic")}
                  style={{gridArea: "auto"}}>{description}</div>
         </div>
@@ -202,13 +205,20 @@ export const Pixels = () => {
     </div>
 }
 
-const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string, description?: string }>> = ({
+enum TeamTypes {
+    core = "Core Team",
+    community = "Community Team",
+    plear = "Pleasr Friends"
+}
+
+const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: TeamTypes, description?: string, onClick: (type: string) => void}>> = ({
     imagePath,
     name,
-    description
+    description,
+    onClick
 }) => {
     return <div>
-        <div className={css( "relative", "md:hover:right-2", "md:hover:bottom-2", "cursor-pointer", "active:translate-x-2", "active:translate-y-2", "z-10")}>
+        <div onClick={() => onClick(name)} className={css( "relative", "md:hover:right-2", "md:hover:bottom-2", "cursor-pointer", "active:translate-x-2", "active:translate-y-2", "z-10")}>
             <Image alt={name} src={imagePath} layout={"responsive"} width={400} height={400}
                    className={css("border-2", "border-dashed", "border-gray-300", "z-10")}/>
             <div className={css("rounded-full", "w-full", "h-full", "bg-black", "absolute", "top-0", "left-0", "md:hover:left-2", "md:hover:top-2", "relative")} style={{zIndex: -1}}/>
@@ -219,13 +229,14 @@ const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string,
 }
 
 export const Daoge = () => {
+    const [modalType, setModalType] = useState<TeamTypes | null>()
     return <div>
         <div className={css("grid", "grid-cols-5", "mb-8")}>
-            <DaogeMember imagePath={"/images/doage.png"} name={"Core Team"}/>
+            <DaogeMember imagePath={"/images/doage.png"} name={TeamTypes.core} onClick={(val) => setModalType(val)}/>
             <div/>
-            <DaogeMember imagePath={"/images/logo.png"} name={"Community Team"}/>
+            <DaogeMember imagePath={"/images/monadoge.png"} name={TeamTypes.community} onClick={(val) => setModalType(val)}/>
             <div/>
-            <DaogeMember imagePath={"/images/pleasr.png"} name={"Pleasr Friends"}/>
+            <DaogeMember imagePath={"/images/pleasr.png"} name={TeamTypes.plear} onClick={(val) => setModalType(val)}/>
         </div>
         <div className={css("bg-pixels-yellow-100")}>
             After fractionalization, <Link bold isExternal href={"https://dao.ge"}>DAOge</Link> was formed to manage the
@@ -235,6 +246,116 @@ export const Daoge = () => {
             Checkout our <Link isExternal
                                href={"https://pleasr.mirror.xyz/7hpdJOWRzQx2pmCA16MDxN2FiA3eY6dwcrnEtXKnCJw"}>whitepaper</Link>
         </HelperContent>
+        {modalType && <Modal title={modalType} size={DialogSize.sm} isOpen={modalType !== null} onChange={() => setModalType(null)}>
+            <Teams type={modalType}/>
+        </Modal>}
+    </div>
+}
+
+export const Teams: React.FC<PropsWithChildren<{type: TeamTypes}>> = ({type}) => {
+    enum TeamMembers {
+        tridog = "Tridog",
+        zona = "Zona",
+        dogeking = "Doge King",
+        gainor = "Gainor",
+        paco = "Paco",
+        coldplunge = "Coldplunge",
+        ot = "OT",
+        magicanz = "Magicanz",
+        dogeninja = "Doge Ninja",
+        saladpingers = "Salad Pingers",
+        calfmoney = "Calf Money",
+        chocorado = "Chocorado",
+        julia = "Julia Love",
+        jamis = "Jamis",
+        juan = "Juan",
+        shrugs = "Shrugs",
+        bunday = "Bunday",
+        ben = "Ben",
+        alex = "Alex",
+        spencer = "Spencer",
+        cryptosteve = "Crypto Steve",
+        matkov = "Matkov",
+        camilia = "Camilia",
+        amber = "Amber",
+        andy = "Andy"
+    }
+
+
+    const TeamSocials = {
+        [TeamMembers.tridog]: "https://twitter.com/tridoggg",
+        [TeamMembers.zona]: "https://twitter.com/cryptosinclair",
+        [TeamMembers.dogeking]: "",
+        [TeamMembers.gainor]: "https://twitter.com/gainormather",
+        [TeamMembers.paco]: "https://twitter.com/ownthememe",
+        [TeamMembers.coldplunge]: "https://twitter.com/xcoldplunge",
+        [TeamMembers.ot]: "",
+        [TeamMembers.magicanz]: "https://twitter.com/Magicanz",
+        [TeamMembers.dogeninja]: "https://twitter.com/DogeNinjaknows",
+        [TeamMembers.saladpingers]: "https://twitter.com/saladpingers",
+        [TeamMembers.calfmoney]: "https://twitter.com/CalfMoney",
+        [TeamMembers.chocorado]: "https://twitter.com/Chocorado",
+        [TeamMembers.julia]: "https://twitter.com/realjulialove",
+        [TeamMembers.jamis]: "https://twitter.com/_jamiis",
+        [TeamMembers.juan]: "https://twitter.com/JuanPaDulanto",
+        [TeamMembers.shrugs]: "https://twitter.com/1ofthemanymatts",
+        [TeamMembers.bunday]: "",
+        [TeamMembers.ben]: "",
+        [TeamMembers.alex]: "",
+        [TeamMembers.spencer]: "https://twitter.com/spenhar",
+        [TeamMembers.cryptosteve]: "",
+        [TeamMembers.matkov]: "",
+        [TeamMembers.camilia]: "",
+        [TeamMembers.amber]: "",
+        [TeamMembers.andy]: "https://twitter.com/andy8052"
+    }
+
+    let Team: any
+    if (type === TeamTypes.core) {
+        Team = {
+            "Strategy": [TeamMembers.tridog],
+            "Community": [TeamMembers.zona, TeamMembers.paco],
+            "Barketing": [TeamMembers.dogeking, TeamMembers.coldplunge, TeamMembers.ot],
+            "Tech": [TeamMembers.gainor]
+        }
+    } else if (type === TeamTypes.plear) {
+        Team = {
+            "Pleasr Strategy": [TeamMembers.jamis, TeamMembers.juan],
+            "Pleasr Labs": [TeamMembers.shrugs, TeamMembers.bunday, TeamMembers.ben, TeamMembers.alex],
+            "Pleasr Creative": [TeamMembers.spencer],
+            "Pleasr Finance": [TeamMembers.cryptosteve],
+            "Pleasr Legal": [TeamMembers.matkov],
+            "PR": [TeamMembers.camilia],
+            "Events": [TeamMembers.amber],
+            "Fractional": [TeamMembers.andy]
+        }
+    } else if (type === TeamTypes.community) {
+        Team = {
+            "Council of Bark": [
+                TeamMembers.tridog, TeamMembers.zona, TeamMembers.paco,
+                TeamMembers.dogeking, TeamMembers.magicanz, TeamMembers.dogeninja,
+                TeamMembers.saladpingers, TeamMembers.coldplunge
+            ],
+            "Mods": [TeamMembers.magicanz, TeamMembers.calfmoney, TeamMembers.saladpingers, TeamMembers.paco, TeamMembers.zona],
+            "Meme Team": [TeamMembers.zona, TeamMembers.ot, TeamMembers.magicanz, TeamMembers.paco, TeamMembers.chocorado],
+            "MCs": [TeamMembers.dogeninja, TeamMembers.julia],
+            "Events": [TeamMembers.dogeninja, TeamMembers.julia, TeamMembers.chocorado, TeamMembers.dogeninja]
+        }
+    } else {
+        throw new Error("Unknown type")
+    }
+
+
+    return <div className={css("text-xl")}>
+        <div className={css("grid", "grid-cols-10", "gap-4")}>
+            {objectKeys(Team).map(title => <>
+                <div className={css("col-span-3")}>{title}:</div>
+                <div className={css("col-span-7")}>{Team[title].map((member, index, arr) => <span>
+                <Link isExternal href={TeamSocials[member]}>{member}</Link>
+                    {index !== arr.length - 1 && <span>, </span>}
+            </span>)}</div>
+            </>)}
+        </div>
     </div>
 }
 

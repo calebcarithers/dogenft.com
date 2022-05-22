@@ -18,6 +18,12 @@ export const actionLinks = [
     {title: "Fractional", link: "https://fractional.art/vaults/the-doge-nft"}
 ]
 
+export const buyLinks = [
+    {title: "Sushiswap", link: "https://app.sushi.com/swap?outputCurrency=0xbaac2b4491727d78d2b78815144570b9f2fe8899"},
+    {title: "Uniswap", link: "https://app.uniswap.org/#/swap?chain=mainnet&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899&inputCurrency=ETH"},
+    {title: "Cowswap", link: "https://cowswap.exchange/#/swap?outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899&inputCurrency=ETH&chain=mainnet"}
+]
+
 export const chains = [
     {
         chain: "Ethereum Mainnet",

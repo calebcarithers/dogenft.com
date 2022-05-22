@@ -5,7 +5,6 @@ import {vars} from "../../environment/vars";
 import React, {useContext, useState} from "react";
 import LinksModal from "./LinksModal";
 import {navItems} from "../../components/Home/HomeItems";
-import Image from "next/image";
 
 const NavContext = React.createContext<any>("doge")
 export const NavProvider = NavContext.Provider
@@ -41,9 +40,6 @@ const Nav = () => {
                     window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
                 }}>twitter</Button>
                 <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
-            </div>
-            <div className={css("relative", "grow", "ml-16")}>
-                <Image src={"/images/star.svg"} layout={'responsive'} width={500} height={500}/>
             </div>
         </div>
         <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>

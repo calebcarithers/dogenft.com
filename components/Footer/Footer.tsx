@@ -2,17 +2,18 @@ import {css} from "../../helpers/css";
 import Image from "next/image";
 import Link, {LinkSize, LinkType} from "../Link/Link";
 import React from "react";
-import {actionLinks, readLinks, socialLinks} from "./Links";
+import {actionLinks, buyLinks, readLinks, socialLinks} from "./Links";
 
 export const Footer = () => {
     return <footer className={css("grow-0", "py-4", "block", "mt-16")}>
         <div className={css("flex")}>
             <Image alt={"pleasr logo"} src={"/images/pleasrlogo.svg"} height={51} width={127.5}/>
         </div>
-        <div className={css("grid", "grid-cols-1", "sm:grid-cols-3", "gap-x-20", "gap-y-8", "sm:gap-y-0")}>
+        <div className={css("grid", "grid-cols-1", "sm:grid-cols-4", "gap-x-20", "gap-y-8", "sm:gap-y-0")}>
             <FooterItem title={"Talk"} items={socialLinks}/>
             <FooterItem title={"Read"} items={readLinks}/>
             <FooterItem title={"Do"} items={actionLinks}/>
+            <FooterItem title={"Buy"} items={buyLinks}/>
         </div>
     </footer>
 }
