@@ -10,9 +10,6 @@ import HomeLayout from "../layouts/Home/Home.layout";
 import {useNavContext} from "../layouts/Home/Nav";
 import {Footer} from "../components/Footer/Footer";
 import {useRouter} from "next/router";
-import {actionLinks, chains, readLinks, socialLinks} from "../components/Footer/Links";
-import Link, {LinkSize, LinkType} from "../components/Link/Link";
-import Modal from "../components/Modal/Modal";
 
 interface HomeProps {
     projects: AirtableSubmissionProject[]
@@ -47,7 +44,6 @@ const HomeContent = ({projects}: { projects: any }) => {
             })
             if (wow) {
                 setTimeout(() => {
-                    console.log("debug:: wow", wow)
                     document.getElementById(wow as string)?.scrollIntoView({behavior: "smooth"})
                 }, 200)
             }

@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html>
       <Head title={"The Doge NFT"}/>
-      <body className={css("font-ComicNeue")}>
+      <body className={css("font-ComicNeue", "bg-pixels-yellow-100")}>
       <Main />
       <NextScript />
       </body>

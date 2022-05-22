@@ -1,7 +1,7 @@
 import {css} from "../../helpers/css";
 import {PropsWithChildren} from "react";
 
-const buttonStyles = css("p-2", "bg-white", "text-black", "font-bold")
+const buttonStyles = css("p-2",  "bg-pixels-yellow-100", "text-black", "font-bold")
 
 interface ButtonProps {
   onClick?: () => void;

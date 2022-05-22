@@ -13,7 +13,7 @@ import {emojisplosion} from "emojisplosion";
 import cumulativeOffset from "../../helpers/cumulativeOffset";
 import Modal from "../Modal/Modal";
 
-const Doge = () => {
+export const Doge = () => {
     const ref = useRef<HTMLDivElement | null>(null)
     return <div className={css("mx-6")}>
         <div className={css("relative", "z-10", "m-auto", "max-w-xl")}>
@@ -78,7 +78,7 @@ const Doge = () => {
     </div>
 }
 
-const FramedImage: React.FC<PropsWithChildren<any>> = ({
+export const FramedImage: React.FC<PropsWithChildren<any>> = ({
     imagePath,
     description,
 }: { imagePath: string, description: string }) => {
@@ -107,7 +107,7 @@ const FramedImage: React.FC<PropsWithChildren<any>> = ({
     </>
 }
 
-const DogeNFT = () => {
+export const DogeNFT = () => {
     return <div>
         <div className={css("grid", "grid-cols-3", "gap-6", "max-w-2xl", "m-auto")}>
             <FramedImage imagePath={"/images/sad.png"} description={"Sad"}/>
@@ -140,7 +140,7 @@ const DogeNFT = () => {
     </div>
 }
 
-const Dog = () => {
+export const Dog = () => {
     return <div>
         <div className={css("relative", "w-full", "lg:w-3/5", "lg:1/5", "m-auto", "flex-1", styles.overlapGrid)}>
             <div className={css("relative")}
@@ -167,7 +167,7 @@ const Dog = () => {
     </div>
 }
 
-const Pixels = () => {
+export const Pixels = () => {
     return <div>
         <div className={css("inline-block", "relative", "z-10")}>
             <div
@@ -184,7 +184,7 @@ const Pixels = () => {
                     borderBottom: "1px",
                     borderStyle: "solid"
                 }}
-                     className={css("text-left", "pl-2", "font-PressStart", "text-base", "py-1", "bg-white")}># 78409
+                     className={css("text-left", "pl-2", "font-PressStart", "text-base", "py-1", "bg-pixels-yellow-100")}># 78409
                 </div>
             </div>
             <div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: 5, right: -5, zIndex: -1}}/>
@@ -216,7 +216,7 @@ const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string,
     </div>
 }
 
-const Daoge = () => {
+export const Daoge = () => {
     return <div>
         <div className={css("grid", "grid-cols-5", "mb-8")}>
             <DaogeMember imagePath={"/images/doage.png"} name={"Core Team"}/>
@@ -236,7 +236,7 @@ const Daoge = () => {
     </div>
 }
 
-const BarkTank = ({projects}: { projects: AirtableSubmissionProject[] }) => {
+export const BarkTank = ({projects}: { projects: AirtableSubmissionProject[] }) => {
     const router = useRouter()
     return <div>
         <div>
@@ -266,6 +266,12 @@ const BarkTank = ({projects}: { projects: AirtableSubmissionProject[] }) => {
 }
 
 
+interface HomeItemsProps {
+    projects: AirtableSubmissionProject[];
+    height: number;
+    onIntersection?: (id: string) => void
+}
+
 export const navItems = [
     {title: 'Doge', id: "doge", content: Doge},
     {title: 'The Doge NFT', id: "dogenft", content: DogeNFT},
@@ -274,15 +280,7 @@ export const navItems = [
     {title: 'DAOge', id: "daoge", content: Daoge},
     {title: 'Bark Tank', id: "barktank", content: BarkTank}
 ]
-
-interface HomeItemsProps {
-    projects: AirtableSubmissionProject[];
-    height: number;
-    onIntersection?: (id: string) => void
-}
-
 const HomeItems = ({height, onIntersection, projects}: HomeItemsProps) => {
-    const [isOpen, setIsOpen] = useState(true)
     return <>
         {navItems.map((item) => {
             const Content = item.content

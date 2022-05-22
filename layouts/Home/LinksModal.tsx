@@ -1,4 +1,4 @@
-import Modal from "../../components/Modal/Modal";
+import Modal, {DialogSize} from "../../components/Modal/Modal";
 import React from "react";
 import {css} from "../../helpers/css";
 import {actionLinks, chains, readLinks, socialLinks} from "../../components/Footer/Links";
@@ -6,6 +6,7 @@ import Link, {LinkSize, LinkType} from "../../components/Link/Link";
 
 const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean) => void}) => {
     return <Modal
+        size={DialogSize.sm}
         isOpen={open}
         title={"✨ Links ✨"}
         onChange={onChange}>
@@ -36,7 +37,7 @@ const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean)
                     <div>
                         {chain.chain}
                     </div>
-                    <div className={css("bg-gray-100", "border-2", "border-dashed", "border-gray-300", "p-1", "font-bold")}>
+                    <div className={css("bg-pixels-yellow-100", "border-2", "border-dashed", "border-pixels-yellow-300", "p-1", "font-bold")}>
                         {chain.contractAddress}
                     </div>
                 </div>)}

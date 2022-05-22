@@ -18,7 +18,7 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project})
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             className={css("active:translate-x-1", "active:translate-y-1", "border-2",
-                "border-black", "border-solid", "bg-white", "cursor-pointer", "p-2", "bg-contain", "relative")}
+                "border-black", "border-solid", "bg-pixels-yellow-100", "cursor-pointer", "p-2", "bg-contain", "relative")}
             style={{backgroundImage: (project.imageUrl ? `url(${project.imageUrl})` : `url(/images/doge_tiled.jpeg)`)}}>
             <div className={css("text-left", "flex", "justify-between", "p-1")}>
                 <div className={css("flex", "flex-col")}>
@@ -36,7 +36,7 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project})
                     {project.status}
                 </div>
             </div>
-            <div className={css("absolute", "w-full", "h-full", "bg-white", "left-0", "top-0", "group-hover:bg-transparent", "z-0")}/>
+            <div className={css("absolute", "w-full", "h-full", "bg-pixels-yellow-100", "left-0", "top-0", "group-hover:bg-transparent", "z-0")}/>
         </div>
         <div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: "6px", left: "6px", zIndex: -1}}/>
     </div>

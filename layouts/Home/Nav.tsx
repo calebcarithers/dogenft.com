@@ -1,12 +1,10 @@
 import {css} from "../../helpers/css";
-import {navItems} from "../../components/Home/HomeItems";
 import NavItem from "../../components/NavItem/NavItem";
 import Button from "../../components/Button/Button";
 import {vars} from "../../environment/vars";
 import React, {useContext, useState} from "react";
-import Modal from "../../components/Modal/Modal";
-import Link from "../../components/Link/Link";
 import LinksModal from "./LinksModal";
+import {navItems} from "../../components/Home/HomeItems";
 
 const NavContext = React.createContext<any>("doge")
 export const NavProvider = NavContext.Provider

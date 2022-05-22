@@ -24,7 +24,7 @@ interface FooterItemProps {
 
 const FooterItem = ({title, items}: FooterItemProps) => {
     return <div className={css("text-left")}>
-        <div className={css("font-bold", "border-b-2", "border-dashed", "border-gray-200", "mb-2", "text-gray-600",
+        <div className={css("font-bold", "border-b-2", "border-dashed", "border-pixels-yellow-200", "mb-2", "text-gray-600",
             "inline-block", "text-sm", "font-bold")}>
             {title}
         </div>

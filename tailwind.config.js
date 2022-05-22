@@ -22,6 +22,19 @@ module.exports = {
           lightPurple: "#42114F",
           purple: "#2C1559",
           darkPurple: "#202C50"
+        },
+        meme: {
+          green: "#3cff00",
+          red: "#ff0000",
+          yellow: "#f9fa1d",
+          magenta: "#d922c3"
+        },
+        pixels: {
+          yellow: {
+            100: "#FFF8E4",
+            200: "#ede6d4",
+            300: "#d2cbbb",
+          }
         }
       },
       backgroundImage: {
