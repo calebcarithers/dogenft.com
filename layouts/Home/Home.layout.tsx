@@ -3,8 +3,6 @@ import {PropsWithChildren, useContext, useState} from "react";
 import React from "react"
 import Nav, {NavProvider} from "./Nav";
 import { motion } from "framer-motion";
-import Image from "next/image"
-import ColoredText from "../../components/ColoredText/ColoredText";
 
 const HomeLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
     const [navSelection, setNavSelection] = useState("doge")
