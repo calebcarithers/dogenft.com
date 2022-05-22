@@ -11,7 +11,7 @@ import {useRouter} from "next/router";
 import React, {PropsWithChildren, useRef, useState} from "react";
 import {emojisplosion} from "emojisplosion";
 import cumulativeOffset from "../../helpers/cumulativeOffset";
-import Modal from "../Modal/Modal";
+import Modal, {DialogSize} from "../Modal/Modal";
 
 export const Doge = () => {
     const ref = useRef<HTMLDivElement | null>(null)
@@ -69,7 +69,7 @@ export const Doge = () => {
             </div>
             <div className={css("bg-black", "absolute", "w-full", "h-full")} style={{top: 5, left: 5, zIndex: -1}}/>
         </div>
-        <div className={css("mt-16", "px-16")}>
+        <div className={css("mt-16", "px-16", "bg-pixels-yellow-100")}>
             <Link bold isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link> grew to prominence in the
             early {"2000's"} when Atsuko Sato posted 8 photos
             to <Link bold href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu,
@@ -84,8 +84,8 @@ export const FramedImage: React.FC<PropsWithChildren<any>> = ({
 }: { imagePath: string, description: string }) => {
     const [showModal, setShowModal] = useState(false)
     return <>
-        <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", "relative", "hover:right-2",
-            "hover:bottom-2", "active:translate-x-2", "active:translate-y-2", styles.overlapGrid)}
+        <div className={css("relative", "w-full", "m-auto", "flex-1", "cursor-pointer", "relative", "md:hover:right-2",
+            "md:hover:bottom-2", "active:translate-x-2", "active:translate-y-2", styles.overlapGrid)}
              onClick={() => setShowModal(true)}>
             <div className={css("relative")}
                  style={{maxWidth: "80%", maxHeight: "80%", left: "50%", top: "-50%", transform: "translate(-50%, 80%)"}}>
@@ -96,6 +96,7 @@ export const FramedImage: React.FC<PropsWithChildren<any>> = ({
                  style={{gridArea: "auto"}}>{description}</div>
         </div>
         <Modal
+            size={DialogSize.lg}
             isOpen={showModal}
             title={"✨ " + description + " ✨"}
             onChange={(val) => setShowModal(val)}
@@ -124,7 +125,7 @@ export const DogeNFT = () => {
                 <FramedImage imagePath={"/images/feisty.png"} description={"Feisty"}/>
             </div>
         </div>
-        <div className={css("mt-6")}>
+        <div className={css("mt-6", "bg-pixels-yellow-100")}>
             In 2021, Ms. Satō minted the famous photos on Ethereum as NFTs. The most iconic image &quot;Doge&quot;, was
             purchased by <Link bold isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link bold isExternal
                                                                                                       href={"https://very.auction/doge/doge"}>auction</Link> for
@@ -155,7 +156,7 @@ export const Dog = () => {
             </div>
             <Image alt={"frame"} src={'/images/frame.png'} layout={"responsive"} width={500} height={401}/>
         </div>
-        <div className={css("mt-10")}>
+        <div className={css("mt-10", "bg-pixels-yellow-100")}>
             After the auction, PleasrDAO <Link bold isExternal
                                                href={"https://fractional.art/vaults/0xbaac2b4491727d78d2b78815144570b9f2fe8899"}>fractionalized</Link> The
             Doge NFT into a fungible token, $DOG, allowing any and all to own a piece of the meme.
@@ -189,8 +190,10 @@ export const Pixels = () => {
             </div>
             <div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: 5, right: -5, zIndex: -1}}/>
         </div>
-        <div className={css("text-base", "mt-4")}>(an actual pixel of The Doge NFT)</div>
-        <div className={css("mt-10")}>
+        <div>
+            <div className={css("text-base", "mt-4", "bg-pixels-yellow-100", "inline-block")}>(an actual pixel of The Doge NFT)</div>
+        </div>
+        <div className={css("mt-10", "bg-pixels-yellow-100")}>
             The total supply of $DOG is 16.97B. The total amount of pixels in The Doge NFT is 307,200 (640 x 480
             resolution).
             Therefore, a single pixel is equivalent to 55,240 $DOG. Holders can lock $DOG to mint &apos;Doge
@@ -206,13 +209,13 @@ const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: string,
     description
 }) => {
     return <div>
-        <div className={css( "relative", "hover:right-2", "hover:bottom-2", "cursor-pointer", "active:translate-x-2", "active:translate-y-2", "z-10")}>
+        <div className={css( "relative", "md:hover:right-2", "md:hover:bottom-2", "cursor-pointer", "active:translate-x-2", "active:translate-y-2", "z-10")}>
             <Image alt={name} src={imagePath} layout={"responsive"} width={400} height={400}
                    className={css("border-2", "border-dashed", "border-gray-300", "z-10")}/>
-            <div className={css("rounded-full", "w-full", "h-full", "bg-black", "absolute", "top-0", "left-0", "hover:left-2", "hover:top-2", "relative")} style={{zIndex: -1}}/>
+            <div className={css("rounded-full", "w-full", "h-full", "bg-black", "absolute", "top-0", "left-0", "md:hover:left-2", "md:hover:top-2", "relative")} style={{zIndex: -1}}/>
         </div>
-        <div className={css("text-lg", "font-bold", "mt-2")}>{name}</div>
-        {description && <div className={css("text-base", "italic")}>{description}</div>}
+        <div className={css("text-lg", "font-bold", "mt-2", "bg-pixels-yellow-100")}>{name}</div>
+        {description && <div className={css("text-base", "italic", "bg-pixels-yellow-100")}>{description}</div>}
     </div>
 }
 
@@ -225,7 +228,7 @@ export const Daoge = () => {
             <div/>
             <DaogeMember imagePath={"/images/pleasr.png"} name={"Pleasr Friends"}/>
         </div>
-        <div>
+        <div className={css("bg-pixels-yellow-100")}>
             After fractionalization, <Link bold isExternal href={"https://dao.ge"}>DAOge</Link> was formed to manage the
             community fund and guide The Doge NFT ecosystem.
         </div>
@@ -239,7 +242,7 @@ export const Daoge = () => {
 export const BarkTank = ({projects}: { projects: AirtableSubmissionProject[] }) => {
     const router = useRouter()
     return <div>
-        <div>
+        <div className={css("bg-pixels-yellow-100")}>
             Bark Tank acts an an incubator for the expansion of The Doge NFT ecosystem. Submit your ideas here. Great
             ideas,
             favored by the community, are eligible to receive funding from the DAOge.

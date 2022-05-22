@@ -41,7 +41,7 @@ const MovingText: React.FC<PropsWithChildren<{className?: string, children: stri
     const [delay] = useState(Math.random() * 150)
     const duration = 4 * 60
     return <motion.div
-        className={css("flex", "text-2xl", "z-0", "font-bold", className)}
+        className={css("flex", "text-2xl", "z-0", "font-bold", "opacity-70", className)}
         animate={{
             x: ["100%", "-100%"],
             padding: "3px 0px"
