@@ -24,7 +24,6 @@ export const Doge = () => {
                     const explode = (xInitialVelocity: number, yInitialVelocity: number) => {
                         emojisplosion({
                             process(e){
-                                console.log("debug:: e", e)
                                 e.className += " emojipop";
                                 //@ts-ignore
                                 e.style.zIndex = 0;

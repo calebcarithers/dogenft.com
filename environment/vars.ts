@@ -18,7 +18,6 @@ const vars: Vars = {
 
 const assertVars = () => {
   objectKeys(vars).map(key => {
-    console.log(vars[key])
     if (vars[key] === undefined) {
       // alert(`You are missing environment variable: ${key}`)
       throw new Error(`Missing environment variable: ${key}`)

@@ -22,12 +22,12 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project})
             style={{backgroundImage: (project.imageUrl ? `url(${project.imageUrl})` : `url(/images/doge_tiled.jpeg)`)}}>
             <div className={css("text-left", "flex", "justify-between", "p-1")}>
                 <div className={css("flex", "flex-col")}>
-                    <div className={css("mb-1", "group-hover:bg-doge-orange", "px-1", "break-all",
-                        "border-2", "border-solid", "border-transparent", "group-hover:border-black", "font-bold", "inline-block", "w-fit", "z-10")}>
+                    <div className={css("mb-1", "bg-doge-orange", "md:bg-transparent", "border-black", "group-hover:bg-doge-orange", "px-1", "break-all",
+                        "border-2", "border-solid", "md:border-transparent", "group-hover:border-black", "font-bold", "inline-block", "w-fit", "z-10")}>
                         {project.projectName}
                     </div>
-                    <div className={css("text-lg", "group-hover:bg-doge-orange", "inline-block",
-                        "px-1", "border-2", "border-solid", "border-transparent", "group-hover:border-black", "w-fit", "z-10")}>
+                    <div className={css("text-lg", "bg-doge-orange", "md:bg-transparent", "border-black", "group-hover:bg-doge-orange", "inline-block",
+                        "px-1", "border-2", "border-solid", "md:border-transparent", "group-hover:border-black", "w-fit", "z-10")}>
                         {project.shortDescription}
                     </div>
                 </div>
@@ -36,7 +36,7 @@ const BarkTankItem: React.FC<PropsWithChildren<BarkTankItemProps>> = ({project})
                     {project.status}
                 </div>
             </div>
-            <div className={css("absolute", "w-full", "h-full", "bg-pixels-yellow-100", "left-0", "top-0", "group-hover:bg-transparent", "z-0")}/>
+            <div className={css("absolute", "w-full", "h-full", "md:bg-pixels-yellow-100", "left-0", "top-0", "group-hover:bg-transparent", "z-0")}/>
         </div>
         <div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: "6px", left: "6px", zIndex: -1}}/>
     </div>

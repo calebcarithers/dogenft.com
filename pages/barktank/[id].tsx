@@ -59,7 +59,6 @@ export const getServerSideProps: GetServerSideProps<BarkTankProjectProps> = asyn
         throw new Error("Could not find project")
     }
 
-    console.log(project)
     return {
         props: {
             project: JSON.parse(jsonify(project))

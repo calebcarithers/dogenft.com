@@ -5,6 +5,7 @@ import {vars} from "../../environment/vars";
 import React, {useContext, useState} from "react";
 import LinksModal from "./LinksModal";
 import {navItems} from "../../components/Home/HomeItems";
+import Image from "next/image";
 
 const NavContext = React.createContext<any>("doge")
 export const NavProvider = NavContext.Provider
@@ -31,14 +32,19 @@ const Nav = () => {
                 })}
             </div>
         </div>
-        <div className={css("hidden", "md:flex", "md:flex-col", "items-start", "gap-4", "py-5")}>
-            <Button onClick={() => {
-                window.open(vars.NEXT_PUBLIC_DISCORD_LINK, '_blank')
-            }}>discord</Button>
-            <Button onClick={() => {
-                window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
-            }}>twitter</Button>
-            <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
+        <div className={css("flex", "items-center")}>
+            <div className={css("hidden", "md:flex", "md:flex-col", "items-start", "gap-4", "py-5")}>
+                <Button onClick={() => {
+                    window.open(vars.NEXT_PUBLIC_DISCORD_LINK, '_blank')
+                }}>discord</Button>
+                <Button onClick={() => {
+                    window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
+                }}>twitter</Button>
+                <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
+            </div>
+            <div className={css("relative", "grow", "ml-16")}>
+                <Image src={"/images/star.svg"} layout={'responsive'} width={100} height={100}/>
+            </div>
         </div>
         <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>
     </div>
