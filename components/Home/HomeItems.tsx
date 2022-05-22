@@ -211,7 +211,7 @@ enum TeamTypes {
     plear = "Pleasr Friends"
 }
 
-const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: TeamTypes, description?: string, onClick: (type: string) => void}>> = ({
+const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: TeamTypes, description?: string, onClick: (type: TeamTypes) => void}>> = ({
     imagePath,
     name,
     description,
@@ -349,9 +349,17 @@ export const Teams: React.FC<PropsWithChildren<{type: TeamTypes}>> = ({type}) =>
     return <div className={css("text-xl")}>
         <div className={css("grid", "grid-cols-10", "gap-4")}>
             {objectKeys(Team).map(title => <>
-                <div className={css("col-span-3")}>{title}:</div>
-                <div className={css("col-span-7")}>{Team[title].map((member, index, arr) => <span>
-                <Link isExternal href={TeamSocials[member]}>{member}</Link>
+                <div key={title as string} className={css("col-span-3")}>
+                    <>
+                        {title}:
+                    </>
+                </div>
+                <div className={css("col-span-7")}>{Team[title].map((member: any, index: number, arr: any[]) => <span key={member}>
+                <Link
+                    isExternal
+                    //@ts-ignore
+                    href={TeamSocials[member]}>
+                    {member}</Link>
                     {index !== arr.length - 1 && <span>, </span>}
             </span>)}</div>
             </>)}
