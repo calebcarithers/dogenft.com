@@ -43,7 +43,7 @@ const Nav = () => {
                 <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
             </div>
             <div className={css("relative", "grow", "ml-16")}>
-                <Image src={"/images/star.svg"} layout={'responsive'} width={100} height={100}/>
+                <Image src={"/images/star.svg"} layout={'responsive'} width={500} height={500}/>
             </div>
         </div>
         <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>
