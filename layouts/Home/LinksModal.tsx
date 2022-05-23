@@ -37,10 +37,10 @@ const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean)
                 {chains.map(chain => <div key={chain.contractAddress}>
                     <div>
                         <Link type={LinkType.Grey} href={chain.link} isExternal bold>
-                            {chain.chain}
-                            <span className={css("inline-block", "ml-2")}>
+                            <span className={css("inline-block", "mr-2")}>
                                 <GoLinkExternal/>
                             </span>
+                            {chain.chain}
                         </Link>
                     </div>
                     <div className={css("bg-pixels-yellow-100", "border-2", "border-dashed", "border-pixels-yellow-300", "p-1", "font-bold")}>
