@@ -52,7 +52,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
       </div>
 
       <div className={css("flex", "justify-center", "mt-6")}>
-        <div className={css("flex", "flex-col", "max-w-4xl", "w-full", "gap-5", "md:text-2xl", "text-lg")}>
+        <div className={css("flex", "flex-col", "max-w-4xl", "w-full", "space-y-5", "md:text-2xl", "text-lg")}>
           <div className={css("border-dashed", "border-b-2", "inline-block", "border-pixels-yellow-200")}>
             Projects
           </div>

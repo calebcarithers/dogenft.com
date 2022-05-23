@@ -389,7 +389,7 @@ export const BarkTank = ({projects}: { projects: AirtableSubmissionProject[] }) 
         </div>
         <div className={css("mt-14", "text-left")}>
             <div className={css("mb-2", "text-xl")}>Recent Projects</div>
-            <div className={css("flex", "flex-col", "gap-3", "mr-4")}>
+            <div className={css("flex", "flex-col", "space-y-4", "mr-4")}>
                 {projects.slice(0, 3).map(project => <BarkTankItem key={project.projectName} project={project}/>)}
             </div>
         </div>

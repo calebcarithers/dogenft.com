@@ -15,7 +15,7 @@ const Nav = () => {
     const [isDocsModalVisible, setIsDocsModalVisible] = useState(false)
     return <div className={css("flex", "flex-col", "justify-between", "md:col-span-3", "xl:col-span-2", "sticky")}>
         <div className={css("flex", "items-center", "justify-center", "grow", "border-b-2", "md:border-b-0", "border-pixels-yellow-200", "border-dashed")}>
-            <div className={css("text-3xl", "flex", "md:flex-col", "gap-10", "px-10",)}>
+            <div className={css("text-3xl", "flex", "md:flex-col", "space-y-10", "px-10", "pt-3")}>
                 {navItems.map(item => {
                     const isSelected = item.id === selection
                     return <div key={item.id} className={css("relative", "md:inline-block", "max-w-max", "mb-3", "md:mb-0", {"hidden": !isSelected})}>
@@ -32,7 +32,7 @@ const Nav = () => {
             </div>
         </div>
         <div className={css("flex", "items-center")}>
-            <div className={css("hidden", "md:flex", "md:flex-col", "items-start", "gap-4", "py-5")}>
+            <div className={css("hidden", "md:flex", "md:flex-col", "items-start", "space-y-4", "py-5")}>
                 <Button onClick={() => {
                     window.open(vars.NEXT_PUBLIC_DISCORD_LINK, '_blank')
                 }}>discord</Button>
