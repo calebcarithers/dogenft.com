@@ -31,7 +31,6 @@ export const Background = () => {
         <MovingText className={css("text-meme-yellow")}>so scare</MovingText>
         <MovingText className={css("text-meme-green")}>much rare</MovingText>
         <MovingText className={css("text-meme-red")}>what r you doing</MovingText>
-        <MovingText className={css("text-meme-magenta")}></MovingText>
         <MovingText className={css("text-meme-green")}>many pixel</MovingText>
         <MovingText className={css("text-meme-green")}>very fractional</MovingText>
     </div>
