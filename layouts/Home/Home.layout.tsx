@@ -29,10 +29,10 @@ export const Background = () => {
         <MovingText className={css("text-meme-red")}>what r you doing</MovingText>
         <MovingText className={css("text-meme-green")}>wow</MovingText>
         <MovingText className={css("text-meme-yellow")}>so scare</MovingText>
-        <MovingText className={css("text-meme-green")}>Concern</MovingText>
+        <MovingText className={css("text-meme-green")}>woof</MovingText>
         <MovingText className={css("text-meme-red")}>what r you doing</MovingText>
         <MovingText className={css("text-meme-magenta")}>wow</MovingText>
-        <MovingText className={css("text-meme-green")}>Concern</MovingText>
+        <MovingText className={css("text-meme-green")}>woof</MovingText>
         <MovingText className={css("text-meme-green")}>wow</MovingText>
     </div>
 }
