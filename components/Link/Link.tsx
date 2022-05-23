@@ -47,7 +47,7 @@ const baseLinkStyles = css("hover:underline", "hover:cursor-pointer")
 
 const linkTypeStyles = {
   [LinkType.Primary]: css("text-cyan-400", "underline", "hover:text-cyan-500", baseLinkStyles),
-  [LinkType.Secondary]: css("text-black", baseLinkStyles),
+  [LinkType.Secondary]: css("text-black", "font-bold", baseLinkStyles),
   [LinkType.Grey]: css("text-gray-600", "hover:text-cyan-400", baseLinkStyles)
 }
 

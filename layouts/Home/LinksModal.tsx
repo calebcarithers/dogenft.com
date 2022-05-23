@@ -3,6 +3,7 @@ import React from "react";
 import {css} from "../../helpers/css";
 import {actionLinks, chains, readLinks, socialLinks} from "../../components/Footer/Links";
 import Link, {LinkSize, LinkType} from "../../components/Link/Link";
+import {GoLinkExternal} from "react-icons/go";
 
 const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean) => void}) => {
     return <Modal
@@ -33,9 +34,14 @@ const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean)
         <div className={css("mt-10")}>
             <div className={css("text-lg", "font-bold")}>Chains</div>
             <div className={css("flex", "flex-col", "gap-4")}>
-                {chains.map(chain => <div key={chain.contractAddress} className={css()}>
+                {chains.map(chain => <div key={chain.contractAddress}>
                     <div>
-                        {chain.chain}
+                        <Link type={LinkType.Grey} href={chain.link} isExternal bold>
+                            {chain.chain}
+                            <span className={css("inline-block", "ml-2")}>
+                                <GoLinkExternal/>
+                            </span>
+                        </Link>
                     </div>
                     <div className={css("bg-pixels-yellow-100", "border-2", "border-dashed", "border-pixels-yellow-300", "p-1", "font-bold")}>
                         {chain.contractAddress}
