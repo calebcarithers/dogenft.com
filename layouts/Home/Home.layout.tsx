@@ -46,7 +46,7 @@ const MovingText: React.FC<PropsWithChildren<{className?: string, children: stri
         }}
         transition={{
             x: {duration: 60 * 2, repeat: Infinity, ease: "linear", repeatType: "loop"},
-            delay: Math.random() * 50
+            delay: Math.random() * 150
         }}>
         {children}
     </motion.div>
