@@ -13,9 +13,9 @@ export const useNavContext = () => useContext(NavContext)
 const Nav = () => {
     const [selection] = useNavContext()
     const [isDocsModalVisible, setIsDocsModalVisible] = useState(false)
-    return <div className={css("flex", "flex-col", "justify-between", "md:col-span-3", "xl:col-span-2", "sticky")}>
+    return <div className={css("flex", "flex-col", "justify-between", "md:col-span-4", "xl:col-span-3", "sticky")}>
         <div className={css("flex", "items-center", "justify-center", "grow", "border-b-2", "md:border-b-0", "border-pixels-yellow-200", "border-dashed")}>
-            <div className={css("text-3xl", "flex", "md:flex-col", "space-y-10", "px-10", "pt-3")}>
+            <div className={css("text-3xl", "flex", "md:flex-col", "md:space-y-10", "px-10", "pt-3")}>
                 {navItems.map(item => {
                     const isSelected = item.id === selection
                     return <div key={item.id} className={css("relative", "md:inline-block", "max-w-max", "mb-3", "md:mb-0", {"hidden": !isSelected})}>

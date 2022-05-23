@@ -70,7 +70,7 @@ export const Doge = () => {
             <div className={css("bg-black", "absolute", "w-full", "h-full")} style={{top: 5, left: 5, zIndex: -1}}/>
         </div>
         <div className={css("mt-16", "px-16", "bg-pixels-yellow-100")}>
-            <Link bold isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link> grew to prominence in the
+            <Link bold isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link> grew to <Link bold isExternal href={"https://knowyourmeme.com/editorials/meme-review/the-top-10-memes-of-the-decade"}>prominence</Link> in the
             early {"2000's"} when Atsuko Sato posted 8 photos
             to <Link bold href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu,
             Kabosu.
@@ -131,7 +131,7 @@ export const DogeNFT = () => {
             In 2021, Ms. Satō minted the famous photos on Ethereum as NFTs. The most iconic image &quot;Doge&quot;, was
             purchased by <Link bold isExternal href={"https://pleasr.org/"}>PleasrDAO</Link> at <Link bold isExternal
                                                                                                       href={"https://very.auction/doge/doge"}>auction</Link> for
-            1696.9 ETH ($4.8 M at the time)
+            1696.9 ETH ($4.8 M at the time), making it the most valuable meme NFT.
         </div>
         <div className={css("mt-6")}>
             <HelperContent>
@@ -196,7 +196,7 @@ export const Pixels = () => {
             <div className={css("text-base", "mt-4", "bg-pixels-yellow-100", "inline-block")}>(an actual pixel of The Doge NFT)</div>
         </div>
         <div className={css("mt-10", "bg-pixels-yellow-100")}>
-            The total supply of $DOG is 16.97B. The total amount of pixels in The Doge NFT is 307,200 (640 x 480
+            The total supply of $DOG is 16,969,696,969. The total amount of pixels in The Doge NFT is 307,200 (640 x 480
             resolution).
             Therefore, a single pixel is equivalent to 55,240 $DOG. Holders can lock $DOG to mint &apos;Doge
             Pixel&apos; NFTs
