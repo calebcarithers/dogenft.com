@@ -38,6 +38,7 @@ export const Background = () => {
 }
 
 const MovingText: React.FC<PropsWithChildren<{className?: string, children: string}>> = ({children, className}) => {
+    const [delay] = useState(Math.random() * 150)
     return <motion.div
         className={css("flex", "text-2xl", "z-0", "font-bold", "opacity-70", className)}
         animate={{
@@ -46,7 +47,7 @@ const MovingText: React.FC<PropsWithChildren<{className?: string, children: stri
         }}
         transition={{
             x: {duration: 60 * 2, repeat: Infinity, ease: "linear", repeatType: "loop"},
-            delay: Math.random() * 150
+            delay
         }}>
         {children}
     </motion.div>
