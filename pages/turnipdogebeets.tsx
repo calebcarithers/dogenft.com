@@ -3,10 +3,10 @@ import Button from "../components/Button/Button";
 import {css} from "../helpers/css";
 import Image from "next/image"
 import {useEffect, useState} from "react";
-import {BsPause, BsPlayFill} from "react-icons/bs";
+import {BsPlayFill} from "react-icons/bs";
 import {MdPause} from "react-icons/md";
 
-const Turnipdabeatz = () => {
+const Turnipdogebeets = () => {
     const [audio, setAudio] = useState<null | HTMLAudioElement>(null)
     const [isPaused, setIsPaused] = useState(true)
     useEffect(() => {
@@ -41,4 +41,4 @@ const Turnipdabeatz = () => {
     </PageLayout>
 }
 
-export default Turnipdabeatz
+export default Turnipdogebeets

@@ -25,12 +25,14 @@ const Divider = () => {
 }
 
 export const Background = () => {
-    return <div className={css("hidden", "md:block", "absolute", "w-full", "h-full", "left-0", "top-0", "flex", "justify-between", "flex-col")} style={{zIndex: -1}}>
+    return <div className={css("hidden", "md:flex", "absolute", "w-full", "h-full", "left-0", "top-0", "justify-between", "flex-col")} style={{zIndex: -1}}>
+        <MovingText className={css("text-meme-red")}>what r you doing</MovingText>
         <MovingText className={css("text-meme-green")}>wow</MovingText>
         <MovingText className={css("text-meme-yellow")}>so scare</MovingText>
         <MovingText className={css("text-meme-green")}>Concern</MovingText>
         <MovingText className={css("text-meme-red")}>what r you doing</MovingText>
         <MovingText className={css("text-meme-magenta")}>wow</MovingText>
+        <MovingText className={css("text-meme-green")}>Concern</MovingText>
         <MovingText className={css("text-meme-green")}>wow</MovingText>
     </div>
 }
