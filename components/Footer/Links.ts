@@ -4,6 +4,8 @@ export const socialLinks = [
     {title: "Telegram", link: "https://t.me/ownthedoge"},
     {title: "Reddit", link: "https://www.reddit.com/r/ownthedoge/"},
     {title: "Youtube", link: "https://www.youtube.com/channel/UCSKWuhABdkFJ4UpjvlnOrNg"},
+    {title: "Instagram", link: "https://www.instagram.com/ownthedoge/"},
+    {title: "TikTok", link: "https://www.tiktok.com/@ownthedoge"},
     {title: "Coingecko", link: "https://www.coingecko.com/en/coins/the-doge-nft"}
 ]
 
@@ -18,11 +20,16 @@ export const actionLinks = [
     {title: "Fractional", link: "https://fractional.art/vaults/the-doge-nft"}
 ]
 
-export const buyLinks = [
+export const tradeLinks = [
     {title: "Sushiswap", link: "https://app.sushi.com/swap?outputCurrency=0xbaac2b4491727d78d2b78815144570b9f2fe8899"},
     {title: "Uniswap", link: "https://app.uniswap.org/#/swap?chain=mainnet&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899&inputCurrency=ETH"},
-    {title: "Cowswap", link: "https://cowswap.exchange/#/swap?outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899&inputCurrency=ETH&chain=mainnet"}
+    {title: "Cowswap", link: "https://cowswap.exchange/#/swap?outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899&inputCurrency=ETH&chain=mainnet"},
+    {title: "MEXC", link: "https://www.mexc.com/exchange/DOG_USDT?inviteCode=1498J"},
+    {title: "Pancakeswap", link: "https://pancakeswap.finance/swap?inputCurrency=0xaa88c603d142c371ea0eac8756123c5805edee03&outputCurrency=wbnb"},
+    {title: "Quick Swap", link: "https://quickswap.exchange/#/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xeee3371b89fc43ea970e908536fcddd975135d8a"},
+    {title: "Huboi", link: "https://www.huobi.com/en-us/exchange/dog_usdt?invite_code=d8c53"}
 ]
+
 
 export const chains = [
     {
