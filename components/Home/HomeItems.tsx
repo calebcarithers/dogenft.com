@@ -285,7 +285,7 @@ export const Teams: React.FC<PropsWithChildren<{type: TeamTypes}>> = ({type}) =>
     const TeamSocials = {
         [TeamMembers.tridog]: "https://twitter.com/tridoggg",
         [TeamMembers.zona]: "https://twitter.com/cryptosinclair",
-        [TeamMembers.dogeking]: "",
+        [TeamMembers.dogeking]: "https://twitter.com/TheDogeAcademy",
         [TeamMembers.gainor]: "https://twitter.com/gainormather",
         [TeamMembers.paco]: "https://twitter.com/ownthememe",
         [TeamMembers.coldplunge]: "https://twitter.com/xcoldplunge",
@@ -338,8 +338,8 @@ export const Teams: React.FC<PropsWithChildren<{type: TeamTypes}>> = ({type}) =>
             ],
             "Mods": [TeamMembers.magicanz, TeamMembers.calfmoney, TeamMembers.saladpingers, TeamMembers.paco, TeamMembers.zona],
             "Meme Team": [TeamMembers.zona, TeamMembers.ot, TeamMembers.magicanz, TeamMembers.paco, TeamMembers.chocorado],
-            "MCs": [TeamMembers.dogeninja, TeamMembers.julia],
-            "Events": [TeamMembers.dogeninja, TeamMembers.julia, TeamMembers.chocorado, TeamMembers.dogeninja]
+            "MCs": [TeamMembers.dogeninja, TeamMembers.julia, TeamMembers.dogeking],
+            "Events": [TeamMembers.dogeking, TeamMembers.julia, TeamMembers.chocorado, TeamMembers.dogeninja]
         }
     } else {
         throw new Error("Unknown type")
