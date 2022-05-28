@@ -23,7 +23,7 @@ const NavItem: React.FC<PropsWithChildren<NavItemProps>> = ({
   // and will not equal the client generated prop
   return <NoSsr>
     <div
-      className={css("md:hover:cursor-pointer", "md:hover:underline", "hover:no-underline", "inline-block", {"font-bold": isSelected})}
+      className={css("md:hover:cursor-pointer", "md:hover:underline", "hover:no-underline", "inline-block", "whitespace-nowrap", {"font-bold": isSelected})}
       onClick={onClick && onClick}>
         {isSelected ? <ColoredText>{children}</ColoredText> : <span>{children}</span>}
     </div>

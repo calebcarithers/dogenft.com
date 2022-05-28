@@ -51,7 +51,7 @@ const HomeContent = ({projects}: { projects: any }) => {
     }, [])
 
     return <div
-        className={css("md:col-span-8", "xl:col-span-9", "text-xl", "md:text-3xl", "overflow-x-hidden", "text-center", "flex-grow")}
+        className={css("md:col-span-7", "xl:col-span-8", "text-xl", "md:text-3xl", "overflow-x-hidden", "text-center", "flex-grow")}
         ref={containerRef}>
         <div style={{maxHeight: "300px"}}>
             <HomeItems projects={projects} height={fullSize} onIntersection={(id) => {

@@ -25,17 +25,19 @@ const Divider = () => {
 }
 
 export const Background = () => {
-    return <div className={css("hidden", "md:block", "absolute", "w-full", "h-full", "left-0", "top-0", "flex", "justify-between", "flex-col")} style={{zIndex: -1}}>
+    return <div className={css("hidden", "md:flex", "absolute", "w-full", "h-full", "left-0", "top-0", "justify-between", "flex-col")} style={{zIndex: -1}}>
+        <MovingText className={css("text-meme-red")}>very dog</MovingText>
         <MovingText className={css("text-meme-green")}>wow</MovingText>
         <MovingText className={css("text-meme-yellow")}>so scare</MovingText>
-        <MovingText className={css("text-meme-green")}>Concern</MovingText>
+        <MovingText className={css("text-meme-green")}>much rare</MovingText>
         <MovingText className={css("text-meme-red")}>what r you doing</MovingText>
-        <MovingText className={css("text-meme-magenta")}>wow</MovingText>
-        <MovingText className={css("text-meme-green")}>wow</MovingText>
+        <MovingText className={css("text-meme-green")}>many pixel</MovingText>
+        <MovingText className={css("text-meme-green")}>very fractional</MovingText>
     </div>
 }
 
 const MovingText: React.FC<PropsWithChildren<{className?: string, children: string}>> = ({children, className}) => {
+    const [delay] = useState(Math.random() * 150)
     return <motion.div
         className={css("flex", "text-2xl", "z-0", "font-bold", "opacity-70", className)}
         animate={{
@@ -44,7 +46,7 @@ const MovingText: React.FC<PropsWithChildren<{className?: string, children: stri
         }}
         transition={{
             x: {duration: 60 * 2, repeat: Infinity, ease: "linear", repeatType: "loop"},
-            delay: Math.random() * 50
+            delay
         }}>
         {children}
     </motion.div>
