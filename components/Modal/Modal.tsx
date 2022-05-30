@@ -30,7 +30,7 @@ const Modal: React.FC<PropsWithChildren<DialogProps>> = ({
             <RadixDialog.Content
                 style={{transform: "translate(-50%, -50%)"}}
                 className={css("bg-pixels-yellow-100", "rounded-sm", "top-1/2", "left-1/2", "fixed", "w-full", "p-10", "text-black",
-                    "border-2", "border-solid", "border-black", "max-w-3xl", "z-50", {
+                    "border-2", "border-solid", "border-black", "max-w-3xl", "z-50", "max-h-screen", "overflow-y-auto", {
                         "md:w-7/12": size === DialogSize.sm,
                         "md:w-9/12": size === DialogSize.lg
                     })}>
