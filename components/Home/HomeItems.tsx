@@ -114,7 +114,7 @@ export const DogeNFT = () => {
     return <div>
         <div className={css("grid", "grid-cols-3", "gap-6", "max-w-2xl", "m-auto")}>
             <FramedImage imagePath={"/images/sad.png"} description={"Sad"}/>
-            <FramedImage imagePath={"/images/cuddle.png"} description={"Cuddle"}/>
+            <FramedImage imagePath={"/images/cuddle.png"} description={"Cuddly"}/>
             <FramedImage imagePath={"/images/yelling.png"} description={"Yelling"}/>
             <FramedImage imagePath={"/images/curious.png"} description={"Curious"}/>
             <FramedImage imagePath={"/images/angry.png"} description={"Angry"}/>
