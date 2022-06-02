@@ -23,6 +23,7 @@ interface FooterItemProps {
     items: {title: string, link: string}[]
 }
 
+
 const FooterItem = ({title, items}: FooterItemProps) => {
     return <div className={css("text-left")}>
         <div className={css("font-bold", "border-b-2", "border-dashed", "border-pixels-yellow-200", "mb-2", "text-gray-600",
