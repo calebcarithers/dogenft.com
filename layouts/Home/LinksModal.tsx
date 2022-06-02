@@ -31,7 +31,7 @@ const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean)
                 </div>
             </div>
             <div>
-                <div className={css("text-lg", "font-bold")}>Trade</div>
+                <div className={css("text-lg", "font-bold")}>Acquire</div>
                 <div className={css("flex", "flex-col")}>
                     {tradeLinks.map(link => <Link key={link.title} isExternal size={LinkSize.lg} type={LinkType.Grey} href={link.link}>{link.title}</Link>)}
                 </div>

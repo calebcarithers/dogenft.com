@@ -13,7 +13,7 @@ export const Footer = () => {
             <FooterItem title={"Talk"} items={socialLinks}/>
             <FooterItem title={"Read"} items={readLinks}/>
             <FooterItem title={"Do"} items={actionLinks}/>
-            <FooterItem title={"Buy"} items={tradeLinks}/>
+            <FooterItem title={"Acquire"} items={tradeLinks}/>
         </div>
     </footer>
 }
