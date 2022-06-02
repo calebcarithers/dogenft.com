@@ -243,7 +243,7 @@ export const Daoge = () => {
             community fund and guide The Doge NFT ecosystem.
         </div>
         <HelperContent>
-            Checkout our <Link isExternal
+            Check out our <Link isExternal
                                href={"https://pleasr.mirror.xyz/7hpdJOWRzQx2pmCA16MDxN2FiA3eY6dwcrnEtXKnCJw"}>whitepaper</Link>
         </HelperContent>
         {modalType && <Modal title={"✨ " + modalType + " ✨"} size={DialogSize.sm} isOpen={modalType !== null} onChange={() => setModalType(null)}>
