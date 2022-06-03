@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "../node_modules/.bin/next dev -p 3001",
     "build": "NODE_ENV=production next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "../node_modules/.bin/next start",
+    "lint": "../node_modules/.bin/next lint"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^0.1.7",

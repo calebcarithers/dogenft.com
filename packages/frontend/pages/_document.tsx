@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import {css} from "../helpers/css";
+import {css} from "../../helpers/css";
 import React, {useEffect, useState} from "react";
 
 export default function Document() {

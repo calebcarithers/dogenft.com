@@ -1,5 +1,5 @@
 import Airtable from "airtable";
-import {AirtableSubmissionProject} from "../interfaces";
+import {AirtableSubmissionProject} from "../../interfaces";
 
 export enum AirtableProjectStatus {
   Funded = "FUNDED",

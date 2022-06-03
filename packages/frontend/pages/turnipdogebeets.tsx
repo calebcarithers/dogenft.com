@@ -1,6 +1,6 @@
-import PageLayout from "../layouts/Page/Page.layout";
-import Button from "../components/Button/Button";
-import {css} from "../helpers/css";
+import PageLayout from "../../layouts/Page/Page.layout";
+import Button from "../../components/Button/Button";
+import {css} from "../../helpers/css";
 import Image from "next/image"
 import {useEffect, useState} from "react";
 import {BsPlayFill} from "react-icons/bs";
