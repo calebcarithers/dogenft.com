@@ -1,6 +1,8 @@
 import {css} from "../../helpers/css";
 import {PropsWithChildren} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
+import Dropdown from "../Dropdown/Dropdown";
+import Link from "../Link/Link";
 
 
 const buttonStyles = css("p-2", "bg-pixels-yellow-100", "text-black", "font-bold", "disabled:bg-pixels-yellow-300",
@@ -66,38 +68,44 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
 
                             return (
                                 <div style={{display: 'flex', gap: 12}}>
-                                    <Button onClick={openChainModal}>
-                                        <div className={css("flex", "items-center")}>
-                                            {chain.hasIcon && (
-                                                <div
-                                                    style={{
-                                                        background: chain.iconBackground,
-                                                        width: 12,
-                                                        height: 12,
-                                                        borderRadius: 999,
-                                                        overflow: 'hidden',
-                                                        marginRight: 4,
-                                                    }}
-                                                >
-                                                    {chain.iconUrl && (
-                                                        <img
-                                                            alt={chain.name ?? 'Chain icon'}
-                                                            src={chain.iconUrl}
-                                                            style={{width: 12, height: 12}}
-                                                        />
-                                                    )}
-                                                </div>
-                                            )}
-                                            {chain.name}
-                                        </div>
-                                    </Button>
-
-                                    <Button onClick={openAccountModal}>
+                                    <Dropdown trigger={<Button>
                                         {account.displayName}
-                                        {account.displayBalance
-                                            ? ` (${account.displayBalance})`
-                                            : ''}
-                                    </Button>
+                                    </Button>}>
+                                        <Dropdown.Item>
+                                            <div onClick={openAccountModal}>
+                                                <div>My Ethereum Account</div>
+                                            </div>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item>
+                                            <Link href={"/dashboard"}>My Dog World</Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item>
+                                            <div className={css("flex", "items-center")} onClick={openChainModal}>
+                                                {chain.hasIcon && (
+                                                    <div
+                                                        style={{
+                                                            background: chain.iconBackground,
+                                                            width: 12,
+                                                            height: 12,
+                                                            borderRadius: 999,
+                                                            overflow: 'hidden',
+                                                            marginRight: 4,
+                                                        }}
+                                                    >
+                                                        {chain.iconUrl && (
+                                                            <img
+                                                                alt={chain.name ?? 'Chain icon'}
+                                                                src={chain.iconUrl}
+                                                                style={{width: 12, height: 12}}
+                                                            />
+                                                        )}
+                                                    </div>
+                                                )}
+                                                {chain.name}
+                                            </div>
+                                        </Dropdown.Item>
+                                    </Dropdown>
+
                                 </div>
                             );
                         })()}
