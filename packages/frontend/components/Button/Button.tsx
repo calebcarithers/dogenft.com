@@ -3,6 +3,7 @@ import {PropsWithChildren} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
 import Dropdown from "../Dropdown/Dropdown";
 import Link from "../Link/Link";
+import {useDisconnect} from "wagmi";
 
 
 const buttonStyles = css("p-2", "bg-pixels-yellow-100", "text-black", "font-bold", "disabled:bg-pixels-yellow-300",
@@ -28,6 +29,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({onClick, block, child
 }
 
 export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
+    const {disconnect} = useDisconnect()
     return <>
         <RainbowConnectButton.Custom>
             {({
@@ -72,38 +74,48 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
                                         {account.displayName}
                                     </Button>}>
                                         <Dropdown.Item>
+                                            <Link href={`/profile/${account.address}`}>Profile</Link>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item>
                                             <div onClick={openAccountModal}>
-                                                <div>My Ethereum Account</div>
+                                                <div onClick={() => disconnect()}
+                                                     className={css("cursor-pointer")}>Disconnect
+                                                </div>
                                             </div>
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
-                                            <Link href={"/dashboard"}>My Dog World</Link>
-                                        </Dropdown.Item>
-                                        <Dropdown.Item>
-                                            <div className={css("flex", "items-center")} onClick={openChainModal}>
-                                                {chain.hasIcon && (
-                                                    <div
-                                                        style={{
-                                                            background: chain.iconBackground,
-                                                            width: 12,
-                                                            height: 12,
-                                                            borderRadius: 999,
-                                                            overflow: 'hidden',
-                                                            marginRight: 4,
-                                                        }}
-                                                    >
-                                                        {chain.iconUrl && (
-                                                            <img
-                                                                alt={chain.name ?? 'Chain icon'}
-                                                                src={chain.iconUrl}
-                                                                style={{width: 12, height: 12}}
-                                                            />
-                                                        )}
+                                        <div className={css("mt-5")}>
+                                            <Dropdown.Item>
+                                                <div className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-end")}
+                                                     onClick={openChainModal}>
+                                                    <div>
+                                                        network:
                                                     </div>
-                                                )}
-                                                {chain.name}
-                                            </div>
-                                        </Dropdown.Item>
+                                                    <div className={css("flex", "items-center")}>
+                                                        {chain.hasIcon && (
+                                                            <div
+                                                                style={{
+                                                                    background: chain.iconBackground,
+                                                                    width: 12,
+                                                                    height: 12,
+                                                                    borderRadius: 999,
+                                                                    overflow: 'hidden',
+                                                                    marginRight: 4,
+                                                                }}
+                                                            >
+                                                                {chain.iconUrl && (
+                                                                    <img
+                                                                        alt={chain.name ?? 'Chain icon'}
+                                                                        src={chain.iconUrl}
+                                                                        style={{width: 12, height: 12}}
+                                                                    />
+                                                                )}
+                                                            </div>
+                                                        )}
+                                                        {chain.name}
+                                                    </div>
+                                                </div>
+                                            </Dropdown.Item>
+                                        </div>
                                     </Dropdown>
 
                                 </div>
