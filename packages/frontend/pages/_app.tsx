@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         borderRadius: 'small',
         // accentColorForeground: 'black'
       })}>
-        <div className={css("absolute", "right-0", "p-3", "z-20", "bottom-0", "md:top-0")}>
+        <div className={css("absolute", "right-0", "py-3", "px-4", "z-20", "top-0")}>
           <ConnectButton/>
         </div>
         <Component {...pageProps} />

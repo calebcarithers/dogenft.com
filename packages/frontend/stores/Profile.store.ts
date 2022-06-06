@@ -9,6 +9,7 @@ class ProfileStore {
     private dogContractAddress
     private pixelsContractAddress
     private ffdContractAddress
+    private doggosContractAddress
 
     @observable
     dogBalance?: string
@@ -20,6 +21,9 @@ class ProfileStore {
     fastFoodDoges: any[] = []
 
     @observable
+    doggos: any[] = []
+
+    @observable
     provider?: ethers.providers.Provider
 
     constructor(private address: string) {
@@ -28,7 +32,7 @@ class ProfileStore {
         this.dogContractAddress = ethers.utils.getAddress("0xBAac2B4491727D78D2b78815144570b9f2Fe8899")
         this.pixelsContractAddress = ethers.utils.getAddress("0x07887Ee0Bd24E774903963d50cF4Ec6a0a16977D")
         this.ffdContractAddress = ethers.utils.getAddress("0x36a196993805e2E57411250864e2fAaFe33fb945")
-
+        this.doggosContractAddress = ethers.utils.getAddress("0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f")
     }
 
     init() {
@@ -64,30 +68,6 @@ class ProfileStore {
     }
 
     async getNfts() {
-      // const {data} = await apolloClient.query({
-      // query: gql`
-      //     query GetNfts {
-      //         tokens(
-      //             networks: [{network: ETHEREUM, chain: MAINNET}],
-      //             pagination: {limit: 100},
-      //             sort: {sortKey: MINTED, sortDirection: ASC},
-      //             where: {
-      //                 collectionAddresses: [${this.pixelsContractAddress}, ${this.ffdContractAddress}],
-      //                 ownerAddresses:${this.address}
-      //             }) {
-      //             nodes {
-      //                 token {
-      //                     collectionAddress,
-      //                     tokenId,
-      //                     name,
-      //                     image{url},
-      //                     metadata
-      //                 }
-      //             }
-      //         }
-      //     }`
-      // })
-
       const {data} = await apolloClient.query({
         query: gql`query GetPixels($address: [String!], $collectionAddresses: [String!]) {
             tokens(
@@ -111,14 +91,15 @@ class ProfileStore {
         }`,
           variables: {
               address: [this.address],
-              collectionAddresses: [this.pixelsContractAddress, this.ffdContractAddress]
+              collectionAddresses: [this.pixelsContractAddress, this.ffdContractAddress, this.doggosContractAddress]
           }
       })
 
         const nodes = data.tokens.nodes
-        const checkSummedNodes = nodes.map((node: any) => ({...node, token: {...node.token, collectionAddress: ethers.utils.getAddress(node.token.collectionAddress)}}))
-        this.pixels = checkSummedNodes.filter((node: any) => node.token.collectionAddress === this.pixelsContractAddress)
-        this.fastFoodDoges = checkSummedNodes.filter((node: any) => node.token.collectionAddress === this.ffdContractAddress)
+        const checkSummedTokens = nodes.map((node: any) => ({...node.token, collectionAddress: ethers.utils.getAddress(node.token.collectionAddress)}))
+        this.pixels = checkSummedTokens.filter((token: any) => token.collectionAddress === this.pixelsContractAddress)
+        this.fastFoodDoges = checkSummedTokens.filter((token: any) => token.collectionAddress === this.ffdContractAddress)
+        this.doggos = checkSummedTokens.filter((token: any) => token.collectionAddress === this.doggosContractAddress)
     }
 }
 

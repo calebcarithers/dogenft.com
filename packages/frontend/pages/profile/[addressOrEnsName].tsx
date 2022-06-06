@@ -11,6 +11,7 @@ import {ethers} from "ethers";
 import Pane from "../../components/Pane/Pane";
 import ProfileStore from "../../stores/Profile.store";
 import {observer} from "mobx-react-lite";
+import Link from "../../components/Link/Link";
 
 interface ProfileProps {
     address: string;
@@ -22,7 +23,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
     const store = useMemo(() => new ProfileStore(address), [address])
     useEffect(() => {
         store.init()
-    }, [])
+    }, [address])
     return <PageLayout>
         <Head>
             <title>The Doge NFT | Profile</title>
@@ -37,18 +38,26 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                 <div className={css("flex", "flex-col", "items-center")}>
                     <div className={css("font-bold")}>{abbreviate(address)}</div>
                     {ens && <div className={css("text-lg")}>{ens}</div>}
+                    <div className={css("flex", "flex-col", "items-center", "mt-4")}>
+                        <div>{store.dogBalance ? store.dogBalance : "---"}</div>
+                        <div className={css("text-base")}>$DOG</div>
+                    </div>
                 </div>
             </div>
-            <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "xl:grid-cols-3", "mt-14", "gap-10")}>
-                <Pane title={"$DOG"}>
-                    <div className={css("text-4xl")}>
-                        {store.dogBalance}
-                    </div>
-                </Pane>
-                <Pane title={"Pixels"}>
-                    <div>
-                        {jsonify(store.pixels)}
-                    </div>
+            <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "mt-14", "gap-10")}>
+                <Pane title={`Pixels (${store.pixels.length})`}>
+                    {store.pixels.map(token => {
+                        const x = token.metadata.attributes.filter((attr: any) => attr.trait_type === "X Coordinate")[0].value
+                        const y = token.metadata.attributes.filter((attr: any) => attr.trait_type === "Y Coordinate")[0].value
+                        return <div key={`pixels-${token.tokenId}`}
+                                    className={css("flex", "space-x-4")}>
+                            <div>{token.tokenId}</div>
+                            <div>{token.metadata.name}</div>
+                            <img height={25} width={25} src={token.metadata.image}/>
+                            <Link isExternal href={token.metadata.external_url}>check it</Link>
+                            <div>{x}, {y}</div>
+                        </div>
+                    })}
                 </Pane>
                 <Pane title={"Fast Food Doges"}>
                     <div>
