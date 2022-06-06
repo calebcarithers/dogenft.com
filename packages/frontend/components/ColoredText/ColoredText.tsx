@@ -1,6 +1,6 @@
 import React, {PropsWithChildren} from "react";
 import {objectKeys} from "../../helpers/arrays";
-const tailwindconfig = require("../../packages/tailwind.config")
+import tailwindconfig from "../../tailwind.config"
 
 const dogeColors = tailwindconfig.theme.extend.colors.doge
 const dogeColorNames = objectKeys(dogeColors)

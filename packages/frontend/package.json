@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "../node_modules/.bin/next dev -p 3001",
+    "dev": "next dev -p 3001",
     "build": "NODE_ENV=production next build",
-    "start": "../node_modules/.bin/next start",
-    "lint": "../node_modules/.bin/next lint"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^0.1.7",
-    "@rainbow-me/rainbowkit": "^0.1.1",
+    "@rainbow-me/rainbowkit": "^0.2.0",
     "airtable": "^0.11.3",
     "autoprefixer": "^10.4.4",
     "classnames": "^2.3.1",
@@ -22,7 +22,7 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-icons": "^4.3.1",
-    "wagmi": "^0.4.1"
+    "wagmi": "^0.4.2"
   },
   "devDependencies": {
     "@types/node": "17.0.24",

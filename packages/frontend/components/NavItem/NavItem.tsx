@@ -3,7 +3,7 @@ import {css} from "../../helpers/css";
 import {objectKeys} from "../../helpers/arrays";
 import NoSsr from "../../environment/NoSsr";
 import ColoredText from "../ColoredText/ColoredText";
-const tailwindconfig = require("../../packages/tailwind.config")
+import tailwindconfig from "../../tailwind.config"
 
 const dogeColors = tailwindconfig.theme.extend.colors.doge
 const dogeColorNames = objectKeys(dogeColors)
