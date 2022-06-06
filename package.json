@@ -1,0 +1,8 @@
+{
+  "name": "dogenft.com",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:calebcarithers/dogenft.com.git",
+  "author": "Caleb Carithers <calebcarithers@me.com>",
+  "license": "MIT"
+}
