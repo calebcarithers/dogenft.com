@@ -2,7 +2,7 @@ import {css} from "../../helpers/css";
 import {PropsWithChildren} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
 import Dropdown from "../Dropdown/Dropdown";
-import Link from "../Link/Link";
+import Link, {LinkSize} from "../Link/Link";
 import {useDisconnect} from "wagmi";
 
 
@@ -14,16 +14,29 @@ interface ButtonProps {
     onClick?: () => void;
     block?: boolean;
     disabled?: boolean
+    rounded?: boolean
 }
 
-const Button: React.FC<PropsWithChildren<ButtonProps>> = ({onClick, block, children, disabled = false}) => {
+const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
+                                                              onClick,
+                                                              block,
+                                                              children,
+                                                              disabled = false,
+                                                              rounded = false
+                                                          }) => {
     return <div className={css("relative", "inline-block", "z-10", "h-fit", {"w-full": block})}>
         <button disabled={disabled} onClick={onClick && onClick}
-                className={css(buttonStyles, "active:translate-x-1", "active:translate-y-1", "border-2", "border-black", "border-solid", {"w-full": block})}>
+                className={css(buttonStyles, "active:translate-x-1", "active:translate-y-1", "border-2", "border-black", "border-solid", "hover:bg-yellow-400", {
+                    "w-full": block,
+                    "rounded-full": rounded
+                })}>
             {children}
         </button>
         <div aria-disabled={disabled}
-             className={css("absolute", "bg-black", "w-full", "h-full", {"bg-pixels-yellow-400": disabled})}
+             className={css("absolute", "bg-black", "w-full", "h-full", {
+                 "bg-pixels-yellow-400": disabled,
+                 "rounded-full": rounded
+             })}
              style={{top: "6px", left: "6px", zIndex: -1}}/>
     </div>
 }
@@ -70,23 +83,22 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
 
                             return (
                                 <div style={{display: 'flex', gap: 12}}>
-                                    <Dropdown trigger={<Button>
+                                    <Dropdown trigger={<Button rounded>
                                         {account.displayName}
                                     </Button>}>
                                         <Dropdown.Item>
-                                            <Link href={`/profile/${account.address}`}>Profile</Link>
+                                            <Link href={`/profile/${account.address}`} size={LinkSize.lg}>Profile</Link>
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
-                                            <div onClick={openAccountModal}>
-                                                <div onClick={() => disconnect()}
-                                                     className={css("cursor-pointer")}>Disconnect
-                                                </div>
-                                            </div>
-                                        </Dropdown.Item>
-                                        <div className={css("mt-5")}>
+                                        <div className={css("mt-5", "text-base")}>
                                             <Dropdown.Item>
-                                                <div className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-end")}
-                                                     onClick={openChainModal}>
+                                                <div onClick={() => disconnect()} className={css("cursor-pointer", "text-right")}>
+                                                    Disconnect
+                                                </div>
+                                            </Dropdown.Item>
+                                            <Dropdown.Item>
+                                                <div
+                                                    className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-between")}
+                                                    onClick={openChainModal}>
                                                     <div>
                                                         network:
                                                     </div>

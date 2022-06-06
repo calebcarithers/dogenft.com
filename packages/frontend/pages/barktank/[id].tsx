@@ -1,5 +1,5 @@
 import {GetServerSideProps} from "next";
-import airtable from "../../services/Airtable";
+import airtable from "../../services/airtable";
 import Head from "next/head"
 import {BsArrowLeft} from "react-icons/bs";
 import React from "react";

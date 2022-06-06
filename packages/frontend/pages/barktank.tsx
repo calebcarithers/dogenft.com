@@ -1,4 +1,4 @@
-import airtable from "../services/Airtable";
+import airtable from "../services/airtable";
 import {GetServerSideProps} from "next";
 import React from "react";
 import Head from "next/head";

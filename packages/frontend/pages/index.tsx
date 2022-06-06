@@ -1,7 +1,7 @@
 import type {GetServerSideProps, NextPage} from 'next'
 import Head from 'next/head'
 import React, {useCallback, useState} from "react";
-import airtable from "../services/Airtable";
+import airtable from "../services/airtable";
 import {useRouter} from "next/router";
 import {AirtableSubmissionProject} from "../interfaces";
 import HomeLayout from "../layouts/Home/Home.layout";

@@ -1,4 +1,4 @@
-import {AirtableProjectStatus} from "../services/Airtable";
+import {AirtableProjectStatus} from "../services/airtable";
 
 export interface AirtableSubmissionProject {
   projectName: any;

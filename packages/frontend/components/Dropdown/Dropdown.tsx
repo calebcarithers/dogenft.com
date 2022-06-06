@@ -12,10 +12,9 @@ const Dropdown = ({trigger, children}: DropdownProps) => {
         <RadixDropdown.Trigger asChild>
             <div>{trigger}</div>
         </RadixDropdown.Trigger>
-
         <RadixDropdown.Content
-            style={{minWidth: "200px"}}
-            className={css("bg-pixels-yellow-100", "w-full", "mt-3", "px-2", "py-1", "text-black", "border-2", "border-black")}
+            style={{minWidth: "200px", boxShadow: "0px 0px 10px rgba(0,0,0,0.1)"}}
+            className={css("bg-pixels-yellow-100", "w-full", "mt-3", "px-2", "py-1", "text-black", "border-2", "border-black", "rounded-lg")}
         >
             {children}
         </RadixDropdown.Content>
