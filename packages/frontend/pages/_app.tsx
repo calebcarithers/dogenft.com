@@ -9,11 +9,11 @@ import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 function MyApp({ Component, pageProps }: AppProps) {
   return <>
     <Background/>
-    {/*<WagmiConfig client={wagmiClient}>*/}
-    {/*  <RainbowKitProvider chains={chains}>*/}
+    <WagmiConfig client={wagmiClient}>
+      <RainbowKitProvider chains={chains}>
         <Component {...pageProps} />
-      {/*</RainbowKitProvider>*/}
-    {/*</WagmiConfig>*/}
+      </RainbowKitProvider>
+    </WagmiConfig>
   </>
 }
 

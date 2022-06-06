@@ -73,3 +73,8 @@ body {
 ::-webkit-scrollbar-corner {
   background-color: #d2cbbb;
 }
+
+[data-rk] {
+  flex-grow: 1;
+  display: grid;
+}

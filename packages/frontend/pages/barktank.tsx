@@ -1,18 +1,16 @@
 import airtable from "../services/Airtable";
-import {AirtableSubmissionProject} from "../../interfaces";
 import {GetServerSideProps} from "next";
 import React from "react";
-import {jsonify} from "../../helpers/strings";
-import {css} from "../../helpers/css";
-import Link, {LinkSize} from "../../components/Link/Link";
 import Head from "next/head";
-import NavItem from "../../components/NavItem/NavItem";
-import BarkTankItem from "../../components/BarkTankItem/BarkTankItem";
-import Button from "../../components/Button/Button";
 import {BsArrowLeft} from "react-icons/bs";
-import PageLayout from "../../layouts/Page/Page.layout";
 import {useRouter} from "next/router";
-import ColoredText from "../../components/ColoredText/ColoredText";
+import {AirtableSubmissionProject} from "../interfaces";
+import PageLayout from "../layouts/Page/Page.layout";
+import {css} from "../helpers/css";
+import Button from "../components/Button/Button";
+import ColoredText from "../components/ColoredText/ColoredText";
+import BarkTankItem from "../components/BarkTankItem/BarkTankItem";
+import {jsonify} from "../helpers/strings";
 
 interface BarktankProps {
   projects: AirtableSubmissionProject[]
