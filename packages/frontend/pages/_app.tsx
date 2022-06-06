@@ -1,16 +1,20 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Background} from "../layouts/Home/Home.layout";
 import { WagmiConfig } from 'wagmi';
 import {chains, wagmiClient} from "../services/wagmi";
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import {lightTheme, RainbowKitProvider} from '@rainbow-me/rainbowkit';
+import '@rainbow-me/rainbowkit/styles.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <>
     <Background/>
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider chains={chains} theme={lightTheme({
+        borderRadius: 'small',
+        // accentColorForeground: 'black'
+      })}>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
