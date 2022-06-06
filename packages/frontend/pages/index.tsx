@@ -15,6 +15,9 @@ interface HomeProps {
     projects: AirtableSubmissionProject[]
 }
 
+export const HomeContext = React.createContext<{ projects: AirtableSubmissionProject[] }>({projects: []})
+export const useHomeContext = () => React.useContext(HomeContext)
+
 const Home: NextPage<HomeProps> = ({projects}) => {
     return (
         <>
@@ -24,13 +27,15 @@ const Home: NextPage<HomeProps> = ({projects}) => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <HomeLayout>
-                <HomeContent projects={projects}/>
+                <HomeContext.Provider value={{projects: projects}}>
+                    <HomeContent/>
+                </HomeContext.Provider>
             </HomeLayout>
         </>
     )
 }
 
-const HomeContent = ({projects}: { projects: any }) => {
+const HomeContent = () => {
     const [_, setNavSelection] = useNavContext()
     const [fullSize, setFullSize] = useState(0)
     const router = useRouter()
@@ -54,7 +59,7 @@ const HomeContent = ({projects}: { projects: any }) => {
         className={css("md:col-span-7", "xl:col-span-8", "text-xl", "md:text-3xl", "overflow-x-hidden", "text-center", "flex-grow")}
         ref={containerRef}>
         <div style={{maxHeight: "300px"}}>
-            <HomeItems projects={projects} height={fullSize} onIntersection={(id) => {
+            <HomeItems height={fullSize} onIntersection={(id) => {
                 setNavSelection(id)
                 window.history.replaceState({
                     ...window.history.state,

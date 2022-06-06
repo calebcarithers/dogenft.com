@@ -1,11 +1,10 @@
 import {css} from "../../helpers/css";
 import NavItem from "../../components/NavItem/NavItem";
-import Button from "../../components/Button/Button";
+import Button, {ConnectButton} from "../../components/Button/Button";
 import {vars} from "../../environment/vars";
 import React, {useContext, useState} from "react";
 import LinksModal from "./LinksModal";
 import {navItems} from "../../components/Home/HomeItems";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const NavContext = React.createContext<any>("doge")
 export const NavProvider = NavContext.Provider
@@ -41,7 +40,6 @@ const Nav = () => {
                     window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
                 }}>twitter</Button>
                 <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
-                <ConnectButton/>
             </div>
         </div>
         <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>

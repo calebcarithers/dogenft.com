@@ -6,6 +6,8 @@ import { WagmiConfig } from 'wagmi';
 import {chains, wagmiClient} from "../services/wagmi";
 import {lightTheme, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
+import {ConnectButton} from "../components/Button/Button";
+import {css} from "../helpers/css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <>
@@ -15,6 +17,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         borderRadius: 'small',
         // accentColorForeground: 'black'
       })}>
+        <div className={css("absolute", "right-0", "p-3", "z-20", "bottom-0", "md:top-0")}>
+          <ConnectButton/>
+        </div>
         <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>

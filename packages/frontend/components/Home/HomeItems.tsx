@@ -13,6 +13,7 @@ import {emojisplosion} from "emojisplosion";
 import cumulativeOffset from "../../helpers/cumulativeOffset";
 import Modal, {DialogSize} from "../Modal/Modal";
 import {objectKeys} from "../../helpers/arrays";
+import {useHomeContext} from "../../pages";
 
 export const Doge = () => {
     const ref = useRef<HTMLDivElement | null>(null)
@@ -367,8 +368,9 @@ export const Teams: React.FC<PropsWithChildren<{type: TeamTypes}>> = ({type}) =>
     </div>
 }
 
-export const BarkTank = ({projects}: { projects: AirtableSubmissionProject[] }) => {
+export const BarkTank = () => {
     const router = useRouter()
+    const {projects} = useHomeContext()
     return <div>
         <div className={css("bg-pixels-yellow-100")}>
             Bark Tank acts an an incubator for the expansion of The Doge NFT ecosystem. Submit your ideas here. Great
@@ -398,7 +400,6 @@ export const BarkTank = ({projects}: { projects: AirtableSubmissionProject[] }) 
 
 
 interface HomeItemsProps {
-    projects: AirtableSubmissionProject[];
     height: number;
     onIntersection?: (id: string) => void
 }
@@ -411,15 +412,13 @@ export const navItems = [
     {title: 'DAOge', id: "daoge", content: Daoge},
     {title: 'Bark Tank', id: "barktank", content: BarkTank}
 ]
-const HomeItems = ({height, onIntersection, projects}: HomeItemsProps) => {
+const HomeItems = ({height, onIntersection}: HomeItemsProps) => {
     return <>
         {navItems.map((item) => {
             const Content = item.content
             return <HomeFeature key={`home-item-${item.id}`} id={item.id} height={height}
                                 onIntersection={onIntersection}>
-                {/* TODO: change this, very bad */}
-                {/*//@ts-ignore*/}
-                <Content projects={projects}/>
+                <Content/>
             </HomeFeature>
         })}
     </>
