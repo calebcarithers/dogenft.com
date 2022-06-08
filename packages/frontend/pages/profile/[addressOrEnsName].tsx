@@ -61,7 +61,20 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                 </Pane>
                 <Pane title={"Fast Food Doges"}>
                     <div>
-                        {jsonify(store.fastFoodDoges)}
+                        {store.fastFoodDoges.map(token => {
+
+                            return <div key={`FFD-${token.tokenId}`} className={css("flex", "flex-col", "space-y-4")}>
+                                <div className={css("flex", "space-x-4")}>
+                                    <div>{token.tokenId}</div>
+                                    <div>{token.metadata.name}</div>
+                                    <div>{token.metadata.isBaby ? "baby" : "adult"}</div>
+                                </div>
+                                <div>{jsonify(token.metadata.attributes)}</div>
+                                <div>
+                                    <img src={token.metadata.image} width={100}/>
+                                </div>
+                            </div>
+                        })}
                     </div>
                 </Pane>
             </div>
@@ -84,6 +97,7 @@ export const getServerSideProps: GetServerSideProps<ProfileProps> = async (conte
                 throw new Error("No address found")
             }
             validatedAddress = queriedAddress
+            ens = addressOrEnsName
         } catch (e) {
             throw new Error("Could not find address")
         }
