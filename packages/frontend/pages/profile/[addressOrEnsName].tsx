@@ -12,6 +12,7 @@ import Pane from "../../components/Pane/Pane";
 import ProfileStore from "../../stores/Profile.store";
 import {observer} from "mobx-react-lite";
 import Link from "../../components/Link/Link";
+import Pixel from "../../components/Pixel/Pixel";
 
 interface ProfileProps {
     address: string;
@@ -44,34 +45,36 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                     </div>
                 </div>
             </div>
-            <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "mt-14", "gap-10")}>
+            <div className={css("grid", "grid-cols-1", "lg:grid-cols-3", "mt-14", "gap-10")}>
                 <Pane title={`Pixels (${store.pixels.length})`}>
-                    {store.pixels.map(token => {
-                        const x = token.metadata.attributes.filter((attr: any) => attr.trait_type === "X Coordinate")[0].value
-                        const y = token.metadata.attributes.filter((attr: any) => attr.trait_type === "Y Coordinate")[0].value
-                        return <div key={`pixels-${token.tokenId}`}
-                                    className={css("flex", "space-x-4")}>
-                            <div>{token.tokenId}</div>
-                            <div>{token.metadata.name}</div>
-                            <img height={25} width={25} src={token.metadata.image}/>
-                            <Link isExternal href={token.metadata.external_url}>check it</Link>
-                            <div>{x}, {y}</div>
-                        </div>
-                    })}
+                    <div className={css("flex", "flex-wrap", "gap-5", "justify-center")}>
+                        {store.pixels.map(token => {
+                            const x = token.metadata.attributes.filter((attr: any) => attr.trait_type === "X Coordinate")[0].value
+                            const y = token.metadata.attributes.filter((attr: any) => attr.trait_type === "Y Coordinate")[0].value
+                            const color = token.metadata.attributes.filter((attr: any) => attr.trait_type === "Hex")[0].value
+                            return <div key={`pixels-${token.tokenId}`} className={css("flex", "space-x-4")}>
+                                <Pixel id={token.tokenId} x={x} y={y} color={color}/>
+                            </div>
+                        })}
+                    </div>
                 </Pane>
-                <Pane title={"Fast Food Doges"}>
+                <Pane title={`Fast Food Doges (${store.fastFoodDoges.length})`}>
                     <div>
                         {store.fastFoodDoges.map(token => {
-
-                            return <div key={`FFD-${token.tokenId}`} className={css("flex", "flex-col", "space-y-4")}>
-                                <div className={css("flex", "space-x-4")}>
-                                    <div>{token.tokenId}</div>
-                                    <div>{token.metadata.name}</div>
-                                    <div>{token.metadata.isBaby ? "baby" : "adult"}</div>
-                                </div>
-                                <div>{jsonify(token.metadata.attributes)}</div>
+                            const maxWidth = 250
+                            return <div key={`FFD-${token.tokenId}`} className={css("flex", "flex-col", "space-y-4")} style={{maxWidth}}>
                                 <div>
-                                    <img src={token.metadata.image} width={100}/>
+                                    <img className={css("border-black", "border-2")} src={token.metadata.image} style={{maxWidth}}/>
+                                    <div className={css("flex", "justify-between")}>
+                                        <div>#{token.tokenId}</div>
+                                        <div>{token.metadata.isBaby ? "baby" : "adult"}</div>
+                                    </div>
+                                    <div>
+                                        {token.metadata.attributes.map((attr: any) => <div className={css("grid", "grid-cols-2")}>
+                                            <div>{attr.trait_type}</div>
+                                            <div>{attr.value}</div>
+                                        </div>)}
+                                    </div>
                                 </div>
                             </div>
                         })}

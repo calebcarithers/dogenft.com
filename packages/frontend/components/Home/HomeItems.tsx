@@ -4,7 +4,6 @@ import HomeFeature from "./HomeFeature";
 import Link from "../Link/Link";
 import HelperContent from "../HelperContent/HelperContent";
 import styles from "./HomeItems.module.css"
-import {AirtableSubmissionProject} from "../../interfaces";
 import BarkTankItem from "../BarkTankItem/BarkTankItem";
 import Button from "../Button/Button";
 import {useRouter} from "next/router";
@@ -14,6 +13,7 @@ import cumulativeOffset from "../../helpers/cumulativeOffset";
 import Modal, {DialogSize} from "../Modal/Modal";
 import {objectKeys} from "../../helpers/arrays";
 import {useHomeContext} from "../../pages";
+import Pixel, {PixelSize} from "../Pixel/Pixel";
 
 export const Doge = () => {
     const ref = useRef<HTMLDivElement | null>(null)
@@ -173,26 +173,7 @@ export const Dog = () => {
 
 export const Pixels = () => {
     return <div>
-        <div className={css("inline-block", "relative", "z-10")}>
-            <div
-                onClick={() => {
-                    window.open("https://pixels.thedao.ge/px/1078409", "_blank")
-                }}
-                className={css("cursor-pointer", "active:translate-x-1", "active:translate-y-1", "relative")}>
-                <div style={{height: "230px", width: "230px", borderWidth: "1px", background: "#2e2e2c"}}
-                     className={css("border-black")}/>
-                <div style={{
-                    width: "230px",
-                    borderLeft: "1px",
-                    borderRight: "1px",
-                    borderBottom: "1px",
-                    borderStyle: "solid"
-                }}
-                     className={css("text-left", "pl-2", "font-PressStart", "text-base", "py-1", "bg-pixels-yellow-100")}># 78409
-                </div>
-            </div>
-            <div className={css("absolute", "bg-black", "w-full", "h-full")} style={{top: 5, right: -5, zIndex: -1}}/>
-        </div>
+        <Pixel color={"#2e2e2c"} id={1078409} x={329} y={122} size={PixelSize.lg}/>
         <div>
             <div className={css("text-base", "mt-4", "bg-pixels-yellow-100", "inline-block")}>(an actual pixel of The Doge NFT)</div>
         </div>

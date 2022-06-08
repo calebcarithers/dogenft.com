@@ -40,6 +40,9 @@ module.exports = {
       },
       backgroundImage: {
         doge: "url('/images/doge_tiled.jpeg')"
+      },
+      fontSize: {
+        'xxs': '.6rem',
       }
     },
   },
