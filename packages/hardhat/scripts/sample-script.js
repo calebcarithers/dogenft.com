@@ -48,3 +48,16 @@ const testMetadata = {
   "image": "https://bitlectrolabs.mypinata.cloud/ipfs/QmW5nygeqSnLUknevnNscb5A5JZTAVYLtWUoMqS4jxtVrx/images/cylinder_book_bg43.gif",
   "name": "Dreamloop #1334"
 }
+
+
+const snoopMetadata = {
+  "name": "Death Row Session: Vol. 2 (420 Edition) #582",
+  "artist_name": "Snoop Dogg",
+  "description": "Happy 420 mothafuccas. I made a mix for my favorite holiday and I’m only sharing it with y’all.\n\nThis time around, we wanted to show off some of the dope artists in the web3 world and make sure their voice gets heard on my platform. These cats pave the way 4 people like myself in this new wave. Big shout to MoRuf, Iman Europe, Black Dave, n Heno. \n\nI won’t spoil the surprise too much but I think you’ll like this 1. Ya’ll ever heard of Dr. Bombay? Thats my bored ape. We do it right over here chuuuuch.\n\nLet me know what you think. I’ll be here waiting.",
+  "external_url": "https://www.sound.xyz/snoopdogg/death-row-session-vol-2-420-edition",
+  "image": "https://soundxyz.mypinata.cloud/ipfs/QmbNjBeXUfEcU5aQjfuzJAgr8zUQ45sGcRHzGxkAidk4Ee",
+  "audio_url": "https://soundxyz.mypinata.cloud/ipfs/QmaxWH6QakSw1HEzswHXpNwj5aSbk4riRibzfd3h8bNcfP",
+  "animation_url": "https://soundxyz.mypinata.cloud/ipfs/QmaxWH6QakSw1HEzswHXpNwj5aSbk4riRibzfd3h8bNcfP",
+  "comment_wall_url": "https://soundxyz.mypinata.cloud/ipfs/QmWykGTcCeCFs7qqMa6aWBeQQR1mFaE2tCc7kwWCscWJvJ",
+  "attributes": [{"trait_type": "Death Row Session: Vol. 2 (420 Edition)", "value": "Song Edition"}]
+}
