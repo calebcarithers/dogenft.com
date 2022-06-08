@@ -2,7 +2,7 @@ import {css} from "../../helpers/css";
 import {PropsWithChildren} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
 import Dropdown from "../Dropdown/Dropdown";
-import Link, {LinkSize} from "../Link/Link";
+import Link, {LinkSize, LinkType} from "../Link/Link";
 import {useDisconnect} from "wagmi";
 
 
@@ -87,42 +87,24 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
                                         {account.displayName}
                                     </Button>}>
                                         <Dropdown.Item>
-                                            <Link href={`/profile/${account.address}`} size={LinkSize.lg}>Profile</Link>
+                                            <Link bold href={`/profile/${account.address}`} size={LinkSize.xl} type={LinkType.Black}>
+                                                Profile
+                                            </Link>
                                         </Dropdown.Item>
                                         <div className={css("mt-5", "text-base")}>
                                             <Dropdown.Item>
-                                                <div onClick={() => disconnect()} className={css("cursor-pointer", "text-right")}>
+                                                <div onClick={() => disconnect()} className={css("cursor-pointer", "text-right", "text-pixels-yellow-500", "font-bold")}>
                                                     Disconnect
                                                 </div>
                                             </Dropdown.Item>
                                             <Dropdown.Item>
                                                 <div
-                                                    className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-between")}
+                                                    className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-between", "text-pixels-yellow-500", "font-bold")}
                                                     onClick={openChainModal}>
                                                     <div>
                                                         network:
                                                     </div>
                                                     <div className={css("flex", "items-center")}>
-                                                        {chain.hasIcon && (
-                                                            <div
-                                                                style={{
-                                                                    background: chain.iconBackground,
-                                                                    width: 12,
-                                                                    height: 12,
-                                                                    borderRadius: 999,
-                                                                    overflow: 'hidden',
-                                                                    marginRight: 4,
-                                                                }}
-                                                            >
-                                                                {chain.iconUrl && (
-                                                                    <img
-                                                                        alt={chain.name ?? 'Chain icon'}
-                                                                        src={chain.iconUrl}
-                                                                        style={{width: 12, height: 12}}
-                                                                    />
-                                                                )}
-                                                            </div>
-                                                        )}
                                                         {chain.name}
                                                     </div>
                                                 </div>

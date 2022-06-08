@@ -27,7 +27,7 @@ const Link: React.FC<LinkProps> = ({isExternal, href, children, type = LinkType.
       {showExternalIcon && <GoLinkExternal size={15} className={css("ml-2")}/>}
     </a>
     : <NextLink href={href}>
-        <a className={css(styles, "inline-block")}>
+        <a className={css(styles, "inline-block", {"font-bold": bold})}>
           {children && children}
         </a>
       </NextLink>}
@@ -37,13 +37,15 @@ const Link: React.FC<LinkProps> = ({isExternal, href, children, type = LinkType.
 export enum LinkType {
   Primary = "primary",
   Secondary = "secondary",
-  Grey = "grey"
+  Grey = "grey",
+  Black = "black"
 }
 
 export enum LinkSize {
   xs= "xs",
   sm = "sm",
-  lg = "lg"
+  lg = "lg",
+  xl = "xl"
 }
 
 const baseLinkStyles = css("hover:underline", "hover:cursor-pointer")
@@ -51,13 +53,15 @@ const baseLinkStyles = css("hover:underline", "hover:cursor-pointer")
 const linkTypeStyles = {
   [LinkType.Primary]: css("text-cyan-400", "underline", "hover:text-cyan-500", baseLinkStyles),
   [LinkType.Secondary]: css("text-pixels-yellow-400", "font-bold", baseLinkStyles),
-  [LinkType.Grey]: css("text-gray-600", "hover:text-cyan-400", baseLinkStyles)
+  [LinkType.Grey]: css("text-gray-600", "hover:text-cyan-400", baseLinkStyles),
+  [LinkType.Black]: css("text-black", "hover:text-yellow-400")
 }
 
 const linkSizeStyles = {
   [LinkSize.xs]: css("text-sm"),
   [LinkSize.sm]: css("text-md"),
-  [LinkSize.lg]: css("text-lg")
+  [LinkSize.lg]: css("text-lg"),
+  [LinkSize.xl]: css("text-2xl")
 }
 
 
