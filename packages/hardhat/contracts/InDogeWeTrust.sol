@@ -1,19 +1,41 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721BurnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
-contract InDogeWeTrust is ERC721, ERC721URIStorage, Pausable, Ownable, ERC721Burnable {
-    using Counters for Counters.Counter;
+// TODO: remove this
+import "hardhat/console.sol";
 
-    Counters.Counter private _tokenIdCounter;
+contract InDogeWeTrust is Initializable, ERC721Upgradeable, ERC721URIStorageUpgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable {
+    using CountersUpgradeable for CountersUpgradeable.Counter;
 
-    constructor() ERC721("InDogeWeTrust", "IDWT") {}
+    CountersUpgradeable.Counter private _tokenIdCounter;
+
+    string private _baseTokenURI;
+
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() {
+        _disableInitializers();
+    }
+
+    function initialize() initializer public {
+        __ERC721_init("InDogeWeTrust", "IDWT");
+        __ERC721URIStorage_init();
+        __Pausable_init();
+        __Ownable_init();
+        __ERC721Burnable_init();
+        console.log("CALLING INIT");
+    }
+
+    function setTokenURI(string memory tokenURIII) public onlyOwner {
+        _baseTokenURI = tokenURIII;
+    }
 
     function pause() public onlyOwner {
         _pause();
@@ -23,11 +45,11 @@ contract InDogeWeTrust is ERC721, ERC721URIStorage, Pausable, Ownable, ERC721Bur
         _unpause();
     }
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(address to) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
+        _setTokenURI(tokenId, _baseTokenURI);
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)
@@ -40,14 +62,17 @@ contract InDogeWeTrust is ERC721, ERC721URIStorage, Pausable, Ownable, ERC721Bur
 
     // The following functions are overrides required by Solidity.
 
-    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+    function _burn(uint256 tokenId)
+    internal
+    override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
+    {
         super._burn(tokenId);
     }
 
     function tokenURI(uint256 tokenId)
     public
     view
-    override(ERC721, ERC721URIStorage)
+    override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
     returns (string memory)
     {
         return super.tokenURI(tokenId);
