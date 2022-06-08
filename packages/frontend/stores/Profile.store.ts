@@ -1,4 +1,4 @@
-import {makeObservable, observable} from "mobx";
+import {computed, makeObservable, observable} from "mobx";
 import {ethers} from "ethers";
 import apolloClient from "../services/apollo";
 import {gql} from "@apollo/client";
@@ -96,10 +96,30 @@ class ProfileStore {
       })
 
         const nodes = data.tokens.nodes
-        const checkSummedTokens = nodes.map((node: any) => ({...node.token, collectionAddress: ethers.utils.getAddress(node.token.collectionAddress)}))
+        const checkSummedTokens = nodes.map((node: any) => ({
+            ...node.token,
+            collectionAddress: ethers.utils.getAddress(node.token.collectionAddress)
+        }))
         this.pixels = checkSummedTokens.filter((token: any) => token.collectionAddress === this.pixelsContractAddress)
         this.fastFoodDoges = checkSummedTokens.filter((token: any) => token.collectionAddress === this.ffdContractAddress)
+        // this.fastFoodDoges = [{...this.fastFoodDoges[0]}, {...this.fastFoodDoges[0]}, {...this.fastFoodDoges[0]}]
+
         this.doggos = checkSummedTokens.filter((token: any) => token.collectionAddress === this.doggosContractAddress)
+    }
+
+    @computed
+    get hasPixels() {
+        return this.pixels.length > 0
+    }
+
+    @computed
+    get hasFfds() {
+        return this.fastFoodDoges.length > 0
+    }
+
+    @computed
+    get hasDoggos() {
+        return this.doggos.length > 0
     }
 }
 
