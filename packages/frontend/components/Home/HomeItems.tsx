@@ -202,7 +202,7 @@ const DaogeMember: React.FC<PropsWithChildren<{ imagePath: string, name: TeamTyp
     return <div>
         <div onClick={() => onClick(name)} className={css( "relative", "md:hover:right-2", "md:hover:bottom-2", "cursor-pointer", "active:translate-x-2", "active:translate-y-2", "z-10")}>
             <Image alt={name} src={imagePath} layout={"responsive"} width={400} height={400}
-                   className={css("border-2", "border-dashed", "border-gray-300", "z-10")}/>
+                   className={css("z-10")}/>
             <div className={css("rounded-full", "w-full", "h-full", "bg-black", "absolute", "top-0", "left-0", "md:hover:left-2", "md:hover:top-2", "relative")} style={{zIndex: -1}}/>
         </div>
         <div className={css("text-lg", "font-bold", "mt-2", "bg-pixels-yellow-100")}>{name}</div>

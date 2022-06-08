@@ -1,4 +1,5 @@
 module.exports = {
+  important: true,
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -34,7 +35,8 @@ module.exports = {
             100: "#FFF8E4",
             200: "#ede6d4",
             300: "#d2cbbb",
-            400: "#9c9688"
+            400: "#9c9688",
+            500: "#7e776d"
           }
         }
       },

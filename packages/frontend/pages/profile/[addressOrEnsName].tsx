@@ -13,6 +13,7 @@ import ProfileStore from "../../stores/Profile.store";
 import {observer} from "mobx-react-lite";
 import Link, {LinkType} from "../../components/Link/Link";
 import Pixel from "../../components/Pixel/Pixel";
+import ColoredText from "../../components/ColoredText/ColoredText";
 
 interface ProfileProps {
     address: string;
@@ -36,14 +37,21 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                     <BsArrowLeft size={15}/>
                 </Button>
             </div>
-            <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto", "flex", "justify-center")}>
+            <div className={css("mt-4", "text-3xl", "max-w-3xl", "m-auto", "flex", "justify-center")}>
                 <div className={css("flex", "flex-col", "items-center")}>
-                    <div className={css("font-bold")}>{abbreviate(address)}</div>
-                    {ens && <div className={css("text-lg")}>{ens}</div>}
+                    <div className={css("relative")}>
+                        <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>
+                        <ColoredText bold>
+                            {abbreviate(address)}
+                        </ColoredText>
+                        <div className={css("absolute", "text-2xl")} style={{top: "50%", right: -35, transform: "translateY(-50%)"}}>✨</div>
+                    </div>
+
+                    {ens && <div className={css("text-xl", "font-bold", "text-pixels-yellow-500")}>{ens}</div>}
                     <div
                         className={css("flex", "flex-col", "items-center", "pt-3", "mt-3", "border-t-2", "border-dashed", "border-pixels-yellow-200")}>
-                        <div>{store.dogBalance ? store.dogBalance : "---"}</div>
-                        <div className={css("text-lg")}>$DOG</div>
+                        <div className={css("text-2xl")}>{store.dogBalance ? store.dogBalance : "---"}</div>
+                        <div className={css("text-xl")}>$DOG</div>
                     </div>
                 </div>
             </div>
@@ -110,7 +118,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
 
 const MaxHeightThing: React.FC<PropsWithChildren<{}>> = ({children}) => {
     return <div className={css("overflow-y-scroll", "flex", "flex-col", "flex-grow")}>
-        <div className={css("flex-grow", "flex", "justify-center")} style={{maxHeight: "500px"}}>
+        <div className={css("flex-grow", "flex", "justify-center", "overflow-x-hidden")} style={{maxHeight: "500px"}}>
             {children}
         </div>
     </div>
