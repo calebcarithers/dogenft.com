@@ -102,8 +102,6 @@ class ProfileStore {
         }))
         this.pixels = checkSummedTokens.filter((token: any) => token.collectionAddress === this.pixelsContractAddress)
         this.fastFoodDoges = checkSummedTokens.filter((token: any) => token.collectionAddress === this.ffdContractAddress)
-        // this.fastFoodDoges = [{...this.fastFoodDoges[0]}, {...this.fastFoodDoges[0]}, {...this.fastFoodDoges[0]}]
-
         this.doggos = checkSummedTokens.filter((token: any) => token.collectionAddress === this.doggosContractAddress)
     }
 

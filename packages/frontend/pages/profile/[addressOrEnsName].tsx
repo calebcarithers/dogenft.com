@@ -14,6 +14,7 @@ import {observer} from "mobx-react-lite";
 import Link, {LinkType} from "../../components/Link/Link";
 import Pixel from "../../components/Pixel/Pixel";
 import ColoredText from "../../components/ColoredText/ColoredText";
+import {json} from "stream/consumers";
 
 interface ProfileProps {
     address: string;
@@ -60,9 +61,10 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                     <MaxHeightThing>
                         {store.hasPixels && <div className={css("flex", "flex-wrap", "gap-5", "justify-center")}>
                             {store.pixels.map(token => {
-                                const x = token.metadata.attributes.filter((attr: any) => attr.trait_type === "X Coordinate")[0].value
-                                const y = token.metadata.attributes.filter((attr: any) => attr.trait_type === "Y Coordinate")[0].value
-                                const color = token.metadata.attributes.filter((attr: any) => attr.trait_type === "Hex")[0].value
+                                console.log("debug:: asdfjalsdf", jsonify(token))
+                                const x = token.metadata?.attributes.filter((attr: any) => attr.trait_type === "X Coordinate")[0].value
+                                const y = token.metadata?.attributes.filter((attr: any) => attr.trait_type === "Y Coordinate")[0].value
+                                const color = token.metadata?.attributes.filter((attr: any) => attr.trait_type === "Hex")[0].value
                                 return <div key={`pixels-${token.tokenId}`} className={css("flex", "space-x-4")}>
                                     <Pixel id={token.tokenId} x={x} y={y} color={color}/>
                                 </div>
@@ -95,8 +97,13 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                 </Pane>
                 <Pane title={<Title title={"Doggos"} count={store.doggos.length}/>}>
                     <MaxHeightThing>
-                        {store.hasDoggos && <div>
-                            {store.doggos.map(doggo => jsonify(doggo))}
+                        {store.hasDoggos && <div className={css("w-full")}>
+                            {store.doggos.map(doggo => <div className={css("break-words", "overflow-auto")}>
+                                <div style={{maxWidth: "300px"}}>
+                                    <img src={doggo.metadata.image}/>
+                                    <div>{doggo.metadata.name}</div>
+                                </div>
+                            </div>)}
                         </div>}
                         {!store.hasDoggos && <NoneFound>
                           <div>
@@ -152,8 +159,8 @@ const FastFoodDoges: React.FC<any> = ({token}) => {
                     className={css("text-black", "px-1", "border-2", "border-dashed", "border-pixels-yellow-200", "rounded", "font-bold", {
                         "bg-yellow-400": !isBaby,
                         "text-yellow-800": !isBaby,
-                        "bg-blue-400": isBaby,
-                        "text-blue-800": isBaby
+                        "bg-pleasr-lightPurple": isBaby,
+                        "text-meme-magenta": isBaby
                     })}>
                     {token.metadata.isBaby ? "baby" : "adult"}
                 </div>
