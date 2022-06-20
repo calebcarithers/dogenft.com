@@ -4,7 +4,7 @@ const {BigNumber} = require("ethers");
 
 describe("In Doge We Trust", function () {
   let IDWT;
-  const tokenURI = "https://fucker.com"
+  const tokenURI = "https://fucker.com/"
   const mintToken = async (signer) => {
     const contract = await IDWT.connect(signer)
     const tx = await contract.safeMint(signer.address)
@@ -22,8 +22,8 @@ describe("In Doge We Trust", function () {
     IDWT = await upgrades.deployProxy(doge, []);
     await IDWT.deployed();
     console.log("IDWT deployed to:", IDWT.address);
-    await IDWT.setTokenURI(tokenURI)
-    console.log("IDWT tokenURI set to:", tokenURI)
+    console.log("setting base tokenURI to:", tokenURI)
+    await IDWT.setBaseURI(tokenURI)
   })
 
   it("mint a single token", async function () {

@@ -2,19 +2,19 @@
   "manifestVersion": "3.2",
   "admin": {
     "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    "txHash": "0x04efa00f3b8f82e59e4fc8cbf0a74646f21c11ea5910f6f683db07b5b3ed4e7a"
+    "txHash": "0xde8d5f27fe20c59bcb0870ee411005d5677a2fad1196f6b8cafc88b60b236e67"
   },
   "proxies": [
     {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "txHash": "0x77571184a4624396244bd033f497c9841929ec2f8bbd07d351c1e9f751fd6873",
+      "txHash": "0xacb358659bdbe4686c23ab93fe0f7a5caee0f4533378059a23ae9329740ef2ed",
       "kind": "transparent"
     }
   ],
   "impls": {
-    "011ef56c21be2b7693a3194575cf8783a6003ce8c4bfe9ee2437d133f939b0e6": {
+    "b608fa0c2900b8257ce55527f73bd3805096af60aa04e1f9829cbb1c67f871d4": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0xedf43a28db92a55693da24cbdb451ef5897b4735e679f566471bb157d634b3bd",
+      "txHash": "0xf50acb420cf6e5e2115415902526eb2f9748df5a66e11b1a6fd48008d0981ffa",
       "layout": {
         "storage": [
           {
@@ -107,25 +107,9 @@
             "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:458"
           },
           {
-            "label": "_tokenURIs",
-            "offset": 0,
-            "slot": "151",
-            "type": "t_mapping(t_uint256,t_string_storage)",
-            "contract": "ERC721URIStorageUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol:21"
-          },
-          {
-            "label": "__gap",
-            "offset": 0,
-            "slot": "152",
-            "type": "t_array(t_uint256)49_storage",
-            "contract": "ERC721URIStorageUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol:79"
-          },
-          {
             "label": "_paused",
             "offset": 0,
-            "slot": "201",
+            "slot": "151",
             "type": "t_bool",
             "contract": "PausableUpgradeable",
             "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:29"
@@ -133,7 +117,7 @@
           {
             "label": "__gap",
             "offset": 0,
-            "slot": "202",
+            "slot": "152",
             "type": "t_array(t_uint256)49_storage",
             "contract": "PausableUpgradeable",
             "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:102"
@@ -141,7 +125,7 @@
           {
             "label": "_owner",
             "offset": 0,
-            "slot": "251",
+            "slot": "201",
             "type": "t_address",
             "contract": "OwnableUpgradeable",
             "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
@@ -149,7 +133,7 @@
           {
             "label": "__gap",
             "offset": 0,
-            "slot": "252",
+            "slot": "202",
             "type": "t_array(t_uint256)49_storage",
             "contract": "OwnableUpgradeable",
             "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:87"
@@ -157,7 +141,7 @@
           {
             "label": "__gap",
             "offset": 0,
-            "slot": "301",
+            "slot": "251",
             "type": "t_array(t_uint256)50_storage",
             "contract": "ERC721BurnableUpgradeable",
             "src": "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721BurnableUpgradeable.sol:38"
@@ -165,18 +149,18 @@
           {
             "label": "_tokenIdCounter",
             "offset": 0,
-            "slot": "351",
-            "type": "t_struct(Counter)1917_storage",
+            "slot": "301",
+            "type": "t_struct(Counter)1769_storage",
             "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:18"
+            "src": "contracts/InDogeWeTrust.sol:22"
           },
           {
             "label": "_baseTokenURI",
             "offset": 0,
-            "slot": "352",
+            "slot": "302",
             "type": "t_string_storage",
             "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:20"
+            "src": "contracts/InDogeWeTrust.sol:24"
           }
         ],
         "types": {
@@ -216,15 +200,11 @@
             "label": "mapping(uint256 => address)",
             "numberOfBytes": "32"
           },
-          "t_mapping(t_uint256,t_string_storage)": {
-            "label": "mapping(uint256 => string)",
-            "numberOfBytes": "32"
-          },
           "t_string_storage": {
             "label": "string",
             "numberOfBytes": "32"
           },
-          "t_struct(Counter)1917_storage": {
+          "t_struct(Counter)1769_storage": {
             "label": "struct CountersUpgradeable.Counter",
             "members": [
               {
