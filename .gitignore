@@ -2,4 +2,5 @@ calebtools/
 .DS_Store
 node_modules
 .next
-.env
+packages/frontend/.env
+.idea
