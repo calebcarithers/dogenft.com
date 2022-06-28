@@ -5,10 +5,12 @@ import React from "react";
 interface DropdownProps {
     trigger: JSX.Element;
     children: JSX.Element | JSX.Element[];
+    open?: boolean;
+    onOpenChange?: (value: boolean) => void;
 }
 
-const Dropdown = ({trigger, children}: DropdownProps) => {
-    return <RadixDropdown.Root>
+const Dropdown = ({trigger, children, open, onOpenChange}: DropdownProps) => {
+    return <RadixDropdown.Root open={open} onOpenChange={onOpenChange}>
         <RadixDropdown.Trigger asChild>
             <div>{trigger}</div>
         </RadixDropdown.Trigger>
@@ -22,11 +24,12 @@ const Dropdown = ({trigger, children}: DropdownProps) => {
 }
 
 interface ItemProps {
-    children: JSX.Element
+    children: JSX.Element;
+    className?: string
 }
 
-const Item = ({children}: ItemProps) => {
-    return <RadixDropdown.Item>
+const Item = ({children, className}: ItemProps) => {
+    return <RadixDropdown.Item className={css(className, "outline-0")} style={{boxShadow: "none"}}>
         {children}
     </RadixDropdown.Item>
 }

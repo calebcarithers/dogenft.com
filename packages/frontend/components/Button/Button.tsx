@@ -1,9 +1,11 @@
 import {css} from "../../helpers/css";
-import {PropsWithChildren} from "react";
+import {PropsWithChildren, useEffect} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
 import Dropdown from "../Dropdown/Dropdown";
 import Link, {LinkSize, LinkType} from "../Link/Link";
 import {useDisconnect} from "wagmi";
+import React from "react"
+import {useRouter} from "next/router";
 
 
 const buttonStyles = css("p-2", "bg-pixels-yellow-100", "text-black", "font-bold", "disabled:bg-pixels-yellow-300",
@@ -42,7 +44,14 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
 }
 
 export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
+    const router = useRouter()
     const {disconnect} = useDisconnect()
+    const [isDropDownOpen, setIsDropDownOpen] = React.useState(false)
+    useEffect(() => {
+      if (isDropDownOpen) {
+          setIsDropDownOpen(false)
+      }
+    }, [router.pathname])
     return <>
         <RainbowConnectButton.Custom>
             {({
@@ -83,23 +92,23 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
 
                             return (
                                 <div style={{display: 'flex', gap: 12}}>
-                                    <Dropdown trigger={<Button rounded>
+                                    <Dropdown open={isDropDownOpen} onOpenChange={setIsDropDownOpen} trigger={<Button rounded>
                                         {account.displayName}
                                     </Button>}>
                                         <Dropdown.Item>
-                                            <Link bold href={`/profile/${account.address}`} size={LinkSize.xl} type={LinkType.Black}>
+                                            <Link bold block href={`/profile/${account.address}`} size={LinkSize.xl} type={LinkType.Black}>
                                                 Profile
                                             </Link>
                                         </Dropdown.Item>
                                         <div className={css("mt-5", "text-base")}>
                                             <Dropdown.Item>
-                                                <div onClick={() => disconnect()} className={css("cursor-pointer", "text-right", "text-pixels-yellow-500", "font-bold")}>
+                                                <div onClick={() => disconnect()} className={css("cursor-pointer", "text-right", "text-pixels-yellow-500", "font-bold", "hover:text-yellow-400")}>
                                                     Disconnect
                                                 </div>
                                             </Dropdown.Item>
                                             <Dropdown.Item>
                                                 <div
-                                                    className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-between", "text-pixels-yellow-500", "font-bold")}
+                                                    className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-between", "text-pixels-yellow-500", "font-bold", "hover:text-yellow-400")}
                                                     onClick={openChainModal}>
                                                     <div>
                                                         network:

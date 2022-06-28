@@ -30,7 +30,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
     }, [address])
     return <PageLayout>
         <Head>
-            <title>The Doge NFT | Profile</title>
+            <title>The Doge NFT | {ens ? ens : abbreviate(address)}</title>
         </Head>
         <div>
             <div className={css("mb-8")}>
@@ -43,16 +43,16 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                     <div className={css("relative")}>
                         <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>
                         <ColoredText bold>
-                            {abbreviate(address)}
+                            {ens ? ens : abbreviate(address)}
                         </ColoredText>
                         <div className={css("absolute", "text-2xl")} style={{top: "50%", right: -35, transform: "translateY(-50%)"}}>✨</div>
                     </div>
 
-                    {ens && <div className={css("text-xl", "font-bold", "text-pixels-yellow-500")}>{ens}</div>}
+                    {ens && <div className={css("text-xl", "text-pixels-yellow-500")}>{abbreviate(address)}</div>}
                     <div
                         className={css("flex", "flex-col", "items-center", "pt-3", "mt-3", "border-t-2", "border-dashed", "border-pixels-yellow-200")}>
-                        <div className={css("text-2xl")}>{store.dogBalance ? store.dogBalance : "---"}</div>
-                        <div className={css("text-xl")}>$DOG</div>
+                        <div className={css("text-2xl", "font-bold", "text-pixels-yellow-500")}>{store.dogBalance ? store.dogBalance : "---"}</div>
+                        <div className={css("text-xl", "text-pixels-yellow-500")}>$DOG</div>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,6 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                     <MaxHeightThing>
                         {store.hasPixels && <div className={css("flex", "flex-wrap", "gap-5", "justify-center")}>
                             {store.pixels.map(token => {
-                                console.log("debug:: asdfjalsdf", jsonify(token))
                                 const x = token.metadata?.attributes.filter((attr: any) => attr.trait_type === "X Coordinate")[0].value
                                 const y = token.metadata?.attributes.filter((attr: any) => attr.trait_type === "Y Coordinate")[0].value
                                 const color = token.metadata?.attributes.filter((attr: any) => attr.trait_type === "Hex")[0].value
@@ -125,7 +124,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
 
 const MaxHeightThing: React.FC<PropsWithChildren<{}>> = ({children}) => {
     return <div className={css("overflow-y-scroll", "flex", "flex-col", "flex-grow")}>
-        <div className={css("flex-grow", "flex", "justify-center", "overflow-x-hidden")} style={{maxHeight: "500px"}}>
+        <div className={css("flex-grow", "flex", "justify-center", "overflow-x-hidden", "py-6")} style={{maxHeight: "500px"}}>
             {children}
         </div>
     </div>

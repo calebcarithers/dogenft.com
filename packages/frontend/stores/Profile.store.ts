@@ -2,7 +2,6 @@ import {computed, makeObservable, observable} from "mobx";
 import {ethers} from "ethers";
 import apolloClient from "../services/apollo";
 import {gql} from "@apollo/client";
-import {jsonify} from "../helpers/strings";
 
 class ProfileStore {
 
@@ -26,6 +25,9 @@ class ProfileStore {
     @observable
     provider?: ethers.providers.Provider
 
+    @observable
+    isLoading = true
+
     constructor(private address: string) {
         makeObservable(this)
         this.provider = ethers.getDefaultProvider("mainnet")
@@ -35,9 +37,14 @@ class ProfileStore {
         this.doggosContractAddress = ethers.utils.getAddress("0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f")
     }
 
-    init() {
-        this.getDogBalance()
-        this.getNfts()
+    async init() {
+        try {
+            await Promise.all([this.getDogBalance(), this.getNfts()])
+        } catch (e) {
+            console.log("could not get profile data`")
+        } finally {
+            this.isLoading = false
+        }
     }
 
     async getDogBalance() {
@@ -64,7 +71,7 @@ class ProfileStore {
 
         const dogContract = new ethers.Contract(this.dogContractAddress, testAbi, this.provider)
         const balance = await dogContract.balanceOf(this.address)
-        this.dogBalance = ethers.utils.formatEther(balance)
+        this.dogBalance = ethers.utils.formatEther(balance.sub(balance.mod(1e14)))
     }
 
     async getNfts() {
