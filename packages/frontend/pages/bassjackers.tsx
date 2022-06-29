@@ -5,7 +5,7 @@ import {MdPause} from "react-icons/md";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
 import Button, {ConnectButton} from "../components/Button/Button";
-import {useContract, useSigner} from "wagmi";
+import {useContract, useNetwork, useSigner} from "wagmi";
 import inDogeWeTrustAbi from "../services/abis/inDogeWeTrust.abi";
 import {vars} from "../environment/vars";
 import {getERC721TokensByOwnerAddress} from "../services/zora";
@@ -62,6 +62,9 @@ const Bassjackers = () => {
             }
         }
     }, [])
+
+    const so = useNetwork()
+    console.log("debug:: data", so)
 
     // TODO: once deployed to mainnet update this to show the correct token info
     // useEffect(() => {
@@ -145,6 +148,7 @@ const Bassjackers = () => {
                                               })
                                           }).catch((e: any) => {
                                               console.error("debug:: error", e)
+                                              setIsMintLoading(false)
                                           }).finally(() => {
 
                                           })
