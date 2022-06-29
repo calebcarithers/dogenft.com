@@ -35,18 +35,20 @@ const Nav = () => {
             </div>
         </div>
         <div className={css("flex", "items-center")}>
-            <div className={css("hidden", "md:flex", "md:flex-col", "items-start", "space-y-4", "py-5")}>
-                <Button onClick={() => {
-                    window.open(vars.NEXT_PUBLIC_DISCORD_LINK, '_blank')
-                }}>discord</Button>
-                <Button onClick={() => {
-                    window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
-                }}>twitter</Button>
-                <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
+            <div>
+                <div className={css("hidden", "md:flex", "md:flex-col", "items-start", "space-y-4", "py-5")}>
+                    <Button onClick={() => {
+                        window.open(vars.NEXT_PUBLIC_DISCORD_LINK, '_blank')
+                    }}>discord</Button>
+                    <Button onClick={() => {
+                        window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
+                    }}>twitter</Button>
+                    <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
+                </div>
+                {isDev() && <Link href={"/bassjackers"}>
+                  <Button>NFT Radio</Button>
+                </Link>}
             </div>
-            {isDev() && <Link href={"/bassjackers"}>
-                <Button>Mint BassJackers NFT</Button>
-            </Link>}
         </div>
         <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>
     </div>

@@ -2,6 +2,7 @@ import {computed, makeObservable, observable} from "mobx";
 import {ethers} from "ethers";
 import apolloClient from "../services/apollo";
 import {gql} from "@apollo/client";
+import {getERC721TokensByOwnerAddress} from "../services/zora";
 
 class ProfileStore {
 
@@ -76,38 +77,11 @@ class ProfileStore {
     }
 
     async getNfts() {
-      const {data} = await apolloClient.query({
-        query: gql`query GetPixels($address: [String!], $collectionAddresses: [String!]) {
-            tokens(
-                networks: [{network: ETHEREUM, chain: MAINNET}],
-                pagination: {limit: 100},
-                sort: {sortKey: MINTED, sortDirection: ASC},
-                where: {
-                    ownerAddresses: $address,
-                    collectionAddresses: $collectionAddresses,
-                }) {
-                nodes {
-                    token {
-                        collectionAddress,
-                        tokenId,
-                        name,
-                        image{url},
-                        metadata
-                    }
-                }
-            }
-        }`,
-          variables: {
-              address: [this.address],
-              collectionAddresses: [this.pixelsContractAddress, this.ffdContractAddress, this.doggosContractAddress]
-          }
-      })
+        const checkSummedTokens = await getERC721TokensByOwnerAddress(
+            this.address,
+            [this.pixelsContractAddress, this.ffdContractAddress, this.doggosContractAddress]
+        )
 
-        const nodes = data.tokens.nodes
-        const checkSummedTokens = nodes.map((node: any) => ({
-            ...node.token,
-            collectionAddress: ethers.utils.getAddress(node.token.collectionAddress)
-        }))
         this.pixels = checkSummedTokens.filter((token: any) => token.collectionAddress === this.pixelsContractAddress)
         this.fastFoodDoges = checkSummedTokens.filter((token: any) => token.collectionAddress === this.ffdContractAddress)
         this.doggos = checkSummedTokens.filter((token: any) => token.collectionAddress === this.doggosContractAddress)

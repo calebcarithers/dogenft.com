@@ -1,5 +1,6 @@
 require("@nomiclabs/hardhat-waffle");
 require("@openzeppelin/hardhat-upgrades");
+require("@nomiclabs/hardhat-etherscan");
 require('dotenv').config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -26,5 +27,8 @@ module.exports = {
       url: `https://rinkeby.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
       accounts: [process.env.RINKEBY_PRIV_KEY]
     }
+  },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API_KEY
   }
 };

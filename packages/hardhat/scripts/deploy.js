@@ -18,7 +18,7 @@ async function main() {
 
   console.log("deploying IDWT")
   const doge = await hre.ethers.getContractFactory("InDogeWeTrust");
-  const IDWT = await hre.upgrades.deployProxy(doge, []);
+  const IDWT = await hre.upgrades.deployProxy(doge, [5]);
   await IDWT.deployed();
   console.log("IDWT deployed to:", IDWT.address);
   console.log("setting base tokenURI to:", tokenURI)
