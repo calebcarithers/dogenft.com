@@ -15,7 +15,6 @@ import "hardhat/console.sol";
 
 
 
-
 contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
@@ -63,5 +62,12 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
     override
     {
         super._beforeTokenTransfer(from, to, tokenId);
+    }
+
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+
+        string memory baseURI = _baseURI();
+        return baseURI;
     }
 }

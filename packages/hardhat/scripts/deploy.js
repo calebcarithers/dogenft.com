@@ -14,12 +14,16 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const tokenURI = "ipfs://bafkreialqmooagbx5i3pao4wtr35t5v7dxwhma44znfuea5o4xf6uibcbm"
 
-  await greeter.deployed();
-
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("deploying IDWT")
+  const doge = await hre.ethers.getContractFactory("InDogeWeTrust");
+  const IDWT = await hre.upgrades.deployProxy(doge, []);
+  await IDWT.deployed();
+  console.log("IDWT deployed to:", IDWT.address);
+  console.log("setting base tokenURI to:", tokenURI)
+  await IDWT.setBaseURI(tokenURI)
+  console.log("In Doge We Trust deployed to:", IDWT.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

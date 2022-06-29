@@ -5,6 +5,8 @@ import {vars} from "../../environment/vars";
 import React, {useContext, useState} from "react";
 import LinksModal from "./LinksModal";
 import {navItems} from "../../components/Home/HomeItems";
+import {useRouter} from "next/router";
+import Link from "../../components/Link/Link";
 
 const NavContext = React.createContext<any>("doge")
 export const NavProvider = NavContext.Provider
@@ -13,6 +15,7 @@ export const useNavContext = () => useContext(NavContext)
 const Nav = () => {
     const [selection] = useNavContext()
     const [isDocsModalVisible, setIsDocsModalVisible] = useState(false)
+    const router = useRouter()
     return <div className={css("flex", "flex-col", "justify-between", "md:col-span-4", "xl:col-span-3", "sticky")}>
         <div className={css("flex", "items-center", "justify-center", "grow", "border-b-2", "md:border-b-0", "border-pixels-yellow-200", "border-dashed")}>
             <div className={css("text-3xl", "flex", "md:flex-col", "md:space-y-10", "px-10", "pt-3")}>
@@ -41,6 +44,9 @@ const Nav = () => {
                 }}>twitter</Button>
                 <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
             </div>
+            <Link href={"/bassjackers"}>
+                <Button>Mint BassJackers NFT</Button>
+            </Link>
         </div>
         <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>
     </div>

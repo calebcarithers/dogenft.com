@@ -4,7 +4,8 @@ const {BigNumber} = require("ethers");
 
 describe("In Doge We Trust", function () {
   let IDWT;
-  const tokenURI = "https://fucker.com/"
+  const tokenURI = "ipfs://bafkreialqmooagbx5i3pao4wtr35t5v7dxwhma44znfuea5o4xf6uibcbm"
+
   const mintToken = async (signer) => {
     const contract = await IDWT.connect(signer)
     const tx = await contract.safeMint(signer.address)
