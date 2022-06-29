@@ -175,7 +175,7 @@ export const Pixels = () => {
         <div className={css("inline-block", "relative", "z-10")}>
             <div
                 onClick={() => {
-                    window.open("https://pixels.thedao.ge/px/1078409", "_blank")
+                    window.open("https://pixels.ownthedoge.com/px/1078409", "_blank")
                 }}
                 className={css("cursor-pointer", "active:translate-x-1", "active:translate-y-1", "relative")}>
                 <div style={{height: "230px", width: "230px", borderWidth: "1px", background: "#2e2e2c"}}
