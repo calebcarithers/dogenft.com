@@ -4,7 +4,7 @@ import {BsDot, BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill} from "react-ic
 import {MdPause} from "react-icons/md";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button from "../components/Button/Button";
+import Button, {ConnectButton} from "../components/Button/Button";
 import {useContract, useSigner} from "wagmi";
 import inDogeWeTrustAbi from "../services/abis/inDogeWeTrust.abi";
 import {vars} from "../environment/vars";
@@ -63,13 +63,14 @@ const Bassjackers = () => {
         }
     }, [])
 
-    useEffect(() => {
-        signer?.getAddress().then(address => {
-            getERC721TokensByOwnerAddress(address, [vars.NEXT_PUBLIC_IDWT_CONTRACT_ADDRESS]).then(res => {
-                console.log("debug::: found tokens::", res)
-            })
-        })
-    }, [signer])
+    // TODO: once deployed to mainnet update this to show the correct token info
+    // useEffect(() => {
+    //     signer?.getAddress().then(address => {
+    //         getERC721TokensByOwnerAddress(address, [vars.NEXT_PUBLIC_IDWT_CONTRACT_ADDRESS]).then(res => {
+    //             console.log("debug::: found tokens::", res)
+    //         })
+    //     })
+    // }, [signer])
 
     return <PageLayout>
         <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4")}>
@@ -107,9 +108,9 @@ const Bassjackers = () => {
                             </div>
                             <div className={css("flex", "items-center", "justify-between", "mt-5", "md:mt-0")}>
                                 <div className={css("flex", "items-center", "space-x-5")}>
-                                    <Button disabled>
-                                        <BsSkipBackwardFill/>
-                                    </Button>
+                                    {/*<Button disabled>*/}
+                                    {/*    <BsSkipBackwardFill/>*/}
+                                    {/*</Button>*/}
                                     <Button onClick={() => {
                                         if (videoRef.current) {
                                             const video = videoRef.current
@@ -125,9 +126,9 @@ const Bassjackers = () => {
                                         {isPaused && <BsPlayFill/>}
                                         {!isPaused && <MdPause/>}
                                     </Button>
-                                    <Button disabled>
-                                        <BsSkipForwardFill/>
-                                    </Button>
+                                    {/*<Button>*/}
+                                    {/*    <BsSkipForwardFill/>*/}
+                                    {/*</Button>*/}
                                 </div>
                                 {canMint && signer &&
                                   <Button isLoading={isMintLoading} onClick={() => {
@@ -152,6 +153,7 @@ const Bassjackers = () => {
                                   }>Mint</Button>}
                                 {!canMint &&
                                   <div className={css("text-pixels-yellow-400", "font-bold")}>already minted</div>}
+                                {/*{!signer && <ConnectButton/>}*/}
                                 {!signer && <div className={css("text-pixels-yellow-400", "font-bold")}>connect wallet to mint</div>}
                             </div>
 

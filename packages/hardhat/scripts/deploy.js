@@ -14,7 +14,7 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const tokenURI = "ipfs://bafkreialqmooagbx5i3pao4wtr35t5v7dxwhma44znfuea5o4xf6uibcbm"
+  const tokenURI = "ipfs://bafkreic5jyppkizcemnjwbusu3xtd6ftpfnxdlxjjtgebihokfh34ciyou"
 
   console.log("deploying IDWT")
   const doge = await hre.ethers.getContractFactory("InDogeWeTrust");
