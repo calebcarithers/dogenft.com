@@ -3,10 +3,12 @@ import {getDefaultWallets} from "@rainbow-me/rainbowkit";
 import {publicProvider} from "wagmi/providers/public";
 import {infuraProvider} from "wagmi/providers/infura";
 import {vars} from "../environment/vars";
+import {isProduction} from "../environment";
 
+const defaultChains = isProduction() ? [chain.mainnet] : [chain.rinkeby]
 
 const { chains, provider } = configureChains(
-    [chain.mainnet, chain.rinkeby],
+    defaultChains,
     [
         infuraProvider({ infuraId: vars.NEXT_PUBLIC_INFURA_ID }),
         publicProvider()

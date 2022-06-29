@@ -30,6 +30,7 @@ class ProfileStore {
 
     constructor(private address: string) {
         makeObservable(this)
+        // no matter the build env - we'll check mainnet $DOG balances & query mainnet addresses for NFT projects
         this.provider = ethers.getDefaultProvider("mainnet")
         this.dogContractAddress = ethers.utils.getAddress("0xBAac2B4491727D78D2b78815144570b9f2Fe8899")
         this.pixelsContractAddress = ethers.utils.getAddress("0x07887Ee0Bd24E774903963d50cF4Ec6a0a16977D")

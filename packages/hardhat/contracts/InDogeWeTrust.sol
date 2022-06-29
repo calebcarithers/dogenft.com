@@ -50,7 +50,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
         _unpause();
     }
 
-    function safeMint(address to) public onlyOwner {
+    function safeMint(address to) public {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);

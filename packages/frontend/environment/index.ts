@@ -1,9 +1,10 @@
 import development from "./development";
 import production from "./production";
+import {vars} from "./vars";
 
-const isDev = () => process.env.NODE_ENV === "development"
-const isProduction = () => process.env.NODE_ENV === "production"
-
+export const isDev = () => process.env.NODE_ENV === "development"
+export const isStaging = () => process.env.NODE_ENV === "production" && vars.NEXT_PUBLIC_APP_ENV === "staging"
+export const isProduction = () => process.env.NODE_ENV === "production" && vars.NEXT_PUBLIC_APP_ENV === "production"
 interface Environment {
   api: {
     baseURL: string;
@@ -19,7 +20,7 @@ if (isDev()) {
   throw Error("Could not find correct environment")
 }
 
+export default env
 
-export {isDev, env as default}
 
 

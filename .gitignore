@@ -4,3 +4,4 @@ node_modules
 .next
 packages/frontend/.env
 .idea
+.env

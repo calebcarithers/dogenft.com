@@ -9,7 +9,7 @@ export const Footer = () => {
         <div className={css("flex")}>
             <Image alt={"pleasr logo"} src={"/images/pleasrlogo.svg"} height={51} width={127.5}/>
         </div>
-        <div className={css("grid", "grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-2", "xl:grid-cols-4", "gap-x-10", "gap-y-8", "sm:gap-y-0")}>
+        <div className={css("grid", "grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-2", "xl:grid-cols-4", "gap-x-10", "gap-y-8", "xl:gap-y-0")}>
             <FooterItem title={"Talk"} items={socialLinks}/>
             <FooterItem title={"Read"} items={readLinks}/>
             <FooterItem title={"Do"} items={actionLinks}/>
