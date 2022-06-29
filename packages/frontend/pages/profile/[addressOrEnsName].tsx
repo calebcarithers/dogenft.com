@@ -15,6 +15,7 @@ import Link, {LinkType} from "../../components/Link/Link";
 import Pixel from "../../components/Pixel/Pixel";
 import ColoredText from "../../components/ColoredText/ColoredText";
 import {json} from "stream/consumers";
+import {formatWithThousandsSeparators} from "../../helpers/numbers";
 
 interface ProfileProps {
     address: string;
@@ -51,7 +52,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                     {ens && <div className={css("text-xl", "text-pixels-yellow-500")}>{abbreviate(address)}</div>}
                     <div
                         className={css("flex", "flex-col", "items-center", "pt-3", "mt-3", "border-t-2", "border-dashed", "border-pixels-yellow-200")}>
-                        <div className={css("text-2xl", "font-bold", "text-pixels-yellow-500")}>{store.dogBalance ? store.dogBalance : "---"}</div>
+                        <div className={css("text-2xl", "font-bold", "text-pixels-yellow-500")}>{store.dogBalance ? formatWithThousandsSeparators(store.dogBalance) : "---"}</div>
                         <div className={css("text-xl", "text-pixels-yellow-500")}>$DOG</div>
                     </div>
                 </div>
