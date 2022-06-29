@@ -28,7 +28,7 @@ const Bassjackers = () => {
     const getCanMint = useCallback(() => {
         const address = signer?.getAddress()
         if (address && contract) {
-            contract.canClaim(address).then((res: any) => setCanMint(res))
+            contract.canClaim(address).then((res: any) => setCanMint(res)).catch((e: any) => console.error(e))
         } else {
             setCanMint(true)
         }
@@ -63,8 +63,7 @@ const Bassjackers = () => {
         }
     }, [])
 
-    const so = useNetwork()
-    console.log("debug:: data", so)
+    const {activeChain} = useNetwork()
 
     // TODO: once deployed to mainnet update this to show the correct token info
     // useEffect(() => {
@@ -134,7 +133,7 @@ const Bassjackers = () => {
                                     {/*</Button>*/}
                                 </div>
                                 {canMint && signer &&
-                                  <Button isLoading={isMintLoading} onClick={() => {
+                                  <Button isLoading={isMintLoading} disabled={activeChain?.network !== "rinkeby"} onClick={() => {
                                       const address = signer?.getAddress()
                                       if (contract && address) {
                                           setIsMintLoading(true)
