@@ -73,7 +73,7 @@ class ProfileStore {
 
         const dogContract = new ethers.Contract(this.dogContractAddress, testAbi, this.provider)
         const balance = await dogContract.balanceOf(this.address)
-        this.dogBalance = ethers.utils.formatEther(balance.sub(balance.mod(1e14)))
+        this.dogBalance = Number(ethers.utils.formatEther(balance)).toFixed(0)
     }
 
     async getNfts() {
