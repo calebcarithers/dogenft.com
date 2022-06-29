@@ -39,8 +39,7 @@ const Pixel: React.FC<PixelProps> = ({color, id, x, y, size = PixelSize.sm}) => 
             }}
                  className={css("text-left", "pl-2", "font-PressStart", "py-1", "bg-pixels-yellow-100", {
                      "text-xxs": size === PixelSize.sm,
-                     "text-base": size === PixelSize.md,
-                     "text-base": size === PixelSize.lg,
+                     "text-base": size === PixelSize.md || size === PixelSize.lg,
                  })}>
                 ({x},{y})
             </div>
