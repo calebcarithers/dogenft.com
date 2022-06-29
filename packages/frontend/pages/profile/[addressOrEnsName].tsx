@@ -15,6 +15,7 @@ import Link, {LinkType} from "../../components/Link/Link";
 import Pixel from "../../components/Pixel/Pixel";
 import ColoredText from "../../components/ColoredText/ColoredText";
 import {json} from "stream/consumers";
+import {vars} from "../../environment/vars";
 
 interface ProfileProps {
     address: string;
@@ -178,7 +179,7 @@ const FastFoodDoges: React.FC<any> = ({token}) => {
 
 export const getServerSideProps: GetServerSideProps<ProfileProps> = async (context) => {
     let ens, validatedAddress
-    const provider = ethers.getDefaultProvider("mainnet")
+    const provider = ethers.getDefaultProvider("mainnet", {infura: {projectId: vars.NEXT_PUBLIC_INFURA_ID}})
     const addressOrEnsName = context.params?.addressOrEnsName as string
 
     if (!addressOrEnsName) {
