@@ -152,7 +152,7 @@ const Bassjackers = () => {
                                   }
                                   }>Mint</Button>}
                                 {!canMint &&
-                                  <div className={css("text-pixels-yellow-400", "font-bold")}>already minted</div>}
+                                  <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>}
                                 {/*{!signer && <ConnectButton/>}*/}
                                 {!signer && <div className={css("text-pixels-yellow-400", "font-bold")}>connect wallet to mint</div>}
                             </div>
