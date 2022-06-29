@@ -82,7 +82,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                 <Pane title={<Title title={"Fast Food Doges"} count={store.fastFoodDoges.length}/>}>
                     <MaxHeightThing>
                         {store.hasFfds && <div className={css("flex", "flex-wrap", "space-x-6", "justify-center")}>
-                            {store.fastFoodDoges.map(token => <FastFoodDoges token={token}/>)}
+                            {store.fastFoodDoges.map(token => <FastFoodDoges key={`ffd-${token.tokenId}`} token={token}/>)}
 
                         </div>}
                         {!store.hasFfds && <NoneFound>
@@ -97,7 +97,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                 <Pane title={<Title title={"Doggos"} count={store.doggos.length}/>}>
                     <MaxHeightThing>
                         {store.hasDoggos && <div className={css("w-full")}>
-                            {store.doggos.map(doggo => <div className={css("break-words", "overflow-auto")}>
+                            {store.doggos.map(doggo => <div key={`doggo-${doggo.metadata.name}`} className={css("break-words", "overflow-auto")}>
                                 <div style={{maxWidth: "300px"}}>
                                     <img src={doggo.metadata.image}/>
                                     <div>{doggo.metadata.name}</div>
@@ -166,6 +166,7 @@ const FastFoodDoges: React.FC<any> = ({token}) => {
             </div>
             <div>
                 {showMetadata && token.metadata.attributes.map((attr: any) => <div
+                    key={`FFD-${token.tokenId}-${attr.trait_type}`}
                     className={css("grid", "grid-cols-2")}>
                     <div>{attr.trait_type}</div>
                     <div>{attr.value}</div>
