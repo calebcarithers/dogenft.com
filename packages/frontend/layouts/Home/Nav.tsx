@@ -45,9 +45,9 @@ const Nav = () => {
                     }}>twitter</Button>
                     <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
                 </div>
-                {isDev() && <Link href={"/bassjackers"}>
+                <Link href={"/bassjackers"}>
                   <Button>NFT Radio</Button>
-                </Link>}
+                </Link>
             </div>
         </div>
         <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>
