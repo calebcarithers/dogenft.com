@@ -8,13 +8,6 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721Burnab
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
-
-
-// TODO: remove this
-import "hardhat/console.sol";
-
-
-
 contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
@@ -67,8 +60,12 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
         _safeMint(msg.sender, tokenId);
     }
 
-    function canClaim(address account) public view returns (bool) {
+    function hasClaimed(address account) public view returns (bool) {
         return !whitelistClaimed[account];
+    }
+
+    function isSupplyAvailable() public view returns (bool) {
+        return _tokenIdCounter.current() + 1 < totalSupply;
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)

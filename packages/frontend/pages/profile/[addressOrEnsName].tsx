@@ -180,7 +180,7 @@ const FastFoodDoges: React.FC<any> = ({token}) => {
 
 export const getServerSideProps: GetServerSideProps<ProfileProps> = async (context) => {
     let ens, validatedAddress
-    const provider = ethers.getDefaultProvider("mainnet", {infura: {projectId: vars.NEXT_PUBLIC_INFURA_ID}})
+    const provider = new ethers.providers.InfuraProvider("mainnet", vars.NEXT_PUBLIC_INFURA_ID)
     const addressOrEnsName = context.params?.addressOrEnsName as string
 
     if (!addressOrEnsName) {
