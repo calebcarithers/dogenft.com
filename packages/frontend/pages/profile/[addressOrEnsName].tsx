@@ -99,7 +99,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                 <Pane title={<Title title={"Doggos"} count={store.doggos.length}/>}>
                     <MaxHeightThing>
                         {store.hasDoggos && <div className={css("w-full")}>
-                            {store.doggos.map(doggo => <div key={`doggo-${doggo.metadata.name}`} className={css("break-words", "overflow-auto")}>
+                            {store.doggos.map(doggo => <div key={`doggo-${doggo.metadata.name}`} className={css("break-words", "overflow-auto", "flex", "justify-center")}>
                                 <div style={{maxWidth: "300px"}}>
                                     <img src={doggo.metadata.image}/>
                                     <div>{doggo.metadata.name}</div>
@@ -157,12 +157,7 @@ const FastFoodDoges: React.FC<any> = ({token}) => {
             <div className={css("flex", "justify-between", "items-center", "mt-1")}>
                 <div>#{token.tokenId}</div>
                 <div
-                    className={css("text-black", "px-1", "border-2", "border-dashed", "border-pixels-yellow-200", "rounded", "font-bold", {
-                        "bg-yellow-400": !isBaby,
-                        "text-yellow-800": !isBaby,
-                        "bg-pleasr-lightPurple": isBaby,
-                        "text-meme-magenta": isBaby
-                    })}>
+                    className={css("text-pixels-yellow-500", "px-1", "font-bold")}>
                     {token.metadata.isBaby ? "baby" : "adult"}
                 </div>
             </div>
