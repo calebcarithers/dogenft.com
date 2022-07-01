@@ -11,7 +11,7 @@ import SongStore from "../stores/Song.store";
 import {ethers} from "ethers";
 import Link, {LinkType} from "../components/Link/Link";
 
-const NftRadio = observer(() => {
+const Radio = observer(() => {
     const store = useMemo(() => new NftRadioStore(), [])
     return <PageLayout>
         <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4")}>
@@ -155,4 +155,4 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
     </div>
 })
 
-export default NftRadio
+export default Radio
