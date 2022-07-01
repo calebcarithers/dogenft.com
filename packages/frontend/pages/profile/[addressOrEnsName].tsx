@@ -83,7 +83,7 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
                 </Pane>
                 <Pane title={<Title title={"Fast Food Doges"} count={store.fastFoodDoges.length}/>}>
                     <MaxHeightThing>
-                        {store.hasFfds && <div className={css("flex", "flex-wrap", "space-x-6", "justify-center")}>
+                        {store.hasFfds && <div className={css("flex", "flex-wrap", "gap-x-6", "justify-center")}>
                             {store.fastFoodDoges.map(token => <FastFoodDoges key={`ffd-${token.tokenId}`} token={token}/>)}
 
                         </div>}
