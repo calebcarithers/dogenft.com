@@ -1,5 +1,5 @@
-import {useEffect, useMemo, useRef} from "react";
-import {BsDot, BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill} from "react-icons/bs";
+import React, {useEffect, useMemo, useRef} from "react";
+import {BsArrowLeft, BsDot, BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill} from "react-icons/bs";
 import {MdPause} from "react-icons/md";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
@@ -10,10 +10,17 @@ import {observer} from "mobx-react-lite";
 import SongStore from "../stores/Song.store";
 import {ethers} from "ethers";
 import Link, {LinkType} from "../components/Link/Link";
+import {useRouter} from "next/router";
 
 const Radio = observer(() => {
     const store = useMemo(() => new NftRadioStore(), [])
+    const router = useRouter()
     return <PageLayout>
+        <div className={css("mb-8")}>
+            <Button onClick={() => router.push("/")}>
+                <BsArrowLeft size={15}/>
+            </Button>
+        </div>
         <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4")}>
             <div className={css("border-2", "border-black", "p-3", "bg-pixels-yellow-100")}
                  style={{boxShadow: "10px 10px"}}>
