@@ -27,22 +27,28 @@ class SongStore {
     @observable
     signer?: ethers.Signer
 
+    // @observable
+    // disposer?: () => void
+
     constructor() {
         makeObservable(this)
-        reaction(() => [this.contract, this.signer], () => {
-            if (this.contract) {
-                this.getCanMint()
-            }
-        })
+        // this.disposer = reaction(() => [this.contract, this.signer], () => {
+        //     if (this.contract) {
+        //         this.getCanMint()
+        //     }
+        // })
     }
 
     onTimeUpdate(video: HTMLVideoElement) {
-        const date = new Date(0);
-        date.setSeconds(video.currentTime);
-        this.currentTime = date.toISOString().substr(11, 8)
+        console.log("debug:: video", video, video.currentTime, video.duration)
+        if (!isNaN(video.currentTime) && !isNaN(video.duration)) {
+            const date = new Date(0);
+            date.setSeconds(video.currentTime);
+            this.currentTime = date.toISOString().substr(11, 8)
 
-        date.setSeconds(video.duration)
-        this.duration = date.toISOString().substr(11, 8)
+            date.setSeconds(video.duration)
+            this.duration = date.toISOString().substr(11, 8)
+        }
     }
 
     async mint() {
@@ -66,11 +72,18 @@ class SongStore {
             try {
                 this.hasClaimed = await this.contract.hasClaimed(address)
                 this.isSupplyAvailable = await this.contract.isSupplyAvailable()
+                console.log("debug:::", this.hasClaimed, this.isSupplyAvailable)
             } catch (e) {
                 console.error(e)
             }
         }
     }
+
+    // destroy() {
+    //     if (this.disposer) {
+    //         this.disposer()
+    //     }
+    // }
 }
 
 export default SongStore

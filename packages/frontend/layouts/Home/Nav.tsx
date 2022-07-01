@@ -44,10 +44,10 @@ const Nav = () => {
                         window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
                     }}>twitter</Button>
                     <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
+                    <Link href={"/nft-radio"}>
+                        <Button>NFT Radio</Button>
+                    </Link>
                 </div>
-                <Link href={"/nft-radio"}>
-                  <Button>NFT Radio</Button>
-                </Link>
             </div>
         </div>
         <LinksModal open={isDocsModalVisible} onChange={(value) => setIsDocsModalVisible(value)}/>

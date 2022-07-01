@@ -61,7 +61,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
     }
 
     function hasClaimed(address account) public view returns (bool) {
-        return !whitelistClaimed[account];
+        return whitelistClaimed[account];
     }
 
     function isSupplyAvailable() public view returns (bool) {

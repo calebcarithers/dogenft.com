@@ -37,8 +37,9 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
         if (song.contractAddress && song.abi && signer) {
             songStore.contract = new ethers.Contract(song.contractAddress, song.abi, signer)
             songStore.signer = signer
+            songStore.getCanMint()
         }
-    }, [signer])
+    }, [signer, song.contractAddress, song.abi])
 
     const onTimeUpdate = () => {
         const video = videoRef.current
@@ -49,7 +50,11 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
 
     useEffect(() => {
         onTimeUpdate()
+        // return () => {
+        //     songStore.destroy()
+        // }
     }, [])
+
 
     return <div className={css("grid", "grid-cols-1", "md:grid-cols-5")}>
         <div className={css("col-span-1", "md:col-span-2")}>
@@ -57,7 +62,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                 {song.videoSrc && <video ref={videoRef} className={css("w-full")} onTimeUpdate={onTimeUpdate}>
                   <source src={song.videoSrc}/>
                 </video>}
-                {!song.videoSrc && <div style={{height: 316, width: 316}} className={css("bg-pixels-yellow-300")}/>}
+                {!song.videoSrc && <div className={css("bg-pixels-yellow-300")} style={{height: 316, width: 316}}/>}
             </div>
         </div>
         <div className={css("col-span-1", "md:col-span-3", "md:px-3", "py-3", "md:ml-3")}>
@@ -75,12 +80,12 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                         </div>
                         <div className={css("flex", "items-center", "space-x-1")}>
                             {song.artists.map((artist, index, arr) => {
-                                return <>
+                                return <div key={`artist-${index}`}>
                                     <Link isExternal type={LinkType.Secondary} href={artist.link}>
                                         {artist.name}
                                     </Link>
                                     {index !== arr.length - 1 && <span className={css("text-pixels-yellow-500")}>,</span>}
-                                </>
+                                </div>
                             })}
                         </div>
                         <div className={css("w-full", "bg-black", "my-2")} style={{height: "2px"}}/>
@@ -96,17 +101,17 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                                 if (songStore.signer) {
                                     if (!songStore.isSupplyAvailable) {
                                         return <div>full supply has been minted already</div>
-                                    }
-
-                                    if (!songStore.hasClaimed) {
-                                        return <Button
-                                            isLoading={songStore.isMintLoading}
-                                            disabled={activeChain?.network !== "rinkeby"}
-                                            onClick={() => songStore.mint()}>
-                                            ✨ Mint ✨
-                                        </Button>
-                                    } else if (songStore.hasClaimed) {
-                                        <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>
+                                    } else {
+                                        if (!songStore.hasClaimed) {
+                                            return <Button
+                                                isLoading={songStore.isMintLoading}
+                                                disabled={activeChain?.network !== "rinkeby"}
+                                                onClick={() => songStore.mint()}>
+                                                ✨ Mint ✨
+                                            </Button>
+                                        } else {
+                                            return <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>
+                                        }
                                     }
                                 } else {
                                     return <div className={css("text-pixels-yellow-400", "font-bold")}>
