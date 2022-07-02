@@ -1,4 +1,6 @@
 const axios = require("axios")
+const keccak256 = require("keccak256");
+const {MerkleTree} = require("merkletreejs");
 
 const networkToHodlerList = {
     ethereum: "https://static.dogtools.io/eth-holders-full.json",
@@ -8,7 +10,20 @@ const networkToHodlerList = {
 }
 
 const main = async () => {
-    const arbHolders = getData("arbitrum")
+    const nullAddress = "0x0000000000000000000000000000000000000000"
+    let addresses = []
+
+    for (const network in networkToHodlerList) {
+        const data = await getData(network)
+        addresses = addresses.concat(Object.keys(data))
+    }
+
+    console.log("total addresses", addresses.length)
+
+    const uniqueAddresses = new Set(addresses)
+    const merkleRoot = generateMerkleRoot(Array.from(uniqueAddresses))
+    console.log("unique addresses", uniqueAddresses.size)
+    console.log("merkle root", merkleRoot)
 }
 
 const getData = async (networkName) => {
@@ -16,9 +31,17 @@ const getData = async (networkName) => {
         throw new Error("invalid network name")
     }
     const {data} = await axios.get(networkToHodlerList[networkName])
-    console.log(data)
-    console.log("\n" + `found ${Object.keys(data).length} results for ${networkName}`)
+    console.log(`found ${Object.keys(data).length} results for ${networkName}`)
     return data
+}
+
+const generateMerkleRoot = (addresses) => {
+    if (!Array.isArray(addresses)) {
+        throw new Error("Addresses must be an array")
+    }
+    const leafNodes = addresses.map(address => keccak256(address))
+    const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true })
+    return merkleTree.getHexRoot()
 }
 
 main()
