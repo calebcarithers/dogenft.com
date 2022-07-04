@@ -2,19 +2,19 @@
   "manifestVersion": "3.2",
   "admin": {
     "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    "txHash": "0x1750d335442550138c6d8c359e1705fddd64643baf56618aa6f1c9e3d7b31d74"
+    "txHash": "0xc2a61cbfc66142641166051996e58b6ff52c92830cc8f57f81d2ad86559a247b"
   },
   "proxies": [
     {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "txHash": "0xac9c3260392baea62188ec613842541716e231ac0e4a12d016609848776d4060",
+      "txHash": "0x15ff19efb75b7f430148e837c557d22e820198a6a5d645fa6234f5ee09420152",
       "kind": "transparent"
     }
   ],
   "impls": {
     "c0e6316a78d0bfccd52c69d23287e8457d83422129262edb3799e61f809cbad1": {
       "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0xdf4ca3d7727e7aa4f0d05f6885dd1ba28a044f30306cb51baf8656956ee2051c",
+      "txHash": "0xa854cd4e00c18ec91e05a830c9fc785c9d49fdf3e8fb446ff820b1f783610901",
       "layout": {
         "storage": [
           {
@@ -152,7 +152,7 @@
             "slot": "301",
             "type": "t_struct(Counter)1769_storage",
             "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:18"
+            "src": "contracts/InDogeWeTrust.sol:16"
           },
           {
             "label": "merkleRoot",
@@ -160,7 +160,7 @@
             "slot": "302",
             "type": "t_bytes32",
             "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:20"
+            "src": "contracts/InDogeWeTrust.sol:18"
           },
           {
             "label": "_baseTokenURI",
@@ -168,7 +168,7 @@
             "slot": "303",
             "type": "t_string_storage",
             "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:21"
+            "src": "contracts/InDogeWeTrust.sol:19"
           },
           {
             "label": "totalSupply",
@@ -176,7 +176,7 @@
             "slot": "304",
             "type": "t_uint256",
             "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:22"
+            "src": "contracts/InDogeWeTrust.sol:20"
           },
           {
             "label": "whitelistClaimed",
@@ -184,7 +184,7 @@
             "slot": "305",
             "type": "t_mapping(t_address,t_bool)",
             "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:23"
+            "src": "contracts/InDogeWeTrust.sol:21"
           }
         ],
         "types": {
