@@ -36,7 +36,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
         merkleRoot = _merkleRoot;
     }
 
-    function safeMint(bytes32[] calldata _merkleProof) public payable whenNotPaused {
+    function safeMint(bytes32[] calldata _merkleProof) public whenNotPaused {
         // make sure address has not already claimed
         require(!whitelistClaimed[msg.sender], "Address already claimed");
 
