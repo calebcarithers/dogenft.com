@@ -39,5 +39,6 @@ calebtools
 .env
 
 .idea
-
-packages
+devtools/token-holders
+.next
+packages/frontend/.env
