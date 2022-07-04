@@ -78,7 +78,6 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-        string memory baseURI = _baseURI();
-        return baseURI;
+        return _baseURI();
     }
 }
