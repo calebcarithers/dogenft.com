@@ -46,7 +46,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
         // require user to be whitelisted to claim
         require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), "Not in whitelisted addresses");
 
-        // enforce total supply?? we may not need this
+        // enforce total supply
         uint256 tokenId = _tokenIdCounter.current();
         require(tokenId + 1 < totalSupply, "Total supply exceeded");
 
