@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "hardhat/console.sol";
-
 import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
@@ -36,7 +34,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
         merkleRoot = _merkleRoot;
     }
 
-    function safeMint(bytes32[] calldata _merkleProof) public payable whenNotPaused {
+    function safeMint(bytes32[] calldata _merkleProof) public whenNotPaused {
         // make sure address has not already claimed
         require(!whitelistClaimed[msg.sender], "Address already claimed");
 
@@ -46,8 +44,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
         // require user to be whitelisted to claim
         require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), "Not in whitelisted addresses");
 
-        // todo: do we need this since we are whitelisting all / not allowing more to mint
-        // enforce total supply?? we may not need this
+        // enforce total supply
         uint256 tokenId = _tokenIdCounter.current();
         require(tokenId + 1 < totalSupply, "Total supply exceeded");
 
@@ -81,8 +78,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-        string memory baseURI = _baseURI();
-        return baseURI;
+        return _baseURI();
     }
 
     function pause() public onlyOwner {

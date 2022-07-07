@@ -7,7 +7,7 @@ import LinksModal from "./LinksModal";
 import {navItems} from "../../components/Home/HomeItems";
 import {useRouter} from "next/router";
 import Link from "../../components/Link/Link";
-import {isDev} from "../../environment";
+import {isDev, isProduction} from "../../environment";
 
 const NavContext = React.createContext<any>("doge")
 export const NavProvider = NavContext.Provider
@@ -44,9 +44,9 @@ const Nav = () => {
                         window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
                     }}>twitter</Button>
                     <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
-                    <Link href={"/radio"}>
+                    {!isProduction() && <Link href={"/radio"}>
                         <Button>radio</Button>
-                    </Link>
+                    </Link>}
                 </div>
             </div>
         </div>

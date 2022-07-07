@@ -9,6 +9,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 import {ConnectButton} from "../components/Button/Button";
 import {css} from "../helpers/css";
 import tailwindconfig from "../tailwind.config"
+import {isProduction} from "../environment";
 
 function MyApp({Component, pageProps}: AppProps) {
     const theme = lightTheme({
@@ -23,9 +24,9 @@ function MyApp({Component, pageProps}: AppProps) {
         <Background/>
         <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={theme}>
-                <div className={css("absolute", "right-0", "py-3", "px-4", "z-20", "top-0")}>
+                {!isProduction() && <div className={css("absolute", "right-0", "py-3", "px-4", "z-20", "top-0")}>
                     <ConnectButton/>
-                </div>
+                </div>}
                 <Component {...pageProps} />
             </RainbowKitProvider>
         </WagmiConfig>
