@@ -8,6 +8,7 @@ import {navItems} from "../../components/Home/HomeItems";
 import {useRouter} from "next/router";
 import Link from "../../components/Link/Link";
 import {isDev, isProduction} from "../../environment";
+import {event} from "../../services/ga";
 
 const NavContext = React.createContext<any>("doge")
 export const NavProvider = NavContext.Provider
@@ -26,6 +27,7 @@ const Nav = () => {
                         <NavItem isSelected={isSelected} onClick={() => {
                             document.getElementById(item.id)?.scrollIntoView({behavior: "smooth"})
                             window.history.replaceState({ ...window.history.state, as: `/?wow=${item.id}`, url: `/?wow=${item.id}` }, '', `/?wow=${item.id}`);
+                            event({action: 'test', params: 'ya!'})
                         }}>
                             {item.title}
                         </NavItem>
