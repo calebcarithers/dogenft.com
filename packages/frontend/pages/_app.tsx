@@ -39,11 +39,11 @@ function MyApp({Component, pageProps}: AppProps) {
 
     return <>
         <Script
-
+            id={"gatag"}
             strategy="lazyOnload"
             src={`https://www.googletagmanager.com/gtag/js?id=${vars.NEXT_PUBLIC_GA_ID}`}/>
 
-        <Script strategy="lazyOnload">
+        <Script id={"gatagsomethingelse"} strategy="lazyOnload">
             {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

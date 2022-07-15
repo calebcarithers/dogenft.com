@@ -2,7 +2,6 @@ import {Head, Html, Main, NextScript} from 'next/document'
 import React from "react";
 import {css} from "../helpers/css";
 import {vars} from "../environment/vars";
-import Script from 'next/script';
 
 export default function Document() {
     console.log(vars.NEXT_PUBLIC_GA_ID)
