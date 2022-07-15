@@ -27,7 +27,7 @@ const Nav = () => {
                         <NavItem isSelected={isSelected} onClick={() => {
                             document.getElementById(item.id)?.scrollIntoView({behavior: "smooth"})
                             window.history.replaceState({ ...window.history.state, as: `/?wow=${item.id}`, url: `/?wow=${item.id}` }, '', `/?wow=${item.id}`);
-                            event({action: 'test', params: 'ya!'})
+                            event({action: 'navigateClick', params: {navItem: item.title}})
                         }}>
                             {item.title}
                         </NavItem>
