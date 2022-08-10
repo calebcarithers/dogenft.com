@@ -96,4 +96,12 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
     {
         super._beforeTokenTransfer(from, to, tokenId);
     }
+
+    function _transfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal override {
+        revert("not allowed transfer");
+    }
 }
