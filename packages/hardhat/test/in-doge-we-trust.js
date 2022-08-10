@@ -52,6 +52,8 @@ describe("In Doge We Trust", function () {
     const receipt = await tx.wait()
     const tokenId = getTokenIdFromReceipt(receipt)
 
+
+
     const balance = await IDWT.connect(signer).balanceOf(signer.address)
     expect(balance.toNumber()).to.equal(1)
 
@@ -63,4 +65,13 @@ describe("In Doge We Trust", function () {
     const invalidAccount = notWhitelisted[0]
     await expect(mintToken(invalidAccount)).to.be.revertedWith('Not in whitelisted addresses')
   })
+
+  it("should not allow transfer", async function () {
+    const signer = whitelisted[2]
+    const tx = await mintToken(signer)
+
+    const receipt = await tx.wait()
+    const tokenId = getTokenIdFromReceipt(receipt)
+    await expect(IDWT.connect(signer).safeTransferFrom(signer.address, whitelisted[3].address, tokenId)).to.be.revertedWith("not allowed transfer");
+  });
 });
