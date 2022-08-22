@@ -72,6 +72,7 @@ describe("In Doge We Trust", function () {
 
     const receipt = await tx.wait()
     const tokenId = getTokenIdFromReceipt(receipt)
-    await expect(IDWT.connect(signer).safeTransferFrom(signer.address, whitelisted[3].address, tokenId)).to.be.revertedWith("not allowed transfer");
+    // https://github.com/ethers-io/ethers.js/issues/1160
+    await expect(IDWT.connect(signer)["safeTransferFrom(address,address,uint256)"](signer.address, whitelisted[3].address, tokenId)).to.be.revertedWith("not allowed transfer");
   });
 });
