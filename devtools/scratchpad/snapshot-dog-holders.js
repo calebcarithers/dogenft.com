@@ -2,11 +2,12 @@ const axios = require("axios")
 const keccak256 = require("keccak256");
 const {MerkleTree} = require("merkletreejs");
 
+// TODO: get optimism holders
 const networkToHodlerList = {
     ethereum: "https://static.dogtools.io/eth-holders-full.json",
     bsc: "https://static.dogtools.io/bsc-holders-full.json",
     polygon: "https://static.dogtools.io/poly-holders-full.json",
-    arbitrum: "https://static.dogtools.io/arbi-holders-full.json"
+    arbitrum: "https://static.dogtools.io/arbi-holders-full.json",
 }
 
 const main = async () => {
