@@ -10,7 +10,6 @@ const networkToHodlerList = {
 }
 
 const main = async () => {
-    const nullAddress = "0x0000000000000000000000000000000000000000"
     let addresses = []
 
     for (const network in networkToHodlerList) {

@@ -30,7 +30,7 @@ npm manifest:
   {
     "name": "hardhat",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "snapshot-dog-holders.js",
     "license": "MIT",
     "devDependencies": {
       "@nomiclabs/hardhat-ethers": "^2.0.6",

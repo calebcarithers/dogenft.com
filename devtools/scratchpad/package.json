@@ -1,7 +1,7 @@
 {
   "name": "scratchpad",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "snapshot-dog-holders.js",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
