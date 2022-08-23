@@ -5,13 +5,13 @@ const {keccak256} = require("ethers/lib/utils");
 const {MerkleTree} = require("merkletreejs");
 
 describe("In Doge We Trust", function () {
-  let IDWT, signers, whitelisted, notWhitelisted, tree;
-  const tokenURI = "ipfs://bafkreialqmooagbx5i3pao4wtr35t5v7dxwhma44znfuea5o4xf6uibcbm"
+  let Souldbound, signers, whitelisted, notWhitelisted, tree;
+  const baseURIs = ["base1", "base2", "base3", "base4"];
 
-  const mintToken = async (signer) => {
-    const contract = await IDWT.connect(signer)
+  const mintToken = async (signer, type) => {
+    const contract = await Souldbound.connect(signer)
     const proof = tree.getHexProof(keccak256(signer.address))
-    return contract.safeMint(proof)
+    return contract.safeMint(proof, type)
   }
 
   const getTokenIdFromReceipt = (receipt) => {
@@ -30,47 +30,45 @@ describe("In Doge We Trust", function () {
     console.log("got merkle root", merkleRoot)
 
 
-    console.log("\ndeploying IDWT")
-    const doge = await ethers.getContractFactory("InDogeWeTrust");
-    IDWT = await upgrades.deployProxy(doge, [whitelisted.length, merkleRoot]);
-    await IDWT.deployed();
-    console.log("IDWT deployed to:", IDWT.address);
-    console.log("setting base tokenURI to:", tokenURI)
-    await IDWT.setBaseURI(tokenURI)
+    console.log("\ndeploying Souldbound")
+    const doge = await ethers.getContractFactory("Soulbound");
+    Souldbound = await upgrades.deployProxy(doge, [ merkleRoot, baseURIs]);
+    await Souldbound.deployed();
+    console.log("Souldbound deployed to:", Souldbound.address);
   })
 
-  it("mint token", async function() {
+  it("mint only a token", async function() {
     const signer = whitelisted[0]
-    await mintToken(signer)
-    // await expect(mintToken(signer)).to.not.be.reverted
+    await mintToken(signer, 0)
+    await expect(mintToken(signer, 0)).to.be.revertedWith("Address already claimed")
   })
 
   it("mint token and check balance", async function () {
     const signer = whitelisted[1]
-    const tx = await mintToken(signer)
+    const tx = await mintToken(signer, 2)
 
     const receipt = await tx.wait()
     const tokenId = getTokenIdFromReceipt(receipt)
 
-
-
-    const balance = await IDWT.connect(signer).balanceOf(signer.address)
+    const balance = await Souldbound.connect(signer).balanceOf(signer.address)
     expect(balance.toNumber()).to.equal(1)
 
-    const uri = await IDWT.connect(signer).tokenURI(tokenId)
-    expect(uri).to.equal(tokenURI)
+    const uri = await Souldbound.connect(signer).tokenURI(tokenId)
+    expect(uri).to.equal(baseURIs[2])
   });
 
   it("should reject due to not being whitelisted", async function () {
     const invalidAccount = notWhitelisted[0]
-    await expect(mintToken(invalidAccount)).to.be.revertedWith('Not in whitelisted addresses')
+    await expect(mintToken(invalidAccount, 0)).to.be.revertedWith('Not in whitelisted addresses')
   })
 
   it("should not allow transfer", async function () {
     const signer = whitelisted[2]
-    const tx = await mintToken(signer)
+    const tx = await mintToken(signer, 3)
 
     const receipt = await tx.wait()
     const tokenId = getTokenIdFromReceipt(receipt)
+    await expect(Souldbound.connect(signer)["safeTransferFrom(address,address,uint256)"](signer.address, whitelisted[3].address, tokenId)).to.be.revertedWith("not allowed transfer");
   });
+
 });
