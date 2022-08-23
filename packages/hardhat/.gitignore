@@ -7,3 +7,5 @@ typechain
 #Hardhat files
 cache
 artifacts
+.openzeppelin/rinkeby.json
+.openzeppelin/goerli.json

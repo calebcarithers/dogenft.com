@@ -91,4 +91,8 @@ contract Soulbound is Initializable, ERC721Upgradeable, PausableUpgradeable, Own
     ) internal override pure{
         revert("not allowed transfer");
     }
+
+    function setBaseURIs(string[] memory _baseTokenURIs) public onlyOwner {
+        baseTokenURIs = _baseTokenURIs;
+    }
 }
