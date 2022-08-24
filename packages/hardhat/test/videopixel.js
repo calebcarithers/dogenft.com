@@ -7,6 +7,7 @@ const {MerkleTree} = require("merkletreejs");
 describe("In Doge We Trust", function () {
   let IDWT, signers, whitelisted, notWhitelisted, tree;
   let videoPixelContract;
+  let tokenId;
   const tokenURI = "ipfs://bafkreialqmooagbx5i3pao4wtr35t5v7dxwhma44znfuea5o4xf6uibcbm"
 
   const mintToken = async (signer) => {
@@ -46,16 +47,20 @@ describe("In Doge We Trust", function () {
 
   })
 
-  it("mint token from pixel id only one time", async function () {
+  it("mint token and allow only one token", async function () {
     const signer = whitelisted[1]
     const tx = await mintToken(signer)
 
     const receipt = await tx.wait()
-    const tokenId = getTokenIdFromReceipt(receipt)
+    tokenId = getTokenIdFromReceipt(receipt)
 
     await videoPixelContract.connect(signer).safeMint(tokenId);
     expect(await videoPixelContract.balanceOf(signer.address)).to.equal(1);
 
     await expect(videoPixelContract.connect(signer).safeMint(tokenId + 1)).to.be.revertedWith("Address already claimed");
+  });
+
+  it("mint token from pixel id only one time", async function () {
+    await expect(videoPixelContract.connect(whitelisted[2]).safeMint(tokenId)).to.be.revertedWith("Pixel already claimed");
   });
 });
