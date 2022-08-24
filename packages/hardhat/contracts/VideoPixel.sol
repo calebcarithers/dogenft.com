@@ -16,7 +16,7 @@ contract VideoPixel is Initializable, ERC721Upgradeable, PausableUpgradeable, Ow
 
     string public _baseTokenURI;
     address pixelAddress;
-    mapping(uint256 => bool) public pixelClaimed;
+    mapping(address => bool) public whitelistClaimed;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -34,21 +34,21 @@ contract VideoPixel is Initializable, ERC721Upgradeable, PausableUpgradeable, Ow
 
     function safeMint(uint256 _pixelId) public whenNotPaused {
         // make sure address has not already claimed
-        require(!pixelClaimed[_pixelId], "Address already claimed");
+        require(!whitelistClaimed[msg.sender], "Address already claimed");
         require(ERC721Upgradeable(pixelAddress).ownerOf(_pixelId) == msg.sender, "Not owner of pixel");
 
         uint256 tokenId = _tokenIdCounter.current();
 
         // mark address as claimed
-        pixelClaimed[_pixelId] = true;
+        whitelistClaimed[msg.sender] = true;
 
         // increment token ID counter & mint token
         _tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);
     }
 
-    function hasClaimed(uint256 _pixelId) public view returns (bool) {
-        return pixelClaimed[_pixelId];
+    function hasClaimed(address _whitelist) public view returns (bool) {
+        return whitelistClaimed[_whitelist];
     }
 
     function setBaseURI(string memory baseURI) public onlyOwner {

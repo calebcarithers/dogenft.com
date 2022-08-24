@@ -56,6 +56,6 @@ describe("In Doge We Trust", function () {
     await videoPixelContract.connect(signer).safeMint(tokenId);
     expect(await videoPixelContract.balanceOf(signer.address)).to.equal(1);
 
-    await expect(videoPixelContract.connect(signer).safeMint(tokenId)).to.be.revertedWith("Address already claimed");
+    await expect(videoPixelContract.connect(signer).safeMint(tokenId + 1)).to.be.revertedWith("Address already claimed");
   });
 });
