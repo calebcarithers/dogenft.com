@@ -79,3 +79,8 @@ body {
   flex-grow: 1;
   display: grid;
 }
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5rem;
+}
