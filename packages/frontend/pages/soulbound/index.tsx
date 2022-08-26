@@ -12,6 +12,7 @@ import {ClipLoader} from "react-spinners";
 import tailwindconfig from "../../tailwind.config";
 import SoulBoundAbi from "../../services/abis/soulBound.abi";
 import {css} from "../../helpers/css";
+import { getProof } from "../../helpers/merkletree";
 
 interface IMetadata {
     id: number,
@@ -43,7 +44,6 @@ const METDATAS: IMetadata[] = [
 ]
 
 const soulBoundAddress = process.env.NEXT_PUBLIC_SOULBOULD_CONTRACT;
-const MERKLE_ROOT = "";
 
 const SoulBound: React.FC = () => {
     const router = useRouter()
@@ -59,7 +59,9 @@ const SoulBound: React.FC = () => {
             if (soulBoundAddress && SoulBoundAbi && signer) {
                 const contract = new ethers.Contract(soulBoundAddress, SoulBoundAbi, signer)
                 setSoulBoundContract(contract);
-                const claimed = await contract.hasClaimed(signer?.getAddress());
+                const address = await signer.getAddress();
+                const claimed = await contract.hasClaimed(address);
+                console.log({claimed})
                 setIsClaimed(claimed)
             }
         }
@@ -73,12 +75,18 @@ const SoulBound: React.FC = () => {
         setShowModal(true);
     }
 
+    
     const claim = async() => {
         setIsClaiming(true);
         if (soulBoundContract) {
             try {
-                const tx = soulBoundContract.safeMint(MERKLE_ROOT, selectedMetadata.id);
+                const address = await signer?.getAddress();
+                if (!address) return;
+
+                const proof = getProof(address);
+                const tx = await soulBoundContract.safeMint(proof, selectedMetadata.id);
                 await tx.wait();
+                setShowModal(false);
                 setIsClaimed(true);
             } catch(err) {
                 console.log({err})
@@ -105,7 +113,7 @@ const SoulBound: React.FC = () => {
                     {
                         METDATAS.map((metadata: IMetadata)=> {
                             return (
-                                <div onClick={() => onClickMetadata(metadata)} className="cursor-pointer">
+                                <div onClick={() => onClickMetadata(metadata)} className="cursor-pointer" key={metadata.id}>
                                     <video  className={css("w-full")} autoPlay={true} loop muted >
                                         <source src={metadata.url} key={metadata.id} />
                                     </video>
