@@ -1,58 +1,96 @@
-import {GetServerSideProps} from "next";
-import airtable from "../../services/airtable";
 import Head from "next/head"
-import {BsArrowLeft, BsGrid} from "react-icons/bs";
-import React, { useEffect, useRef } from "react";
+import {BsArrowLeft} from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import {useRouter} from "next/router";
-import {css} from "../../helpers/css";
+import { useSigner } from "wagmi";
+import { ethers } from "ethers";
 import Button from "../../components/Button/Button";
-import {AirtableSubmissionProject} from "../../interfaces";
 import PageLayout from "../../layouts/Page/Page.layout";
 import ColoredText from "../../components/ColoredText/ColoredText";
-import Link from "../../components/Link/Link";
-import {jsonify} from "../../helpers/strings";
-import { FramedImage } from "../../components/Home/HomeItems";
+import Modal, { DialogSize } from "../../components/Modal/Modal";
+import {ClipLoader} from "react-spinners";
+import tailwindconfig from "../../tailwind.config";
+import SoulBoundAbi from "../../services/abis/soulBound.abi";
+import {css} from "../../helpers/css";
 
-// interface BarkTankProjectProps {
-//     project: AirtableSubmissionProject
-// }
+interface IMetadata {
+    id: number,
+    name: string,
+    url: string
+}
 
-const METDATAS = [
+const METDATAS: IMetadata[] = [
     {
-        id: 1,
+        id: 0,
         name: "Cool Doge",
         url: "/videos/soulbound1.mp4",
     },
     {
-        id: 2,
+        id: 1,
         name: "Skydancer Doge",
         url: "/videos/soulbound2.mp4",
     },
     {
-        id: 3,
+        id: 2,
         name: "Slinky Doge",
         url: "/videos/soulbound3.mp4",
     },
     {
-        id: 4,
+        id: 3,
         name: "Breakdancing Doge",
         url: "/videos/soulbound4.mp4",
     },
 ]
 
+const soulBoundAddress = process.env.NEXT_PUBLIC_SOULBOULD_CONTRACT;
+const MERKLE_ROOT = "";
+
 const SoulBound: React.FC = () => {
     const router = useRouter()
-    const videoRef = useRef<HTMLVideoElement | null>(null)
-
+    const [showModal, setShowModal] = useState(false);
+    const [selectedMetadata, setSelectedMetadata] = useState<IMetadata | any>({});
+    const [isClaiming, setIsClaiming] = useState(false);
+    const {data: signer} = useSigner();
+    const [soulBoundContract, setSoulBoundContract] = useState<any>();
+    const [isClaimed, setIsClaimed] = useState(false);
+    
     useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play();
+        const init = async() => {
+            if (soulBoundAddress && SoulBoundAbi && signer) {
+                const contract = new ethers.Contract(soulBoundAddress, SoulBoundAbi, signer)
+                setSoulBoundContract(contract);
+                const claimed = await contract.hasClaimed(signer?.getAddress());
+                setIsClaimed(claimed)
+            }
         }
-    }, [])
+
+        init();
+       
+    }, [signer])
+
+    const onClickMetadata = (metadata: any) => {
+        setSelectedMetadata(metadata);
+        setShowModal(true);
+    }
+
+    const claim = async() => {
+        setIsClaiming(true);
+        if (soulBoundContract) {
+            try {
+                const tx = soulBoundContract.safeMint(MERKLE_ROOT, selectedMetadata.id);
+                await tx.wait();
+                setIsClaimed(true);
+            } catch(err) {
+                console.log({err})
+            }
+        }
+        setIsClaiming(false);
+    }
     return <PageLayout>
         <Head>
             <title>The Doge NFT </title>
         </Head>
+        
         <div>
             <div className={css("mb-8")}>
                 <Button onClick={() => router.push("/barktank")}>
@@ -65,10 +103,10 @@ const SoulBound: React.FC = () => {
                 </div>
                 <div className="two-column">
                     {
-                        METDATAS.map( metadata=> {
+                        METDATAS.map((metadata: IMetadata)=> {
                             return (
-                                <div>
-                                    <video  className={css("w-full")} autoPlay={true} loop muted ref={videoRef}>
+                                <div onClick={() => onClickMetadata(metadata)} className="cursor-pointer">
+                                    <video  className={css("w-full")} autoPlay={true} loop muted >
                                         <source src={metadata.url} key={metadata.id} />
                                     </video>
                                     <div className="text-center">{metadata.name}</div>
@@ -76,11 +114,38 @@ const SoulBound: React.FC = () => {
                             )
                         })
                     }
-                 
                 </div>
-               
+              
             </div>
         </div>
+        <Modal
+            size={DialogSize.lg}
+            isOpen={showModal}
+            title={isClaimed ? "You already claimed" : `✨  Claim ${selectedMetadata.name}  ✨`}
+            onChange={(val) => setShowModal(val)}
+        >
+            {
+                !isClaimed &&
+                    <>
+                        <div className={css("w-72", "m-auto")}>
+                            <video  className={css("w-full")} autoPlay={true} loop muted>
+                                <source src={selectedMetadata.url} key={selectedMetadata.id} />
+                            </video>
+                            <div className="text-center">{selectedMetadata.name}</div>
+                        </div>
+
+                        <button onClick={() => claim()}
+                                className={css("flex","py-2","px-6", "m-auto","mt-10", "border-2", "border-black", "border-solid", "hover:bg-yellow-400", 
+                                )}>
+                            {isClaiming && <div className={css("absolute", "w-full", "left-0", "top-0", "h-full", "flex", "items-center", "justify-center", "bg-pixels-yellow-300", "opacity-75")}>
+                                <ClipLoader size={25} speedMultiplier={0.5} color={tailwindconfig.theme.extend.colors.pixels.yellow[500]}/>
+                            </div>}
+                            Claim
+                        </button>
+                    </>
+            }
+            
+        </Modal>
     </PageLayout>
 }
 
