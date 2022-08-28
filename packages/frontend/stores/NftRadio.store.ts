@@ -30,8 +30,8 @@ class NftRadioStore {
                 isActive: true,
                 year: "2021",
                 artists: [
-                    {name: "Bassjackers", link: ""},
-                    {name: "PleasrDao", link: ""}
+                    {name: "Bassjackers", link: "https://twitter.com/Bassjackers"},
+                    {name: "PleasrDao", link: "https://twitter.com/pleasrdao"}
                 ],
                 videoSrc: "/videos/in-doge-we-trust.mp4",
                 contractAddress: vars.NEXT_PUBLIC_IDWT_CONTRACT_ADDRESS,

@@ -4,7 +4,6 @@ import {css} from "../helpers/css";
 import {vars} from "../environment/vars";
 
 export default function Document() {
-    console.log(vars.NEXT_PUBLIC_GA_ID)
     return (
         <Html>
             <Head title={"The Doge NFT"}>

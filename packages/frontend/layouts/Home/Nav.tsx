@@ -49,6 +49,9 @@ const Nav = () => {
                     {!isProduction() && <Link href={"/radio"}>
                         <Button>radio</Button>
                     </Link>}
+                  {!isProduction() && <Link href={"/birthday"}>
+                    <Button>🎈🎂🎈</Button>
+                  </Link>}
                 </div>
             </div>
         </div>
