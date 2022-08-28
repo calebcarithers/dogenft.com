@@ -5,7 +5,7 @@ import {infuraProvider} from "wagmi/providers/infura";
 import {vars} from "../environment/vars";
 import {isProduction} from "../environment";
 
-const defaultChains = isProduction() ? [chain.mainnet] : [chain.goerli]
+const defaultChains = isProduction() ? [chain.mainnet] : [chain.rinkeby]
 
 const { chains, provider } = configureChains(
     defaultChains,

@@ -10,7 +10,7 @@ import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 
-contract Soulbound is Initializable, ERC721Upgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable {
+contract DOGsFirstBirthday is Initializable, ERC721Upgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
 
     CountersUpgradeable.Counter private _tokenIdCounter;
@@ -27,7 +27,7 @@ contract Soulbound is Initializable, ERC721Upgradeable, PausableUpgradeable, Own
     }
 
     function initialize(bytes32 _merkleRoot, string[] memory _baseTokenURIs) initializer public {
-        __ERC721_init("SoulBound", "SB");
+        __ERC721_init("DOG's First Birthday", "FirstBDayDogeNFT");
         __Pausable_init();
         __Ownable_init();
         __ERC721Burnable_init();

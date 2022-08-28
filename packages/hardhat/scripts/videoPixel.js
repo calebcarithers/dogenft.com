@@ -9,10 +9,11 @@ async function main() {
 
   // We get the contract to deploy
   const tokenURI = "ipfs://bafkreic5jyppkizcemnjwbusu3xtd6ftpfnxdlxjjtgebihokfh34ciyou"
+  const pixelAddress = ""
 
   console.log("deploying videoPixel")
-  const VidePixel = await hre.ethers.getContractFactory("VideoPixel");
-  const videoPixel = await hre.upgrades.deployProxy(VidePixel, ["InDoge Address"]);
+  const VidePixel = await hre.ethers.getContractFactory("InDogeWeTrust");
+  const videoPixel = await hre.upgrades.deployProxy(VidePixel, [pixelAddress]);
   await videoPixel.deployed();
   console.log("videoPixel deployed to:", videoPixel.address);
   

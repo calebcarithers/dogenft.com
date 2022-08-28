@@ -15,7 +15,7 @@ async function main() {
 
   // We get the contract to deploy
   const baseURIs = ["base1", "base2", "base3", "base4"];
-  const Souldbound = await hre.ethers.getContractFactory("Soulbound");
+  const Souldbound = await hre.ethers.getContractFactory("DOGsFirstBirthday");
   const soulbound = await hre.upgrades.deployProxy(Souldbound, ["0x196d644482833fb5e75a164bdc305b35efeb8151006ea1e79bd732a97bd620c9", baseURIs]);
   await soulbound.deployed();
   console.log("soulbound deployed to:", soulbound.address);
