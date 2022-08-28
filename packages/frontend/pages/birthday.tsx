@@ -14,6 +14,7 @@ import SoulBoundAbi from "../services/abis/soulBound.abi";
 import {css} from "../helpers/css";
 import { getProof } from "../helpers/merkletree";
 import DropShadow from "../components/DropShadow/DropShadow";
+import {vars} from "../environment/vars";
 
 interface IMetadata {
     id: number,
@@ -44,8 +45,6 @@ const METDATAS: IMetadata[] = [
     },
 ]
 
-const soulBoundAddress = process.env.NEXT_PUBLIC_SOULBOULD_CONTRACT;
-
 const SoulBound: React.FC = () => {
     const router = useRouter()
     const [showModal, setShowModal] = useState(false);
@@ -57,8 +56,8 @@ const SoulBound: React.FC = () => {
     
     useEffect(() => {
         const init = async() => {
-            if (soulBoundAddress && SoulBoundAbi && signer) {
-                const contract = new ethers.Contract(soulBoundAddress, SoulBoundAbi, signer)
+            if (vars.NEXT_PUBLIC_SOULBOULD_CONTRACT && SoulBoundAbi && signer) {
+                const contract = new ethers.Contract(vars.NEXT_PUBLIC_SOULBOULD_CONTRACT, SoulBoundAbi, signer)
                 setSoulBoundContract(contract);
                 const address = await signer.getAddress();
                 const claimed = await contract.hasClaimed(address);
