@@ -65,7 +65,7 @@ const SoulBound: React.FC = () => {
             if (SoulBoundAbi && signer) {
                 const contract = new ethers.Contract(vars.NEXT_PUBLIC_SOULBOUND_CONTRACT_ADDRESS, SoulBoundAbi, signer)
                 setSoulBoundContract(contract);
-                const address = await signer.getAddress();
+                const address = await signer?.getAddress();
                 const claimed = await contract.hasClaimed(address);
                 setIsClaimed(claimed)
             }

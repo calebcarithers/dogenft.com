@@ -32,9 +32,15 @@ describe("In Doge We Trust", function () {
 
     console.log("\ndeploying Souldbound")
     const doge = await ethers.getContractFactory("DOGsFirstBirthday");
-    Souldbound = await upgrades.deployProxy(doge, [merkleRoot, baseURIs]);
+    Souldbound = await upgrades.deployProxy(doge, [merkleRoot, baseURIs, whitelisted.length]);
     await Souldbound.deployed();
     console.log("Souldbound deployed to:", Souldbound.address);
+  })
+
+  it("should have the correct total supply", async function () {
+    const signer = whitelisted[0]
+    const supply = await Souldbound.connect(signer).totalSupply()
+    await expect(supply.toNumber()).to.equal(5)
   })
 
   it("mint only a token", async function() {

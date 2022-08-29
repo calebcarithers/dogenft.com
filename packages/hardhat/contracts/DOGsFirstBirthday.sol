@@ -19,6 +19,7 @@ contract DOGsFirstBirthday is Initializable, ERC721Upgradeable, PausableUpgradea
     mapping(address => bool) public whitelistClaimed;
 
     string[] baseTokenURIs;
+    uint256 public totalSupply;
     mapping(uint256 => uint256) tokenURITypes;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
@@ -26,13 +27,14 @@ contract DOGsFirstBirthday is Initializable, ERC721Upgradeable, PausableUpgradea
         _disableInitializers();
     }
 
-    function initialize(bytes32 _merkleRoot, string[] memory _baseTokenURIs) initializer public {
-        __ERC721_init("DOG's First Birthday", "DOGFirstBirthday");
+    function initialize(bytes32 _merkleRoot, string[] memory _baseTokenURIs, uint256 _totalSupply) initializer public {
+        __ERC721_init("DOGs First Birthday", "DOGFirstBirthday");
         __Pausable_init();
         __Ownable_init();
         __ERC721Burnable_init();
         merkleRoot = _merkleRoot;
         baseTokenURIs = _baseTokenURIs;
+        totalSupply = _totalSupply;
     }
 
     function safeMint(bytes32[] calldata _merkleProof, uint256 _tokenURIType) public whenNotPaused {
@@ -46,6 +48,7 @@ contract DOGsFirstBirthday is Initializable, ERC721Upgradeable, PausableUpgradea
         require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), "Not in whitelisted addresses");
 
         uint256 tokenId = _tokenIdCounter.current();
+        require(tokenId + 1 < totalSupply, "Total supply exceeded");
 
         // mark address as claimed
         whitelistClaimed[msg.sender] = true;
@@ -94,5 +97,9 @@ contract DOGsFirstBirthday is Initializable, ERC721Upgradeable, PausableUpgradea
 
     function setBaseURIs(string[] memory _baseTokenURIs) public onlyOwner {
         baseTokenURIs = _baseTokenURIs;
+    }
+
+    function setTotalSupply(uint256 _totalSupply) public onlyOwner {
+        totalSupply = _totalSupply;
     }
 }

@@ -21,10 +21,10 @@ async function main() {
     "ipfs://bafkreiau7fcyidy2lfc3i3gfl5ziicysdbxickrqoqty3vezvv2bpdstma"
   ];
 
-  const merkelRoot = "0x94364b5f62fdb60fb392c27f38d5467f1f1199c4e1f5154d11513f1281e2b897"
+  const merkelRoot = "0xc5fcb453494a19d09b6e665a4cb1b4692de6ab2ffa60d1789594433812839ee0"
 
   const Souldbound = await hre.ethers.getContractFactory("DOGsFirstBirthday");
-  const soulbound = await hre.upgrades.deployProxy(Souldbound, [merkelRoot, baseURIs]);
+  const soulbound = await hre.upgrades.deployProxy(Souldbound, [merkelRoot, baseURIs, 10826]);
   await soulbound.deployed();
   console.log("soulbound deployed to:", soulbound.address);
 }
