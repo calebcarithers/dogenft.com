@@ -106,10 +106,10 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                         {(() => {
                             if (song.isActive) {
                                 if (songStore.signer) {
-                                    if (!songStore.isSupplyAvailable) {
-                                        return <div>full supply has been minted already</div>
+                                    if (songStore.hasClaimed){
+                                        return <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>
                                     } else {
-                                        if (!songStore.hasClaimed) {
+                                        if (songStore.availablePixelId !== -1) {
                                             return <Button
                                                 isLoading={songStore.isMintLoading}
                                                 disabled={activeChain?.network !== "rinkeby"}
@@ -117,7 +117,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                                                 ✨ Mint ✨
                                             </Button>
                                         } else {
-                                            return <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>
+                                            return <div>Not available pixel ids</div>
                                         }
                                     }
                                 } else {
