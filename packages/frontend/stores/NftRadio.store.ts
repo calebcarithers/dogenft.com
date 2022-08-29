@@ -2,6 +2,7 @@ import {computed, makeObservable, observable} from "mobx";
 import {vars} from "../environment/vars";
 import {observer} from "mobx-react-lite";
 import inDogeWeTrustAbi from "../services/abis/inDogeWeTrust.abi";
+import {ReactNode} from "react";
 
 export interface Song {
     name: string;
@@ -11,6 +12,7 @@ export interface Song {
     videoSrc?: string;
     contractAddress?: string;
     abi?: any;
+    lyricsLink?: string
 }
 
 
@@ -31,11 +33,14 @@ class NftRadioStore {
                 year: "2021",
                 artists: [
                     {name: "Bassjackers", link: "https://twitter.com/Bassjackers"},
-                    {name: "PleasrDAO", link: "https://twitter.com/pleasrdao"}
+                    {name: "PleasrDAO", link: "https://twitter.com/pleasrdao"},
+                    {name: "cloudeatr", link: "https://twitter.com/cloudeatr"},
+                    {name: "pplpleasr", link: "https://twitter.com/pplpleasr1"}
                 ],
                 videoSrc: "/videos/in-doge-we-trust.mp4",
                 contractAddress: vars.NEXT_PUBLIC_IDWT_CONTRACT_ADDRESS,
-                abi: inDogeWeTrustAbi
+                abi: inDogeWeTrustAbi,
+                lyricsLink: "https://www.azlyrics.com/lyrics/bassjackers/indogewetrust.html"
             },
             {
                 name: "---",

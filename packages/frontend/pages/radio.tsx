@@ -9,7 +9,7 @@ import NftRadioStore, {Song} from "../stores/NftRadio.store";
 import {observer} from "mobx-react-lite";
 import SongStore from "../stores/Song.store";
 import {ethers} from "ethers";
-import Link, {LinkType} from "../components/Link/Link";
+import Link, {LinkSize, LinkType} from "../components/Link/Link";
 import {useRouter} from "next/router";
 
 const Radio = observer(() => {
@@ -96,10 +96,13 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                             })}
                         </div>
                         <div className={css("w-full", "bg-black", "my-2")} style={{height: "2px"}}/>
-                        <div className={css("flex", "space-x-1", "text-sm")}>
+                        <div className={css("flex", "justify-between", "items-center")}>
+                          <div className={css("flex", "space-x-1", "text-sm")}>
                             <div>{songStore.currentTime}</div>
                             <div>/</div>
                             <div>{songStore.duration}</div>
+                          </div>
+                          {song.lyricsLink && <Link size={LinkSize.xs} isExternal href={song.lyricsLink}>lyrics</Link>}
                         </div>
                     </div>
                     <div className={css("flex", "justify-center", "mt-6")}>
@@ -155,6 +158,9 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                             <BsSkipForwardFill/>
                         </Button>
                     </div>
+                  <div className={css("text-sm", "text-gray-600", "px-10", "text-center")}>
+                    Checkout our Soulbound drop with Bassjackers <Link href="/birthday">here</Link>
+                  </div>
                 </div>
 
             </div>

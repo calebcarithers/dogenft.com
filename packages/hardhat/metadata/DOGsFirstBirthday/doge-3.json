@@ -3,7 +3,7 @@
   "external_url": "https://ownthedoge.com/birthday",
   "description": "🎂 DOG turns 1! On September 1st, PleasrDAO fractionalized The Doge NFT creating DOG...",
   "name": "Breakdancing Doge",
-  "background_color": "ECCB6D",
+  "background_color": "EE2EE0",
   "animation_url": "ipfs://bafybeic6o7swvlgtz4rse2ara6hdcg7zyuw7kyc5n4idvymf43h37i62uu",
-  "attributes": [{"display_type": "date", "trait_type": "birthday", "value": 1630372277}, {"trait_type": "dance", "value": "Breakdance"}]
+  "attributes": [{"display_type": "date", "trait_type": "Birthday", "value": 1630372277}, {"trait_type": "Dance Move", "value": "Breakdance"}]
 }

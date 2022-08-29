@@ -151,27 +151,27 @@ const SoulBound: React.FC = () => {
     const getStatusText = useCallback(() => {
         if (signer) {
             if (isClaimed) {
-                return <div className={css("text-xl", "font-bold")}>
-                    <div>You have already claimed!</div>
+                return <div className={css("text-2xl", "font-bold")}>
+                    <div className={css("mb-2")}>You claimed {METDATAS.filter(item => item.id === claimedId)[0]?.name}!</div>
                     <div>
                         Welcome to the fellowship of the Doge - bound by DOG, governed by memes,
                         respected for provenance and protected by us Dogens. bork!
                     </div>
                 </div>
             } else if (isInWhiteList) {
-                return <div className={css("text-xl", "font-bold")}>
+                return <div className={css("text-2xl", "font-bold")}>
                     <div>Thanks for holding DOG and/or Pixels</div>
                     <div>You are eligible to mint!</div>
-                    <div className={css("text-lg", "text-pixels-yellow-500")}>(Select token below)</div>
+                    <div className={css("text-xl", "text-pixels-yellow-500")}>(Select token below)</div>
                 </div>
             }
-            return <div className={css("font-bold")}>
+            return <div className={css("font-bold", "text-2xl")}>
                 <div>Sorry you are not on the whitelist.</div>
                 <div>You can still claim the original music video <Link href={"/radio"}>here</Link> if you <Link isExternal href={'https://pixels.ownthedoge.com'}>Own a Pixel</Link>.</div>
             </div>
         }
         return <div className={css("text-gray-400", "font-bold")}>Connect wallet to mint</div>
-    }, [signer, isInWhiteList, isClaimed])
+    }, [signer, isInWhiteList, isClaimed, claimedId])
 
     return <PageLayout>
         <Head>
@@ -191,14 +191,20 @@ const SoulBound: React.FC = () => {
 
               <div className={css( "text-xl", "my-12", "text-center")}>
                   DOG turns 1! Memes rule the internet and 1 year ago we democratized the internet by decentralizing the ownership of its most famous meme.
-                  On August 30th, 2021, PleasrDAO fractionalized The Doge NFT giving birth to DOG, a token representing ownership of the OG doge meme.
+                  On August 30th, 2021, PleasrDAO fractionalized The Doge NFT giving birth to DOG, a token representing ownership of the OG Doge meme.
               </div>
               <div className={css("mt-1", "text-xl", "mb-8", "text-center")}>
                   To commemorate 1 year of wholesomeness, fun, dogely values and philanthropy on the blockchain,
-                  we have launched our very special birthday edition soulbound token series for supporters who held
-                  DOG at before August 30th, 2022. This NFT is a clip from our music video titled “In Doge We Trust” which was
-                  created in collaboration with Bassjackers, pplpleasr, and cloudeatr. It not only establishes you as a respectable
+                  we have launched our very special birthday edition soulbound (read more <Link isExternal href="https://vitalik.ca/general/2022/01/26/soulbound.html">here</Link>) token series for supporters who held
+                  DOG and/or <Link isExternal href="https://pixels.ownthedoge.com">Doge Pixels</Link> before August 30th, 2022.
+                  This NFT is a clip from our music video titled “In Doge We Trust” which was
+                  created in collaboration with <Link isExternal href="https://twitter.com/Bassjackers">Bassjackers</Link>, <Link isExternal href="https://twitter.com/pplpleasr1"> pplpleasr</Link>,
+                  and <Link isExternal href="https://twitter.com/cloudeatr">cloudeatr</Link>. It not only establishes you as a respectable
                   member of our DOG universe but also gives you the right to call yourself a Dogen!
+              </div>
+
+              <div className={css("text-lg", "text-center")}>
+                For the whole month of September, all Doge Pixel holders can claim the full music video <Link href="/radio">here</Link>.
               </div>
 
                 <div className={css("my-12", "text-lg", "text-center")}>
