@@ -186,11 +186,11 @@ const SoulBound: React.FC = () => {
                   <ColoredText>🎂✨ DOG Turns 1 ✨🎂</ColoredText>
               </div>
 
-              <div className={css( "text-xl", "my-12")}>
+              <div className={css( "text-xl", "my-12", "text-center")}>
                 DOG turns 1! On September 1st 2021 at 7PM UTC, The Doge NFT was fractionalized, creating DOG.
                 Something something ~~soulbound~~
               </div>
-              <div className={css("mt-1", "text-xl", "mb-8")}>
+              <div className={css("mt-1", "text-xl", "mb-8", "text-center")}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
                 et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                 aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
