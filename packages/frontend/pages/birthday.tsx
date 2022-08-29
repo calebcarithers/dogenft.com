@@ -190,14 +190,14 @@ const SoulBound: React.FC = () => {
               </div>
 
               <div className={css( "text-xl", "my-12", "text-center")}>
-                  DOG turns 1! Memes rule the internet and 1 year ago we democratised the internet by decentralizing the ownership of its most famous meme.
-                  On August 30th 2021 at 7PM UTC, PleasrDAO fractionalized The Doge NFT giving birth to DOG- a token representing ownership of the OG doge meme.
+                  DOG turns 1! Memes rule the internet and 1 year ago we democratized the internet by decentralizing the ownership of its most famous meme.
+                  On August 30th, 2021, PleasrDAO fractionalized The Doge NFT giving birth to DOG, a token representing ownership of the OG doge meme.
               </div>
               <div className={css("mt-1", "text-xl", "mb-8", "text-center")}>
-                To commemorate 1 year of wholesomeness, fun, dogely values and philanthropy on the blockchain,
-                  we have launched our very special-birthday edition soulbound token series for supporters who held
-                  DOG at *snapshot time*. This NFT is a GIF from our music video titled “In Doge We Trust” which was
-                  created in collaboration with Bassjackers and pplPleasr. It not only establishes you as a respectable
+                  To commemorate 1 year of wholesomeness, fun, dogely values and philanthropy on the blockchain,
+                  we have launched our very special birthday edition soulbound token series for supporters who held
+                  DOG at before August 30th, 2022. This NFT is a clip from our music video titled “In Doge We Trust” which was
+                  created in collaboration with Bassjackers, pplpleasr, and cloudeatr. It not only establishes you as a respectable
                   member of our DOG universe but also gives you the right to call yourself a Dogen!
               </div>
 

@@ -5,5 +5,5 @@
   "name": "Skydancer Doge",
   "background_color": "ECCB6D",
   "animation_url": "ipfs://bafybeih6jaobbbddempsdyn75pkwsd6on5y2ng333ocifgjo6nk2i7dcwi",
-  "attributes": [{"display_type": "date", "trait_type": "birthday", "value": 1630515600}]
+  "attributes": [{"display_type": "date", "trait_type": "birthday", "value": 1630372277}, {"trait_type": "dance", "value": "Skydance"}]
 }

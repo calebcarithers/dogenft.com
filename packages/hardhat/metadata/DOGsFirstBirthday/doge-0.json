@@ -5,5 +5,5 @@
   "name": "Jumpy Doge",
   "background_color": "ECCB6D",
   "animation_url": "ipfs://bafybeifwzzswv77xr6j7x267ehv4ujwbnqzqvjm3gtticvylglgl7t567i",
-  "attributes": [{"display_type": "date", "trait_type": "birthday", "value": 1630515600}]
+  "attributes": [{"display_type": "date", "trait_type": "birthday", "value": 1630372277}, {"trait_type": "dance", "value": "Gangnam Style"}]
 }
