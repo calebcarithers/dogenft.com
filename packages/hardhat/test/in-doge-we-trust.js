@@ -1,19 +1,11 @@
 const {expect} = require("chai");
 const {ethers, upgrades} = require("hardhat");
 const {BigNumber} = require("ethers");
-const {keccak256} = require("ethers/lib/utils");
-const {MerkleTree} = require("merkletreejs");
 
 describe("In Doge We Trust", function () {
   let mockPixelContract, signers, whitelisted, tree;
   let InDogeWeTrust;
   let tokenId;
-
-  // const mintToken = async (signer) => {
-  //   const contract = await mockPixelContract.connect(signer)
-  //   const proof = tree.getHexProof(keccak256(signer.address))
-  //   return contract.safeMint(proof)
-  // }
 
   const getTokenIdFromReceipt = (receipt) => {
     return BigNumber.from(receipt.logs[0].topics[3]).toNumber()
@@ -24,11 +16,6 @@ describe("In Doge We Trust", function () {
     whitelisted = signers.slice(0, 5)
 
     // This is only for mock pixel contract.
-    // const leaves = whitelisted.map(account => keccak256(account.address))
-    // tree = new MerkleTree(leaves, keccak256, { sort: true })
-    // const merkleRoot = tree.getHexRoot()
-
-
     console.log("\ndeploying mockPixelContract")
     const MockPixelContract = await ethers.getContractFactory("MockPixel");
     mockPixelContract = await upgrades.deployProxy(MockPixelContract, []);
