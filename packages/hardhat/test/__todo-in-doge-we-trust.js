@@ -5,62 +5,72 @@ const {keccak256} = require("ethers/lib/utils");
 const {MerkleTree} = require("merkletreejs");
 
 describe("In Doge We Trust", function () {
-  let IDWT, signers, whitelisted, notWhitelisted, tree;
-  let videoPixelContract;
+  let mockPixelContract, signers, whitelisted, tree;
+  let InDogeWeTrust;
   let tokenId;
-  const tokenURI = "ipfs://bafkreialqmooagbx5i3pao4wtr35t5v7dxwhma44znfuea5o4xf6uibcbm"
 
-  const mintToken = async (signer) => {
-    const contract = await IDWT.connect(signer)
-    const proof = tree.getHexProof(keccak256(signer.address))
-    return contract.safeMint(proof)
-  }
+  // const mintToken = async (signer) => {
+  //   const contract = await mockPixelContract.connect(signer)
+  //   const proof = tree.getHexProof(keccak256(signer.address))
+  //   return contract.safeMint(proof)
+  // }
 
   const getTokenIdFromReceipt = (receipt) => {
     return BigNumber.from(receipt.logs[0].topics[3]).toNumber()
   }
 
   before(async () => {
-    console.log("generating merkle root")
     signers = await ethers.getSigners()
     whitelisted = signers.slice(0, 5)
-    notWhitelisted = signers.slice(5, 10)
 
-    const leaves = whitelisted.map(account => keccak256(account.address))
-    tree = new MerkleTree(leaves, keccak256, { sort: true })
-    const merkleRoot = tree.getHexRoot()
-    console.log("got merkle root", merkleRoot)
+    // This is only for mock pixel contract.
+    // const leaves = whitelisted.map(account => keccak256(account.address))
+    // tree = new MerkleTree(leaves, keccak256, { sort: true })
+    // const merkleRoot = tree.getHexRoot()
 
 
-    console.log("\ndeploying IDWT")
-    const doge = await ethers.getContractFactory("InDogeWeTrust");
-    IDWT = await upgrades.deployProxy(doge, [whitelisted.length, merkleRoot]);
-    await IDWT.deployed();
-    console.log("IDWT deployed to:", IDWT.address);
-    console.log("setting base tokenURI to:", tokenURI)
-    await IDWT.setBaseURI(tokenURI)
+    console.log("\ndeploying mockPixelContract")
+    const MockPixelContract = await ethers.getContractFactory("MockPixel");
+    mockPixelContract = await upgrades.deployProxy(MockPixelContract, []);
+    await mockPixelContract.deployed();
+    console.log("mockPixelContract deployed to:", mockPixelContract.address);
 
-    console.log("\ndeploying videoPixel")
-    const VideoPixelFactory = await ethers.getContractFactory("VideoPixel");
-    videoPixelContract = await upgrades.deployProxy(VideoPixelFactory, [IDWT.address]);
-    await videoPixelContract.deployed();
-
+    console.log("\ndeploying InDogeWeTrust")
+    const InDogeWeTrustFactory = await ethers.getContractFactory("InDogeWeTrust");
+    InDogeWeTrust = await upgrades.deployProxy(InDogeWeTrustFactory, [mockPixelContract.address]);
+    await InDogeWeTrust.deployed();
   })
 
   it("mint token and allow only one token", async function () {
     const signer = whitelisted[1]
-    const tx = await mintToken(signer)
+    const tx = await mockPixelContract.connect(signer).mint()
 
     const receipt = await tx.wait()
     tokenId = getTokenIdFromReceipt(receipt)
 
-    await videoPixelContract.connect(signer).safeMint(tokenId);
-    expect(await videoPixelContract.balanceOf(signer.address)).to.equal(1);
+    await InDogeWeTrust.connect(signer).safeMint(tokenId);
+    expect(await InDogeWeTrust.balanceOf(signer.address)).to.equal(1);
 
-    await expect(videoPixelContract.connect(signer).safeMint(tokenId + 1)).to.be.revertedWith("Address already claimed");
+    await expect(InDogeWeTrust.connect(signer).safeMint(tokenId + 1)).to.be.revertedWith("Address has already claimed");
+  });
+
+  it("Should check claimed for wallet and pixel id", async function () {
+    expect(await InDogeWeTrust.hasPixelClaimed(tokenId)).to.equal(true);
+    expect(await InDogeWeTrust.hasPixelClaimed(tokenId + 1)).to.equal(false);
+    expect(await InDogeWeTrust.hasClaimed(whitelisted[1].address)).to.equal(true);
   });
 
   it("mint token from pixel id only one time", async function () {
-    await expect(videoPixelContract.connect(whitelisted[2]).safeMint(tokenId)).to.be.revertedWith("Pixel already claimed");
+    mockPixelContract["safeTransferFrom(address,address,uint256)"](whitelisted[1].address, whitelisted[2].address, tokenId)
+    await expect(InDogeWeTrust.connect(whitelisted[2]).safeMint(tokenId)).to.be.revertedWith("Pixel already used to claimed");
+  });
+
+   it("should allow pixel owner to mint", async function () {
+    const tx = await mockPixelContract.mint()
+
+    const receipt = await tx.wait()
+    tokenId = getTokenIdFromReceipt(receipt)
+
+    await expect(InDogeWeTrust.connect(whitelisted[2]).safeMint(tokenId)).to.be.revertedWith("You do not own this pixel");
   });
 });

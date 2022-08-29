@@ -90,7 +90,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
-    function totalSupply() public view {
+    function totalSupply() public view returns(uint256) {
         return _tokenIdCounter.current();
     }
 }
