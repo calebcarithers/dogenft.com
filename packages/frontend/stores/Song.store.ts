@@ -26,7 +26,7 @@ class SongStore {
     contract?: ethers.Contract
 
     @observable
-    signer?: ethers.Signer
+    signer?: ethers.Signer | null
 
     @observable
     disposer?: () => void

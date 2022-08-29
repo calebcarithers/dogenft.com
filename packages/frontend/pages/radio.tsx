@@ -46,7 +46,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
             songStore.contract = new ethers.Contract(song.contractAddress, song.abi, signer)
             songStore.getCanMint()
         }
-      songStore.signer = signer
+        songStore.signer = signer
     }, [signer, song.contractAddress, song.abi])
 
     const onTimeUpdate = () => {
