@@ -153,7 +153,10 @@ const SoulBound: React.FC = () => {
             if (isClaimed) {
                 return <div className={css("text-xl", "font-bold")}>
                     <div>You have already claimed!</div>
-                    <div>~ something heart-warming here ~</div>
+                    <div>
+                        Welcome to the fellowship of the Doge - bound by DOG, governed by memes,
+                        respected for provenance and protected by us Dogens. bork!
+                    </div>
                 </div>
             } else if (isInWhiteList) {
                 return <div className={css("text-xl", "font-bold")}>
@@ -187,15 +190,15 @@ const SoulBound: React.FC = () => {
               </div>
 
               <div className={css( "text-xl", "my-12", "text-center")}>
-                DOG turns 1! On September 1st 2021 at 7PM UTC, The Doge NFT was fractionalized, creating DOG.
-                Something something ~~soulbound~~
+                  DOG turns 1! Memes rule the internet and 1 year ago we democratised the internet by decentralizing the ownership of its most famous meme.
+                  On August 30th 2021 at 7PM UTC, PleasrDAO fractionalized The Doge NFT giving birth to DOG- a token representing ownership of the OG doge meme.
               </div>
               <div className={css("mt-1", "text-xl", "mb-8", "text-center")}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
+                To commemorate 1 year of wholesomeness, fun, dogely values and philanthropy on the blockchain,
+                  we have launched our very special-birthday edition soulbound token series for supporters who held
+                  DOG at *snapshot time*. This NFT is a GIF from our music video titled “In Doge We Trust” which was
+                  created in collaboration with Bassjackers and pplPleasr. It not only establishes you as a respectable
+                  member of our DOG universe but also gives you the right to call yourself a Dogen!
               </div>
 
                 <div className={css("my-12", "text-lg", "text-center")}>
