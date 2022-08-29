@@ -57,6 +57,7 @@ const SoulBound: React.FC = () => {
     const [isClaimed, setIsClaimed] = useState(false);
     const [isInWhiteList, setIsInWhitelist] = useState(false);
     const [claimedId, setClaimedId] = useState<number | null>(null)
+    const [justClaimed, setJustClaimed] = useState(false)
 
     useEffect(() => {
         const init = async() => {
@@ -136,7 +137,7 @@ const SoulBound: React.FC = () => {
                 const proof = getProof(address)
                 const tx = await soulBoundContract.safeMint(proof, selectedMetadata.id);
                 await tx.wait();
-                setShowModal(false);
+                setJustClaimed(true)
                 setIsClaimed(true);
             } catch(err) {
                 console.log({err})
@@ -158,7 +159,7 @@ const SoulBound: React.FC = () => {
                 return <div className={css("text-xl", "font-bold")}>
                     <div>Thanks for holding DOG and/or Pixels</div>
                     <div>You are eligible to mint!</div>
-                    <div className={css("text-lg", "text-pixels-yellow-400")}>(Select token below)</div>
+                    <div className={css("text-lg", "text-pixels-yellow-500")}>(Select token below)</div>
                 </div>
             }
             return <div>Sorry you are not in the whitelist. Mint a pixel to be included in our Pixel Perks.</div>
@@ -223,7 +224,7 @@ const SoulBound: React.FC = () => {
         <Modal
             size={DialogSize.sm}
             isOpen={showModal}
-            title={isClaimed ? "You already claimed" : `✨  ${selectedMetadata.name}  ✨`}
+            title={isClaimed ? "✨   Claimed   ✨" : `✨  ${selectedMetadata.name}  ✨`}
             onChange={(val) => setShowModal(val)}
         >
             <div className={css("w-full", "m-auto")}>
@@ -231,14 +232,15 @@ const SoulBound: React.FC = () => {
                     <source src={selectedMetadata.url} key={selectedMetadata.id} />
                 </video>
             </div>
-            <div className={css("flex", "justify-center", "my-6")}>
-              <Button onClick={() => claim()}>
-                {isClaiming && <div className={css("absolute", "w-full", "left-0", "top-0", "h-full", "flex", "items-center", "justify-center", "bg-pixels-yellow-300", "opacity-75")}>
-                  <ClipLoader size={25} speedMultiplier={0.5} color={tailwindconfig.theme.extend.colors.pixels.yellow[500]}/>
-                </div>}
-                Claim
-              </Button>
-            </div>
+            {justClaimed && <div className={css('text-2xl', "mt-8", "mb-4")}>
+              <div className={css("text-center")}>Thanks for claiming!</div>
+            </div>}
+            {!justClaimed && <div className={css("flex", "justify-center", "my-6")}>
+                {signer && !isClaimed && <Button isLoading={isClaiming} onClick={() => claim()}>
+                  Claim
+                </Button>}
+                {!signer && <div className={css("text-xl")}>Connect wallet to mint</div>}
+            </div>}
         </Modal>
     </PageLayout>
 }
