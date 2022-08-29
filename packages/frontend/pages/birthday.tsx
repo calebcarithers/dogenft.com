@@ -190,7 +190,7 @@ const SoulBound: React.FC = () => {
               </div>
 
               <div className={css( "text-xl", "my-12", "text-center")}>
-                  DOG turns 1! Memes rule the internet and 1 year ago we democratized the internet by decentralizing the ownership of its most famous meme.
+                  DOG turns 1! Memes rule the internet, and 1 year ago we democratized the internet by decentralizing the ownership of its most famous meme.
                   On August 30th, 2021, PleasrDAO fractionalized The Doge NFT giving birth to DOG, a token representing ownership of the OG Doge meme.
               </div>
               <div className={css("mt-1", "text-xl", "mb-8", "text-center")}>

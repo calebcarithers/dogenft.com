@@ -8,7 +8,15 @@ const hre = require("hardhat");
 async function main() {
 
   const tokenURI = "ipfs://bafkreian2hk6hrsl6wd5znydtcv7qh3abknft4vey5g5lclyqams3hywke"
-  const pixelAddress = "0xA26461Fcf53f3E21cde8c902CA6e8e6ba9Def62f"
+
+  let pixelAddress
+  if (hre.network.name === "rinkeby") {
+   pixelAddress = "0xA26461Fcf53f3E21cde8c902CA6e8e6ba9Def62f"
+  } else if (hre.network.name === "mainnet") {
+    pixelAddress = "0x07887Ee0Bd24E774903963d50cF4Ec6a0a16977D"
+  } else {
+    throw new Error("No pixel address for target network")
+  }
 
   console.log("deploying IDWT")
   const VidePixel = await hre.ethers.getContractFactory("InDogeWeTrust");

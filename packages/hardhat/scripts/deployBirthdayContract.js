@@ -15,16 +15,21 @@ async function main() {
 
   // We get the contract to deploy
   const baseURIs = [
-    "ipfs://bafkreieqrutgtw5xzof4qpqaw6idyo6xry2p3w5x5dsm5mnpgah42bqfkm",
-    "ipfs://bafkreihqek22nobwd5x5vaessfnnrk34pnknraiue3gxq3grlf7satb23a",
-    "ipfs://bafkreigyfzvx6a62ngt277lba6slwzenrzhvjumcf6vaugykl3flzitxra",
-    "ipfs://bafkreiau7fcyidy2lfc3i3gfl5ziicysdbxickrqoqty3vezvv2bpdstma"
+    "ipfs://bafkreibqqlvvgvmk6ohutbbtfupqpbfwspovp3xvkp55bjvvajcts43q2m",
+    "ipfs://bafkreid7kk4gi77zly6kuvo2qqhfyfojvui2wkdlygwdqpz46om5hthu4y",
+    "ipfs://bafkreickocyscmhtozj3zr7hxgbngf2wcqdsgxft5xbt2llwhmlyq3dmfe",
+    "ipfs://bafkreieypl6mbpjgzdxmyduf6mfq6ctlii2yygfvkk5jqscxm2utv7dybq"
   ];
 
-  const merkelRoot = "0xc5fcb453494a19d09b6e665a4cb1b4692de6ab2ffa60d1789594433812839ee0"
+  const totalSupply = 10839
+  const merkelRoot = "0xf7ff247b77a017235ac515a518d9d27ca7bba0d7df6a5e617f7ef445c7744fdb"
+
+  // throw new Error("HAVE YOU COMPUTED THE MOST RECENT MERKLE ROOT?")
+  // throw new Error("HAVE YOU COMPUTED THE TOTAL SUPPLY?")
+
 
   const Souldbound = await hre.ethers.getContractFactory("DOGsFirstBirthday");
-  const soulbound = await hre.upgrades.deployProxy(Souldbound, [merkelRoot, baseURIs, 10826]);
+  const soulbound = await hre.upgrades.deployProxy(Souldbound, [merkelRoot, baseURIs, totalSupply]);
   await soulbound.deployed();
   console.log("soulbound deployed to:", soulbound.address);
 }
