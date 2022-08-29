@@ -7,7 +7,7 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const tokenURI = "ipfs://bafkreic5jyppkizcemnjwbusu3xtd6ftpfnxdlxjjtgebihokfh34ciyou"
+  const tokenURI = "ipfs://bafkreian2hk6hrsl6wd5znydtcv7qh3abknft4vey5g5lclyqams3hywke"
   const pixelAddress = "0xA26461Fcf53f3E21cde8c902CA6e8e6ba9Def62f"
 
   console.log("deploying IDWT")

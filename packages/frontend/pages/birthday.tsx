@@ -196,7 +196,7 @@ const SoulBound: React.FC = () => {
               <div className={css("mt-1", "text-xl", "mb-8", "text-center")}>
                   To commemorate 1 year of wholesomeness, fun, dogely values and philanthropy on the blockchain,
                   we have launched our very special birthday edition soulbound (read more <Link isExternal href="https://vitalik.ca/general/2022/01/26/soulbound.html">here</Link>) token series for supporters who held
-                  DOG and/or <Link isExternal href="https://pixels.ownthedoge.com">Doge Pixels</Link> before August 30th, 2022.
+                  DOG on-chain (Ethereum, Arbitrum, BSC, Polygon, or Optimism) and/or <Link isExternal href="https://pixels.ownthedoge.com">Doge Pixels</Link>, before August 30th, 2022.
                   This NFT is a clip from our music video titled “In Doge We Trust” which was
                   created in collaboration with <Link isExternal href="https://twitter.com/Bassjackers">Bassjackers</Link>, <Link isExternal href="https://twitter.com/pplpleasr1"> pplpleasr</Link>,
                   and <Link isExternal href="https://twitter.com/cloudeatr">cloudeatr</Link>. It not only establishes you as a respectable
