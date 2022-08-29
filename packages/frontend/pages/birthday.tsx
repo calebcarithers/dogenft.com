@@ -69,6 +69,12 @@ const SoulBound: React.FC = () => {
             }
         }
 
+        if (!signer) {
+            setClaimedId(null)
+            setIsInWhitelist(false)
+            setIsClaimed(false)
+        }
+
         init();
 
     }, [signer])
@@ -220,25 +226,19 @@ const SoulBound: React.FC = () => {
             title={isClaimed ? "You already claimed" : `✨  ${selectedMetadata.name}  ✨`}
             onChange={(val) => setShowModal(val)}
         >
-            {
-                !isClaimed &&
-                    <>
-                        <div className={css("w-full", "m-auto")}>
-                            <video  className={css("w-full", "border-2", "border-black")} autoPlay={true} loop muted>
-                                <source src={selectedMetadata.url} key={selectedMetadata.id} />
-                            </video>
-                        </div>
-                        <div className={css("flex", "justify-center", "my-6")}>
-                          <Button onClick={() => claim()}>
-                            {isClaiming && <div className={css("absolute", "w-full", "left-0", "top-0", "h-full", "flex", "items-center", "justify-center", "bg-pixels-yellow-300", "opacity-75")}>
-                              <ClipLoader size={25} speedMultiplier={0.5} color={tailwindconfig.theme.extend.colors.pixels.yellow[500]}/>
-                            </div>}
-                            Claim
-                          </Button>
-                        </div>
-                    </>
-            }
-
+            <div className={css("w-full", "m-auto")}>
+                <video  className={css("w-full", "border-2", "border-black")} autoPlay={true} loop muted>
+                    <source src={selectedMetadata.url} key={selectedMetadata.id} />
+                </video>
+            </div>
+            <div className={css("flex", "justify-center", "my-6")}>
+              <Button onClick={() => claim()}>
+                {isClaiming && <div className={css("absolute", "w-full", "left-0", "top-0", "h-full", "flex", "items-center", "justify-center", "bg-pixels-yellow-300", "opacity-75")}>
+                  <ClipLoader size={25} speedMultiplier={0.5} color={tailwindconfig.theme.extend.colors.pixels.yellow[500]}/>
+                </div>}
+                Claim
+              </Button>
+            </div>
         </Modal>
     </PageLayout>
 }
