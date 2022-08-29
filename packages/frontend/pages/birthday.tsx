@@ -63,7 +63,7 @@ const SoulBound: React.FC = () => {
     useEffect(() => {
         const init = async() => {
             if (SoulBoundAbi && signer) {
-                const contract = new ethers.Contract(vars.NEXT_PUBLIC_SOULBOULD_CONTRACT_ADDRESS, SoulBoundAbi, signer)
+                const contract = new ethers.Contract(vars.NEXT_PUBLIC_SOULBOUND_CONTRACT_ADDRESS, SoulBoundAbi, signer)
                 setSoulBoundContract(contract);
                 const address = await signer.getAddress();
                 const claimed = await contract.hasClaimed(address);
