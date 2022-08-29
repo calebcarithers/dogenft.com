@@ -159,7 +159,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                         </Button>
                     </div>
                   <div className={css("text-sm", "text-gray-600", "px-10", "text-center")}>
-                    Checkout our Soulbound drop with Bassjackers <Link href="/birthday">here</Link>
+                    Checkout the Soulbound drop <Link href="/birthday">here</Link>
                   </div>
                 </div>
 
