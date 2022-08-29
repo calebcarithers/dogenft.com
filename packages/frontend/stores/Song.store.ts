@@ -67,7 +67,7 @@ class SongStore {
     }
 
     async getCanMint() {
-        if (this.contract && this.signer) {
+        if (this.contract && this.signer && this.signer.getAddress) {
             const address = await this.signer.getAddress()
             try {
                 this.hasClaimed = await this.contract.hasClaimed(address)
