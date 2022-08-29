@@ -7,17 +7,17 @@ const hre = require("hardhat");
 
 async function main() {
 
-  // We get the contract to deploy
   const tokenURI = "ipfs://bafkreic5jyppkizcemnjwbusu3xtd6ftpfnxdlxjjtgebihokfh34ciyou"
-  const pixelAddress = ""
+  const pixelAddress = "0xA26461Fcf53f3E21cde8c902CA6e8e6ba9Def62f"
 
-  console.log("deploying videoPixel")
+  console.log("deploying IDWT")
   const VidePixel = await hre.ethers.getContractFactory("InDogeWeTrust");
   const videoPixel = await hre.upgrades.deployProxy(VidePixel, [pixelAddress]);
   await videoPixel.deployed();
-  console.log("videoPixel deployed to:", videoPixel.address);
+  console.log("IDWT deployed to:", videoPixel.address);
   
   await videoPixel.setBaseURI(tokenURI)
+  console.log(`IDWT baseURI set to: ${tokenURI}`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

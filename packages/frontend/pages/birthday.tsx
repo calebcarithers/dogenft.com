@@ -12,9 +12,9 @@ import {ClipLoader} from "react-spinners";
 import tailwindconfig from "../tailwind.config";
 import SoulBoundAbi from "../services/abis/soulBound.abi";
 import {css} from "../helpers/css";
-import { getProof } from "../helpers/merkletree";
 import DropShadow from "../components/DropShadow/DropShadow";
 import {vars} from "../environment/vars";
+import {getProof} from "../services/merkletree";
 
 interface IMetadata {
     id: number,
@@ -53,15 +53,14 @@ const SoulBound: React.FC = () => {
     const {data: signer} = useSigner();
     const [soulBoundContract, setSoulBoundContract] = useState<any>();
     const [isClaimed, setIsClaimed] = useState(false);
-    
+
     useEffect(() => {
         const init = async() => {
-            if (vars.NEXT_PUBLIC_SOULBOULD_CONTRACT && SoulBoundAbi && signer) {
-                const contract = new ethers.Contract(vars.NEXT_PUBLIC_SOULBOULD_CONTRACT, SoulBoundAbi, signer)
+            if (SoulBoundAbi && signer) {
+                const contract = new ethers.Contract(vars.NEXT_PUBLIC_SOULBOULD_CONTRACT_ADDRESS, SoulBoundAbi, signer)
                 setSoulBoundContract(contract);
                 const address = await signer.getAddress();
                 const claimed = await contract.hasClaimed(address);
-                console.log({claimed})
                 setIsClaimed(claimed)
             }
         }
@@ -83,7 +82,7 @@ const SoulBound: React.FC = () => {
                 const address = await signer?.getAddress();
                 if (!address) return;
 
-                const proof = getProof(address);
+                const proof = getProof(address)
                 const tx = await soulBoundContract.safeMint(proof, selectedMetadata.id);
                 await tx.wait();
                 setShowModal(false);
@@ -91,6 +90,8 @@ const SoulBound: React.FC = () => {
             } catch(err) {
                 console.log({err})
             }
+        } else {
+          console.log("debug:: no contract found")
         }
         setIsClaiming(false);
     }
@@ -107,14 +108,23 @@ const SoulBound: React.FC = () => {
             </div>
             <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
               <div className={css("flex", "justify-center", "text-4xl", "font-bold", "mt-16")}>
-                  <ColoredText>🎂✨ Happy Birthday ✨🎂</ColoredText>
+                  <ColoredText>🎂✨ DOG Turns 1 Year Old ✨🎂</ColoredText>
               </div>
+
+              <div>
+                {isClaimed ? "you have claimed" : "you have not claimed"}
+              </div>
+
               <div className={css( "text-xl", "my-12")}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum
+                DOG turns 1! On September 1st 2021 at 7PM UTC, The Doge NFT was fractionalized, creating DOG.
+                Something something ~~soulbound~~
+              </div>
+              <div className={css("mt-1", "text-xl", "mb-8")}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
               </div>
               <div className={css("grid", "px-12", "md:px-0", "grid-cols-1", "md:grid-cols-2", "gap-20", "md:gap-10")}>
                 {

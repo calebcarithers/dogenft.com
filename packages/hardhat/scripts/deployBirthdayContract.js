@@ -14,9 +14,17 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const baseURIs = ["base1", "base2", "base3", "base4"];
+  const baseURIs = [
+    "ipfs://bafkreieqrutgtw5xzof4qpqaw6idyo6xry2p3w5x5dsm5mnpgah42bqfkm",
+    "ipfs://bafkreihqek22nobwd5x5vaessfnnrk34pnknraiue3gxq3grlf7satb23a",
+    "ipfs://bafkreihqek22nobwd5x5vaessfnnrk34pnknraiue3gxq3grlf7satb23a",
+    "ipfs://bafkreiau7fcyidy2lfc3i3gfl5ziicysdbxickrqoqty3vezvv2bpdstma"
+  ];
+
+  const merkelRoot = "0x5f211dd2fcc25b7bc70c41acb580458cfd5eb617390fba94a875404664c132ff"
+
   const Souldbound = await hre.ethers.getContractFactory("DOGsFirstBirthday");
-  const soulbound = await hre.upgrades.deployProxy(Souldbound, ["0x196d644482833fb5e75a164bdc305b35efeb8151006ea1e79bd732a97bd620c9", baseURIs]);
+  const soulbound = await hre.upgrades.deployProxy(Souldbound, [merkelRoot, baseURIs]);
   await soulbound.deployed();
   console.log("soulbound deployed to:", soulbound.address);
 }

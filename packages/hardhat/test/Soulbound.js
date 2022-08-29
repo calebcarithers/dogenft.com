@@ -31,7 +31,7 @@ describe("In Doge We Trust", function () {
 
 
     console.log("\ndeploying Souldbound")
-    const doge = await ethers.getContractFactory("Soulbound");
+    const doge = await ethers.getContractFactory("DOGsFirstBirthday");
     Souldbound = await upgrades.deployProxy(doge, [ merkleRoot, baseURIs]);
     await Souldbound.deployed();
     console.log("Souldbound deployed to:", Souldbound.address);

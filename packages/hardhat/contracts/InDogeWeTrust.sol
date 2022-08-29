@@ -30,16 +30,15 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
         __Ownable_init();
         __ERC721Burnable_init();
         pixelAddress = _pixelAddress;
-        // merkleRoot = _merkleRoot;
     }
 
     function safeMint(uint256 _pixelId) public whenNotPaused {
         // make sure address has not already claimed
-        require(!whitelistClaimed[msg.sender], "Address already claimed");
+        require(!whitelistClaimed[msg.sender], "Address has already claimed");
 
         // make sure pixel has not already claimed
-        require(!pixelClaimed[_pixelId], "Pixel already claimed");
-        require(ERC721Upgradeable(pixelAddress).ownerOf(_pixelId) == msg.sender, "Not owner of pixel");
+        require(!pixelClaimed[_pixelId], "Pixel already used to claimed");
+        require(ERC721Upgradeable(pixelAddress).ownerOf(_pixelId) == msg.sender, "You do not own this pixel");
 
         uint256 tokenId = _tokenIdCounter.current();
 
