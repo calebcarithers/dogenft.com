@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {makeObservable, observable, reaction} from "mobx";
 import {ethers} from "ethers";
 
@@ -16,7 +17,7 @@ class SongStore {
     hasClaimed = false
 
     @observable
-    isSupplyAvailable = true
+    availablePixelId = -1
 
     @observable
     isPaused = true
@@ -55,9 +56,11 @@ class SongStore {
         if (this.contract) {
             this.isMintLoading = true
             try {
-                const tx = await this.contract.safeMint()
+                const tx = await this.contract.safeMint(this.availablePixelId)
                 await tx.wait()
-                await this.getCanMint()
+                // await this.getCanMint()
+                this.availablePixelId = -1;
+                this.hasClaimed = true;
             } catch (e) {
 
             } finally {
@@ -70,9 +73,27 @@ class SongStore {
         if (this.contract && this.signer && this.signer.getAddress) {
             const address = await this.signer.getAddress()
             try {
-                this.hasClaimed = await this.contract.hasClaimed(address)
-                this.isSupplyAvailable = await this.contract.isSupplyAvailable()
-                console.log("debug:::", this.hasClaimed, this.isSupplyAvailable)
+                const hasClaimed = await this.contract.hasClaimed(address)
+                this.hasClaimed = hasClaimed;
+                if (!hasClaimed) {
+                    if (process.env.NEXT_PUBLIC_PIXEL_HOLDER_API) {
+                        const pixelResponse = await axios.get(process.env.NEXT_PUBLIC_PIXEL_HOLDER_API);
+                        const pixelHolders = Object.keys(pixelResponse.data);
+                       
+                        if (pixelHolders.includes(address)) {
+                            const pixelIds = pixelResponse.data[address].tokenIDs;
+                            for (let i = 0; i < pixelIds.length; i++) {
+                                const pixelId = pixelIds[i];
+                                const isClaimed = await this.contract.hasPixelClaimed(pixelId);
+                                if (!isClaimed) {
+                                    this.availablePixelId = pixelId;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                console.log("debug:: available pixel id", this.availablePixelId)
             } catch (e) {
                 console.error(e)
             }
