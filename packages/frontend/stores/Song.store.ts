@@ -28,16 +28,17 @@ class SongStore {
     @observable
     signer?: ethers.Signer
 
-    // @observable
-    // disposer?: () => void
+    @observable
+    disposer?: () => void
 
     constructor() {
         makeObservable(this)
-        // this.disposer = reaction(() => [this.contract, this.signer], () => {
-        //     if (this.contract) {
-        //         this.getCanMint()
-        //     }
-        // })
+    }
+
+    init() {
+      this.disposer = reaction(() => [this.contract, this.signer], () => {
+        this.getCanMint()
+      })
     }
 
     onTimeUpdate(video: HTMLVideoElement) {
@@ -100,11 +101,11 @@ class SongStore {
         }
     }
 
-    // destroy() {
-    //     if (this.disposer) {
-    //         this.disposer()
-    //     }
-    // }
+    destroy() {
+        if (this.disposer) {
+            this.disposer()
+        }
+    }
 }
 
 export default SongStore

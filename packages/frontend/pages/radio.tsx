@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef} from "react";
+import React, {useCallback, useEffect, useMemo, useRef} from "react";
 import {BsArrowLeft, BsDot, BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill} from "react-icons/bs";
 import {MdPause} from "react-icons/md";
 import PageLayout from "../layouts/Page/Page.layout";
@@ -11,6 +11,7 @@ import SongStore from "../stores/Song.store";
 import {ethers} from "ethers";
 import Link, {LinkSize, LinkType} from "../components/Link/Link";
 import {useRouter} from "next/router";
+import {isDev} from "../environment";
 
 const Radio = observer(() => {
     const store = useMemo(() => new NftRadioStore(), [])
@@ -43,9 +44,9 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
     useEffect(() => {
         if (song.contractAddress && song.abi && signer) {
             songStore.contract = new ethers.Contract(song.contractAddress, song.abi, signer)
-            songStore.signer = signer
             songStore.getCanMint()
         }
+      songStore.signer = signer
     }, [signer, song.contractAddress, song.abi])
 
     const onTimeUpdate = () => {
@@ -57,11 +58,43 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
 
     useEffect(() => {
         onTimeUpdate()
-        // return () => {
-        //     songStore.destroy()
-        // }
+        songStore.init()
+        return () => {
+            songStore.destroy()
+        }
     }, [])
 
+
+    const renderIndicator = useCallback(() => {
+      if (song.isActive) {
+        if (songStore.signer) {
+          if (songStore.hasClaimed){
+            return <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>
+          } else {
+            if (songStore.availablePixelId !== -1) {
+              return <Button
+                isLoading={songStore.isMintLoading}
+                disabled={activeChain?.network !== "rinkeby"}
+                onClick={() => songStore.mint()}>
+                ✨ Mint ✨
+              </Button>
+            } else {
+              return <div className={css("text-center", "font-bold")}>
+                <div>No pixels found!</div>
+                <div>Mint one <Link isExternal href={isDev() ? "https://dev.pixels.ownthedoge.com" : "https://pixels.ownthedoge.com"}>here</Link>
+                </div>
+              </div>
+            }
+          }
+        } else {
+          return <div className={css("text-pixels-yellow-400", "font-bold")}>
+            connect wallet to mint
+          </div>
+        }
+      } else {
+        return <div className={css("text-pixels-yellow-400")}>un-released track</div>
+      }
+    }, [song, songStore.availablePixelId, songStore.hasClaimed, songStore.signer, song.isActive])
 
     return <div className={css("grid", "grid-cols-1", "md:grid-cols-5")}>
         <div className={css("col-span-1", "md:col-span-2")}>
@@ -106,32 +139,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                         </div>
                     </div>
                     <div className={css("flex", "justify-center", "mt-6")}>
-                        {(() => {
-                            if (song.isActive) {
-                                if (songStore.signer) {
-                                    if (songStore.hasClaimed){
-                                        return <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>
-                                    } else {
-                                        if (songStore.availablePixelId !== -1) {
-                                            return <Button
-                                                isLoading={songStore.isMintLoading}
-                                                disabled={activeChain?.network !== "rinkeby"}
-                                                onClick={() => songStore.mint()}>
-                                                ✨ Mint ✨
-                                            </Button>
-                                        } else {
-                                            return <div>Not available pixel ids</div>
-                                        }
-                                    }
-                                } else {
-                                    return <div className={css("text-pixels-yellow-400", "font-bold")}>
-                                        connect wallet to mint
-                                    </div>
-                                }
-                            } else {
-                                return <div className={css("text-pixels-yellow-400")}>un-released track</div>
-                            }
-                        })()}
+                        {renderIndicator()}
                     </div>
                 </div>
                 <div className={css("flex", "items-center", "justify-between", "mt-5", "md:mt-0")}>
