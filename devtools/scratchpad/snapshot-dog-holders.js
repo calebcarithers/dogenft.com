@@ -1,8 +1,9 @@
 const axios = require("axios")
-const keccak256 = require("keccak256");
+// const keccak256 = require("keccak256");
 const {MerkleTree} = require("merkletreejs");
 const { parse } = require("csv-parse/sync")
 const fs = require("fs")
+const { keccak256 } = require("ethers/lib/utils")
 
 // DOG EXISTS ON THE FOLLOWING CHAINS
 // 1: ethereum mainnet
@@ -44,11 +45,12 @@ const main = async () => {
     const uniqueAddresses = new Set(addresses)
     console.log("unique:", uniqueAddresses.size, "\n")
 
-    const merkleRoot = generateMerkleRoot(Array.from(uniqueAddresses))
+    const toGenerateMerkleTree = Array.from(uniqueAddresses)
+    const merkleRoot = generateMerkleRoot(toGenerateMerkleTree)
     console.log("merkle root", merkleRoot)
 
     console.log("writing whitelist")
-    writeAddressToFile("../../packages/frontend/services/whitelists/devSoulboundWhitelist.json", addresses)
+    writeAddressToFile("../../packages/frontend/services/whitelists/devSoulboundWhitelist.json", toGenerateMerkleTree)
 }
 
 const getData = async (networkName) => {
@@ -77,6 +79,7 @@ const generateMerkleRoot = (addresses) => {
     if (!Array.isArray(addresses)) {
         throw new Error("Addresses must be an array")
     }
+
     const leafNodes = addresses.map(address => keccak256(address))
     const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true })
     return merkleTree.getHexRoot()
@@ -84,7 +87,9 @@ const generateMerkleRoot = (addresses) => {
 
 const writeAddressToFile = (name, data) => {
   return fs.writeFile(name, JSON.stringify(data), (err) => {
-    console.error(err)
+      if (err) {
+          console.error(err)
+      }
   })
 }
 

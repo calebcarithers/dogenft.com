@@ -1,9 +1,9 @@
 import Head from "next/head"
 import {BsArrowLeft} from "react-icons/bs";
-import React, { useEffect, useState } from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 import { useSigner } from "wagmi";
-import { ethers } from "ethers";
+import {Contract, ethers} from "ethers";
 import Button from "../components/Button/Button";
 import PageLayout from "../layouts/Page/Page.layout";
 import ColoredText from "../components/ColoredText/ColoredText";
@@ -15,6 +15,8 @@ import {css} from "../helpers/css";
 import DropShadow from "../components/DropShadow/DropShadow";
 import {vars} from "../environment/vars";
 import {getProof} from "../services/merkletree";
+import {getSoulboundWhitelist} from "../environment";
+import axios from "axios";
 
 interface IMetadata {
     id: number,
@@ -51,8 +53,10 @@ const SoulBound: React.FC = () => {
     const [selectedMetadata, setSelectedMetadata] = useState<IMetadata | any>({});
     const [isClaiming, setIsClaiming] = useState(false);
     const {data: signer} = useSigner();
-    const [soulBoundContract, setSoulBoundContract] = useState<any>();
+    const [soulBoundContract, setSoulBoundContract] = useState<Contract | null>();
     const [isClaimed, setIsClaimed] = useState(false);
+    const [isInWhiteList, setIsInWhitelist] = useState(false);
+    const [claimedId, setClaimedId] = useState<number | null>(null)
 
     useEffect(() => {
         const init = async() => {
@@ -66,7 +70,49 @@ const SoulBound: React.FC = () => {
         }
 
         init();
-       
+
+    }, [signer])
+
+    useEffect(() => {
+        const getClaimedId = async () => {
+            if (soulBoundContract && signer && isClaimed) {
+                const address = await signer?.getAddress()
+                // user can only transfer token to their address since it is soulbound
+                const filter = soulBoundContract.filters.Transfer(null, address)
+                const logs = await soulBoundContract.queryFilter(filter)
+
+                if (logs.length > 1) {
+                    throw new Error("There should not be more than one transfer event here")
+                }
+
+                if (logs.length == 1 && logs[0].args) {
+                    const [,, tokenId] = logs[0].args
+                    const uri = await soulBoundContract.tokenURI(tokenId.toNumber())
+                    const {data: metadata} = await axios.get(`https://ipfs.io/ipfs/${uri.split("ipfs://")[1]}`)
+                    const name = metadata?.name
+                    const claimedId = METDATAS.filter(item => item.name === name)[0]?.id
+                    if (claimedId !== null) {
+                        setClaimedId(claimedId)
+                    }
+                }
+            }
+        }
+        getClaimedId()
+    }, [soulBoundContract, signer, isClaimed])
+
+    useEffect(() => {
+        const getIsInWhiteList = async () => {
+            const address = await signer?.getAddress()
+            if (address) {
+                if (getSoulboundWhitelist().includes(address)) {
+                    console.log("debug:: hit is in whitelist")
+                    setIsInWhitelist(true)
+                } else {
+                    setIsInWhitelist(false)
+                }
+            }
+        }
+        getIsInWhiteList()
     }, [signer])
 
     const onClickMetadata = (metadata: any) => {
@@ -74,7 +120,6 @@ const SoulBound: React.FC = () => {
         setShowModal(true);
     }
 
-    
     const claim = async() => {
         setIsClaiming(true);
         if (soulBoundContract) {
@@ -91,10 +136,30 @@ const SoulBound: React.FC = () => {
                 console.log({err})
             }
         } else {
-          console.log("debug:: no contract found")
+          console.error("debug:: no contract found")
         }
         setIsClaiming(false);
     }
+
+    const getStatusText = useCallback(() => {
+        if (signer) {
+            if (isClaimed) {
+                return <div className={css("text-xl", "font-bold")}>
+                    <div>You have already claimed!</div>
+                    <div>~ something heart-warming here ~</div>
+                </div>
+            } else if (isInWhiteList) {
+                return <div className={css("text-xl", "font-bold")}>
+                    <div>Thanks for holding DOG and/or Pixels</div>
+                    <div>You are eligible to mint!</div>
+                    <div className={css("text-lg", "text-pixels-yellow-400")}>(Select token below)</div>
+                </div>
+            }
+            return <div>Sorry you are not in the whitelist. Mint a pixel to be included in our Pixel Perks.</div>
+        }
+        return <div className={css("text-gray-400", "font-bold")}>Connect wallet to mint</div>
+    }, [signer, isInWhiteList, isClaimed])
+
     return <PageLayout>
         <Head>
             <title>The Doge NFT </title>
@@ -108,11 +173,7 @@ const SoulBound: React.FC = () => {
             </div>
             <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
               <div className={css("flex", "justify-center", "text-4xl", "font-bold", "mt-16")}>
-                  <ColoredText>🎂✨ DOG Turns 1 Year Old ✨🎂</ColoredText>
-              </div>
-
-              <div>
-                {isClaimed ? "you have claimed" : "you have not claimed"}
+                  <ColoredText>🎂✨ DOG Turns 1 ✨🎂</ColoredText>
               </div>
 
               <div className={css( "text-xl", "my-12")}>
@@ -126,13 +187,20 @@ const SoulBound: React.FC = () => {
                 dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
                 deserunt mollit anim id est laborum.
               </div>
+
+                <div className={css("my-12", "text-lg", "text-center")}>
+                    {getStatusText()}
+                </div>
+
               <div className={css("grid", "px-12", "md:px-0", "grid-cols-1", "md:grid-cols-2", "gap-20", "md:gap-10")}>
                 {
-                  METDATAS.map((metadata: IMetadata)=> {
+                  METDATAS.map((metadata: IMetadata, index)=> {
                     return (
                       <>
-                        <div>
-                          <DropShadow onClick={() => onClickMetadata(metadata)} key={metadata.id}>
+                        <div className={css({
+                            "opacity-50": isClaimed && metadata.id !== claimedId
+                        })}>
+                          <DropShadow onClick={isClaimed ? undefined : () => onClickMetadata(metadata)} key={metadata.id} className={css("bg-black[0.05]")}>
                             <video className={css("w-full")} autoPlay={true} loop muted>
                               <source src={metadata.url} key={metadata.id} />
                             </video>
@@ -170,7 +238,7 @@ const SoulBound: React.FC = () => {
                         </div>
                     </>
             }
-            
+
         </Modal>
     </PageLayout>
 }

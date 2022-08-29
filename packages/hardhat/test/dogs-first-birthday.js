@@ -32,7 +32,7 @@ describe("In Doge We Trust", function () {
 
     console.log("\ndeploying Souldbound")
     const doge = await ethers.getContractFactory("DOGsFirstBirthday");
-    Souldbound = await upgrades.deployProxy(doge, [ merkleRoot, baseURIs]);
+    Souldbound = await upgrades.deployProxy(doge, [merkleRoot, baseURIs]);
     await Souldbound.deployed();
     console.log("Souldbound deployed to:", Souldbound.address);
   })
@@ -41,6 +41,9 @@ describe("In Doge We Trust", function () {
     const signer = whitelisted[0]
     await mintToken(signer, 0)
     await expect(mintToken(signer, 0)).to.be.revertedWith("Address already claimed")
+
+    const balance = await Souldbound.connect(signer).balanceOf(signer.address)
+    expect(balance.toNumber()).to.equal(1)
   })
 
   it("mint token and check balance", async function () {

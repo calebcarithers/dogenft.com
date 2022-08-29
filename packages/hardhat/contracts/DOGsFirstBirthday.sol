@@ -20,14 +20,14 @@ contract DOGsFirstBirthday is Initializable, ERC721Upgradeable, PausableUpgradea
 
     string[] baseTokenURIs;
     mapping(uint256 => uint256) tokenURITypes;
-   
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
 
     function initialize(bytes32 _merkleRoot, string[] memory _baseTokenURIs) initializer public {
-        __ERC721_init("DOG's First Birthday", "FirstBDayDogeNFT");
+        __ERC721_init("DOG's First Birthday", "DOGFirstBirthday");
         __Pausable_init();
         __Ownable_init();
         __ERC721Burnable_init();
