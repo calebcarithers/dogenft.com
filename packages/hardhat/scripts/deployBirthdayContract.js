@@ -17,11 +17,11 @@ async function main() {
   const baseURIs = [
     "ipfs://bafkreieqrutgtw5xzof4qpqaw6idyo6xry2p3w5x5dsm5mnpgah42bqfkm",
     "ipfs://bafkreihqek22nobwd5x5vaessfnnrk34pnknraiue3gxq3grlf7satb23a",
-    "ipfs://bafkreihqek22nobwd5x5vaessfnnrk34pnknraiue3gxq3grlf7satb23a",
+    "ipfs://bafkreigyfzvx6a62ngt277lba6slwzenrzhvjumcf6vaugykl3flzitxra",
     "ipfs://bafkreiau7fcyidy2lfc3i3gfl5ziicysdbxickrqoqty3vezvv2bpdstma"
   ];
 
-  const merkelRoot = "0x5f211dd2fcc25b7bc70c41acb580458cfd5eb617390fba94a875404664c132ff"
+  const merkelRoot = "0x94364b5f62fdb60fb392c27f38d5467f1f1199c4e1f5154d11513f1281e2b897"
 
   const Souldbound = await hre.ethers.getContractFactory("DOGsFirstBirthday");
   const soulbound = await hre.upgrades.deployProxy(Souldbound, [merkelRoot, baseURIs]);

@@ -17,6 +17,7 @@ import {vars} from "../environment/vars";
 import {getProof} from "../services/merkletree";
 import {getSoulboundWhitelist} from "../environment";
 import axios from "axios";
+import Link from "../components/Link/Link";
 
 interface IMetadata {
     id: number,
@@ -162,7 +163,10 @@ const SoulBound: React.FC = () => {
                     <div className={css("text-lg", "text-pixels-yellow-500")}>(Select token below)</div>
                 </div>
             }
-            return <div>Sorry you are not in the whitelist. Mint a pixel to be included in our Pixel Perks.</div>
+            return <div className={css("font-bold")}>
+                <div>Sorry you are not on the whitelist.</div>
+                <div>You can still claim the original music video <Link href={"/radio"}>here</Link> if you <Link isExternal href={'https://pixels.ownthedoge.com'}>Own a Pixel</Link>.</div>
+            </div>
         }
         return <div className={css("text-gray-400", "font-bold")}>Connect wallet to mint</div>
     }, [signer, isInWhiteList, isClaimed])
@@ -203,8 +207,7 @@ const SoulBound: React.FC = () => {
                 {
                   METDATAS.map((metadata: IMetadata, index)=> {
                     return (
-                      <>
-                        <div className={css({
+                        <div key={`${metadata.name}-${index}`} className={css({
                             "opacity-50": isClaimed && metadata.id !== claimedId
                         })}>
                           <DropShadow onClick={isClaimed ? undefined : () => onClickMetadata(metadata)} key={metadata.id} className={css("bg-black[0.05]")}>
@@ -214,7 +217,6 @@ const SoulBound: React.FC = () => {
                           </DropShadow>
                           <div className={css("text-center", "mt-4", "text-xl")}>{metadata.name}</div>
                         </div>
-                      </>
                     )
                   })
                 }
