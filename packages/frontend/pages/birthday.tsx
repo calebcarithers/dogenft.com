@@ -8,8 +8,6 @@ import Button from "../components/Button/Button";
 import PageLayout from "../layouts/Page/Page.layout";
 import ColoredText from "../components/ColoredText/ColoredText";
 import Modal, { DialogSize } from "../components/Modal/Modal";
-import {ClipLoader} from "react-spinners";
-import tailwindconfig from "../tailwind.config";
 import SoulBoundAbi from "../services/abis/soulBound.abi";
 import {css} from "../helpers/css";
 import DropShadow from "../components/DropShadow/DropShadow";
@@ -175,9 +173,8 @@ const SoulBound: React.FC = () => {
 
     return <PageLayout>
         <Head>
-            <title>The Doge NFT </title>
+            <title>The Doge NFT | Birthday</title>
         </Head>
-
         <div>
             <div className={css("mb-8")}>
                 <Button onClick={() => router.push("/")}>
