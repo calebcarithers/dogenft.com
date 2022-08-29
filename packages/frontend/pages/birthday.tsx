@@ -80,7 +80,6 @@ const SoulBound: React.FC = () => {
         init();
 
     }, [signer])
-
     useEffect(() => {
         const getClaimedId = async () => {
             if (soulBoundContract && signer && isClaimed) {
