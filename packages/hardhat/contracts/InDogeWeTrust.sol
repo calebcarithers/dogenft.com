@@ -56,7 +56,7 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
     function hasClaimed(address _whitelist) public view returns (bool) {
         return whitelistClaimed[_whitelist];
     }
-    
+
     function hasPixelClaimed(uint256 _pixelId) public view returns (bool) {
         return pixelClaimed[_pixelId];
     }
@@ -88,5 +88,9 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
     override
     {
         super._beforeTokenTransfer(from, to, tokenId);
+    }
+
+    function totalSupply() public view {
+        return _tokenIdCounter.current();
     }
 }
