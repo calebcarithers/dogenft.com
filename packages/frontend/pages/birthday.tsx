@@ -2,7 +2,7 @@ import Head from "next/head"
 import {BsArrowLeft} from "react-icons/bs";
 import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
-import {useNetwork, useSigner} from "wagmi";
+import {useAccount, useNetwork, useSigner} from "wagmi";
 import {Contract, ethers} from "ethers";
 import Button from "../components/Button/Button";
 import PageLayout from "../layouts/Page/Page.layout";
@@ -13,7 +13,7 @@ import {css} from "../helpers/css";
 import DropShadow from "../components/DropShadow/DropShadow";
 import {vars} from "../environment/vars";
 import {getProof} from "../services/merkletree";
-import {getSoulboundWhitelist} from "../environment";
+import {getSoulboundWhitelist, isProduction} from "../environment";
 import axios from "axios";
 import Link from "../components/Link/Link";
 import {targetChain} from "../services/wagmi";
@@ -59,8 +59,20 @@ const SoulBound: React.FC = () => {
     const [isInWhiteList, setIsInWhitelist] = useState(false);
     const [claimedId, setClaimedId] = useState<number | null>(null)
     const [justClaimed, setJustClaimed] = useState(false)
+    const { data: address } = useAccount()
+
+    useEffect(() => {
+      if (isProduction()) {
+        if (!address || address !== "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5") {
+          throw new Error("not yet 🎂")
+        }
+      }
+    }, [address])
 
     const isConnectedToCorrectNetwork = useMemo(() => activeChain?.id === targetChain.id, [activeChain?.id, targetChain.id])
+
+
+
 
     useEffect(() => {
         const init = async() => {
