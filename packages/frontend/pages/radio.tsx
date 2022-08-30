@@ -11,22 +11,11 @@ import SongStore from "../stores/Song.store";
 import {ethers} from "ethers";
 import Link, {LinkSize, LinkType} from "../components/Link/Link";
 import {useRouter} from "next/router";
-import {isDev, isProduction} from "../environment";
+import {isDev} from "../environment";
 import Head from "next/head";
 import {targetChain} from "../services/wagmi";
 
 const Radio = observer(() => {
-    const { data: address } = useAccount()
-
-
-    useEffect(() => {
-      if (isProduction()) {
-        if (address && address.address !== "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5") {
-          throw new Error("not yet 📻")
-        }
-      }
-    }, [address])
-
     const store = useMemo(() => new NftRadioStore(), [])
     const router = useRouter()
     return <>

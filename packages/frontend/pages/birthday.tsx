@@ -2,7 +2,7 @@ import Head from "next/head"
 import {BsArrowLeft} from "react-icons/bs";
 import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
-import {useAccount, useNetwork, useSigner} from "wagmi";
+import {useNetwork, useSigner} from "wagmi";
 import {Contract, ethers} from "ethers";
 import Button from "../components/Button/Button";
 import PageLayout from "../layouts/Page/Page.layout";
@@ -59,15 +59,6 @@ const SoulBound: React.FC = () => {
     const [isInWhiteList, setIsInWhitelist] = useState(false);
     const [claimedId, setClaimedId] = useState<number | null>(null)
     const [justClaimed, setJustClaimed] = useState(false)
-    const { data: address } = useAccount()
-
-    useEffect(() => {
-      if (isProduction()) {
-        if (address && address.address !== "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5") {
-          throw new Error("not yet 🎂")
-        }
-      }
-    }, [address])
 
     const isConnectedToCorrectNetwork = useMemo(() => activeChain?.id === targetChain.id, [activeChain?.id, targetChain.id])
 
