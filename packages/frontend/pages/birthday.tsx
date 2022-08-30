@@ -219,7 +219,7 @@ const SoulBound: React.FC = () => {
                         <div key={`${metadata.name}-${index}`} className={css({
                             "opacity-50": (isClaimed && metadata.id !== claimedId) || (signer && !isInWhiteList)
                         })}>
-                          <DropShadow onClick={isClaimed ? undefined : () => onClickMetadata(metadata)} key={metadata.id} className={css("bg-black[0.05]")}>
+                          <DropShadow onClick={isClaimed || (signer && !isInWhiteList) ? undefined : () => onClickMetadata(metadata)} key={metadata.id} className={css("bg-black[0.05]")}>
                             <video className={css("w-full")} autoPlay={true} loop muted>
                               <source src={metadata.url} key={metadata.id} />
                             </video>
