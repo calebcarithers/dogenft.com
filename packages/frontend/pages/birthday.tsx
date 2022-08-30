@@ -153,11 +153,12 @@ const SoulBound: React.FC = () => {
         if (signer) {
             if (isClaimed) {
                 return <div className={css("text-2xl", "font-bold")}>
-                    <div className={css("mb-2")}>You claimed {METDATAS.filter(item => item.id === claimedId)[0]?.name}!</div>
-                    <div>
-                        Welcome to the fellowship of the Doge - bound by DOG, governed by memes,
-                        respected for provenance and protected by us Dogens. bork!
-                    </div>
+                  <div className={css("mb-2")}>You claimed {METDATAS.filter(item => item.id === claimedId)[0]?.name}!</div>
+                  <div className={css("my-6")}>View on <Link isExternal href={isProduction() ? "https://opensea.io/collection/dogs-first-birthday" : "https://testnets.opensea.io/collection/dogs-first-birthday-final"}>OpenSea</Link></div>
+                  <div>
+                    Welcome to the fellowship of the Doge - bound by DOG, governed by memes,
+                    respected for provenance and protected by us Dogens. bork!
+                  </div>
                 </div>
             } else if (isInWhiteList) {
                 return <div className={css("text-2xl", "font-bold")}>
@@ -237,7 +238,7 @@ const SoulBound: React.FC = () => {
             title={isClaimed ? "✨   Claimed   ✨" : `✨  ${selectedMetadata.name}  ✨`}
             onChange={(val) => setShowModal(val)}
         >
-            <div className={css("w-full", "m-auto")}>
+            <div className={css("w-full", "m-auto", "max-w-xl")}>
                 <video  className={css("w-full", "border-2", "border-black")} autoPlay={true} loop muted>
                     <source src={selectedMetadata.url} key={selectedMetadata.id} />
                 </video>

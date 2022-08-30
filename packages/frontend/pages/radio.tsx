@@ -11,7 +11,7 @@ import SongStore from "../stores/Song.store";
 import {ethers} from "ethers";
 import Link, {LinkSize, LinkType} from "../components/Link/Link";
 import {useRouter} from "next/router";
-import {isDev} from "../environment";
+import {isDev, isProduction} from "../environment";
 import Head from "next/head";
 import {targetChain} from "../services/wagmi";
 
@@ -75,7 +75,10 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
       if (song.isActive) {
         if (songStore.signer) {
           if (songStore.hasClaimed){
-            return <div className={css("text-pixels-yellow-400", "font-bold")}>✨ minted ✨</div>
+            return <div className={css("text-center")}>
+              <div className={css("text-pixels-yellow-400", "font-bold")}>✨ minted ✨</div>
+              <div>View on <Link isExternal href={isProduction() ? "https://opensea.io/collection/in-doge-we-trust-idwt" : "https://testnets.opensea.io/collection/in-doge-we-trust-final"}>OpenSea</Link></div>
+            </div>
           } else {
             if (songStore.availablePixelId !== -1) {
               return <Button
