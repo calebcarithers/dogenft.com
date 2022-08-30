@@ -42,16 +42,16 @@ const main = async () => {
     console.log("pixels:", pixelOwnerAddresses.length, "\n")
     addresses = addresses.concat(pixelOwnerAddresses)
 
-    if (isDev) {
-        addresses = addresses.concat([
-            "0xf716B2783c6dD45753b99Fc28636b0E1a0376179",
-            "0xAd3c410Df6F60d61DEDf7202e8e4805C79EBf54a",
-            "0xC096df02D3C765f6C720EBef5b947c72Ab0E6B65",
-            "0xa77Af3795aA6027A3D499925fF7C45728E924fd9",
-            "0xF65694e5A77799716d3c43C8620522D8e3983Ee8",
-            "0xd2C4FD059542903abeCFB8D0C39459bb9d87C2Ba"
-        ])
-    }
+    // if (isDev) {
+    //     addresses = addresses.concat([
+    //         "0xf716B2783c6dD45753b99Fc28636b0E1a0376179",
+    //         "0xAd3c410Df6F60d61DEDf7202e8e4805C79EBf54a",
+    //         "0xC096df02D3C765f6C720EBef5b947c72Ab0E6B65",
+    //         "0xa77Af3795aA6027A3D499925fF7C45728E924fd9",
+    //         "0xF65694e5A77799716d3c43C8620522D8e3983Ee8",
+    //         "0xd2C4FD059542903abeCFB8D0C39459bb9d87C2Ba"
+    //     ])
+    // }
 
 
     console.log("total:", addresses.length)
