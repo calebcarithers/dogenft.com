@@ -7,9 +7,11 @@ interface Vars {
     NEXT_PUBLIC_DISCORD_LINK: string;
     NEXT_PUBLIC_TWITTER_LINK: string;
     NEXT_PUBLIC_INFURA_ID: string;
-    NEXT_PUBLIC_IDWT_CONTRACT_ADDRESS: string;
     NEXT_PUBLIC_APP_ENV: string;
     NEXT_PUBLIC_GA_ID: string;
+    NEXT_PUBLIC_IDWT_CONTRACT_ADDRESS: string;
+    NEXT_PUBLIC_SOULBOUND_CONTRACT_ADDRESS: string,
+    NEXT_PUBLIC_PIXEL_HOLDER_API: string
 }
 
 const vars: Vars = {
@@ -21,7 +23,9 @@ const vars: Vars = {
     NEXT_PUBLIC_INFURA_ID: process.env.NEXT_PUBLIC_INFURA_ID as string,
     NEXT_PUBLIC_IDWT_CONTRACT_ADDRESS: process.env.NEXT_PUBLIC_IDWT_CONTRACT_ADDRESS as string,
     NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV as string,
-    NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID as string
+    NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID as string,
+    NEXT_PUBLIC_SOULBOUND_CONTRACT_ADDRESS: process.env.NEXT_PUBLIC_SOULBOUND_CONTRACT_ADDRESS as string,
+    NEXT_PUBLIC_PIXEL_HOLDER_API: process.env.NEXT_PUBLIC_PIXEL_HOLDER_API as string
 }
 
 const assertVars = () => {

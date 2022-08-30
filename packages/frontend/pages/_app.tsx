@@ -16,6 +16,7 @@ import Script from "next/script";
 import {vars} from "../environment/vars";
 
 function MyApp({Component, pageProps}: AppProps) {
+
     const theme = lightTheme({
         borderRadius: 'none',
         fontStack: 'system',
@@ -37,6 +38,7 @@ function MyApp({Component, pageProps}: AppProps) {
         }
     }, [router.events])
 
+    const showConnectButton = router.pathname !== "/"
     return <>
         <Script
             id={"gatag"}
@@ -54,7 +56,7 @@ function MyApp({Component, pageProps}: AppProps) {
         <Background/>
         <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={theme}>
-                {!isProduction() && <div className={css("absolute", "right-0", "py-3", "px-4", "z-20", "top-0")}>
+                {showConnectButton && <div className={css("absolute", "right-0", "py-3", "px-4", "z-20", "top-0")}>
                   <ConnectButton/>
                 </div>}
                 <Component {...pageProps} />

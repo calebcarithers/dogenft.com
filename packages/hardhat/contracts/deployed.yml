@@ -1,0 +1,17 @@
+birthday:
+  rinkeby: 0x904f4a48Cc33d6B0D431c2ACAf05bAd9A6074D15
+    OS: https://testnets.opensea.io/collection/dogs-first-birthday-final
+
+  mainnet: 0xa1936C5367FdC9Bb4701056b5c25d4CF0a078316
+
+IDWT:
+  rinkeby: 0x3260Debd0604bA3B21e5eD10Ba8dbf4263DdFddf
+  mainnet: 0x611B7222Dd5935c5c411e6C9e9B6411484f5dB80
+
+pixels:
+  rinkeby: 0xA26461Fcf53f3E21cde8c902CA6e8e6ba9Def62f
+  mainnet: 0x07887Ee0Bd24E774903963d50cF4Ec6a0a16977D
+
+DOG:
+  rinkeby: 0x1f676947d1391b5BF89e85DF34f92163F8A08853
+  mainnet: 0xBAac2B4491727D78D2b78815144570b9f2Fe8899

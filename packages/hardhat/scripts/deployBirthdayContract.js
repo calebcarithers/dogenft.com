@@ -14,16 +14,24 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const tokenURI = "ipfs://bafkreic5jyppkizcemnjwbusu3xtd6ftpfnxdlxjjtgebihokfh34ciyou"
+  const baseURIs = [
+    "ipfs://bafkreibqqlvvgvmk6ohutbbtfupqpbfwspovp3xvkp55bjvvajcts43q2m",
+    "ipfs://bafkreid7kk4gi77zly6kuvo2qqhfyfojvui2wkdlygwdqpz46om5hthu4y",
+    "ipfs://bafkreickocyscmhtozj3zr7hxgbngf2wcqdsgxft5xbt2llwhmlyq3dmfe",
+    "ipfs://bafkreieypl6mbpjgzdxmyduf6mfq6ctlii2yygfvkk5jqscxm2utv7dybq"
+  ];
 
-  console.log("deploying IDWT")
-  const doge = await hre.ethers.getContractFactory("InDogeWeTrust");
-  const IDWT = await hre.upgrades.deployProxy(doge, [5]);
-  await IDWT.deployed();
-  console.log("IDWT deployed to:", IDWT.address);
-  console.log("setting base tokenURI to:", tokenURI)
-  await IDWT.setBaseURI(tokenURI)
-  console.log("In Doge We Trust deployed to:", IDWT.address);
+  const totalSupply = 10839
+  const merkelRoot = "0x7172b3b9e4690622f3c3aafb72e6d1c09151e461d2941e020a2807e112245f4f"
+
+  // throw new Error("HAVE YOU COMPUTED THE MOST RECENT MERKLE ROOT?")
+  // throw new Error("HAVE YOU COMPUTED THE TOTAL SUPPLY?")
+
+
+  const Souldbound = await hre.ethers.getContractFactory("DOGsFirstBirthday");
+  const soulbound = await hre.upgrades.deployProxy(Souldbound, [merkelRoot, baseURIs, totalSupply]);
+  await soulbound.deployed();
+  console.log("soulbound deployed to:", soulbound.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

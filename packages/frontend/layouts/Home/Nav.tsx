@@ -47,7 +47,10 @@ const Nav = () => {
                     }}>twitter</Button>
                     <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
                     {!isProduction() && <Link href={"/radio"}>
-                        <Button>radio</Button>
+                      <Button>radio</Button>
+                    </Link>}
+                    {!isProduction() && <Link href={"/birthday"}>
+                      <Button>🎂 BIRTHDAY 🎂</Button>
                     </Link>}
                 </div>
             </div>

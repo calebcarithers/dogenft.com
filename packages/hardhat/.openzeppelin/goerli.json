@@ -1,20 +1,20 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    "txHash": "0xc2a61cbfc66142641166051996e58b6ff52c92830cc8f57f81d2ad86559a247b"
+    "address": "0x4c16D9032560600Db5Bd1211965a2982be7e0fEA",
+    "txHash": "0xd51e79186a6c639fb35afaab2e95c129abfb6f2974e8726983162830ccefe5cb"
   },
   "proxies": [
     {
-      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "txHash": "0x15ff19efb75b7f430148e837c557d22e820198a6a5d645fa6234f5ee09420152",
+      "address": "0x95959432293943D77Ed3e2eA065E9D65A21d0227",
+      "txHash": "0x0b3e755643daae04cd90904391bde25943aab719d28789d2db37703e8e3bffca",
       "kind": "transparent"
     }
   ],
   "impls": {
-    "c0e6316a78d0bfccd52c69d23287e8457d83422129262edb3799e61f809cbad1": {
-      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0xa854cd4e00c18ec91e05a830c9fc785c9d49fdf3e8fb446ff820b1f783610901",
+    "1fad29157c624443a6e1f1eb7cb39c6ba50b29ee1c5a937737d5178288ba4612": {
+      "address": "0xbDDCc0E86564B4A8Eb1df352CFb2B7629488Dd96",
+      "txHash": "0x6d8df5fd5d75c295d4dcba0fe3c7fb3e9f7b698a405d95477c87dbd3090a3570",
       "layout": {
         "storage": [
           {
@@ -104,7 +104,7 @@
             "slot": "107",
             "type": "t_array(t_uint256)44_storage",
             "contract": "ERC721Upgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:458"
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol:465"
           },
           {
             "label": "_paused",
@@ -120,7 +120,7 @@
             "slot": "152",
             "type": "t_array(t_uint256)49_storage",
             "contract": "PausableUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:102"
+            "src": "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol:116"
           },
           {
             "label": "_owner",
@@ -136,7 +136,7 @@
             "slot": "202",
             "type": "t_array(t_uint256)49_storage",
             "contract": "OwnableUpgradeable",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:87"
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:94"
           },
           {
             "label": "__gap",
@@ -150,47 +150,51 @@
             "label": "_tokenIdCounter",
             "offset": 0,
             "slot": "301",
-            "type": "t_struct(Counter)1769_storage",
-            "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:16"
+            "type": "t_struct(Counter)1803_storage",
+            "contract": "Soulbound",
+            "src": "contracts/Soulbound.sol:16"
           },
           {
             "label": "merkleRoot",
             "offset": 0,
             "slot": "302",
             "type": "t_bytes32",
-            "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:18"
-          },
-          {
-            "label": "_baseTokenURI",
-            "offset": 0,
-            "slot": "303",
-            "type": "t_string_storage",
-            "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:19"
-          },
-          {
-            "label": "totalSupply",
-            "offset": 0,
-            "slot": "304",
-            "type": "t_uint256",
-            "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:20"
+            "contract": "Soulbound",
+            "src": "contracts/Soulbound.sol:18"
           },
           {
             "label": "whitelistClaimed",
             "offset": 0,
-            "slot": "305",
+            "slot": "303",
             "type": "t_mapping(t_address,t_bool)",
-            "contract": "InDogeWeTrust",
-            "src": "contracts/InDogeWeTrust.sol:21"
+            "contract": "Soulbound",
+            "src": "contracts/Soulbound.sol:19"
+          },
+          {
+            "label": "baseTokenURIs",
+            "offset": 0,
+            "slot": "304",
+            "type": "t_array(t_string_storage)dyn_storage",
+            "contract": "Soulbound",
+            "src": "contracts/Soulbound.sol:21"
+          },
+          {
+            "label": "tokenURITypes",
+            "offset": 0,
+            "slot": "305",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "Soulbound",
+            "src": "contracts/Soulbound.sol:22"
           }
         ],
         "types": {
           "t_address": {
             "label": "address",
             "numberOfBytes": "20"
+          },
+          "t_array(t_string_storage)dyn_storage": {
+            "label": "string[]",
+            "numberOfBytes": "32"
           },
           "t_array(t_uint256)44_storage": {
             "label": "uint256[44]",
@@ -228,11 +232,15 @@
             "label": "mapping(uint256 => address)",
             "numberOfBytes": "32"
           },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
           "t_string_storage": {
             "label": "string",
             "numberOfBytes": "32"
           },
-          "t_struct(Counter)1769_storage": {
+          "t_struct(Counter)1803_storage": {
             "label": "struct CountersUpgradeable.Counter",
             "members": [
               {

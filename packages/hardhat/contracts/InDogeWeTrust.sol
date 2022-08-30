@@ -7,7 +7,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721BurnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
-import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 
 contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable, OwnableUpgradeable, ERC721BurnableUpgradeable {
@@ -15,57 +14,51 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
 
     CountersUpgradeable.Counter private _tokenIdCounter;
 
-    bytes32 public merkleRoot;
     string public _baseTokenURI;
-    uint256 public totalSupply;
+    address pixelAddress;
     mapping(address => bool) public whitelistClaimed;
+    mapping(uint256 => bool) public pixelClaimed;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
 
-    function initialize(uint256 _supply, bytes32 _merkleRoot) initializer public {
+    function initialize(address _pixelAddress) initializer public {
         __ERC721_init("In Doge We Trust", "IDWT");
         __Pausable_init();
         __Ownable_init();
         __ERC721Burnable_init();
-        totalSupply = _supply;
-        merkleRoot = _merkleRoot;
+        pixelAddress = _pixelAddress;
     }
 
-    function safeMint(bytes32[] calldata _merkleProof) public whenNotPaused {
+    function safeMint(uint256 _pixelId) public whenNotPaused {
         // make sure address has not already claimed
-        require(!whitelistClaimed[msg.sender], "Address already claimed");
+        require(!whitelistClaimed[msg.sender], "Address has already claimed");
 
-        // leaf from caller
-        bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
+        // make sure pixel has not already claimed
+        require(!pixelClaimed[_pixelId], "Pixel already used to claimed");
+        require(ERC721Upgradeable(pixelAddress).ownerOf(_pixelId) == msg.sender, "You do not own this pixel");
 
-        // require user to be whitelisted to claim
-        require(MerkleProof.verify(_merkleProof, merkleRoot, leaf), "Not in whitelisted addresses");
-
-        // enforce total supply
         uint256 tokenId = _tokenIdCounter.current();
-        require(tokenId + 1 < totalSupply, "Total supply exceeded");
 
         // mark address as claimed
         whitelistClaimed[msg.sender] = true;
+
+         // mark pixel as claimed
+        pixelClaimed[_pixelId] = true;
 
         // increment token ID counter & mint token
         _tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);
     }
 
-    function setMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
-        merkleRoot = _merkleRoot;
+    function hasClaimed(address _whitelist) public view returns (bool) {
+        return whitelistClaimed[_whitelist];
     }
 
-    function hasClaimed(address account) public view returns (bool) {
-        return whitelistClaimed[account];
-    }
-
-    function isSupplyAvailable() public view returns (bool) {
-        return _tokenIdCounter.current() + 1 < totalSupply;
+    function hasPixelClaimed(uint256 _pixelId) public view returns (bool) {
+        return pixelClaimed[_pixelId];
     }
 
     function setBaseURI(string memory baseURI) public onlyOwner {
@@ -95,5 +88,9 @@ contract InDogeWeTrust is Initializable, ERC721Upgradeable, PausableUpgradeable,
     override
     {
         super._beforeTokenTransfer(from, to, tokenId);
+    }
+
+    function totalSupply() public view returns(uint256) {
+        return _tokenIdCounter.current();
     }
 }

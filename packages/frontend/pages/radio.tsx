@@ -1,33 +1,50 @@
-import React, {useEffect, useMemo, useRef} from "react";
+import React, {useCallback, useEffect, useMemo, useRef} from "react";
 import {BsArrowLeft, BsDot, BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill} from "react-icons/bs";
 import {MdPause} from "react-icons/md";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
 import Button from "../components/Button/Button";
-import {useNetwork, useSigner} from "wagmi";
+import {useAccount, useNetwork, useSigner} from "wagmi";
 import NftRadioStore, {Song} from "../stores/NftRadio.store";
 import {observer} from "mobx-react-lite";
 import SongStore from "../stores/Song.store";
 import {ethers} from "ethers";
-import Link, {LinkType} from "../components/Link/Link";
+import Link, {LinkSize, LinkType} from "../components/Link/Link";
 import {useRouter} from "next/router";
+import {isDev, isProduction} from "../environment";
+import Head from "next/head";
 
 const Radio = observer(() => {
+    const { data: address } = useAccount()
+
+    useEffect(() => {
+      if (isProduction()) {
+        if (!address || address !== "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5") {
+          throw new Error("not yet 📻")
+        }
+      }
+    }, [address])
+
     const store = useMemo(() => new NftRadioStore(), [])
     const router = useRouter()
-    return <PageLayout>
+    return <>
+      <Head>
+        <title>The Doge NFT | Radio </title>
+      </Head>
+      <PageLayout>
         <div className={css("mb-8")}>
-            <Button onClick={() => router.push("/")}>
-                <BsArrowLeft size={15}/>
-            </Button>
+          <Button onClick={() => router.push("/")}>
+            <BsArrowLeft size={15}/>
+          </Button>
         </div>
         <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4")}>
-            <div className={css("border-2", "border-black", "p-3", "bg-pixels-yellow-100")}
-                 style={{boxShadow: "10px 10px"}}>
-                <RadioSong song={store.selectedSong} store={store}/>
-            </div>
+          <div className={css("border-2", "border-black", "p-3", "bg-pixels-yellow-100")}
+               style={{boxShadow: "10px 10px"}}>
+            <RadioSong song={store.selectedSong} store={store}/>
+          </div>
         </div>
-    </PageLayout>
+      </PageLayout>
+    </>
 })
 
 interface FeaturedSongI {
@@ -43,9 +60,9 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
     useEffect(() => {
         if (song.contractAddress && song.abi && signer) {
             songStore.contract = new ethers.Contract(song.contractAddress, song.abi, signer)
-            songStore.signer = signer
             songStore.getCanMint()
         }
+        songStore.signer = signer
     }, [signer, song.contractAddress, song.abi])
 
     const onTimeUpdate = () => {
@@ -57,11 +74,43 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
 
     useEffect(() => {
         onTimeUpdate()
-        // return () => {
-        //     songStore.destroy()
-        // }
+        songStore.init()
+        return () => {
+            songStore.destroy()
+        }
     }, [])
 
+
+    const renderIndicator = useCallback(() => {
+      if (song.isActive) {
+        if (songStore.signer) {
+          if (songStore.hasClaimed){
+            return <div className={css("text-pixels-yellow-400", "font-bold")}>✨ minted ✨</div>
+          } else {
+            if (songStore.availablePixelId !== -1) {
+              return <Button
+                isLoading={songStore.isMintLoading}
+                disabled={activeChain?.network !== "rinkeby"}
+                onClick={() => songStore.mint()}>
+                ✨ Mint ✨
+              </Button>
+            } else {
+              return <div className={css("text-center", "font-bold")}>
+                <div>No pixels found!</div>
+                <div>Mint one <Link isExternal href={isDev() ? "https://dev.pixels.ownthedoge.com" : "https://pixels.ownthedoge.com"}>here</Link>
+                </div>
+              </div>
+            }
+          }
+        } else {
+          return <div className={css("text-pixels-yellow-400", "font-bold")}>
+            connect wallet to mint
+          </div>
+        }
+      } else {
+        return <div className={css("text-pixels-yellow-400")}>un-released track</div>
+      }
+    }, [song, songStore.availablePixelId, songStore.hasClaimed, songStore.signer, song.isActive])
 
     return <div className={css("grid", "grid-cols-1", "md:grid-cols-5")}>
         <div className={css("col-span-1", "md:col-span-2")}>
@@ -96,39 +145,17 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                             })}
                         </div>
                         <div className={css("w-full", "bg-black", "my-2")} style={{height: "2px"}}/>
-                        <div className={css("flex", "space-x-1", "text-sm")}>
+                        <div className={css("flex", "justify-between", "items-center")}>
+                          <div className={css("flex", "space-x-1", "text-sm")}>
                             <div>{songStore.currentTime}</div>
                             <div>/</div>
                             <div>{songStore.duration}</div>
+                          </div>
+                          {song.lyricsLink && <Link size={LinkSize.xs} isExternal href={song.lyricsLink}>lyrics</Link>}
                         </div>
                     </div>
                     <div className={css("flex", "justify-center", "mt-6")}>
-                        {(() => {
-                            if (song.isActive) {
-                                if (songStore.signer) {
-                                    if (!songStore.isSupplyAvailable) {
-                                        return <div>full supply has been minted already</div>
-                                    } else {
-                                        if (!songStore.hasClaimed) {
-                                            return <Button
-                                                isLoading={songStore.isMintLoading}
-                                                disabled={activeChain?.network !== "rinkeby"}
-                                                onClick={() => songStore.mint()}>
-                                                ✨ Mint ✨
-                                            </Button>
-                                        } else {
-                                            return <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>
-                                        }
-                                    }
-                                } else {
-                                    return <div className={css("text-pixels-yellow-400", "font-bold")}>
-                                        connect wallet to mint
-                                    </div>
-                                }
-                            } else {
-                                return <div className={css("text-pixels-yellow-400")}>un-released track</div>
-                            }
-                        })()}
+                        {renderIndicator()}
                     </div>
                 </div>
                 <div className={css("flex", "items-center", "justify-between", "mt-5", "md:mt-0")}>
@@ -155,6 +182,9 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                             <BsSkipForwardFill/>
                         </Button>
                     </div>
+                  <div className={css("text-sm", "text-gray-600", "px-10", "text-center")}>
+                    Checkout the Soulbound drop <Link href="/birthday">here</Link>
+                  </div>
                 </div>
 
             </div>
