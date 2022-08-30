@@ -12,7 +12,7 @@ import {ethers} from "ethers";
 import Link, {LinkSize, LinkType} from "../components/Link/Link";
 import {useRouter} from "next/router";
 import {isDev} from "../environment";
-import Head from "next/Head";
+import Head from "next/head";
 
 const Radio = observer(() => {
     const store = useMemo(() => new NftRadioStore(), [])
