@@ -75,7 +75,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
       if (song.isActive) {
         if (songStore.signer) {
           if (songStore.hasClaimed){
-            return <div className={css("text-pixels-yellow-400", "font-bold")}>minted</div>
+            return <div className={css("text-pixels-yellow-400", "font-bold")}>✨ minted ✨</div>
           } else {
             if (songStore.availablePixelId !== -1) {
               return <Button
