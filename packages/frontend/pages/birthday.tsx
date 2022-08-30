@@ -71,9 +71,6 @@ const SoulBound: React.FC = () => {
 
     const isConnectedToCorrectNetwork = useMemo(() => activeChain?.id === targetChain.id, [activeChain?.id, targetChain.id])
 
-
-
-
     useEffect(() => {
         const init = async() => {
             if (SoulBoundAbi && signer && isConnectedToCorrectNetwork) {
@@ -93,7 +90,7 @@ const SoulBound: React.FC = () => {
 
         init();
 
-    }, [signer, isConnectedToCorrectNetwork, targetChain])
+    }, [signer, isConnectedToCorrectNetwork, targetChain.id])
     useEffect(() => {
         const getClaimedId = async () => {
             if (soulBoundContract && signer && isClaimed) {

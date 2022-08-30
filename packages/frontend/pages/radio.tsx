@@ -13,6 +13,7 @@ import Link, {LinkSize, LinkType} from "../components/Link/Link";
 import {useRouter} from "next/router";
 import {isDev, isProduction} from "../environment";
 import Head from "next/head";
+import {targetChain} from "../services/wagmi";
 
 const Radio = observer(() => {
     const { data: address } = useAccount()
@@ -91,7 +92,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
             if (songStore.availablePixelId !== -1) {
               return <Button
                 isLoading={songStore.isMintLoading}
-                disabled={activeChain?.network !== "rinkeby"}
+                disabled={activeChain?.id !== targetChain.id}
                 onClick={() => songStore.mint()}>
                 ✨ Mint ✨
               </Button>
