@@ -22,7 +22,7 @@ async function main() {
   ];
 
   const totalSupply = 10839
-  const merkelRoot = "0xf7ff247b77a017235ac515a518d9d27ca7bba0d7df6a5e617f7ef445c7744fdb"
+  const merkelRoot = "0x7172b3b9e4690622f3c3aafb72e6d1c09151e461d2941e020a2807e112245f4f"
 
   // throw new Error("HAVE YOU COMPUTED THE MOST RECENT MERKLE ROOT?")
   // throw new Error("HAVE YOU COMPUTED THE TOTAL SUPPLY?")

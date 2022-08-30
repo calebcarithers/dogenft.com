@@ -18,6 +18,8 @@ async function main() {
     throw new Error("No pixel address for target network")
   }
 
+  console.log("deploying with pixel address", pixelAddress)
+
   console.log("deploying IDWT")
   const VidePixel = await hre.ethers.getContractFactory("InDogeWeTrust");
   const videoPixel = await hre.upgrades.deployProxy(VidePixel, [pixelAddress]);
