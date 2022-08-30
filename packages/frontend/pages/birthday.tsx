@@ -63,7 +63,7 @@ const SoulBound: React.FC = () => {
 
     useEffect(() => {
       if (isProduction()) {
-        if (!address || address !== "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5") {
+        if (address && address.address !== "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5") {
           throw new Error("not yet 🎂")
         }
       }
