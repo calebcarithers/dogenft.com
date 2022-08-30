@@ -81,8 +81,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
             songStore.destroy()
         }
     }, [])
-
-
+  
     const renderIndicator = useCallback(() => {
       if (song.isActive) {
         if (songStore.signer) {
