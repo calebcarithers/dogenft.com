@@ -42,7 +42,6 @@ class SongStore {
     }
 
     onTimeUpdate(video: HTMLVideoElement) {
-        console.log("debug:: video", video, video.currentTime, video.duration)
         if (!isNaN(video.currentTime) && !isNaN(video.duration)) {
             const date = new Date(0);
             date.setSeconds(video.currentTime);
@@ -94,7 +93,6 @@ class SongStore {
                         }
                     }
                 }
-                console.log("debug:: available pixel id", this.availablePixelId)
             } catch (e) {
                 console.error(e)
             }

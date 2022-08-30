@@ -46,14 +46,12 @@ const Nav = () => {
                         window.open(vars.NEXT_PUBLIC_TWITTER_LINK, '_blank')
                     }}>twitter</Button>
                     <Button onClick={() => setIsDocsModalVisible(!isDocsModalVisible)}>links</Button>
-                    <div className={css("flex", "space-x-4")}>
-                        {!isProduction() && <Link href={"/radio"}>
-                          <Button>📻</Button>
-                        </Link>}
-                        {!isProduction() && <Link href={"/birthday"}>
-                          <Button>🎂</Button>
-                        </Link>}
-                    </div>
+                    {!isProduction() && <Link href={"/radio"}>
+                      <Button>radio</Button>
+                    </Link>}
+                    {!isProduction() && <Link href={"/birthday"}>
+                      <Button>🎂 BIRTHDAY 🎂</Button>
+                    </Link>}
                 </div>
             </div>
         </div>

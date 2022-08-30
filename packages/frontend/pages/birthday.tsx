@@ -2,7 +2,7 @@ import Head from "next/head"
 import {BsArrowLeft} from "react-icons/bs";
 import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
-import { useSigner } from "wagmi";
+import {useNetwork, useSigner} from "wagmi";
 import {Contract, ethers} from "ethers";
 import Button from "../components/Button/Button";
 import PageLayout from "../layouts/Page/Page.layout";
@@ -16,6 +16,7 @@ import {getProof} from "../services/merkletree";
 import {getSoulboundWhitelist} from "../environment";
 import axios from "axios";
 import Link from "../components/Link/Link";
+import {targetChain} from "../services/wagmi";
 
 interface IMetadata {
     id: number,
@@ -52,15 +53,20 @@ const SoulBound: React.FC = () => {
     const [selectedMetadata, setSelectedMetadata] = useState<IMetadata | any>({});
     const [isClaiming, setIsClaiming] = useState(false);
     const {data: signer} = useSigner();
+    const {activeChain} = useNetwork();
     const [soulBoundContract, setSoulBoundContract] = useState<Contract | null>();
     const [isClaimed, setIsClaimed] = useState(false);
     const [isInWhiteList, setIsInWhitelist] = useState(false);
     const [claimedId, setClaimedId] = useState<number | null>(null)
     const [justClaimed, setJustClaimed] = useState(false)
 
+    console.log("debug::", activeChain, targetChain)
+
+    const isConnectedToCorrectNetwork = useMemo(() => activeChain?.id === targetChain.id, [activeChain?.id, targetChain.id])
+
     useEffect(() => {
         const init = async() => {
-            if (SoulBoundAbi && signer) {
+            if (SoulBoundAbi && signer && isConnectedToCorrectNetwork) {
                 const contract = new ethers.Contract(vars.NEXT_PUBLIC_SOULBOUND_CONTRACT_ADDRESS, SoulBoundAbi, signer)
                 setSoulBoundContract(contract);
                 const address = await signer?.getAddress();
@@ -77,7 +83,7 @@ const SoulBound: React.FC = () => {
 
         init();
 
-    }, [signer])
+    }, [signer, isConnectedToCorrectNetwork, targetChain])
     useEffect(() => {
         const getClaimedId = async () => {
             if (soulBoundContract && signer && isClaimed) {
@@ -243,8 +249,8 @@ const SoulBound: React.FC = () => {
               <div className={css("text-center")}>Thanks for claiming!</div>
             </div>}
             {!justClaimed && <div className={css("flex", "justify-center", "my-6")}>
-                {signer && !isClaimed && <Button isLoading={isClaiming} onClick={() => claim()}>
-                  Claim
+                {signer && !isClaimed && <Button disabled={!isConnectedToCorrectNetwork} isLoading={isClaiming} onClick={() => claim()}>
+                  {isConnectedToCorrectNetwork ? "Claim" : `Please change network to: ${targetChain.name}`}
                 </Button>}
                 {!signer && <div className={css("text-xl")}>Connect wallet to mint</div>}
             </div>}
