@@ -60,8 +60,6 @@ const SoulBound: React.FC = () => {
     const [claimedId, setClaimedId] = useState<number | null>(null)
     const [justClaimed, setJustClaimed] = useState(false)
 
-    console.log("debug::", activeChain, targetChain)
-
     const isConnectedToCorrectNetwork = useMemo(() => activeChain?.id === targetChain.id, [activeChain?.id, targetChain.id])
 
     useEffect(() => {
@@ -116,7 +114,6 @@ const SoulBound: React.FC = () => {
             const address = await signer?.getAddress()
             if (address) {
                 if (getSoulboundWhitelist().includes(address)) {
-                    console.log("debug:: hit is in whitelist")
                     setIsInWhitelist(true)
                 } else {
                     setIsInWhitelist(false)
