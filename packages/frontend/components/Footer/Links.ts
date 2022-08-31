@@ -27,7 +27,7 @@ export const tradeLinks = [
     {title: "MEXC", link: "https://www.mexc.com/exchange/DOG_USDT?inviteCode=1498J"},
     {title: "Pancakeswap", link: "https://pancakeswap.finance/swap?inputCurrency=0xaa88c603d142c371ea0eac8756123c5805edee03&outputCurrency=wbnb"},
     {title: "Quick Swap", link: "https://quickswap.exchange/#/swap?inputCurrency=0x7ceb23fd6bc0add59e62ac25578270cff1b9f619&outputCurrency=0xeee3371b89fc43ea970e908536fcddd975135d8a"},
-    {title: "Huboi", link: "https://www.huobi.com/en-us/exchange/dog_usdt?invite_code=d8c53"}
+    {title: "Huobi", link: "https://www.huobi.com/en-us/exchange/dog_usdt?invite_code=d8c53"}
 ]
 
 
