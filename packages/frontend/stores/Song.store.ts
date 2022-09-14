@@ -81,7 +81,7 @@ class SongStore {
                         const pixelHolders = Object.keys(pixelResponse.data);
                        
                         if (pixelHolders.includes(address)) {
-                            const pixelIds = pixelResponse.data[address].tokenIDs;
+                            const pixelIds = pixelResponse.data[address].tokenIds;
                             for (let i = 0; i < pixelIds.length; i++) {
                                 const pixelId = pixelIds[i];
                                 const isClaimed = await this.contract.hasPixelClaimed(pixelId);

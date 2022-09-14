@@ -1,6 +1,7 @@
 const ethers = require("ethers")
 const pixelContracts = require("./contracts/hardhat_contracts.json")
 const EthDater = require('ethereum-block-by-date');
+const {firstBlock} = require("ethereum-block-by-date");
 require("dotenv").config()
 
 
@@ -12,81 +13,35 @@ const mainnetContractInfo = pixelContracts["1"]["mainnet"]["contracts"]["PX"]
 const PXContract = new ethers.Contract(mainnetContractInfo["address"], mainnetContractInfo["abi"], provider)
 const dater = new EthDater(provider);
 
-function removeZeroAddress(source) {
-  const copy = JSON.parse(JSON.stringify(source))
-  delete copy[ethers.constants.AddressZero]
-  return copy
-}
 
-function sortTokenIDsByAscendingTime(source) {
-  /*
-    getLogs() returns logs from past -> present. reverse tokenIds in their
-    respective arrays so newest are at the front and oldest are at the end
-  */
-  const copy = JSON.parse(JSON.stringify(source))
-  for (const address in source) {
-    copy[address].tokenIDs.reverse()
-  }
-  return copy
-}
+async function getEthLogs(fromBlock, toBlock, filter) {
+  // infura limits the response to 10k items per response. we grab them in chunks here
+  // https://docs.infura.io/infura/networks/ethereum/json-rpc-methods/eth_getlogs
+  let logs = []
+  const step = 50000
+  let _toBlock = toBlock ? toBlock : (await provider.getBlock()).number
 
-async function addRemoveAddresses(source, from, to, tokenID) {
-  if (typeof source !== "object") {
-    throw Error("source must be an object")
-  }
-  const copy = JSON.parse(JSON.stringify(source))
+  console.log(`getting logs from:`, fromBlock, 'to:', toBlock)
 
-  // remove from *from* index
-  if (from in copy) {
-    if (copy[from].tokenIDs.includes(tokenID)) {
-      const index = copy[from].tokenIDs.indexOf(tokenID)
-      copy[from].tokenIDs.splice(index, 1)
+  // console.log(`beginning to process block range: ${fromBlock} -> ${_toBlock}`)
+  for (let i = fromBlock; i <= _toBlock; i += step + 1) {
+    // console.log(`processing from: ${i} to ${i + step}`)
+    const _logs = await PXContract.queryFilter(filter, i, i+step)
+    if (_logs.length >= 10000) {
+      throw new Error("You are missing data -- please increase accuracy")
     }
-  } else {
-    copy[from] = {tokenIDs: []}
+    logs.push(..._logs)
   }
-
-  // add to *to* index
-  if (to in copy) {
-    if (!copy[to].tokenIDs.includes(tokenID)) {
-      copy[to].tokenIDs.push(tokenID)
-    }
-  } else {
-    copy[to] = {tokenIDs: [tokenID]}
-  }
-
-  const isBurn = (to === ethers.constants.AddressZero)
-  const isMint = (from === ethers.constants.AddressZero)
-
-  if (isMint) {
-    debugString = "🍵 mint: "
-  } else if (isBurn) {
-    debugString = "🔥 burn: "
-  } else {
-    debugString = "🚡 user transfer: "
-  }
-  // console.log(`${debugString}: ${tokenID}: ${from} -> ${to}`)
-  return copy
+  return logs
 }
+
 
 async function getAddressToOwnershipMap(fromBlock, toBlock) {
   /*
     Builds address -> [tokenIDs..] object for all of PX contract's history
    */
   let addressToPuppers = {}
-  const filter = PXContract.filters.Transfer(null, null)
-
-  // infura limits the response to 10k items per response. we grab them in chunks here
-  // https://docs.infura.io/infura/networks/ethereum/json-rpc-methods/eth_getlogs
-  let logs = []
-  const step = 50000
-  let _toBlock = toBlock ? toBlock : (await provider.getBlock()).number
-  console.log(`beginning to process block range: ${fromBlock} -> ${_toBlock}`)
-  for (let i = fromBlock; i <= _toBlock; i += step + 1) {
-    // console.log(`processing from: ${i} to ${i + step}`)
-    const _logs = await PXContract.queryFilter(filter, i, i+step)
-    logs.push(..._logs)
-  }
+  const logs = getEthLogs(fromBlock, toBlock, PXContract.filters.Transfer(null, null))
 
   for (const tx of logs) {
     const {from, to} = tx.args
@@ -106,28 +61,27 @@ const getNonZeroHolders = (map) => {
 }
 
 const main = async() => {
+  console.log('running main\n')
   const contractDeployBlockNumber = 14073390
-  const blockBeforeQ2 = (await dater.getDate('2022-03-31T23:59:59Z')).block
-  const addressesBeforeQ2 = getNonZeroHolders(await getAddressToOwnershipMap(contractDeployBlockNumber, blockBeforeQ2))
-  console.log("# addresses before Q2", addressesBeforeQ2.length)
 
-  const blockAfterQ2 = (await dater.getDate('2022-06-30T23:59:59Z')).block
-  const addressesAfterQ2 = getNonZeroHolders(await getAddressToOwnershipMap(contractDeployBlockNumber, blockAfterQ2))
-  console.log("# addresses after Q2", addressesAfterQ2.length)
+  const startDay = '2022-08-01T00:00:00Z'
+  const lastDay = '2022-09-01T23:59:59Z'
 
-  const newMinters = []
-  addressesAfterQ2.forEach(address => {
-    if (!addressesBeforeQ2.includes(address)) {
-      newMinters.push(address)
-    }
-  })
-  console.log("new minters", newMinters)
-  console.log("# of new minters", newMinters.length)
+  const firstBlock = (await dater.getDate(startDay)).block
+  const lastBlock = (await dater.getDate(lastDay)).block
+  console.log(`querying mints & burns from ${startDay} -> ${lastDay}`)
+  console.log(`blocks ${firstBlock} to ${lastBlock}`)
 
-  return 1
+  const mints = await getEthLogs(firstBlock, lastBlock, PXContract.filters.Transfer(ethers.constants.AddressZero, null))
+  console.log('number of mints:', mints.length)
+
+  console.log("")
+
+  const burns = await getEthLogs(firstBlock, lastBlock, PXContract.filters.Transfer(null, ethers.constants.AddressZero))
+  console.log('number of burns:', burns.length)
+  return
 }
 
-// getDate()
 main()
   .then(res => console.log(res))
   .catch(e => console.error(e))
