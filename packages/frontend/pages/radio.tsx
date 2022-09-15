@@ -148,7 +148,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                         </div>
                     </div>
                     <div className={css("flex", "justify-center", "mt-6")}>
-                        {renderIndicator()}
+                        {targetChain.id === activeChain?.id ? renderIndicator() : `Please connect to: ${targetChain.name}`}
                     </div>
                 </div>
                 <div className={css("flex", "items-center", "justify-between", "mt-5", "md:mt-0")}>

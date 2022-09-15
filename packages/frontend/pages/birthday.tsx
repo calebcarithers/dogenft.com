@@ -208,9 +208,10 @@ const SoulBound: React.FC = () => {
                 For the whole month of September, all Doge Pixel holders can claim the full music video <Link href="/radio">here</Link>.
               </div>
 
-                <div className={css("my-12", "text-lg", "text-center")}>
-                    {getStatusText()}
-                </div>
+
+              <div className={css("my-12", "text-lg", "text-center")}>
+                {targetChain.id === activeChain?.id ? getStatusText() : <div className={css("font-bold")}>Please connect to: {targetChain.name}</div>}
+              </div>
 
               <div className={css("grid", "px-12", "md:px-0", "grid-cols-1", "md:grid-cols-2", "gap-20", "md:gap-10")}>
                 {
