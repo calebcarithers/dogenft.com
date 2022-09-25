@@ -33,6 +33,7 @@ class SongStore {
 
     constructor() {
         makeObservable(this)
+        console.log('trigger deploy')
     }
 
     init() {
@@ -79,7 +80,7 @@ class SongStore {
                     if (process.env.NEXT_PUBLIC_PIXEL_HOLDER_API) {
                         const pixelResponse = await axios.get(process.env.NEXT_PUBLIC_PIXEL_HOLDER_API);
                         const pixelHolders = Object.keys(pixelResponse.data);
-                       
+
                         if (pixelHolders.includes(address)) {
                             const pixelIds = pixelResponse.data[address].tokenIds;
                             for (let i = 0; i < pixelIds.length; i++) {
