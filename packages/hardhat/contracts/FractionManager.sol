@@ -31,7 +31,7 @@ contract FractionManager is Initializable, PausableUpgradeable, OwnableUpgradeab
         fractionId = _fractionId;
     }
 
-    function deposit(uint256 _amount) public {
+    function deposit(uint256 _amount) public onlyOwner {
         require(_amount > 0, "FractionalManager: Amount must be greater than 0");
         require(IERC1155(fractionAddress).balanceOf(msg.sender, fractionId) >= _amount, "Fractional: Insufficient balance");
         IERC1155(fractionAddress).safeTransferFrom(msg.sender, address(this), fractionId, _amount, "");
