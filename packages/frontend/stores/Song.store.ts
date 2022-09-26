@@ -70,6 +70,7 @@ class SongStore {
         }
     }
 
+
     async getCanMint() {
         if (this.contract && this.signer && this.signer.getAddress) {
             const address = await this.signer.getAddress()
