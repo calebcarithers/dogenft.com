@@ -1,20 +1,14 @@
 import axios from 'axios';
 import {makeObservable, observable, reaction} from "mobx";
 import {ethers} from "ethers";
+import FractionManagerABI from '../services/abis/fractionManager';
 
-class SongStore {
-
-    @observable
-    currentTime = "00:00:00"
-
-    @observable
-    duration = "00:00:00"
+class FractionStore {
+    contractAddress = process.env.NEXT_PUBLIC_FRACTION_MANAGER_CONTRACT_ADDRESS;
+    abi: any = FractionManagerABI;
 
     @observable
-    isMintLoading = false
-
-    @observable
-    hasClaimed = false
+    isClaiming = false
 
     @observable
     availablePixelId = -1
@@ -38,63 +32,48 @@ class SongStore {
 
     init() {
       this.disposer = reaction(() => [this.contract, this.signer], () => {
-        this.getCanMint()
+        this.getCanClaim()
       })
     }
 
-    onTimeUpdate(video: HTMLVideoElement) {
-        if (!isNaN(video.currentTime) && !isNaN(video.duration)) {
-            const date = new Date(0);
-            date.setSeconds(video.currentTime);
-            this.currentTime = date.toISOString().substr(11, 8)
-
-            date.setSeconds(video.duration)
-            this.duration = date.toISOString().substr(11, 8)
-        }
-    }
-
-    async mint() {
+    async claim() {
         if (this.contract) {
-            this.isMintLoading = true
+            this.isClaiming = true
             try {
-                const tx = await this.contract.safeMint(this.availablePixelId)
+                const tx = await this.contract.claim(this.availablePixelId)
                 await tx.wait()
-                // await this.getCanMint()
-                this.availablePixelId = -1;
-                this.hasClaimed = true;
+
+                await this.getCanClaim()
             } catch (e) {
 
             } finally {
-                this.isMintLoading = false
+                this.isClaiming = false
             }
         }
     }
 
 
-    async getCanMint() {
+    async getCanClaim() {
+        this.availablePixelId = -1;
         if (this.contract && this.signer && this.signer.getAddress) {
             const address = await this.signer.getAddress()
             try {
-                const hasClaimed = await this.contract.hasClaimed(address)
-                this.hasClaimed = hasClaimed;
-                if (!hasClaimed) {
-                    if (process.env.NEXT_PUBLIC_PIXEL_HOLDER_API) {
-                        const pixelResponse = await axios.get(process.env.NEXT_PUBLIC_PIXEL_HOLDER_API);
-                        const pixelHolders = Object.keys(pixelResponse.data);
+                if (process.env.NEXT_PUBLIC_PIXEL_HOLDER_API) {
+                    const pixelResponse = await axios.get(process.env.NEXT_PUBLIC_PIXEL_HOLDER_API);
+                    const pixelHolders = Object.keys(pixelResponse.data);
 
-                        if (pixelHolders.includes(address)) {
-                            const pixelIds = pixelResponse.data[address].tokenIds;
-                            for (let i = 0; i < pixelIds.length; i++) {
-                                const pixelId = pixelIds[i];
-                                const isClaimed = await this.contract.hasPixelClaimed(pixelId);
-                                if (!isClaimed) {
-                                    this.availablePixelId = pixelId;
-                                    break;
-                                }
+                    if (pixelHolders.includes(address)) {
+                        const pixelIds = pixelResponse.data[address].tokenIds;
+                        for (let i = 0; i < pixelIds.length; i++) {
+                            const pixelId = pixelIds[i];
+                            const isClaimed = await this.contract.hasPixelClaimed(pixelId);
+                            if (!isClaimed) {
+                                this.availablePixelId = pixelId;
+                                break;
                             }
                         }
                     }
-                }
+                } 
             } catch (e) {
                 console.error(e)
             }
@@ -108,4 +87,4 @@ class SongStore {
     }
 }
 
-export default SongStore
+export default FractionStore
