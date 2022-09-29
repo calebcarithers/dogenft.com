@@ -27,37 +27,36 @@ describe("Fractional Contract", function () {
     console.log("mockFractionalContract deployed to:", fractionalContract.address);
 
     await fractionalContract.mint(1, 100);
+    await fractionalContract.mint(2, 100);
 
     console.log("\ndeploying fractionalManager")
     const FractionManagerFactory = await ethers.getContractFactory("FractionManager");
-    fractionalManager = await upgrades.deployProxy(FractionManagerFactory, [mockPixelContract.address, fractionalContract.address, 1]);
+    fractionalManager = await upgrades.deployProxy(FractionManagerFactory, [mockPixelContract.address]);
     await fractionalManager.deployed();
     console.log("FractionalManager deployed to:", fractionalManager.address);
   })
 
  it("Should deposit Fraction NFTs", async function () {
-  console.log("fractionalManager", fractionalManager.address, signers[0].address)
     await fractionalContract.setApprovalForAll(fractionalManager.address, true);
-    console.log("approve", await fractionalContract.isApprovedForAll(signers[0].address, fractionalManager.address));
-    await fractionalManager.deposit( 100);
+    await fractionalManager.deposit(fractionalContract.address, 1,  100);
     expect(await fractionalContract.balanceOf(fractionalManager.address, 1)).to.equal(100);
   });
 
   it("Should claim Fraction NFTs", async function () {
     await mockPixelContract.mint();
-    await fractionalManager.claim(1);
+    await fractionalManager.claim(fractionalContract.address, 1, 1);
     expect(await fractionalContract.balanceOf(fractionalManager.address, 1)).to.equal(99);
     expect(await fractionalContract.balanceOf(signers[0].address, 1)).to.equal(1);
   });
 
   it("Should not claim more than one ERC1155 per a pixel", async function () {
-    await expect(fractionalManager.claim(1)).to.be.revertedWith("Pixel already claimed");
+    await expect(fractionalManager.claim(fractionalContract.address, 1, 1)).to.be.revertedWith("Pixel already claimed");
   });
 
   it("Should withdraw all ERC1155", async function () {
-    await expect(fractionalManager.connect(signers[1]).withdraw()).to.be.revertedWith("Ownable: caller is not the owner");
+    await expect(fractionalManager.connect(signers[1]).withdraw(fractionalContract.address, 1)).to.be.revertedWith("Ownable: caller is not the owner");
 
-    await fractionalManager.withdraw();
+    await fractionalManager.withdraw(fractionalContract.address, 1);
     expect(await fractionalContract.balanceOf(fractionalManager.address, 1)).to.equal(0);
     expect(await fractionalContract.balanceOf(signers[0].address, 1)).to.equal(100);
   });

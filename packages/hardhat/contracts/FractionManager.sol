@@ -13,46 +13,36 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 contract FractionManager is Initializable, PausableUpgradeable, OwnableUpgradeable, IERC1155ReceiverUpgradeable {
     using ERC165Checker for address;
     address public pixelAddress;
-    address public fractionAddress;
-    uint256 fractionId;
-    // mapping(address => bool) public whitelistClaimed;
-    mapping(uint256 => bool) public pixelClaimed;
+    mapping(address => mapping(uint256 => bool)) public pixelClaimed;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
 
-    function initialize(address _pixelAddress, address _fractionAddress, uint256 _fractionId) initializer public {
+    function initialize(address _pixelAddress) initializer public {
         __Pausable_init();
         __Ownable_init();
         pixelAddress = _pixelAddress;
-        fractionAddress = _fractionAddress;
-        fractionId = _fractionId;
     }
 
-    function deposit(uint256 _amount) public onlyOwner {
+    function deposit(address _erc1155Address, uint256 _fractionId, uint256 _amount) public onlyOwner {
         require(_amount > 0, "FractionalManager: Amount must be greater than 0");
-        require(IERC1155(fractionAddress).balanceOf(msg.sender, fractionId) >= _amount, "Fractional: Insufficient balance");
-        IERC1155(fractionAddress).safeTransferFrom(msg.sender, address(this), fractionId, _amount, "");
+        require(IERC1155(_erc1155Address).balanceOf(msg.sender, _fractionId) >= _amount, "Fractional: Insufficient balance");
+        IERC1155(_erc1155Address).safeTransferFrom(msg.sender, address(this), _fractionId, _amount, "");
     }
 
-    function claim(uint256 _pixelId) public whenNotPaused {
-        require(!pixelClaimed[_pixelId], "Pixel already claimed");
+    function claim(address _erc1155Address, uint256 _fractionId, uint256 _pixelId) public whenNotPaused {
+        require(!pixelClaimed[_erc1155Address][_pixelId], "Pixel already claimed");
         require(IERC721(pixelAddress).ownerOf(_pixelId) == msg.sender, "Not pixel owner");
-        require(IERC1155(fractionAddress).balanceOf(address(this), fractionId) >= 1, "Insufficient balance");
+        require(IERC1155(_erc1155Address).balanceOf(address(this), _fractionId) >= 1, "Insufficient balance");
         // ** should check balance
-        IERC1155(fractionAddress).safeTransferFrom(address(this), msg.sender, fractionId, 1, "");
-        pixelClaimed[_pixelId] = true;
+        IERC1155(_erc1155Address).safeTransferFrom(address(this), msg.sender, _fractionId, 1, "");
+        pixelClaimed[_erc1155Address][_pixelId] = true;
     }
 
-
-    // function hasClaimed(address _whitelist) public view returns (bool) {
-    //     return whitelistClaimed[_whitelist];
-    // }
-
-    function hasPixelClaimed(uint256 _pixelId) public view returns (bool) {
-        return pixelClaimed[_pixelId];
+    function hasPixelClaimed(address _erc1155Address, uint256 _pixelId) public view returns (bool) {
+        return pixelClaimed[_erc1155Address][_pixelId];
     }
 
     function pause() public onlyOwner {
@@ -63,9 +53,9 @@ contract FractionManager is Initializable, PausableUpgradeable, OwnableUpgradeab
         _unpause();
     }
 
-    function withdraw() public onlyOwner {
-        uint256 balance = IERC1155(fractionAddress).balanceOf(address(this), fractionId);
-        IERC1155(fractionAddress).safeTransferFrom(address(this), msg.sender, fractionId, balance, "");
+    function withdraw(address _erc1155Address, uint256 _fractionId) public onlyOwner {
+        uint256 balance = IERC1155(_erc1155Address).balanceOf(address(this), _fractionId);
+        IERC1155(_erc1155Address).safeTransferFrom(address(this), msg.sender, _fractionId, balance, "");
     }
     
     function onERC1155Received(
