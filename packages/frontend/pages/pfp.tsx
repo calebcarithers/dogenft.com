@@ -15,31 +15,45 @@ const PFP: React.FC = () => {
     const {data: signer} = useSigner()
     const {activeChain} = useNetwork()
     const [pixels, setPixels] = useState([])
+    const [isConnected, setIsConnected] = useState(false)
+    const [statusText, setStatusText] = useState("");
+    const [selectedPixel, setSelectedPixel] = useState(-1);
 
     const isConnectedToCorrectNetwork = useMemo(() => activeChain?.id === targetChain.id, [activeChain?.id, targetChain.id])
 
     useEffect(() => {
         const init = async() => {
             if (signer && isConnectedToCorrectNetwork) {
+                setIsConnected(true)
                 const address = await signer?.getAddress()
                 const myPixels = await getPixelsForAddress(address)
                 setPixels(myPixels)
+            } else {
+                setIsConnected(false)
             }
         }
 
         init()
     }, [signer, isConnectedToCorrectNetwork, targetChain.id])
-    
-    const getStatusText = () => {
+
+    useEffect(() => {
         if (isConnectedToCorrectNetwork && signer) {
             if (pixels.length > 0) {
-                return "SELECT A PIXEL"
+                if (selectedPixel === -1) {
+                    setStatusText("SELECT A PIXEL")
+                } else {
+                    setStatusText("SELECTED")
+                }
             } else {
-                return "YOU HAVE NO PIXELS"
+                setStatusText("YOU HAVE NO PIXELS")
             }
         } else {
-            return "CONNECT WALLET TO CREATE YOUR PFP"
+            setStatusText("CONNECT WALLET TO CREATE YOUR PFP")
         }
+    }, [isConnected, pixels])
+    
+    const savePixel = () => {
+
     }
     return <PageLayout>
         <Head>
@@ -51,12 +65,48 @@ const PFP: React.FC = () => {
                     <BsArrowLeft size={15}/>
                 </Button>
             </div>
+                  {/* <canvas id="cnv"></canvas> */}
+
             <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
-                <div className={css("m-auto w-48 h-48 rounded-full border border-black")}>
-                    <img src="/images/logo.png" className={css("w-full h-full rounded-full")}/>
+                <div className={css("m-auto w-48 h-48 rounded-full border border-black relative")} style={{background: selectedPixel !== -1 ?pixelToHexLocal(selectedPixel) : ""}}>
+                    {
+                        isConnected ?
+                        (
+                            selectedPixel === -1 ? "" : <>
+                            <div className={css("text-7xl top-3 font-bold absolute w-full")} >
+                                <svg viewBox="0 0 500 150" >
+                                    <path id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" className={css("fill-transparent")} />
+                                    <text width="500">
+                                    <textPath startOffset="11%"  xlinkHref="#curve">
+                                        Doge Pixel
+                                    </textPath>
+                                    </text>
+
+                                </svg>
+                            </div>
+                            <div className={css("text-7xl mt-3 font-bold absolute w-full bottom-3")}>
+                                <svg viewBox="0 0 500 100" >
+
+                                    <defs>
+                                        <path id="intermediate" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6 ,175.1,97" />
+                                    </defs>
+                                    <text fill="#105ca6">
+                                        <textPath startOffset="10%"   xlinkHref="#intermediate">(x, y)</textPath>
+                                    </text>
+                                </svg>
+                            </div>
+                            </>
+                        )
+                        :  <img src="/images/logo.png" className={css("w-full h-full rounded-full")}/>
+                    }
+                   
                 </div>
                 <div className={css("text-xl font-semibold text-center mt-3")}>
-                        {getStatusText()}
+                        {statusText === 'SELECTED' ? (
+                            <Button onClick={() => savePixel()}>
+                                Save
+                            </Button>
+                        ) : statusText}
                     </div>
                 <div className={css("flex flex-wrap gap-6 justify-center p-4 border border-dotted border-gray-300 mt-3")}>
                     {
@@ -68,6 +118,7 @@ const PFP: React.FC = () => {
                                 id={pixel} 
                                 x={pixelToCoordsLocal(pixel)[0]} 
                                 y={pixelToCoordsLocal(pixel)[1]}
+                                onClick={setSelectedPixel}
                             />
                         })
                     }
