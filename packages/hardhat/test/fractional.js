@@ -5,6 +5,11 @@ describe("Fractional Contract", function () {
   let mockPixelContract, signers;
   let fractionalManager;
   let mockERC1155Contract;
+  const mockERC1155TokenId = 1
+  const mockERC1155TokenCountToDeposit = 100
+  let lastPixelIdUsedToClaim = 1
+
+  let erc1155LeftInManager = mockERC1155TokenCountToDeposit
 
   before(async () => {
     signers = await ethers.getSigners()
@@ -19,8 +24,9 @@ describe("Fractional Contract", function () {
     await mockERC1155Contract.deployed();
     console.log('Mock ERC1155 deployed')
 
-    await mockERC1155Contract.mint(1, 100);
-    await mockERC1155Contract.mint(2, 100);
+    // mint two erc1155 tokens
+    await mockERC1155Contract.mint(mockERC1155TokenId, mockERC1155TokenCountToDeposit);
+    await mockERC1155Contract.mint(mockERC1155TokenId + 1, mockERC1155TokenCountToDeposit);
 
     const FractionManagerFactory = await ethers.getContractFactory("FractionManager");
     fractionalManager = await upgrades.deployProxy(FractionManagerFactory, [mockPixelContract.address]);
@@ -30,39 +36,65 @@ describe("Fractional Contract", function () {
 
  it("Should deposit Fraction NFTs", async function () {
     await mockERC1155Contract.setApprovalForAll(fractionalManager.address, true);
-    await fractionalManager.deposit(mockERC1155Contract.address, 1,  100);
-    expect(await mockERC1155Contract.balanceOf(fractionalManager.address, 1)).to.equal(100);
+    await fractionalManager.deposit(mockERC1155Contract.address, mockERC1155TokenId,  mockERC1155TokenCountToDeposit);
+    expect(await mockERC1155Contract.balanceOf(fractionalManager.address, mockERC1155TokenId)).to.equal(mockERC1155TokenCountToDeposit);
   });
 
   it("Should not be able to claim yet", async function() {
-    await expect(fractionalManager.claim(mockERC1155Contract.address, 1, 1)).to.be.revertedWith("Claim is not open");
+    await expect(fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim)).to.be.revertedWith("Claim is not open");
   })
 
   it("Should claim Fraction NFTs", async function () {
+    // mint two pixels
     await mockPixelContract.mint();
     await mockPixelContract.mint();
+
+    // allow claiming for the token
     await fractionalManager.setIsTokenClaimable(mockERC1155Contract.address, true);
-    await fractionalManager.claim(mockERC1155Contract.address, 1, 1);
+
+    lastPixelIdUsedToClaim += 1;
+    await fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim);
+    erc1155LeftInManager -= 1;
+
     // fractional manager should have one less token
-    expect(await mockERC1155Contract.balanceOf(fractionalManager.address, 1)).to.equal(99);
+    expect(await mockERC1155Contract.balanceOf(fractionalManager.address, 1)).to.equal(erc1155LeftInManager);
     // signer should have been sent a token
     expect(await mockERC1155Contract.balanceOf(signers[0].address, 1)).to.equal(1);
   });
 
   it("Should not claim more than one ERC1155 per a pixel", async function() {
-    await expect(fractionalManager.claim(mockERC1155Contract.address, 1, 1)).to.be.revertedWith("Pixel already claimed");
+    await expect(fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim)).to.be.revertedWith("Pixel already claimed");
   });
 
   it("Should not be able to claim if caller is not holding a pixel", async function() {
-    const newContract = await fractionalManager.connect(signers[1])
-    await expect(newContract.claim(mockERC1155Contract.address, 1, 2)).to.be.revertedWith("Not pixel owner")
+    const newContract = await fractionalManager.connect(signers[3])
+    await expect(newContract.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim - 1)).to.be.revertedWith("Not pixel owner")
   })
 
-  // it("Should withdraw all ERC1155", async function () {
-  //   await expect(fractionalManager.connect(signers[1]).withdraw(mockERC1155Contract.address, 1)).to.be.revertedWith("Ownable: caller is not the owner");
-  //
-  //   await fractionalManager.withdraw(mockERC1155Contract.address, 1);
-  //   expect(await mockERC1155Contract.balanceOf(fractionalManager.address, 1)).to.equal(0);
-  //   expect(await mockERC1155Contract.balanceOf(signers[0].address, 1)).to.equal(100);
-  // });
+  it("Should allow user to claim as many fractions as pixels they hold", async function() {
+    const localSigner = signers[2]
+    const fractional = await fractionalManager.connect(localSigner);
+    const pixelContract = await mockPixelContract.connect(localSigner)
+    const count = 20;
+    let expectedFractionBalance = 0
+
+    for (let i = 0; i <= count; i++) {
+      lastPixelIdUsedToClaim += 1
+      expectedFractionBalance += 1
+      await pixelContract.mint()
+      await fractional.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim)
+      erc1155LeftInManager -= 1;
+      expect(await mockERC1155Contract.balanceOf(localSigner.address, mockERC1155TokenId)).to.equal(expectedFractionBalance)
+    }
+  })
+
+  it("Should only let the owner withdraw fractions", async function() {
+    await expect(fractionalManager.connect(signers[1]).withdraw(mockERC1155Contract.address, 1)).to.be.revertedWith("Ownable: caller is not the owner");
+  })
+
+  it("Should withdraw all ERC1155", async function () {
+    await fractionalManager.withdraw(mockERC1155Contract.address, mockERC1155TokenId);
+    expect(await mockERC1155Contract.balanceOf(fractionalManager.address, mockERC1155TokenId)).to.equal(0);
+    expect(await mockERC1155Contract.balanceOf(signers[0].address, 1)).to.equal(erc1155LeftInManager + 1);
+  });
 });

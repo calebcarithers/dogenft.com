@@ -63,7 +63,6 @@ contract FractionManager is Initializable, OwnableUpgradeable, IERC1155ReceiverU
         return this.onERC1155Received.selector;
     }
 
-
     function onERC1155BatchReceived(
         address ,
         address ,
