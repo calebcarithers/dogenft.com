@@ -97,6 +97,10 @@ describe("Fractional Contract", function () {
     expect(await mockERC1155Contract.balanceOf(signers[0].address, 1)).to.equal(erc1155LeftInManager + 1);
   });
 
+  it("Cannot call initialize again", async function() {
+    await expect(fractionalManager.initialize("0xA26461Fcf53f3E21cde8c902CA6e8e6ba9Def62f")).to.be.revertedWith("Initializable: contract is already initialized")
+  })
+
   it("Should run tests for new token ID", async function() {
     const newTokenId = mockERC1155TokenId + 1
     // mint new erc1155 token
