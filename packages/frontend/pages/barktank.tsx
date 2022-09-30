@@ -24,7 +24,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
     </Head>
     <div className={css("flex", "gap-5", "flex-col", "mb-28")}>
       <div className={css("mb-8")}>
-        <Button onClick={() => router.push("/?wow=barktank")}>
+        <Button onClick={() => router.back()}>
           <BsArrowLeft size={15}/>
         </Button>
       </div>

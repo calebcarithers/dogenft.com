@@ -1,18 +1,27 @@
 import {css} from "../../helpers/css";
-import {PropsWithChildren, useEffect} from "react";
+import React, {PropsWithChildren, useEffect} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
-import Dropdown from "../Dropdown/Dropdown";
+import Dropdown, {DropdownType} from "../Dropdown/Dropdown";
 import Link, {LinkSize, LinkType} from "../Link/Link";
 import {useDisconnect} from "wagmi";
-import React from "react"
 import {useRouter} from "next/router";
 import {ClipLoader} from "react-spinners";
 import tailwindconfig from "../../tailwind.config";
 
 
-const buttonStyles = css("p-2", "bg-pixels-yellow-100", "text-black", "font-bold", "disabled:bg-pixels-yellow-300",
-    "disabled:active:translate-x-0.5", "disabled:active:translate-y-0.5", "disabled:text-pixels-yellow-400", "disabled:cursor-not-allowed", "disabled:border-pixels-yellow-400"
-)
+export enum ButtonType {
+    Primary = "primary",
+    White = "white"
+}
+
+const baseButtonStyles = css("p-2", "font-bold", "disabled:bg-pixels-yellow-300", "disabled:active:translate-x-0.5",
+    "disabled:active:translate-y-0.5", "disabled:cursor-not-allowed",)
+
+const buttonTypeStyles = {
+    [ButtonType.Primary]: css("bg-pixels-yellow-100", "text-black", "disabled:text-pixels-yellow-400",
+        "disabled:border-pixels-yellow-400", "hover:bg-yellow-400", "border-black"),
+    [ButtonType.White]: css("bg-black", "text-white", "border-blue-700", "hover:bg-gray-900")
+}
 
 interface ButtonProps {
     onClick?: () => void;
@@ -20,20 +29,23 @@ interface ButtonProps {
     disabled?: boolean
     rounded?: boolean;
     isLoading?: boolean;
+    type?: ButtonType
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
-                                                              onClick,
-                                                              block,
-                                                              children,
-                                                              disabled = false,
-                                                              rounded = false,
-                                                              isLoading
-                                                          }) => {
+      onClick,
+      block,
+      children,
+      disabled = false,
+      rounded = false,
+      isLoading,
+      type= ButtonType.Primary
+  }) => {
     const isDisabled = disabled || isLoading;
     return <div className={css("relative", "inline-block", "z-10", "h-fit", {"w-full": block})}>
         <button disabled={isDisabled} onClick={onClick && onClick}
-                className={css(buttonStyles, "relative", "active:translate-x-1", "active:translate-y-1", "border-2", "border-black", "border-solid", "hover:bg-yellow-400", {
+                className={css(baseButtonStyles, buttonTypeStyles[type], "relative", "active:translate-x-1", "active:translate-y-1",
+                    "border-2", "border-solid", {
                     "w-full": block,
                     "rounded-full": rounded
                 })}>
@@ -55,8 +67,18 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
 
 export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
     const router = useRouter()
+    const isFraction = router.pathname === '/fraction'
+    const buttonType = isFraction ? ButtonType.White : ButtonType.Primary
     const {disconnect} = useDisconnect()
     const [isDropDownOpen, setIsDropDownOpen] = React.useState(false)
+
+    const linkStyles = css({
+        "text-pixels-yellow-500": !isFraction,
+        "hover:text-yellow-400": !isFraction,
+        "text-white": isFraction,
+        "hover:text-gray-600": isFraction
+    })
+
     useEffect(() => {
         if (isDropDownOpen) {
             setIsDropDownOpen(false)
@@ -86,7 +108,7 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
                         {(() => {
                             if (!mounted || !account || !chain) {
                                 return (
-                                    <Button onClick={openConnectModal}>
+                                    <Button type={buttonType} onClick={openConnectModal}>
                                         connect
                                     </Button>
                                 );
@@ -94,7 +116,7 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
 
                             if (chain.unsupported) {
                                 return (
-                                    <Button onClick={openChainModal}>
+                                    <Button type={buttonType} onClick={openChainModal}>
                                         Wrong network
                                     </Button>
                                 );
@@ -102,26 +124,26 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
 
                             return (
                                 <div style={{display: 'flex', gap: 12}}>
-                                    <Dropdown open={isDropDownOpen} onOpenChange={setIsDropDownOpen}
-                                              trigger={<Button rounded>
+                                    <Dropdown type={isFraction ? DropdownType.White : DropdownType.Primary} open={isDropDownOpen} onOpenChange={setIsDropDownOpen}
+                                              trigger={<Button type={buttonType} rounded>
                                                   {account.displayName}
                                               </Button>}>
                                         <Dropdown.Item>
                                             <Link bold block href={`/profile/${account.address}`} size={LinkSize.xl}
-                                                  type={LinkType.Black}>
+                                                  type={isFraction ? LinkType.White : LinkType.Black}>
                                                 Profile
                                             </Link>
                                         </Dropdown.Item>
                                         <div className={css("mt-5", "text-base")}>
                                             <Dropdown.Item>
                                                 <div onClick={() => disconnect()}
-                                                     className={css("cursor-pointer", "text-right", "text-pixels-yellow-500", "font-bold", "hover:text-yellow-400")}>
+                                                     className={css("cursor-pointer", "text-right", "font-bold", linkStyles)}>
                                                     Disconnect
                                                 </div>
                                             </Dropdown.Item>
                                             <Dropdown.Item>
                                                 <div
-                                                    className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-between", "text-pixels-yellow-500", "font-bold", "hover:text-yellow-400")}
+                                                    className={css("flex", "items-center", "space-x-2", "cursor-pointer", "justify-between", "font-bold", linkStyles)}
                                                     onClick={openChainModal}>
                                                     <div>
                                                         network:

@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
 contract MockFraction is ERC1155 {
 
-    constructor () ERC1155(""){
+    constructor () ERC1155("MOCKERC1155"){
     }
 
     function mint(uint256 id, uint256 amount) public {

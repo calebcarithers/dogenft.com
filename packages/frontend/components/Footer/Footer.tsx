@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link, {LinkSize, LinkType} from "../Link/Link";
 import React from "react";
 import {actionLinks, tradeLinks, readLinks, socialLinks} from "./Links";
+import {useRouter} from "next/router";
 
 export const Footer = () => {
     return <footer className={css("grow-0", "py-4", "block", "mt-16")}>
@@ -25,13 +26,19 @@ interface FooterItemProps {
 
 
 const FooterItem = ({title, items}: FooterItemProps) => {
+    const router = useRouter()
+    console.log('debug:: router', router)
+
+    const isFractionPage = router.pathname === "/fraction"
+    const classNames = isFractionPage ? css("border-white", "text-white") : css("border-pixels-yellow-200", "text-gray-600")
+
     return <div className={css("text-left")}>
-        <div className={css("font-bold", "border-b-2", "border-dashed", "border-pixels-yellow-200", "mb-2", "text-gray-600",
-            "inline-block", "text-sm", "font-bold")}>
+        <div className={css("font-bold", "border-b-2", "border-dashed", "mb-2",
+            "inline-block", "text-sm", "font-bold", classNames)}>
             {title}
         </div>
         <div className={css("grid", "grid-rows-3", "grid-flow-col", "gap-x-2", "font-normal")}>
-            {items.map(item => <Link key={item.link} size={LinkSize.xs} type={LinkType.Grey} isExternal href={item.link}>{item.title}</Link> )}
+            {items.map(item => <Link key={item.link} size={LinkSize.xs} type={isFractionPage ? LinkType.White : LinkType.Grey} isExternal href={item.link}>{item.title}</Link> )}
         </div>
     </div>
 }

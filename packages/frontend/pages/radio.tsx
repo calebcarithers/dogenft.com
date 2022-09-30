@@ -24,7 +24,7 @@ const Radio = observer(() => {
       </Head>
       <PageLayout>
         <div className={css("mb-8")}>
-          <Button onClick={() => router.push("/")}>
+          <Button onClick={() => router.back()}>
             <BsArrowLeft size={15}/>
           </Button>
         </div>
@@ -70,7 +70,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
             songStore.destroy()
         }
     }, [])
-  
+
     const renderIndicator = useCallback(() => {
       if (song.isActive) {
         if (songStore.signer) {

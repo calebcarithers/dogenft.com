@@ -27,7 +27,6 @@ class FractionStore {
 
     constructor() {
         makeObservable(this)
-        console.log('trigger deploy')
     }
 
     init() {
@@ -73,7 +72,7 @@ class FractionStore {
                             }
                         }
                     }
-                } 
+                }
             } catch (e) {
                 console.error(e)
             }

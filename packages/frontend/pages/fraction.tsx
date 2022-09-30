@@ -2,8 +2,8 @@ import React, {useCallback, useEffect, useMemo} from "react";
 import {BsArrowLeft} from "react-icons/bs";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button from "../components/Button/Button";
-import { useNetwork, useSigner} from "wagmi";
+import Button, {ButtonType} from "../components/Button/Button";
+import {useNetwork, useSigner} from "wagmi";
 import {observer} from "mobx-react-lite";
 import {ethers} from "ethers";
 import Link from "../components/Link/Link";
@@ -16,18 +16,17 @@ import FractionStore from "../stores/Fraction.store";
 const Fraction = observer(() => {
     const router = useRouter()
     return <>
-      <Head>
-        <title>The Doge NFT | Fraction </title>
-      </Head>
-      <PageLayout>
+          <Head>
+            <title>The Doge NFT | Doge Major</title>
+          </Head>
+      <PageLayout className={css("bg-repeat")} style={{backgroundImage: `url(images/constellation.gif)`}}>
         <div className={css("mb-8")}>
-          <Button onClick={() => router.push("/")}>
+          <Button onClick={() => router.back()} type={ButtonType.White}>
             <BsArrowLeft size={15}/>
           </Button>
         </div>
         <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4")}>
-          <div className={css("border-2", "border-black", "p-3", "bg-pixels-yellow-100")}
-               style={{boxShadow: "10px 10px"}}>
+          <div className={css("border-2", "border-blue-700", "p-3", "bg-black")}>
             <FractionManager  />
           </div>
         </div>
@@ -42,7 +41,6 @@ const FractionManager: React.FC<{}> = observer(({}) => {
     const {data: signer} = useSigner()
     useEffect(() => {
         fractionStore.signer = signer
-
         if (fractionStore.contractAddress && fractionStore.abi && signer) {
             fractionStore.contract = new ethers.Contract(fractionStore.contractAddress, fractionStore.abi, signer)
             fractionStore.getCanClaim()
@@ -73,7 +71,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
               </div>
             }
         } else {
-          return <div className={css("text-pixels-yellow-400", "font-bold")}>
+          return <div className={css("text-white", "font-bold")}>
             connect wallet to mint
           </div>
         }
@@ -83,7 +81,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
         <div className={css("col-span-1", "md:col-span-2")}>
 
         </div>
-          <div className={css("flex", "justify-center", "mt-6")}>
+          <div className={css("flex", "justify-center", "mt-6", "text-white")}>
               {targetChain.id === activeChain?.id ? renderIndicator() : `Please connect to: ${targetChain.name}`}
           </div>
     </div>

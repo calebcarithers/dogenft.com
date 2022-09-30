@@ -52,7 +52,8 @@ export enum LinkType {
     Primary = "primary",
     Secondary = "secondary",
     Grey = "grey",
-    Black = "black"
+    Black = "black",
+    White = "white"
 }
 
 export enum LinkSize {
@@ -68,7 +69,8 @@ const linkTypeStyles = {
     [LinkType.Primary]: css("text-cyan-400", "underline", "hover:text-cyan-500", baseLinkStyles),
     [LinkType.Secondary]: css("text-pixels-yellow-500", baseLinkStyles),
     [LinkType.Grey]: css("text-gray-600", "hover:text-cyan-400", baseLinkStyles),
-    [LinkType.Black]: css("text-black", "hover:text-yellow-400")
+    [LinkType.Black]: css("text-black", "hover:text-yellow-400"),
+    [LinkType.White]: css("text-white", "hover:text-gray-800")
 }
 
 const linkSizeStyles = {
