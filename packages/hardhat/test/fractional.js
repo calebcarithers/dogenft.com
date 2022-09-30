@@ -40,7 +40,7 @@ describe("Fractional Contract", function () {
   });
 
   it("Should not be able to claim yet", async function() {
-    await expect(fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim)).to.be.revertedWith("Claim is not open");
+    await expect(fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, [lastPixelIdUsedToClaim])).to.be.revertedWith("Claim is not open");
   })
 
   it("Should claim Fraction NFTs", async function () {
@@ -52,7 +52,7 @@ describe("Fractional Contract", function () {
     await fractionalManager.setIsTokenClaimable(mockERC1155Contract.address, mockERC1155TokenId, true);
 
     lastPixelIdUsedToClaim += 1;
-    await fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim);
+    await fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, [lastPixelIdUsedToClaim]);
     erc1155LeftInManager -= 1;
 
     // fractional manager should have one less token
@@ -62,12 +62,12 @@ describe("Fractional Contract", function () {
   });
 
   it("Should not claim more than one ERC1155 per a pixel", async function() {
-    await expect(fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim)).to.be.revertedWith("Pixel already claimed");
+    await expect(fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, [lastPixelIdUsedToClaim])).to.be.revertedWith("Pixel already claimed");
   });
 
   it("Should not be able to claim if caller is not holding a pixel", async function() {
     const newContract = await fractionalManager.connect(signers[3])
-    await expect(newContract.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim - 1)).to.be.revertedWith("Not pixel owner")
+    await expect(newContract.claim(mockERC1155Contract.address, mockERC1155TokenId, [lastPixelIdUsedToClaim - 1])).to.be.revertedWith("Not pixel owner")
   })
 
   it("Should allow user to claim as many fractions as pixels they hold", async function() {
@@ -81,7 +81,7 @@ describe("Fractional Contract", function () {
       lastPixelIdUsedToClaim += 1
       expectedFractionBalance += 1
       await pixelContract.mint()
-      await fractional.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim)
+      await fractional.claim(mockERC1155Contract.address, mockERC1155TokenId, [lastPixelIdUsedToClaim])
       erc1155LeftInManager -= 1;
       expect(await mockERC1155Contract.balanceOf(localSigner.address, mockERC1155TokenId)).to.equal(expectedFractionBalance)
     }
@@ -112,13 +112,13 @@ describe("Fractional Contract", function () {
     expect(await mockERC1155Contract.balanceOf(signers[0].address, newTokenId)).to.equal(0);
 
     // should not allow claim until owner approves
-    await expect(fractionalManager.claim(mockERC1155Contract.address, newTokenId, lastPixelIdUsedToClaim)).to.be.revertedWith("Claim is not open");
+    await expect(fractionalManager.claim(mockERC1155Contract.address, newTokenId, [lastPixelIdUsedToClaim])).to.be.revertedWith("Claim is not open");
 
     // approve claim for token
     fractionalManager.setIsTokenClaimable(mockERC1155Contract.address, newTokenId, true)
 
     // old user is able to claim with existing erc721
-    await fractionalManager.claim(mockERC1155Contract.address, newTokenId, 1)
+    await fractionalManager.claim(mockERC1155Contract.address, newTokenId, [1])
 
     expect(await mockERC1155Contract.balanceOf(fractionalManager.address, newTokenId)).to.equal(mockERC1155TokenCountToDeposit - 1);
     expect(await mockERC1155Contract.balanceOf(signers[0].address, newTokenId)).to.equal(1);

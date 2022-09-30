@@ -5,6 +5,8 @@ import FractionManagerABI from '../services/abis/fractionManager';
 
 class FractionStore {
     contractAddress = process.env.NEXT_PUBLIC_FRACTION_MANAGER_CONTRACT_ADDRESS;
+    dogeMajorAddress = process.env.NEXT_PUBLIC_DOGE_MAJOR_ADDRESS;
+    dogeMajorTokenId = 1211
     abi: any = FractionManagerABI;
 
     @observable
@@ -32,14 +34,14 @@ class FractionStore {
     init() {
       this.disposer = reaction(() => [this.contract, this.signer], () => {
         this.getCanClaim()
-      })
+      }, {fireImmediately: true})
     }
 
     async claim() {
         if (this.contract) {
             this.isClaiming = true
             try {
-                const tx = await this.contract.claim(this.availablePixelId)
+                const tx = await this.contract.claim(this.dogeMajorAddress, this.dogeMajorTokenId, this.availablePixelId)
                 await tx.wait()
 
                 await this.getCanClaim()
@@ -54,7 +56,7 @@ class FractionStore {
 
     async getCanClaim() {
         this.availablePixelId = -1;
-        if (this.contract && this.signer && this.signer.getAddress) {
+        if (this.contract && this.signer) {
             const address = await this.signer.getAddress()
             try {
                 if (process.env.NEXT_PUBLIC_PIXEL_HOLDER_API) {
@@ -65,17 +67,21 @@ class FractionStore {
                         const pixelIds = pixelResponse.data[address].tokenIds;
                         for (let i = 0; i < pixelIds.length; i++) {
                             const pixelId = pixelIds[i];
-                            const isClaimed = await this.contract.hasPixelClaimed(pixelId);
+                            const isClaimed = await this.contract.hasPixelClaimed(this.dogeMajorAddress, pixelId);
                             if (!isClaimed) {
                                 this.availablePixelId = pixelId;
                                 break;
                             }
                         }
                     }
+                } else {
+                    throw new Error("Missing env var")
                 }
             } catch (e) {
                 console.error(e)
             }
+        } else {
+            console.log("debug:: not correct conditions to get if can claim")
         }
     }
 
