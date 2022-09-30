@@ -49,9 +49,9 @@ const FractionManager = [
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
-        "name": "_pixelId",
-        "type": "uint256"
+        "internalType": "uint256[]",
+        "name": "_pixelIds",
+        "type": "uint256[]"
       }
     ],
     "name": "claim",
