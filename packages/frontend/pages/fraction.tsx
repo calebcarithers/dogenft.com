@@ -13,8 +13,7 @@ import Head from "next/head";
 import {targetChain} from "../services/wagmi";
 import FractionStore from "../stores/Fraction.store";
 
-const Radio = observer(() => {
-    // const store = useMemo(() => new NftRadioStore(), [])
+const Fraction = observer(() => {
     const router = useRouter()
     return <>
       <Head>
@@ -56,7 +55,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
             fractionStore.destroy()
         }
     }, [])
-  
+
     const renderIndicator = useCallback(() => {
         if (fractionStore.signer) {
             if (fractionStore.availablePixelId !== -1) {
@@ -82,7 +81,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
 
     return <div className={css("grid", "grid-cols-1", "md:grid-cols-5")}>
         <div className={css("col-span-1", "md:col-span-2")}>
-            
+
         </div>
           <div className={css("flex", "justify-center", "mt-6")}>
               {targetChain.id === activeChain?.id ? renderIndicator() : `Please connect to: ${targetChain.name}`}
@@ -90,4 +89,4 @@ const FractionManager: React.FC<{}> = observer(({}) => {
     </div>
 })
 
-export default Radio
+export default Fraction
