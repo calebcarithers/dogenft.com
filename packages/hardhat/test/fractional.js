@@ -26,7 +26,6 @@ describe("Fractional Contract", function () {
 
     // mint two erc1155 tokens
     await mockERC1155Contract.mint(mockERC1155TokenId, mockERC1155TokenCountToDeposit);
-    await mockERC1155Contract.mint(mockERC1155TokenId + 1, mockERC1155TokenCountToDeposit);
 
     const FractionManagerFactory = await ethers.getContractFactory("FractionManager");
     fractionalManager = await upgrades.deployProxy(FractionManagerFactory, [mockPixelContract.address]);
@@ -50,7 +49,7 @@ describe("Fractional Contract", function () {
     await mockPixelContract.mint();
 
     // allow claiming for the token
-    await fractionalManager.setIsTokenClaimable(mockERC1155Contract.address, true);
+    await fractionalManager.setIsTokenClaimable(mockERC1155Contract.address, mockERC1155TokenId, true);
 
     lastPixelIdUsedToClaim += 1;
     await fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, lastPixelIdUsedToClaim);
@@ -97,4 +96,27 @@ describe("Fractional Contract", function () {
     expect(await mockERC1155Contract.balanceOf(fractionalManager.address, mockERC1155TokenId)).to.equal(0);
     expect(await mockERC1155Contract.balanceOf(signers[0].address, 1)).to.equal(erc1155LeftInManager + 1);
   });
+
+  it("Should run tests for new token ID", async function() {
+    const newTokenId = mockERC1155TokenId + 1
+    // mint new erc1155 token
+    await mockERC1155Contract.mint(newTokenId, mockERC1155TokenCountToDeposit);
+    expect(await mockERC1155Contract.balanceOf(signers[0].address, newTokenId)).to.equal(mockERC1155TokenCountToDeposit);
+
+    // deposit tokens
+    await fractionalManager.deposit(mockERC1155Contract.address, newTokenId, mockERC1155TokenCountToDeposit)
+    expect(await mockERC1155Contract.balanceOf(signers[0].address, newTokenId)).to.equal(0);
+
+    // should not allow claim until owner approves
+    await expect(fractionalManager.claim(mockERC1155Contract.address, newTokenId, lastPixelIdUsedToClaim)).to.be.revertedWith("Claim is not open");
+
+    // approve claim for token
+    fractionalManager.setIsTokenClaimable(mockERC1155Contract.address, newTokenId, true)
+
+    // old user is able to claim with existing erc721
+    await fractionalManager.claim(mockERC1155Contract.address, newTokenId, 1)
+
+    expect(await mockERC1155Contract.balanceOf(fractionalManager.address, newTokenId)).to.equal(99);
+    expect(await mockERC1155Contract.balanceOf(signers[0].address, newTokenId)).to.equal(1);
+  })
 });

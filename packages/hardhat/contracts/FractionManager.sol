@@ -13,7 +13,7 @@ contract FractionManager is Initializable, OwnableUpgradeable, IERC1155ReceiverU
     using ERC165Checker for address;
     address public pixelAddress;
     mapping(address => mapping(uint256 => bool)) public pixelClaimed;
-    mapping(address => bool) public isClaimOpen;
+    mapping(address => mapping(uint256 => bool)) public isClaimOpen;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -32,7 +32,7 @@ contract FractionManager is Initializable, OwnableUpgradeable, IERC1155ReceiverU
     }
 
     function claim(address _erc1155Address, uint256 _fractionId, uint256 _pixelId) public {
-        require(isClaimOpen[_erc1155Address], "Claim is not open");
+        require(isClaimOpen[_erc1155Address][_fractionId], "Claim is not open");
         require(!pixelClaimed[_erc1155Address][_pixelId], "Pixel already claimed");
         require(IERC721(pixelAddress).ownerOf(_pixelId) == msg.sender, "Not pixel owner");
         require(IERC1155(_erc1155Address).balanceOf(address(this), _fractionId) >= 1, "Insufficient balance");
@@ -49,8 +49,12 @@ contract FractionManager is Initializable, OwnableUpgradeable, IERC1155ReceiverU
         IERC1155(_erc1155Address).safeTransferFrom(address(this), msg.sender, _fractionId, balance, "");
     }
 
-    function setIsTokenClaimable(address _erc1155Address, bool canClaim) public onlyOwner {
-        isClaimOpen[_erc1155Address] = canClaim;
+    function setIsTokenClaimable(address _erc1155Address, uint256 _tokenId, bool canClaim) public onlyOwner {
+        isClaimOpen[_erc1155Address][_tokenId] = canClaim;
+    }
+
+    function getIsClaimOpen(address _erc1155Address, uint256 _tokenId) public view returns (bool) {
+        return isClaimOpen[_erc1155Address][_tokenId];
     }
 
     function onERC1155Received(
