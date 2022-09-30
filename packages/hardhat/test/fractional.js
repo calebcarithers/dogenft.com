@@ -116,7 +116,10 @@ describe("Fractional Contract", function () {
     // old user is able to claim with existing erc721
     await fractionalManager.claim(mockERC1155Contract.address, newTokenId, 1)
 
-    expect(await mockERC1155Contract.balanceOf(fractionalManager.address, newTokenId)).to.equal(99);
+    expect(await mockERC1155Contract.balanceOf(fractionalManager.address, newTokenId)).to.equal(mockERC1155TokenCountToDeposit - 1);
     expect(await mockERC1155Contract.balanceOf(signers[0].address, newTokenId)).to.equal(1);
+
+    await fractionalManager.withdraw(mockERC1155Contract.address, newTokenId)
+    expect(await mockERC1155Contract.balanceOf(signers[0].address, newTokenId)).to.equal(mockERC1155TokenCountToDeposit);
   })
 });
