@@ -75,16 +75,18 @@ describe("Fractional Contract", function () {
     const fractional = await fractionalManager.connect(localSigner);
     const pixelContract = await mockPixelContract.connect(localSigner)
     const count = 20;
-    let expectedFractionBalance = 0
 
-    for (let i = 0; i <= count; i++) {
+    const tokenIdsToMint = []
+
+    for (let i = 0; i < count; i++) {
       lastPixelIdUsedToClaim += 1
-      expectedFractionBalance += 1
+      tokenIdsToMint.push(lastPixelIdUsedToClaim)
       await pixelContract.mint()
-      await fractional.claim(mockERC1155Contract.address, mockERC1155TokenId, [lastPixelIdUsedToClaim])
-      erc1155LeftInManager -= 1;
-      expect(await mockERC1155Contract.balanceOf(localSigner.address, mockERC1155TokenId)).to.equal(expectedFractionBalance)
     }
+    // mint 20 at once
+    await fractional.claim(mockERC1155Contract.address, mockERC1155TokenId, tokenIdsToMint)
+    erc1155LeftInManager = erc1155LeftInManager - tokenIdsToMint.length
+    expect(await mockERC1155Contract.balanceOf(localSigner.address, mockERC1155TokenId)).to.equal(count)
   })
 
   it("Should only let the owner withdraw fractions", async function() {
