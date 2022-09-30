@@ -35,13 +35,11 @@ contract FractionManager is Initializable, OwnableUpgradeable, IERC1155ReceiverU
         require(_pixelIds.length > 0, "Must include at least one pixel ID");
         require(isClaimOpen[_erc1155Address][_fractionId], "Claim is not open");
         require(IERC1155(_erc1155Address).balanceOf(address(this), _fractionId) >= _pixelIds.length, "Insufficient balance");
-
         for (uint i = 0; i < _pixelIds.length; i++) {
             require(!pixelClaimed[_erc1155Address][_pixelIds[i]], "Pixel already claimed");
             require(IERC721(pixelAddress).ownerOf(_pixelIds[i]) == msg.sender, "Not pixel owner");
             pixelClaimed[_erc1155Address][_pixelIds[i]] = true;
         }
-
         IERC1155(_erc1155Address).safeTransferFrom(address(this), msg.sender, _fractionId, _pixelIds.length, "");
     }
 
