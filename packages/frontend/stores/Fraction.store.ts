@@ -18,6 +18,9 @@ class FractionStore {
     availablePixelIds: number[] = []
 
     @observable
+    usedPixelIds: number[] = []
+
+    @observable
     isPaused = true
 
     @observable
@@ -59,6 +62,7 @@ class FractionStore {
     async getCanClaim() {
         this.availablePixelIds = [];
         const newIds: number[] = []
+        const usedIds: number[] = []
         if (this.contract && this.signer) {
             const address = await this.signer.getAddress()
             try {
@@ -74,9 +78,12 @@ class FractionStore {
                             const isClaimed = await this.contract.hasPixelClaimed(this.dogeMajorAddress, this.dogeMajorTokenId, pixelId);
                             if (!isClaimed && !newIds.includes(pixelIds)) {
                                 newIds.push(pixelId)
+                            } else {
+                                usedIds.push(pixelId)
                             }
                         }
                         this.availablePixelIds = newIds
+                        this.usedPixelIds = usedIds
                     }
                 } else {
                     throw new Error("Missing env var")
@@ -98,6 +105,11 @@ class FractionStore {
     @computed
     get canClaim() {
         return this.availablePixelIds.length > 0
+    }
+
+    @computed
+    get hasAlreadyClaimed() {
+        return this.usedPixelIds.length > 0
     }
 }
 

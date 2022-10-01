@@ -13,6 +13,7 @@ import Head from "next/head";
 import {targetChain} from "../services/wagmi";
 import FractionStore from "../stores/Fraction.store";
 import {jsonify} from "../helpers/strings";
+import Image from "next/image"
 
 const Fraction = observer(() => {
     const router = useRouter()
@@ -26,22 +27,47 @@ const Fraction = observer(() => {
             <BsArrowLeft size={15}/>
           </Button>
         </div>
-        <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4", "gap-y-12")}>
+        <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4", "gap-y-8")}>
+            <div className={css("text-4xl", "text-white", "font-bold")}>Doge Major</div>
             <ParentPane>
-                <div className={css("text-xl")}>
-                    <div>
-                        We have purchased the beautiful 1/1 Doge Major NFT create by the talented <Link isExternal href={"https://twitter.com/AnasAbdin"}>Anas Abdin</Link>
-                    </div>
+                <div className={css("relative")}>
+                    <Image src={'/images/constellation.gif'} layout={"responsive"} width={640} height={640}/>
+                </div>
+                <div className={css("text-white", "font-bold    ", "text-sm", "text-center")}>Doge Major by Anas Abdin</div>
+            </ParentPane>
+
+            <FractionManager />
+
+            <ParentPane>
+                <div className={css("text-lg")}>
+                    We have purchased and fractionalized the beautiful 1/1 Doge Major NFT created by the talented <Link isExternal href={"https://twitter.com/AnasAbdin"}>Anas Abdin</Link>.
+                    All pixel holders can claim 1:1 fractions of Doge Major for each pixel held.
                 </div>
             </ParentPane>
-          <FractionManager />
+            <ParentPane>
+                <div className={css("text-lg")}>
+                    Anas Abdin, is a Data Science Specialist, 1/1 NFT pixel artist and a game developer.
+                    He specialized in low resolution and limited palettes.
+                    He is super enthusiastic about web3 and its capabilities of protecting his artistic rights.
+                    He is minting every artwork he creates immediately after creation.
+                </div>
+            </ParentPane>
+            <ParentPane>
+                <div className={css("flex", "flex-row", "gap-2")}>
+                    <div>Links:</div>
+                    <Link isExternal href={"https://fractional.art/vaults/doge-major"}>Teserra,</Link>
+                    <Link isExternal href={"https://foundation.app/@anasabdin/pixle/61"}>Foundation,</Link>
+                    <Link isExternal href={"https://opensea.io/assets/ethereum/0xb2469a7dd9e154c97b99b33e88196f7024f2979e/1211"}>OpenSea,</Link>
+                    <Link isExternal href={"https://twitter.com/AnasAbdin"}>Anas Abdin</Link>
+                </div>
+            </ParentPane>
         </div>
       </PageLayout>
     </>
 })
 
 const ParentPane: React.FC<PropsWithChildren<any>> = ({children}) => {
-    return <div className={css("border-2", "border-blue-700", "p-3", "bg-black", "max-w-xl", "w-full", "text-white", "text-center", "font-bold")}>
+    return <div className={css("border-2", "border-blue-700", "p-3", "bg-black", "lg:max-w-md", "sm:max-w-full", "w-full", "text-white", "text-center", "font-bold")}>
         {children}
     </div>
 }
@@ -76,6 +102,8 @@ const FractionManager: React.FC<{}> = observer(({}) => {
                 disabled={activeChain?.id !== targetChain.id}
                 onClick={() => fractionStore.claim()}>
                 ✨ Claim ({fractionStore?.availablePixelIds.length}) ✨</Button>
+            } else if (fractionStore.hasAlreadyClaimed) {
+                return "🌠 Thanks for claiming! 🌠"
             } else {
               return <div>
                 <div>No pixels found!</div>
@@ -90,7 +118,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
         }
     }, [fractionStore, fractionStore.availablePixelIds,  fractionStore.signer])
 
-    return <div className={css("flex", "justify-center", "text-white", "text-center", "font-bold", "text-lg")}>
+    return <div className={css("flex", "justify-center", "text-white", "text-center", "font-bold", "text-xl")}>
           {renderIndicator()}
       </div>
 })
