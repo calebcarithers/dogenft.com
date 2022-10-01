@@ -6,13 +6,10 @@
 const hre = require("hardhat");
 
 async function main() {
-  const FractionManagerFactory = await hre.ethers.getContractFactory("FractionManager");
-  const fractionManager = await hre.upgrades.deployProxy(
-    FractionManagerFactory, 
-    ["Pixel Contract address", "Fraction Contract address", "Fraction Id"]
-  );
+  const FractionManagerFactory = await hre.ethers.getContractFactory("MockFraction");
+  const fractionManager = await FractionManagerFactory.deploy();
   await fractionManager.deployed();
-  console.log("fractionManager deployed to:", fractionManager.address);
+  console.log("MOCKERC1155 deployed to:", fractionManager.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -12,7 +12,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 contract FractionManager is Initializable, OwnableUpgradeable, IERC1155ReceiverUpgradeable {
     using ERC165Checker for address;
     address public pixelAddress;
-    mapping(address => mapping(uint256 => bool)) public pixelClaimed;
+    mapping(address => mapping(uint256 => mapping(uint256 => bool))) pixelClaimed;
     mapping(address => mapping(uint256 => bool)) public isClaimOpen;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
@@ -36,15 +36,15 @@ contract FractionManager is Initializable, OwnableUpgradeable, IERC1155ReceiverU
         require(isClaimOpen[_erc1155Address][_fractionId], "Claim is not open");
         require(IERC1155(_erc1155Address).balanceOf(address(this), _fractionId) >= _pixelIds.length, "Insufficient balance");
         for (uint i = 0; i < _pixelIds.length; i++) {
-            require(!pixelClaimed[_erc1155Address][_pixelIds[i]], "Pixel already claimed");
+            require(!pixelClaimed[_erc1155Address][_fractionId][_pixelIds[i]], "Pixel already claimed");
             require(IERC721(pixelAddress).ownerOf(_pixelIds[i]) == msg.sender, "Not pixel owner");
-            pixelClaimed[_erc1155Address][_pixelIds[i]] = true;
+            pixelClaimed[_erc1155Address][_fractionId][_pixelIds[i]] = true;
         }
         IERC1155(_erc1155Address).safeTransferFrom(address(this), msg.sender, _fractionId, _pixelIds.length, "");
     }
 
-    function hasPixelClaimed(address _erc1155Address, uint256 _pixelId) public view returns (bool) {
-        return pixelClaimed[_erc1155Address][_pixelId];
+    function hasPixelClaimed(address _erc1155Address, uint256 _fractionId, uint256 _pixelId) public view returns (bool) {
+        return pixelClaimed[_erc1155Address][_fractionId][_pixelId];
     }
 
     function withdraw(address _erc1155Address, uint256 _fractionId) public onlyOwner {
