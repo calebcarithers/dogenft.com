@@ -7,7 +7,7 @@ import {useRouter} from "next/router";
 import {AirtableSubmissionProject} from "../interfaces";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button from "../components/Button/Button";
+import Button, {BackOrHomeButton, ButtonType} from "../components/Button/Button";
 import ColoredText from "../components/ColoredText/ColoredText";
 import BarkTankItem from "../components/BarkTankItem/BarkTankItem";
 import {jsonify} from "../helpers/strings";
@@ -23,12 +23,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
       <title>The Doge NFT | Bark Tank</title>
     </Head>
     <div className={css("flex", "gap-5", "flex-col", "mb-28")}>
-      <div className={css("mb-8")}>
-        <Button onClick={() => router.back()}>
-          <BsArrowLeft size={15}/>
-        </Button>
-      </div>
-
+      <BackOrHomeButton />
       <div className={css("flex", "justify-center", "text-4xl")}>
         <div className={css("relative", "font-bold")}>
           <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>

@@ -1,8 +1,7 @@
 import React, {PropsWithChildren, useCallback, useEffect, useMemo} from "react";
-import {BsArrowLeft} from "react-icons/bs";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button, {ButtonType} from "../components/Button/Button";
+import Button, {BackOrHomeButton, ButtonType} from "../components/Button/Button";
 import {useNetwork, useSigner} from "wagmi";
 import {observer} from "mobx-react-lite";
 import {ethers} from "ethers";
@@ -12,21 +11,16 @@ import {isDev} from "../environment";
 import Head from "next/head";
 import {targetChain} from "../services/wagmi";
 import FractionStore from "../stores/Fraction.store";
-import {jsonify} from "../helpers/strings";
 import Image from "next/image"
+import {Spinner} from "@coinbase/wallet-sdk/dist/components/Spinner";
 
 const DogeMajor = observer(() => {
-    const router = useRouter()
     return <>
       <Head>
         <title>The Doge NFT | Doge Major</title>
       </Head>
       <PageLayout className={css("bg-repeat")} style={{backgroundImage: `url(images/constellation.gif)`}}>
-        <div className={css("mb-8")}>
-          <Button onClick={() => router.back()} type={ButtonType.White}>
-            <BsArrowLeft size={15}/>
-          </Button>
-        </div>
+        <BackOrHomeButton type={ButtonType.White}/>
         <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4", "gap-y-8")}>
             <div className={css("text-4xl", "text-white", "font-bold")}>Doge Major</div>
             <ParentPane>
@@ -53,11 +47,10 @@ const DogeMajor = observer(() => {
                 </div>
             </ParentPane>
             <ParentPane>
-                <div className={css("flex", "flex-row", "gap-2")}>
-                    <div>Links:</div>
-                    <Link isExternal href={"https://fractional.art/vaults/doge-major"}>Teserra,</Link>
-                    <Link isExternal href={"https://foundation.app/@anasabdin/pixle/61"}>Foundation,</Link>
-                    <Link isExternal href={"https://opensea.io/assets/ethereum/0xb2469a7dd9e154c97b99b33e88196f7024f2979e/1211"}>OpenSea,</Link>
+                <div className={css("flex","flex-row", "gap-4")}>
+                    <Link isExternal href={"https://fractional.art/vaults/doge-major"}>Teserra</Link>
+                    <Link isExternal href={"https://foundation.app/@anasabdin/pixle/61"}>Foundation</Link>
+                    <Link isExternal href={"https://opensea.io/assets/ethereum/0xb2469a7dd9e154c97b99b33e88196f7024f2979e/1211"}>OpenSea</Link>
                     <Link isExternal href={"https://twitter.com/AnasAbdin"}>Anas Abdin</Link>
                 </div>
             </ParentPane>
@@ -92,6 +85,16 @@ const FractionManager: React.FC<{}> = observer(({}) => {
     }, [])
 
     const renderIndicator = useCallback(() => {
+
+        if (fractionStore.isGetClaimLoading) {
+          return <div className={css("w-full")}>
+            <div className={css("relative", "w-full", "animate-ping")}>
+              <Image src="/images/doage.png" width={25} height={25}/>
+            </div>
+            <div className={css("text-base", "font-normal")}>Loading</div>
+          </div>
+        }
+
         if (fractionStore.signer) {
             if (targetChain.id !== activeChain?.id) {
                 return `Please connect to: ${targetChain.name}`
@@ -116,7 +119,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
             Connect wallet to mint
           </div>
         }
-    }, [fractionStore, fractionStore.availablePixelIds,  fractionStore.signer])
+    }, [fractionStore, fractionStore.availablePixelIds,  fractionStore.signer, fractionStore.isGetClaimLoading])
 
     return <div className={css("flex", "justify-center", "text-white", "text-center", "font-bold", "text-2xl")}>
           {renderIndicator()}

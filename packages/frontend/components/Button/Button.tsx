@@ -7,6 +7,7 @@ import {useDisconnect} from "wagmi";
 import {useRouter} from "next/router";
 import {ClipLoader} from "react-spinners";
 import tailwindconfig from "../../tailwind.config";
+import {BsArrowLeft} from "react-icons/bs";
 
 
 export enum ButtonType {
@@ -176,6 +177,21 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
             }}
         </RainbowConnectButton.Custom>
     </>
+}
+
+export const BackOrHomeButton: React.FC<{type?: ButtonType}> = ({type = ButtonType.Primary}) => {
+  const router = useRouter()
+  return <div className={css("mb-8")}>
+    <Button onClick={() => {
+      if (document && document.referrer) {
+        router.back()
+      } else {
+        router.push("/")
+      }
+    }} type={type}>
+      <BsArrowLeft size={15}/>
+    </Button>
+  </div>
 }
 
 export default Button

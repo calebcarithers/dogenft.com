@@ -4,7 +4,7 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 import {useNetwork, useSigner} from "wagmi";
 import {Contract, ethers} from "ethers";
-import Button from "../components/Button/Button";
+import Button, {BackOrHomeButton} from "../components/Button/Button";
 import PageLayout from "../layouts/Page/Page.layout";
 import ColoredText from "../components/ColoredText/ColoredText";
 import Modal, { DialogSize } from "../components/Modal/Modal";
@@ -180,11 +180,7 @@ const SoulBound: React.FC = () => {
             <title>The Doge NFT | Birthday</title>
         </Head>
         <div>
-            <div className={css("mb-8")}>
-                <Button onClick={() => router.back()}>
-                    <BsArrowLeft size={15}/>
-                </Button>
-            </div>
+            <BackOrHomeButton />
             <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
               <div className={css("flex", "justify-center", "text-4xl", "font-bold", "mt-16")}>
                   <ColoredText>🎂✨ DOG Turns 1 ✨🎂</ColoredText>
