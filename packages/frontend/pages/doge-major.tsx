@@ -118,7 +118,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
         }
     }, [fractionStore, fractionStore.availablePixelIds,  fractionStore.signer])
 
-    return <div className={css("flex", "justify-center", "text-white", "text-center", "font-bold", "text-xl")}>
+    return <div className={css("flex", "justify-center", "text-white", "text-center", "font-bold", "text-2xl")}>
           {renderIndicator()}
       </div>
 })
