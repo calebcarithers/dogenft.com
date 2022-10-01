@@ -29,8 +29,6 @@ interface FooterItemProps {
 
 const FooterItem = ({title, items}: FooterItemProps) => {
     const router = useRouter()
-    console.log('debug:: router', router)
-
     const isFractionPage = router.pathname === "/fraction"
     const classNames = isFractionPage ? css("border-white", "text-white") : css("border-pixels-yellow-200", "text-gray-600")
 
