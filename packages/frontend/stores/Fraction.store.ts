@@ -1,19 +1,21 @@
 import axios from 'axios';
-import {makeObservable, observable, reaction} from "mobx";
+import {action, computed, makeObservable, observable, reaction} from "mobx";
 import {ethers} from "ethers";
 import FractionManagerABI from '../services/abis/fractionManager';
+import {jsonify} from "../helpers/strings";
+import {isDev} from "../environment";
 
 class FractionStore {
     contractAddress = process.env.NEXT_PUBLIC_FRACTION_MANAGER_CONTRACT_ADDRESS;
     dogeMajorAddress = process.env.NEXT_PUBLIC_DOGE_MAJOR_ADDRESS;
-    dogeMajorTokenId = 1211
+    dogeMajorTokenId = isDev() ? 1 : 1211
     abi: any = FractionManagerABI;
 
     @observable
     isClaiming = false
 
     @observable
-    availablePixelId = -1
+    availablePixelIds: number[] = []
 
     @observable
     isPaused = true
@@ -41,9 +43,8 @@ class FractionStore {
         if (this.contract) {
             this.isClaiming = true
             try {
-                const tx = await this.contract.claim(this.dogeMajorAddress, this.dogeMajorTokenId, this.availablePixelId)
+                const tx = await this.contract.claim(this.dogeMajorAddress, this.dogeMajorTokenId, this.availablePixelIds)
                 await tx.wait()
-
                 await this.getCanClaim()
             } catch (e) {
 
@@ -54,8 +55,10 @@ class FractionStore {
     }
 
 
+    @action
     async getCanClaim() {
-        this.availablePixelId = -1;
+        this.availablePixelIds = [];
+        const newIds: number[] = []
         if (this.contract && this.signer) {
             const address = await this.signer.getAddress()
             try {
@@ -65,14 +68,15 @@ class FractionStore {
 
                     if (pixelHolders.includes(address)) {
                         const pixelIds = pixelResponse.data[address].tokenIds;
+                        console.log('debug:: pixels ids from res', pixelIds)
                         for (let i = 0; i < pixelIds.length; i++) {
                             const pixelId = pixelIds[i];
-                            const isClaimed = await this.contract.hasPixelClaimed(this.dogeMajorAddress, pixelId);
-                            if (!isClaimed) {
-                                this.availablePixelId = pixelId;
-                                break;
+                            const isClaimed = await this.contract.hasPixelClaimed(this.dogeMajorAddress, this.dogeMajorTokenId, pixelId);
+                            if (!isClaimed && !newIds.includes(pixelIds)) {
+                                newIds.push(pixelId)
                             }
                         }
+                        this.availablePixelIds = newIds
                     }
                 } else {
                     throw new Error("Missing env var")
@@ -81,7 +85,7 @@ class FractionStore {
                 console.error(e)
             }
         } else {
-            console.log("debug:: not correct conditions to get if can claim")
+            console.log("could not get signer and contract")
         }
     }
 
@@ -89,6 +93,11 @@ class FractionStore {
         if (this.disposer) {
             this.disposer()
         }
+    }
+
+    @computed
+    get canClaim() {
+        return this.availablePixelIds.length > 0
     }
 }
 

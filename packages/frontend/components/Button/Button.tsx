@@ -14,13 +14,23 @@ export enum ButtonType {
     White = "white"
 }
 
-const baseButtonStyles = css("p-2", "font-bold", "disabled:bg-pixels-yellow-300", "disabled:active:translate-x-0.5",
+const baseButtonStyles = css("p-2", "font-bold", "disabled:active:translate-x-0.5",
     "disabled:active:translate-y-0.5", "disabled:cursor-not-allowed",)
 
 const buttonTypeStyles = {
     [ButtonType.Primary]: css("bg-pixels-yellow-100", "text-black", "disabled:text-pixels-yellow-400",
-        "disabled:border-pixels-yellow-400", "hover:bg-yellow-400", "border-black"),
-    [ButtonType.White]: css("bg-black", "text-white", "border-blue-700", "hover:bg-gray-900")
+        "disabled:border-pixels-yellow-400", "hover:bg-yellow-400", "border-black", "disabled:bg-pixels-yellow-300"),
+    [ButtonType.White]: css("bg-black", "text-white", "border-blue-700", "hover:bg-gray-900", "disabled:bg-gray-900")
+}
+
+const buttonDropShadowDisabledStyles = {
+    [ButtonType.Primary]: css("bg-pixels-yellow-400", "bg-pixels-yellow-500"),
+    [ButtonType.White]: css()
+}
+
+const buttonDropShadowStyles = {
+    [ButtonType.Primary]: css("bg-black"),
+    [ButtonType.White]: css("bg-black")
 }
 
 interface ButtonProps {
@@ -50,16 +60,18 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
                     "rounded-full": rounded
                 })}>
             {children}
-            {isLoading && <div className={css("absolute", "w-full", "left-0", "top-0", "h-full", "flex", "items-center", "justify-center", "bg-pixels-yellow-300", "opacity-75")}>
-              <ClipLoader size={25} speedMultiplier={0.5} color={tailwindconfig.theme.extend.colors.pixels.yellow[500]}/>
+            {isLoading && <div className={css("absolute", "w-full", "left-0", "top-0", "h-full", "flex", "items-center", "justify-center", "opacity-75", {
+                "bg-pixels-yellow-300": type === ButtonType.Primary,
+                "bg-gray-900": type === ButtonType.White
+            })}>
+              <ClipLoader size={25} speedMultiplier={0.5} color={type === ButtonType.Primary ? tailwindconfig.theme.extend.colors.pixels.yellow[500] : tailwindconfig.theme.extend.colors.meme.yellow}/>
             </div>}
         </button>
         <div aria-disabled={isDisabled}
              className={css("absolute", "w-full", "h-full", {
-                 "bg-pixels-yellow-400": isDisabled,
+                 [buttonDropShadowDisabledStyles[type]]: isDisabled,
+                 [buttonDropShadowStyles[type]]: !isDisabled,
                  "rounded-full": rounded,
-                 "bg-black": !isDisabled,
-                 "bg-pixels-yellow-500": isDisabled
              })}
              style={{top: "6px", left: "6px", zIndex: -1}}/>
     </div>

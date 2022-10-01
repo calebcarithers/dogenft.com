@@ -12,6 +12,7 @@ import {isDev} from "../environment";
 import Head from "next/head";
 import {targetChain} from "../services/wagmi";
 import FractionStore from "../stores/Fraction.store";
+import {jsonify} from "../helpers/strings";
 
 const Fraction = observer(() => {
     const router = useRouter()
@@ -29,13 +30,11 @@ const Fraction = observer(() => {
             <ParentPane>
                 <div className={css("text-xl")}>
                     <div>
-                        We have purchased the beautiful 1/1 "Doge Major" NFT create by the talented <Link isExternal href={"https://twitter.com/AnasAbdin"}>Anas Abdin</Link>
+                        We have purchased the beautiful 1/1 Doge Major NFT create by the talented <Link isExternal href={"https://twitter.com/AnasAbdin"}>Anas Abdin</Link>
                     </div>
                 </div>
             </ParentPane>
-          <ParentPane>
-              <FractionManager  />
-          </ParentPane>
+          <FractionManager />
         </div>
       </PageLayout>
     </>
@@ -70,14 +69,13 @@ const FractionManager: React.FC<{}> = observer(({}) => {
         if (fractionStore.signer) {
             if (targetChain.id !== activeChain?.id) {
                 return `Please connect to: ${targetChain.name}`
-            } else if (fractionStore.availablePixelId !== -1) {
+            } else if (fractionStore.canClaim) {
               return <Button
                   type={ButtonType.White}
                 isLoading={fractionStore.isClaiming}
                 disabled={activeChain?.id !== targetChain.id}
                 onClick={() => fractionStore.claim()}>
-                ✨ Claim ✨
-              </Button>
+                ✨ Claim ({fractionStore?.availablePixelIds.length}) ✨</Button>
             } else {
               return <div>
                 <div>No pixels found!</div>
@@ -90,10 +88,10 @@ const FractionManager: React.FC<{}> = observer(({}) => {
             Connect wallet to mint
           </div>
         }
-    }, [fractionStore, fractionStore.availablePixelId,  fractionStore.signer])
+    }, [fractionStore, fractionStore.availablePixelIds,  fractionStore.signer])
 
     return <div className={css("flex", "justify-center", "text-white", "text-center", "font-bold", "text-lg")}>
-              {renderIndicator()}
+          {renderIndicator()}
       </div>
 })
 

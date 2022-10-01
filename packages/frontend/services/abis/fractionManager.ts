@@ -115,6 +115,11 @@ const FractionManager = [
       },
       {
         "internalType": "uint256",
+        "name": "_fractionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
         "name": "_pixelId",
         "type": "uint256"
       }
@@ -266,30 +271,6 @@ const FractionManager = [
         "internalType": "address",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "pixelClaimed",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
