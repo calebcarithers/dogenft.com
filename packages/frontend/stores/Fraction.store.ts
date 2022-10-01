@@ -2,7 +2,6 @@ import axios from 'axios';
 import {action, computed, makeObservable, observable, reaction} from "mobx";
 import {ethers} from "ethers";
 import FractionManagerABI from '../services/abis/fractionManager';
-import {jsonify} from "../helpers/strings";
 import {isDev, isStaging} from "../environment";
 
 class FractionStore {

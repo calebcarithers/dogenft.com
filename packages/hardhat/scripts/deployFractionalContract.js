@@ -13,10 +13,11 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  const rinkebyPixelAddress = "0xA26461Fcf53f3E21cde8c902CA6e8e6ba9Def62f"
+  // const rinkebyPixelAddress = "0xA26461Fcf53f3E21cde8c902CA6e8e6ba9Def62f"
+  const mainnetPixelAddress = "0x07887Ee0Bd24E774903963d50cF4Ec6a0a16977D"
 
   const fractionManagerFactory = await hre.ethers.getContractFactory("FractionManager");
-  const fractionManager = await hre.upgrades.deployProxy(fractionManagerFactory, [rinkebyPixelAddress]);
+  const fractionManager = await hre.upgrades.deployProxy(fractionManagerFactory, [mainnetPixelAddress]);
   await fractionManager.deployed();
   console.log("DogeMajor Manager deployed to:", fractionManager.address);
 }
