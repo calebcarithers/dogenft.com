@@ -15,7 +15,7 @@ import FractionStore from "../stores/Fraction.store";
 import {jsonify} from "../helpers/strings";
 import Image from "next/image"
 
-const Fraction = observer(() => {
+const DogeMajor = observer(() => {
     const router = useRouter()
     return <>
       <Head>
@@ -123,4 +123,4 @@ const FractionManager: React.FC<{}> = observer(({}) => {
       </div>
 })
 
-export default Fraction
+export default DogeMajor

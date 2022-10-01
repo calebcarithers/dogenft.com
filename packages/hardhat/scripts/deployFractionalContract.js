@@ -18,7 +18,7 @@ async function main() {
   const fractionManagerFactory = await hre.ethers.getContractFactory("FractionManager");
   const fractionManager = await hre.upgrades.deployProxy(fractionManagerFactory, [rinkebyPixelAddress]);
   await fractionManager.deployed();
-  console.log("Fraction Manager deployed to:", fractionManager.address);
+  console.log("DogeMajor Manager deployed to:", fractionManager.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -33,7 +33,7 @@ describe("Fractional Contract", function () {
     console.log('Fractional Manager deployed')
   })
 
- it("Should deposit Fraction NFTs", async function () {
+ it("Should deposit DogeMajor NFTs", async function () {
     await mockERC1155Contract.setApprovalForAll(fractionalManager.address, true);
     await fractionalManager.deposit(mockERC1155Contract.address, mockERC1155TokenId,  mockERC1155TokenCountToDeposit);
     expect(await mockERC1155Contract.balanceOf(fractionalManager.address, mockERC1155TokenId)).to.equal(mockERC1155TokenCountToDeposit);
@@ -43,7 +43,7 @@ describe("Fractional Contract", function () {
     await expect(fractionalManager.claim(mockERC1155Contract.address, mockERC1155TokenId, [lastPixelIdUsedToClaim])).to.be.revertedWith("Claim is not open");
   })
 
-  it("Should claim Fraction NFTs", async function () {
+  it("Should claim DogeMajor NFTs", async function () {
     // mint two pixels
     await mockPixelContract.mint();
     await mockPixelContract.mint();

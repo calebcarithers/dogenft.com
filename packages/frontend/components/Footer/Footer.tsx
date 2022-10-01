@@ -7,7 +7,7 @@ import {useRouter} from "next/router";
 
 export const Footer = () => {
     const router = useRouter()
-    const isFraction = router.pathname === "/fraction"
+    const isFraction = router.pathname === "/doge-major"
     return <footer className={css("grow-0", "py-4", "block", "mt-16")}>
         <div className={css("flex")}>
             <Image alt={"pleasr logo"} src={isFraction ? "/images/pleasrwhite.svg" : "/images/pleasrlogo.svg"} height={51} width={127.5}/>
@@ -29,7 +29,7 @@ interface FooterItemProps {
 
 const FooterItem = ({title, items}: FooterItemProps) => {
     const router = useRouter()
-    const isFractionPage = router.pathname === "/fraction"
+    const isFractionPage = router.pathname === "/doge-major"
     const classNames = isFractionPage ? css("border-white", "text-white") : css("border-pixels-yellow-200", "text-gray-600")
 
     return <div className={css("text-left")}>

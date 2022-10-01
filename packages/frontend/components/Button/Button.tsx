@@ -79,7 +79,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
 
 export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
     const router = useRouter()
-    const isFraction = router.pathname === '/fraction'
+    const isFraction = router.pathname === '/doge-major'
     const buttonType = isFraction ? ButtonType.White : ButtonType.Primary
     const {disconnect} = useDisconnect()
     const [isDropDownOpen, setIsDropDownOpen] = React.useState(false)
