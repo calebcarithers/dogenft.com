@@ -49,8 +49,8 @@ const Nav = () => {
                     <Link href={"/radio"}>
                       <Button>radio</Button>
                     </Link>
-                    <Link href={"/birthday"}>
-                      <Button>🎂 BIRTHDAY 🎂</Button>
+                    <Link href={"/doge-major"}>
+                      <Button>🌠 Doge Major 🌠</Button>
                     </Link>
                 </div>
             </div>
