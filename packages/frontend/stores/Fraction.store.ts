@@ -3,12 +3,12 @@ import {action, computed, makeObservable, observable, reaction} from "mobx";
 import {ethers} from "ethers";
 import FractionManagerABI from '../services/abis/fractionManager';
 import {jsonify} from "../helpers/strings";
-import {isDev} from "../environment";
+import {isDev, isStaging} from "../environment";
 
 class FractionStore {
     contractAddress = process.env.NEXT_PUBLIC_FRACTION_MANAGER_CONTRACT_ADDRESS;
     dogeMajorAddress = process.env.NEXT_PUBLIC_DOGE_MAJOR_ADDRESS;
-    dogeMajorTokenId = isDev() ? 1 : 1211
+    dogeMajorTokenId = (isDev() || isStaging()) ? 1 : 1211
     abi: any = FractionManagerABI;
 
     @observable
