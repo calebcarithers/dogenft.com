@@ -31,6 +31,9 @@ class FractionStore {
     @observable
     disposer?: () => void
 
+    @observable
+    isGetClaimLoading = false
+
     constructor() {
         makeObservable(this)
     }
@@ -59,6 +62,7 @@ class FractionStore {
 
     @action
     async getCanClaim() {
+        console.log('debug:: get can claim', this.contract, this.signer)
         this.availablePixelIds = [];
         const newIds: number[] = []
         const usedIds: number[] = []
@@ -66,6 +70,7 @@ class FractionStore {
             const address = await this.signer.getAddress()
             try {
                 if (process.env.NEXT_PUBLIC_PIXEL_HOLDER_API) {
+                    this.isGetClaimLoading = true
                     const pixelResponse = await axios.get(process.env.NEXT_PUBLIC_PIXEL_HOLDER_API);
                     const pixelHolders = Object.keys(pixelResponse.data);
 
@@ -84,6 +89,7 @@ class FractionStore {
                         this.availablePixelIds = newIds
                         this.usedPixelIds = usedIds
                     }
+                    this.isGetClaimLoading = false
                 } else {
                     throw new Error("Missing env var")
                 }

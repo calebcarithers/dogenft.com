@@ -3,7 +3,7 @@ import {BsArrowLeft, BsDot, BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill} f
 import {MdPause} from "react-icons/md";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button from "../components/Button/Button";
+import Button, {BackOrHomeButton} from "../components/Button/Button";
 import {useAccount, useNetwork, useSigner} from "wagmi";
 import NftRadioStore, {Song} from "../stores/NftRadio.store";
 import {observer} from "mobx-react-lite";
@@ -23,11 +23,7 @@ const Radio = observer(() => {
         <title>The Doge NFT | Radio </title>
       </Head>
       <PageLayout>
-        <div className={css("mb-8")}>
-          <Button onClick={() => router.back()}>
-            <BsArrowLeft size={15}/>
-          </Button>
-        </div>
+        <BackOrHomeButton />
         <div className={css("flex", "justify-center", "mt-16", "flex-col", "items-center", "h-full", "px-4")}>
           <div className={css("border-2", "border-black", "p-3", "bg-pixels-yellow-100")}
                style={{boxShadow: "10px 10px"}}>

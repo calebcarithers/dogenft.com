@@ -5,7 +5,7 @@ import {BsArrowLeft} from "react-icons/bs";
 import React from "react";
 import {useRouter} from "next/router";
 import {css} from "../../helpers/css";
-import Button from "../../components/Button/Button";
+import Button, {BackOrHomeButton} from "../../components/Button/Button";
 import {AirtableSubmissionProject} from "../../interfaces";
 import PageLayout from "../../layouts/Page/Page.layout";
 import ColoredText from "../../components/ColoredText/ColoredText";
@@ -23,12 +23,8 @@ const BarkTankProject: React.FC<BarkTankProjectProps> = ({project}) => {
             <title>The Doge NFT | {project.projectName}</title>
         </Head>
         <div>
-            <div className={css("mb-8")}>
-                <Button onClick={() => router.back()}>
-                    <BsArrowLeft size={15}/>
-                </Button>
-            </div>
-            <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
+          <BackOrHomeButton />
+          <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
                 <div className={css("flex", "justify-center", "text-4xl", "font-bold")}>
                     <ColoredText>{project.projectName}</ColoredText>
                 </div>
