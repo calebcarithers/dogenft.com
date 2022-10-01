@@ -85,20 +85,17 @@ const FractionManager: React.FC<{}> = observer(({}) => {
     }, [])
 
     const renderIndicator = useCallback(() => {
-
-        if (fractionStore.isGetClaimLoading) {
-          return <div className={css("w-full")}>
-            <div className={css("relative", "w-full", "animate-ping")}>
-              <Image src="/images/doage.png" width={25} height={25}/>
-            </div>
-            <div className={css("text-base", "font-normal")}>Loading</div>
-          </div>
-        }
-
         if (fractionStore.signer) {
             if (targetChain.id !== activeChain?.id) {
                 return `Please connect to: ${targetChain.name}`
-            } else if (fractionStore.canClaim) {
+            } else if (fractionStore.isGetClaimLoading) {
+            return <div className={css("w-full")}>
+              <div className={css("relative", "w-full", "animate-ping")}>
+                <Image src="/images/doage.png" width={25} height={25}/>
+              </div>
+              <div className={css("text-base", "font-normal")}>Loading</div>
+            </div>
+          } else if (fractionStore.canClaim) {
               return <Button
                   type={ButtonType.White}
                 isLoading={fractionStore.isClaiming}
