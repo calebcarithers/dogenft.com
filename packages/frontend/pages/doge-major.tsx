@@ -48,7 +48,7 @@ const DogeMajor = observer(() => {
             </ParentPane>
             <ParentPane>
                 <div className={css("flex","flex-row", "gap-4")}>
-                    <Link isExternal href={"https://fractional.art/vaults/doge-major"}>Teserra</Link>
+                    <Link isExternal href={"https://fractional.art/vaults/doge-major"}>Tessera</Link>
                     <Link isExternal href={"https://foundation.app/@anasabdin/pixle/61"}>Foundation</Link>
                     <Link isExternal href={"https://opensea.io/assets/ethereum/0xb2469a7dd9e154c97b99b33e88196f7024f2979e/1211"}>OpenSea</Link>
                     <Link isExternal href={"https://twitter.com/AnasAbdin"}>Anas Abdin</Link>
