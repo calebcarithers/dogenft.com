@@ -84,16 +84,17 @@ const PFP: React.FC = () => {
 
                                 </svg>
                             </div>
-                            <div className={css("text-7xl mt-3 font-bold absolute w-full bottom-3")}>
-                                <svg viewBox="0 0 500 100" >
-
+                            <div className={css("text-3xl mt-3 font-bold absolute w-full bottom-3")}>
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 200">
                                     <defs>
-                                        <path id="intermediate" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6 ,175.1,97" />
+                                        <path d="M15,100a85,85 0 1,0 170,0a85,85 0 1,0 -170,0" id="coffeecircle" />
                                     </defs>
-                                    <text fill="#105ca6">
-                                        <textPath startOffset="10%"   xlinkHref="#intermediate">(x, y)</textPath>
+                                    <text dx="80" textLength="100" className="coffee">
+                                        <textPath xlinkHref="#coffeecircle">
+                                            {`(${pixelToCoordsLocal(selectedPixel)[0]}, ${pixelToCoordsLocal(selectedPixel)[1]})`}
+                                        </textPath>
                                     </text>
-                                </svg>
+                                    </svg>
                             </div>
                             </>
                         )
