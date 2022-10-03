@@ -40,6 +40,11 @@ function MyApp({Component, pageProps}: AppProps) {
 
     const showConnectButton = router.pathname !== "/"
     return <>
+      <style jsx global>
+        {`
+          body { background: ${router.pathname === '/doge-major' ? 'black' : tailwindconfig.theme.extend.colors.pixels.yellow[100]}; }
+        `}
+      </style>
         <Script
             id={"gatag"}
             strategy="lazyOnload"
