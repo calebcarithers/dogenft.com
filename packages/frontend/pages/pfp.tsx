@@ -85,7 +85,7 @@ const PFP: React.FC = () => {
                                     <defs>
                                         <path d="M15,100a85,85 0 1,0 170,0a85,85 0 1,0 -170,0" id="coffeecircle" />
                                     </defs>
-                                    <text dx="80" textLength="100" className="coffee">
+                                    <text dx="70" textLength="130" className="coffee">
                                         <textPath xlinkHref="#coffeecircle">
                                             {`(${pixelToCoordsLocal(selectedPixel)[0]}, ${pixelToCoordsLocal(selectedPixel)[1]})`}
                                         </textPath>
