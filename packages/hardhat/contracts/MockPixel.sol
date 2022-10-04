@@ -23,4 +23,8 @@ contract MockPixel is ERC721Upgradeable, OwnableUpgradeable {
         _safeMint(msg.sender, tokenId);
         _tokenIdCounter.increment();
     }
+
+    function currentId() public view returns (uint256) {
+        return _tokenIdCounter.current();
+    }
 }

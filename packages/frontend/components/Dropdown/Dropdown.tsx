@@ -7,16 +7,27 @@ interface DropdownProps {
     children: JSX.Element | JSX.Element[];
     open?: boolean;
     onOpenChange?: (value: boolean) => void;
+    type?: DropdownType
 }
 
-const Dropdown = ({trigger, children, open, onOpenChange}: DropdownProps) => {
+export enum DropdownType {
+    Primary = 'primary',
+    White = 'white'
+}
+
+const styleToTypeMap = {
+    [DropdownType.Primary]: css("bg-pixels-yellow-100", "text-black", "border-black"),
+    [DropdownType.White]: css("bg-black", "text-white", "border-blue-700")
+}
+
+const Dropdown = ({trigger, children, open, onOpenChange, type = DropdownType.Primary}: DropdownProps) => {
     return <RadixDropdown.Root open={open} onOpenChange={onOpenChange}>
         <RadixDropdown.Trigger asChild>
             <div>{trigger}</div>
         </RadixDropdown.Trigger>
         <RadixDropdown.Content
             style={{minWidth: "200px", boxShadow: "0px 0px 10px rgba(0,0,0,0.1)"}}
-            className={css("bg-pixels-yellow-100", "w-full", "mt-3", "px-2", "py-1", "text-black", "border-2", "border-black", "rounded-lg")}
+            className={css(styleToTypeMap[type], "w-full", "mt-3", "px-2", "py-1", "border-2", "rounded-lg")}
         >
             {children}
         </RadixDropdown.Content>

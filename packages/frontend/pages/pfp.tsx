@@ -3,7 +3,7 @@ import {BsArrowLeft} from "react-icons/bs"
 import React, { useEffect, useMemo, useState} from "react"
 import {useRouter} from "next/router"
 import {useNetwork, useSigner} from "wagmi"
-import Button from "../components/Button/Button"
+import Button, {BackOrHomeButton} from "../components/Button/Button"
 import PageLayout from "../layouts/Page/Page.layout"
 import {css} from "../helpers/css"
 import {targetChain} from "../services/wagmi"
@@ -51,8 +51,8 @@ const PFP: React.FC = () => {
         } else {
             setStatusText("CONNECT WALLET TO CREATE YOUR PFP")
         }
-    }, [isConnected, pixels])
-    
+    }, [isConnected, pixels, selectedPixel])
+
     const savePixel = () => {
         var node: any = document.getElementById('dog-avatar');
         html2canvas(node, {backgroundColor:null}).then(canvas => {
@@ -67,16 +67,11 @@ const PFP: React.FC = () => {
         <Head>
             <title>The Doge NFT | Birthday</title>
         </Head>
-        <div >
-            <div className={css("mb-8")}>
-                <Button onClick={() => router.push("/")}>
-                    <BsArrowLeft size={15}/>
-                </Button>
-            </div>
-                  {/* <canvas id="cnv"></canvas> */}
+        <div>
+            <BackOrHomeButton/>
 
             <div   className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
-                <div id='dog-avatar' className={css("m-auto w-48 h-48 rounded-full border border-black relative")} style={{background: selectedPixel !== -1 ?pixelToHexLocal(selectedPixel) : ""}}>
+                <div id='dog-avatar' className={css("m-auto w-48 h-48 rounded-full border border-black relative")} style={{background: selectedPixel !== -1 ?pixelToHexLocal(selectedPixel) : "unset"}}>
                     {
                         isConnected ?
                         (
@@ -108,7 +103,7 @@ const PFP: React.FC = () => {
                         )
                         :  <img src="/images/logo.png" className={css("w-full h-full rounded-full")}/>
                     }
-                   
+
                 </div>
                 <div className={css("text-xl font-semibold text-center mt-3")}>
                         {statusText === 'SELECTED' ? (
@@ -120,12 +115,12 @@ const PFP: React.FC = () => {
                 <div className={css("flex flex-wrap gap-6 justify-center p-4 border border-dotted border-gray-300 mt-3")}>
                     {
                         pixels.map((pixel, index) => {
-                            return <Pixel 
-                                key={index} 
-                                size={PixelSize.sm}  
-                                color={pixelToHexLocal(pixel)} 
-                                id={pixel} 
-                                x={pixelToCoordsLocal(pixel)[0]} 
+                            return <Pixel
+                                key={index}
+                                size={PixelSize.sm}
+                                color={pixelToHexLocal(pixel)}
+                                id={pixel}
+                                x={pixelToCoordsLocal(pixel)[0]}
                                 y={pixelToCoordsLocal(pixel)[1]}
                                 onClick={setSelectedPixel}
                             />
@@ -134,7 +129,7 @@ const PFP: React.FC = () => {
                 </div>
             </div>
         </div>
-         
+
     </PageLayout>
 }
 

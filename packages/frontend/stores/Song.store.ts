@@ -33,7 +33,6 @@ class SongStore {
 
     constructor() {
         makeObservable(this)
-        console.log('trigger deploy')
     }
 
     init() {

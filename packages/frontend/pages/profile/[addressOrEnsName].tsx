@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import PageLayout from "../../layouts/Page/Page.layout";
 import Head from "next/head";
 import {css} from "../../helpers/css";
-import Button from "../../components/Button/Button";
+import Button, {BackOrHomeButton} from "../../components/Button/Button";
 import {BsArrowLeft} from "react-icons/bs";
 import {GetServerSideProps} from "next";
 import {abbreviate, isValidEthereumAddress, jsonify} from "../../helpers/strings";
@@ -35,12 +35,8 @@ const Profile: React.FC<ProfileProps> = observer(({address, ens}) => {
             <title>The Doge NFT | {ens ? ens : abbreviate(address)}</title>
         </Head>
         <div>
-            <div className={css("mb-8")}>
-                <Button onClick={() => router.push("/")}>
-                    <BsArrowLeft size={15}/>
-                </Button>
-            </div>
-            <div className={css("mt-4", "text-3xl", "max-w-3xl", "m-auto", "flex", "justify-center")}>
+          <BackOrHomeButton />
+          <div className={css("mt-4", "text-3xl", "max-w-3xl", "m-auto", "flex", "justify-center")}>
                 <div className={css("flex", "flex-col", "items-center")}>
                     <div className={css("relative")}>
                         <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>
