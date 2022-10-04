@@ -162,7 +162,7 @@ export const Dog = () => {
         <div className={css("mt-10", "bg-pixels-yellow-100")}>
             After the auction, PleasrDAO <Link bold isExternal
                                                href={"https://fractional.art/vaults/0xbaac2b4491727d78d2b78815144570b9f2fe8899"}>fractionalized</Link> The
-            Doge NFT into a fungible token, $DOG, allowing any and all to own a piece of the meme.
+            Doge NFT into a governance token, $DOG, allowing any and all to own a piece of the meme.
         </div>
         <HelperContent>
             Fractionalization? Learn more <Link bold isExternal
@@ -182,7 +182,8 @@ export const Pixels = () => {
             resolution).
             Therefore, a single pixel is equivalent to 55,240 $DOG. Holders can lock $DOG to mint &apos;Doge
             Pixel&apos; NFTs
-            at the <Link bold isExternal href={"https://pixels.thedao.ge"}>Doge Pixel Portal</Link>
+            at the <Link bold isExternal href={"https://pixels.ownthedoge.com"}>Doge Pixel Portal</Link>. Doge Pixel holders get access to
+            monthly perks, mints, and drops known as <Link bold isExternal href={"https://pixels.ownthedoge.com/perks"}>Pixel Perks</Link>.
         </div>
     </div>
 }
@@ -197,7 +198,7 @@ export const Daoge = () => {
         </div>
         <div className={css("bg-pixels-yellow-100")}>
             After fractionalization, <Link bold isExternal href={"https://dao.ge"}>DAOge</Link> was formed to manage the
-            community fund and guide The Doge NFT ecosystem.
+            community fund and guide The Doge NFT ecosystem. DOG allows holders to govern where The Doge NFT should go next.
         </div>
         <HelperContent>
             Check out our <Link isExternal
