@@ -80,7 +80,7 @@ const PFP: React.FC = () => {
                                 <svg viewBox="0 0 500 150" >
                                     <path id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" className={css("fill-transparent")} />
                                     <text width="500">
-                                    <textPath startOffset="11%"  xlinkHref="#curve">
+                                    <textPath startOffset="11%"  xlinkHref="#curve" className="font-ComicNeue">
                                         Doge Pixel
                                     </textPath>
                                     </text>
@@ -93,7 +93,7 @@ const PFP: React.FC = () => {
                                         <path d="M15,100a85,85 0 1,0 170,0a85,85 0 1,0 -170,0" id="coffeecircle" />
                                     </defs>
                                     <text dx="70" textLength="130" className="coffee">
-                                        <textPath xlinkHref="#coffeecircle">
+                                        <textPath xlinkHref="#coffeecircle" className="font-ComicNeue">
                                             {`(${pixelToCoordsLocal(selectedPixel)[0]}, ${pixelToCoordsLocal(selectedPixel)[1]})`}
                                         </textPath>
                                     </text>
