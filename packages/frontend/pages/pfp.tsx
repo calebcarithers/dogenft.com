@@ -9,6 +9,7 @@ import {css} from "../helpers/css"
 import {targetChain} from "../services/wagmi"
 import Pixel, {PixelSize} from "../components/Pixel/Pixel"
 import { getPixelsForAddress, pixelToCoordsLocal, pixelToHexLocal } from "../services/pixel"
+import html2canvas from 'html2canvas'
 
 const PFP: React.FC = () => {
     const router = useRouter()
@@ -53,13 +54,20 @@ const PFP: React.FC = () => {
     }, [isConnected, pixels])
     
     const savePixel = () => {
-
+        var node: any = document.getElementById('dog-avatar');
+        html2canvas(node, {backgroundColor:null}).then(canvas => {
+           const dataURL= canvas.toDataURL()
+           var link = document.createElement('a');
+                link.download = 'my-pixel.png';
+                link.href = dataURL;
+                link.click();
+         })
     }
     return <PageLayout>
         <Head>
             <title>The Doge NFT | Birthday</title>
         </Head>
-        <div>
+        <div >
             <div className={css("mb-8")}>
                 <Button onClick={() => router.push("/")}>
                     <BsArrowLeft size={15}/>
@@ -67,12 +75,12 @@ const PFP: React.FC = () => {
             </div>
                   {/* <canvas id="cnv"></canvas> */}
 
-            <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
-                <div className={css("m-auto w-48 h-48 rounded-full border border-black relative")} style={{background: selectedPixel !== -1 ?pixelToHexLocal(selectedPixel) : ""}}>
+            <div   className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
+                <div id='dog-avatar' className={css("m-auto w-48 h-48 rounded-full border border-black relative")} style={{background: selectedPixel !== -1 ?pixelToHexLocal(selectedPixel) : ""}}>
                     {
                         isConnected ?
                         (
-                            selectedPixel === -1 ? "" : <>
+                            selectedPixel === -1 ? "" : < >
                             <div className={css("text-7xl top-3 font-bold absolute w-full")} >
                                 <svg viewBox="0 0 500 150" >
                                     <path id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" className={css("fill-transparent")} />
@@ -132,5 +140,3 @@ const PFP: React.FC = () => {
 
 
 export default PFP
-
-
