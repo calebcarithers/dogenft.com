@@ -76,20 +76,9 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
               <div>View on <Link isExternal href={isProduction() ? "https://opensea.io/collection/in-doge-we-trust-idwt" : "https://testnets.opensea.io/collection/in-doge-we-trust-final"}>OpenSea</Link></div>
             </div>
           } else {
-            if (songStore.availablePixelId !== -1) {
-              return <Button
-                isLoading={songStore.isMintLoading}
-                disabled={activeChain?.id !== targetChain.id}
-                onClick={() => songStore.mint()}>
-                ✨ Mint ✨
-              </Button>
-            } else {
-              return <div className={css("text-center", "font-bold")}>
-                <div>No pixels found!</div>
-                <div>Mint one <Link isExternal href={isDev() ? "https://dev.pixels.ownthedoge.com" : "https://pixels.ownthedoge.com"}>here</Link>
-                </div>
-              </div>
-            }
+            return <div>
+                Claim closed!
+            </div>
           }
         } else {
           return <div className={css("text-pixels-yellow-400", "font-bold")}>
