@@ -13,6 +13,7 @@ interface PixelProps {
     x: number;
     y: number;
     size?: PixelSize;
+    onClick?: Function;
 }
 
 const pixelSizes = {
@@ -21,11 +22,11 @@ const pixelSizes = {
     [PixelSize.lg]: 220,
 }
 
-const Pixel: React.FC<PixelProps> = ({color, id, x, y, size = PixelSize.sm}) => {
+const Pixel: React.FC<PixelProps> = ({color, id, x, y, size = PixelSize.sm, onClick}) => {
     return <div className={css("inline-block", "relative", "z-10")}>
         <div
             onClick={() => {
-                window.open(`https://pixels.ownthedoge.com/px/${id}`, "_blank")
+                onClick ? onClick(id) : window.open(`https://pixels.ownthedoge.com/px/${id}`, "_blank")
             }}
             className={css("cursor-pointer", "active:translate-x-1", "active:translate-y-1", "relative")}>
             <div style={{height: pixelSizes[size], width: pixelSizes[size], borderWidth: "1px", background: color}}
