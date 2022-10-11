@@ -1,9 +1,6 @@
 import {GetServerSideProps} from "next";
-import airtable from "../../services/airtable";
 import Head from "next/head"
-import {BsArrowLeft} from "react-icons/bs";
 import React from "react";
-import {useRouter} from "next/router";
 import {css} from "../../helpers/css";
 import Button, {BackOrHomeButton} from "../../components/Button/Button";
 import {AirtableSubmissionProject} from "../../interfaces";
@@ -11,13 +8,13 @@ import PageLayout from "../../layouts/Page/Page.layout";
 import ColoredText from "../../components/ColoredText/ColoredText";
 import Link from "../../components/Link/Link";
 import {jsonify} from "../../helpers/strings";
+import {oldBarkTankItems} from "../../constants";
 
 interface BarkTankProjectProps {
     project: AirtableSubmissionProject
 }
 
 const BarkTankProject: React.FC<BarkTankProjectProps> = ({project}) => {
-    const router = useRouter()
     return <PageLayout>
         <Head>
             <title>The Doge NFT | {project.projectName}</title>
@@ -50,14 +47,13 @@ const BarkTankProject: React.FC<BarkTankProjectProps> = ({project}) => {
 
 export const getServerSideProps: GetServerSideProps<BarkTankProjectProps> = async (context) => {
     const id = context.params?.id
-    const project = await airtable.getProject(id as string)
+    const project = oldBarkTankItems.filter(item => item.id === id)[0]
     if (!project) {
         throw new Error("Could not find project")
     }
-
     return {
         props: {
-            project: JSON.parse(jsonify(project))
+            project: project
         }
     }
 }

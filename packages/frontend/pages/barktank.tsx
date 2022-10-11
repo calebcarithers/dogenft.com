@@ -1,4 +1,3 @@
-import airtable from "../services/airtable";
 import {GetServerSideProps} from "next";
 import React from "react";
 import Head from "next/head";
@@ -12,13 +11,13 @@ import ColoredText from "../components/ColoredText/ColoredText";
 import BarkTankItem from "../components/BarkTankItem/BarkTankItem";
 import {jsonify} from "../helpers/strings";
 import env from "../environment";
+import {oldBarkTankItems} from "../constants";
 
 interface BarktankProps {
   projects: AirtableSubmissionProject[]
 }
 
 const Barktank: React.FC<BarktankProps> = ({projects}) => {
-  const router = useRouter()
   return <PageLayout>
     <Head>
       <title>The Doge NFT | Bark Tank</title>
@@ -59,10 +58,9 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
 
 
 export const getServerSideProps: GetServerSideProps<BarktankProps> = async () => {
-  const projects = await airtable.getProjects()
   return {
     props: {
-      projects: JSON.parse(jsonify(projects))
+      projects: oldBarkTankItems
     }
   }
 }

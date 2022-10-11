@@ -1,7 +1,6 @@
 import type {GetServerSideProps, NextPage} from 'next'
 import Head from 'next/head'
 import React, {useCallback, useState} from "react";
-import airtable from "../services/airtable";
 import {useRouter} from "next/router";
 import {AirtableSubmissionProject} from "../interfaces";
 import HomeLayout from "../layouts/Home/Home.layout";
@@ -10,6 +9,7 @@ import HomeItems from "../components/Home/HomeItems";
 import {css} from "../helpers/css";
 import {Footer} from "../components/Footer/Footer";
 import {jsonify} from "../helpers/strings";
+import {oldBarkTankItems} from "../constants";
 
 interface HomeProps {
     projects: AirtableSubmissionProject[]
@@ -73,10 +73,9 @@ const HomeContent = () => {
 }
 
 export const getServerSideProps: GetServerSideProps<any> = async () => {
-    const projects = await airtable.getProjects()
     return {
         props: {
-            projects: JSON.parse(jsonify(projects))
+            projects: oldBarkTankItems
         }
     }
 }

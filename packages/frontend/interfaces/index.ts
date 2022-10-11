@@ -1,8 +1,11 @@
-import {AirtableProjectStatus} from "../services/airtable";
+export enum AirtableProjectStatus {
+  Funded = "FUNDED",
+  Funding = "FUNDING"
+}
 
 export interface AirtableSubmissionProject {
   projectName: any;
-  cost: any;
+  cost?: any;
   status: AirtableProjectStatus;
   description: any;
   id: string;
