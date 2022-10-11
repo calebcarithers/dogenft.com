@@ -56,7 +56,7 @@ export const oldBarkTankItems: AirtableSubmissionProject[] = [
     description: 'The Doge Academy is a community driven web3 project focused on the creation, sharing and rewarding of knowledge in the Web3 ecosphere and will feature hand drawn and well researched generative profile pictures',
     id: 'reczocG06UDKsmZnN',
     shortDescription: 'Community driven project focused on the creation, sharing and rewarding of knowledge in the Web3 ecosphere',
-    imageUrl: '/images/barktank6.png'
+    imageUrl: '/images/barktank6.jpeg'
   },
   {
     projectName: 'DOGE 2048 Game',
@@ -65,7 +65,7 @@ export const oldBarkTankItems: AirtableSubmissionProject[] = [
     id: 'recfhFqNc9uz63eSQ',
     link: 'https://doge2048.com/',
     shortDescription: 'A P2E version of 2048',
-    imageUrl: '/images/barktank7.jpeg'
+    imageUrl: '/images/barktank7.png'
   },
   {
     projectName: 'Doge Puppet',
@@ -73,7 +73,7 @@ export const oldBarkTankItems: AirtableSubmissionProject[] = [
     description: 'A real life Doge puppet',
     id: 'rec9TBVSlQorWSNBo',
     shortDescription: 'A real life Doge puppet',
-    imageUrl: '/images/barktank8.png'
+    imageUrl: '/images/barktank8.jpeg'
   },
   {
     projectName: 'Dogeclaren',
