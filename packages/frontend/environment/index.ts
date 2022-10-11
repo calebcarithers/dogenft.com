@@ -14,8 +14,11 @@ export const getSoulboundWhitelist = () => devWhitelist
 
 interface Environment {
     api: {
-        baseURL: string;
+        baseURL: string | null;
         proxyURL?: string;
+    },
+    app: {
+        barktankApplicationURL: string
     }
 }
 

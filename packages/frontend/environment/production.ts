@@ -1,7 +1,10 @@
-const developmentEnv = {
+const productionEnvironment = {
   api: {
-    baseURL: "",
+    baseURL: null,
     proxyURL: "http://localhost:3000"
   },
+  app: {
+    barktankApplicationURL: "https://dao.ownthedoge.com/c/bark-tank/5"
+  }
 };
-export default developmentEnv;
+export default productionEnvironment;
