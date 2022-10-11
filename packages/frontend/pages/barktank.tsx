@@ -11,6 +11,7 @@ import Button, {BackOrHomeButton, ButtonType} from "../components/Button/Button"
 import ColoredText from "../components/ColoredText/ColoredText";
 import BarkTankItem from "../components/BarkTankItem/BarkTankItem";
 import {jsonify} from "../helpers/strings";
+import env from "../environment";
 
 interface BarktankProps {
   projects: AirtableSubmissionProject[]
@@ -38,7 +39,7 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
           idea and get funded today!
         </div>
         <div className={css("mt-3")}>
-          <Button onClick={() => window.open("https://airtable.com/shrRPV5wZdTUNhmn2", "_blank")}>
+          <Button onClick={() => window.open(env.app.barktankApplicationURL, "_blank")}>
             <div className={css("text-base")}>apply</div>
           </Button>
         </div>

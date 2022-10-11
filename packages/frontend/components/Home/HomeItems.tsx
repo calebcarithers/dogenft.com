@@ -14,6 +14,7 @@ import Modal, {DialogSize} from "../Modal/Modal";
 import {objectKeys} from "../../helpers/arrays";
 import {useHomeContext} from "../../pages";
 import Pixel, {PixelSize} from "../Pixel/Pixel";
+import env from "../../environment";
 
 export const Doge = () => {
     const ref = useRef<HTMLDivElement | null>(null)
@@ -218,7 +219,7 @@ export const BarkTank = () => {
         </div>
         <div className={css("mt-5")}>
             <div>
-                <Button onClick={() => window.open("https://airtable.com/shrRPV5wZdTUNhmn2", "_blank")}>
+                <Button onClick={() => window.open(env.app.barktankApplicationURL, "_blank")}>
                     <div className={css("text-base")}>apply</div>
                 </Button>
             </div>
