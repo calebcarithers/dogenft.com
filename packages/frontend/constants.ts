@@ -29,7 +29,7 @@ export const oldBarkTankItems: AirtableSubmissionProject[] = [
     id: 'recJAvMCTU4P1Tb3J',
     link: 'https://fastfooddoge.com/',
     shortDescription: 'Your favorite Doge PFPs',
-    imageUrl: '/images/barktank3.png'
+    imageUrl: '/images/barktank3.jpg'
   },
   {
     projectName: 'Sandbox Metaverse Game',
@@ -65,7 +65,7 @@ export const oldBarkTankItems: AirtableSubmissionProject[] = [
     id: 'recfhFqNc9uz63eSQ',
     link: 'https://doge2048.com/',
     shortDescription: 'A P2E version of 2048',
-    imageUrl: '/images/barktank7.png'
+    imageUrl: '/images/barktank7.jpeg'
   },
   {
     projectName: 'Doge Puppet',
