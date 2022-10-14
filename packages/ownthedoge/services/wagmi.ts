@@ -10,7 +10,7 @@ export const targetChain = isProduction() ? chain.mainnet : chain.rinkeby
 const { chains, provider } = configureChains(
     [targetChain],
     [
-        infuraProvider({ infuraId: vars.NEXT_PUBLIC_INFURA_ID }),
+        infuraProvider({ apiKey: vars.NEXT_PUBLIC_INFURA_ID as string }),
         publicProvider()
     ]
 );
