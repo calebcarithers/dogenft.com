@@ -16,7 +16,7 @@ import Script from "next/script";
 import {vars} from "../environment/vars";
 
 function MyApp({Component, pageProps}: AppProps) {
-    console.log("debug:: deploy")
+    console.log("debug:: deploy -- bump node version")
 
     const theme = lightTheme({
         borderRadius: 'none',
