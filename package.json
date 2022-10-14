@@ -1,8 +1,12 @@
 {
-  "name": "dogenft.com",
+  "name": "own-the-doge-mono-repo",
+  "private": true,
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:calebcarithers/dogenft.com.git",
   "author": "Caleb Carithers <calebcarithers@me.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ]
 }
