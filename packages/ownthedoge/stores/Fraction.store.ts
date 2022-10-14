@@ -62,7 +62,6 @@ class FractionStore {
 
     @action
     async getCanClaim() {
-        console.log('debug:: get can claim', this.contract, this.signer)
         this.availablePixelIds = [];
         const newIds: number[] = []
         const usedIds: number[] = []
@@ -76,7 +75,6 @@ class FractionStore {
 
                     if (pixelHolders.includes(address)) {
                         const pixelIds = pixelResponse.data[address].tokenIds;
-                        console.log('debug:: pixels ids from res', pixelIds)
                         for (let i = 0; i < pixelIds.length; i++) {
                             const pixelId = pixelIds[i];
                             const isClaimed = await this.contract.hasPixelClaimed(this.dogeMajorAddress, this.dogeMajorTokenId, pixelId);
@@ -97,7 +95,7 @@ class FractionStore {
                 console.error(e)
             }
         } else {
-            console.log("could not get signer and contract")
+            console.error("could not get signer and contract")
         }
     }
 
