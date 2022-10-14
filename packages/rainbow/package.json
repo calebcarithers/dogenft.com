@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.7.1",
+    "dsl": "*",
     "ethers": "^5.7.1",
     "next": "12.3.1",
     "react": "18.2.0",
