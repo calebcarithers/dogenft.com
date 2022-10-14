@@ -43,7 +43,7 @@ class ProfileStore {
         try {
             await Promise.all([this.getDogBalance(), this.getNfts()])
         } catch (e) {
-            console.log("could not get profile data`")
+            console.error("could not get profile data`")
         } finally {
             this.isLoading = false
         }
