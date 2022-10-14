@@ -16,6 +16,7 @@ import Script from "next/script";
 import {vars} from "../environment/vars";
 
 function MyApp({Component, pageProps}: AppProps) {
+    console.log("debug:: deploy")
 
     const theme = lightTheme({
         borderRadius: 'none',
