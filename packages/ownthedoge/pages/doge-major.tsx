@@ -67,7 +67,7 @@ const ParentPane: React.FC<PropsWithChildren<any>> = ({children}) => {
 
 const FractionManager: React.FC<{}> = observer(({}) => {
     const fractionStore = useMemo(() => new FractionStore(), [])
-    const {activeChain} = useNetwork()
+    const {chain} = useNetwork()
     const {data: signer} = useSigner()
     useEffect(() => {
         fractionStore.signer = signer
@@ -86,7 +86,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
 
     const renderIndicator = useCallback(() => {
         if (fractionStore.signer) {
-            if (targetChain.id !== activeChain?.id) {
+            if (targetChain.id !== chain?.id) {
                 return `Please connect to: ${targetChain.name}`
             } else if (fractionStore.isGetClaimLoading) {
             return <div className={css("w-full")}>
@@ -99,7 +99,7 @@ const FractionManager: React.FC<{}> = observer(({}) => {
               return <Button
                   type={ButtonType.White}
                 isLoading={fractionStore.isClaiming}
-                disabled={activeChain?.id !== targetChain.id}
+                disabled={chain?.id !== targetChain.id}
                 onClick={() => fractionStore.claim()}>
                 ✨ Claim ({fractionStore?.availablePixelIds.length}) ✨</Button>
             } else if (fractionStore.hasAlreadyClaimed) {

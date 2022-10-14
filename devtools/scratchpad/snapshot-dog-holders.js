@@ -64,7 +64,7 @@ const main = async () => {
     console.log("merkle root", merkleRoot)
 
     console.log("writing whitelist")
-    writeAddressToFile("../../packages/frontend/services/whitelists/devSoulboundWhitelist.json", toGenerateMerkleTree)
+    writeAddressToFile("../../packages/ownthedoge/services/whitelists/devSoulboundWhitelist.json", toGenerateMerkleTree)
 }
 
 const getData = async (networkName) => {

@@ -17,7 +17,6 @@ import {targetChain} from "../services/wagmi";
 
 const Radio = observer(() => {
     const store = useMemo(() => new NftRadioStore(), [])
-    const router = useRouter()
     return <>
       <Head>
         <title>The Doge NFT | Radio </title>
@@ -42,7 +41,7 @@ interface FeaturedSongI {
 const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
     const songStore = useMemo(() => new SongStore(), [song.name])
     const videoRef = useRef<HTMLVideoElement | null>(null)
-    const {activeChain} = useNetwork()
+    const {chain} = useNetwork()
     const {data: signer} = useSigner()
     useEffect(() => {
       songStore.signer = signer
@@ -133,7 +132,7 @@ const RadioSong: React.FC<FeaturedSongI> = observer(({song, store}) => {
                         </div>
                     </div>
                     <div className={css("flex", "justify-center", "mt-6")}>
-                        {targetChain.id === activeChain?.id ? renderIndicator() : `Please connect to: ${targetChain.name}`}
+                        {targetChain.id === chain?.id ? renderIndicator() : `Please connect to: ${targetChain.name}`}
                     </div>
                 </div>
                 <div className={css("flex", "items-center", "justify-between", "mt-5", "md:mt-0")}>

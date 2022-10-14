@@ -53,14 +53,14 @@ const SoulBound: React.FC = () => {
     const [selectedMetadata, setSelectedMetadata] = useState<IMetadata | any>({});
     const [isClaiming, setIsClaiming] = useState(false);
     const {data: signer} = useSigner();
-    const {activeChain} = useNetwork();
+    const {chain} = useNetwork();
     const [soulBoundContract, setSoulBoundContract] = useState<Contract | null>();
     const [isClaimed, setIsClaimed] = useState(false);
     const [isInWhiteList, setIsInWhitelist] = useState(false);
     const [claimedId, setClaimedId] = useState<number | null>(null)
     const [justClaimed, setJustClaimed] = useState(false)
 
-    const isConnectedToCorrectNetwork = useMemo(() => activeChain?.id === targetChain.id, [activeChain?.id, targetChain.id])
+    const isConnectedToCorrectNetwork = useMemo(() => chain?.id === targetChain.id, [chain?.id, targetChain.id])
 
     useEffect(() => {
         const init = async() => {
@@ -206,7 +206,7 @@ const SoulBound: React.FC = () => {
 
 
               <div className={css("my-12", "text-lg", "text-center")}>
-                {targetChain.id === activeChain?.id ? getStatusText() : <div className={css("font-bold")}>Please connect to: {targetChain.name}</div>}
+                {targetChain.id === chain?.id ? getStatusText() : <div className={css("font-bold")}>Please connect to: {targetChain.name}</div>}
               </div>
 
               <div className={css("grid", "px-12", "md:px-0", "grid-cols-1", "md:grid-cols-2", "gap-20", "md:gap-10")}>
