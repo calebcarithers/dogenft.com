@@ -73,10 +73,6 @@ export const Doge = () => {
             <div className={css("bg-black", "absolute", "w-full", "h-full")} style={{top: 5, left: 5, zIndex: -1}}/>
         </div>
         <div className={css("mt-16", "px-16", "bg-pixels-yellow-100")}>
-          <HelloWorld/>
-          <div className={css("text-pleasr-lightPurple")}>
-            TEST
-          </div>
           <Link bold isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link> grew to <Link bold isExternal href={"https://knowyourmeme.com/editorials/meme-review/the-top-10-memes-of-the-decade"}>prominence</Link> in the
             early {"2000's"} when Atsuko Sato posted 8 photos
             to <Link bold href={"https://kabochan.blog.jp/"} isExternal>her blog</Link> of her adopted Shiba Inu,
