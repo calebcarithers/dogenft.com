@@ -21,7 +21,7 @@ const Home: NextPage = () => {
             <div className={css("text-4xl", "font-bold")}>
               Doge Turns 17!
             </div>
-            <div className={css("mt-1")}>(yes that's right! - this Shiba Inu is turning 84 in human years)</div>
+            <div className={css("mt-1")}>(yes {`that's`} right! - this Shiba Inu is turning 84 in human years)</div>
           </div>
           <BirthdayStar/>
         </section>
