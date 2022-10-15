@@ -1,5 +1,6 @@
+import {css} from "../helpers/css";
 
 export const HelloWorld = () => {
-  return <div>Hello World</div>
+  return <div className={css("text-pleasr-lightPurple")}>check this out!</div>
 }
 

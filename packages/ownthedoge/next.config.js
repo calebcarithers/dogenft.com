@@ -6,4 +6,6 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig
+const withTm = require('next-transpile-modules')(['dsl'])
+
+module.exports = withTm(nextConfig)

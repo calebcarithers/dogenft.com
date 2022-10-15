@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.7.1",
+    "autoprefixer": "^10.4.12",
     "dsl": "*",
     "ethers": "^5.7.1",
     "next": "12.3.1",
+    "next-transpile-modules": "^9.1.0",
+    "postcss": "^8.4.18",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "wagmi": "^0.7.2"
