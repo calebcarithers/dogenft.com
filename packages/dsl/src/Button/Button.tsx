@@ -1,13 +1,12 @@
 import {css} from "ownthedoge/helpers/css";
-import React, {PropsWithChildren, useEffect} from "react";
+import React, {PropsWithChildren, useEffect, useMemo} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
 import Dropdown, {DropdownType} from "ownthedoge/components/Dropdown/Dropdown";
 import Link, {LinkSize, LinkType} from "dsl/src/Link/Link";
 import {useDisconnect} from "wagmi";
 import {useRouter} from "next/router";
 import {ClipLoader} from "react-spinners";
-//@ts-ignore
-import tailwindconfig from "../../tailwind.config.cjs";
+const tailwindconfig = require("../../tailwind.config.cjs");
 import {BsArrowLeft} from "react-icons/bs";
 
 
@@ -54,6 +53,10 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       type= ButtonType.Primary
   }) => {
     const isDisabled = disabled || isLoading;
+    //@ts-ignore
+    if (!tailwindconfig?.theme?.extend?.colors?.pixels) {
+        throw new Error("Could not get configuration")
+    }
     return <div className={css("relative", "inline-block", "z-10", "h-fit", {"w-full": block})}>
         <button disabled={isDisabled} onClick={onClick && onClick}
                 className={css(baseButtonStyles, buttonTypeStyles[type], "relative", "active:translate-x-1", "active:translate-y-1",
@@ -66,7 +69,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
                 "bg-pixels-yellow-300": type === ButtonType.Primary,
                 "bg-gray-900": type === ButtonType.White
             })}>
-              <ClipLoader size={25} speedMultiplier={0.5} color={type === ButtonType.Primary ? tailwindconfig.theme.extend.colors.pixels.yellow[500] : tailwindconfig.theme.extend.colors.meme.yellow}/>
+              <ClipLoader size={25} speedMultiplier={0.5} color={type === ButtonType.Primary ? tailwindconfig?.theme?.extend?.colors?.pixels?.yellow[50] : tailwindconfig?.theme?.extend?.colors?.meme?.yellow}/>
             </div>}
         </button>
         <div aria-disabled={isDisabled}
