@@ -1,11 +1,11 @@
 import React, {PropsWithChildren, useCallback, useEffect, useMemo} from "react";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button, {BackOrHomeButton, ButtonType} from "../components/Button/Button";
+import Button, {BackOrHomeButton, ButtonType} from "../../dsl/src/Button/Button";
 import {useNetwork, useSigner} from "wagmi";
 import {observer} from "mobx-react-lite";
 import {ethers} from "ethers";
-import Link from "../components/Link/Link";
+import Link from "../../dsl/src/Link/Link";
 import {useRouter} from "next/router";
 import {isDev} from "../environment";
 import Head from "next/head";

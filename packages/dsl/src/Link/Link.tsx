@@ -1,7 +1,7 @@
 import NextLink from "next/link"
-import {css} from "../../helpers/css";
 import React from "react";
 import {GoLinkExternal} from "react-icons/go";
+import {css} from "../../helpers/css";
 
 interface LinkProps {
     isExternal?: boolean;

@@ -1,12 +1,13 @@
-import {css} from "../../helpers/css";
+import {css} from "ownthedoge/helpers/css";
 import React, {PropsWithChildren, useEffect} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
-import Dropdown, {DropdownType} from "../Dropdown/Dropdown";
-import Link, {LinkSize, LinkType} from "../Link/Link";
+import Dropdown, {DropdownType} from "ownthedoge/components/Dropdown/Dropdown";
+import Link, {LinkSize, LinkType} from "dsl/src/Link/Link";
 import {useDisconnect} from "wagmi";
 import {useRouter} from "next/router";
 import {ClipLoader} from "react-spinners";
-import tailwindconfig from "../../tailwind.config";
+//@ts-ignore
+import tailwindconfig from "../../tailwind.config.cjs";
 import {BsArrowLeft} from "react-icons/bs";
 
 
@@ -102,7 +103,6 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
             {({
                   account,
                   chain,
-                  openAccountModal,
                   openChainModal,
                   openConnectModal,
                   mounted,

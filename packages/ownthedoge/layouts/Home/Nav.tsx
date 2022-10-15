@@ -1,12 +1,12 @@
 import {css} from "../../helpers/css";
 import NavItem from "../../components/NavItem/NavItem";
-import Button, {ConnectButton} from "../../components/Button/Button";
+import Button, {ConnectButton} from "dsl/src/Button/Button";
 import {vars} from "../../environment/vars";
 import React, {useContext, useState} from "react";
 import LinksModal from "./LinksModal";
 import {navItems} from "../../components/Home/HomeItems";
 import {useRouter} from "next/router";
-import Link from "../../components/Link/Link";
+import Link from "../../../dsl/src/Link/Link";
 import {isDev, isProduction} from "../../environment";
 import {event} from "../../services/ga";
 

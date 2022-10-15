@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {HelloWorld} from "dsl/src";
+import Button from "dsl/src/Button/Button";
 
 const Home: NextPage = () => {
   return (
@@ -14,6 +14,8 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <HelloWorld />
+          <Button>Hello there!</Button>
+          {/*<div className={css("text-meme-red", "text-3xl")}>test this out!</div>*/}
       </main>
     </div>
   )

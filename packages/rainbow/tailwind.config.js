@@ -1,5 +1,12 @@
-
-const tailwindConfig = require("dsl/tailwind.config.js")
+const baseConfig = require("dsl/tailwind.config.cjs")
 
 /** @type {import('tailwindcss').Config} */
-module.exports = tailwindConfig
+module.exports = {
+  ...baseConfig,
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./layouts/**/*.{js,ts,jsx,tsx}",
+    "../dsl/src/**/*.{js,ts,jsx,tsx}"
+  ]
+}

@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 import {AirtableSubmissionProject} from "../interfaces";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button, {BackOrHomeButton, ButtonType} from "../components/Button/Button";
+import Button, {BackOrHomeButton, ButtonType} from "../../dsl/src/Button/Button";
 import ColoredText from "../components/ColoredText/ColoredText";
 import BarkTankItem from "../components/BarkTankItem/BarkTankItem";
 import {jsonify} from "../helpers/strings";

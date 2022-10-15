@@ -4,7 +4,7 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 import {useNetwork, useSigner} from "wagmi";
 import {Contract, ethers} from "ethers";
-import Button, {BackOrHomeButton} from "../components/Button/Button";
+import Button, {BackOrHomeButton} from "../../dsl/src/Button/Button";
 import PageLayout from "../layouts/Page/Page.layout";
 import ColoredText from "../components/ColoredText/ColoredText";
 import Modal, { DialogSize } from "../components/Modal/Modal";
@@ -15,7 +15,7 @@ import {vars} from "../environment/vars";
 import {getProof} from "../services/merkletree";
 import {getSoulboundWhitelist, isProduction} from "../environment";
 import axios from "axios";
-import Link from "../components/Link/Link";
+import Link from "../../dsl/src/Link/Link";
 import {targetChain} from "../services/wagmi";
 
 interface IMetadata {

@@ -1,11 +1,11 @@
 import {css} from "../../helpers/css";
 import Image from "next/image";
 import HomeFeature from "./HomeFeature";
-import Link from "../Link/Link";
+import Link from "../../../dsl/src/Link/Link";
 import HelperContent from "../HelperContent/HelperContent";
 import styles from "./HomeItems.module.css"
 import BarkTankItem from "../BarkTankItem/BarkTankItem";
-import Button from "../Button/Button";
+import Button from "../../../dsl/src/Button/Button";
 import {useRouter} from "next/router";
 import React, {PropsWithChildren, useRef, useState} from "react";
 import {emojisplosion} from "emojisplosion";
@@ -74,7 +74,7 @@ export const Doge = () => {
         </div>
         <div className={css("mt-16", "px-16", "bg-pixels-yellow-100")}>
           <HelloWorld/>
-          <div className={css("text-meme-red")}>
+          <div className={css("text-pleasr-lightPurple")}>
             TEST
           </div>
           <Link bold isExternal href={"https://knowyourmeme.com/memes/doge"}>Doge</Link> grew to <Link bold isExternal href={"https://knowyourmeme.com/editorials/meme-review/the-top-10-memes-of-the-decade"}>prominence</Link> in the
