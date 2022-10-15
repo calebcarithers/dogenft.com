@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        ComicNeue: ["Comic Neue", "cursive"],
-        PressStart: ["PressStart2P"]
+        ComicNeue: ["Comic Neue", "sans serif"],
+        PressStart: ['"Press Start 2P"', "system-ui"]
       },
       colors: {
         doge: {
@@ -38,9 +38,6 @@ module.exports = {
             500: "#7e776d"
           }
         }
-      },
-      backgroundImage: {
-        doge: "url('/images/doge_tiled.jpeg')"
       },
       fontSize: {
         'xxs': '.6rem',

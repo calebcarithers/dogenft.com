@@ -1,34 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Press+Start+2P&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: "Comic Neue";
-  src: url("/fonts/ComicNeue-Light.ttf");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Comic Neue";
-  src: url("/fonts/ComicNeue-Regular.ttf");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Comic Neue";
-  src: url("/fonts/ComicNeue-Bold.ttf");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PressStart2P";
-  src: url("/fonts/PressStart2P-Regular.ttf");
-  font-weight: 400;
-  font-style: normal;
-}
 
 .emojipop {
   z-index: -10;

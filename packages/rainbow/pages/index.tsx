@@ -17,6 +17,9 @@ const Home: NextPage = () => {
                 <div className={css("mb-4")}>
                     <Button>🌈🌈🌈🌈</Button>
                 </div>
+              <div className={css("text-4xl", "mt-2", "text-pixels-yellow-200", "font-bold")}>
+                Rainbow x The Doge NFT
+              </div>
             </main>
         </div>
     )

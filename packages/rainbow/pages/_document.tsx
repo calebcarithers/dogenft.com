@@ -5,9 +5,8 @@ import {css} from "dsl/helpers/css";
 export default function Document() {
     return (
         <Html>
-            <Head title={"Rainbow x The Doge NFT"}>
-            </Head>
-            <body className={css("font-ComicNeue", "mr-0", "bg-pixels-yellow-100")} style={{marginRight: 0}}>
+            <Head title={"Rainbow x The Doge NFT"}/>
+            <body className={css("font-ComicNeue", "bg-pixels-yellow-100")}>
             <Main/>
             <NextScript/>
             </body>

@@ -9,7 +9,7 @@ export interface AirtableSubmissionProject {
   status: AirtableProjectStatus;
   description: any;
   id: string;
-  imageUrl?: string;
+  imageUrl: string;
   link?: string;
   shortDescription?: string
 }
