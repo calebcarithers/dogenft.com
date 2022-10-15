@@ -8,9 +8,7 @@ import {useNavContext} from "../layouts/Home/Nav";
 import HomeItems from "../components/Home/HomeItems";
 import {css} from "../helpers/css";
 import {Footer} from "../components/Footer/Footer";
-import {jsonify} from "../helpers/strings";
 import {oldBarkTankItems} from "../constants";
-import {HelloWorld} from "dsl/dist";
 
 interface HomeProps {
     projects: AirtableSubmissionProject[]
