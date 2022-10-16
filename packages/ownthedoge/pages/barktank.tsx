@@ -1,15 +1,12 @@
 import {GetServerSideProps} from "next";
 import React from "react";
 import Head from "next/head";
-import {BsArrowLeft} from "react-icons/bs";
-import {useRouter} from "next/router";
 import {AirtableSubmissionProject} from "../interfaces";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button, {BackOrHomeButton, ButtonType} from "../../dsl/src/Button/Button";
-import ColoredText from "../components/ColoredText/ColoredText";
+import Button, {BackOrHomeButton} from "../../dsl/src/Button/Button";
+import ColoredText from "../../dsl/src/ColoredText/ColoredText";
 import BarkTankItem from "../components/BarkTankItem/BarkTankItem";
-import {jsonify} from "../helpers/strings";
 import env from "../environment";
 import {oldBarkTankItems} from "../constants";
 
@@ -23,18 +20,23 @@ const Barktank: React.FC<BarktankProps> = ({projects}) => {
       <title>The Doge NFT | Bark Tank</title>
     </Head>
     <div className={css("flex", "gap-5", "flex-col", "mb-28")}>
-      <BackOrHomeButton />
+      <BackOrHomeButton/>
       <div className={css("flex", "justify-center", "text-4xl")}>
         <div className={css("relative", "font-bold")}>
-          <div className={css("absolute", "text-2xl")} style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨</div>
+          <div className={css("absolute", "text-2xl")}
+               style={{top: "50%", left: -35, transform: "translateY(-50%)"}}>✨
+          </div>
           <ColoredText>The Bark Tank</ColoredText>
-          <div className={css("absolute", "text-2xl")} style={{top: "50%", right: -35, transform: "translateY(-50%)"}}>✨</div>
+          <div className={css("absolute", "text-2xl")}
+               style={{top: "50%", right: -35, transform: "translateY(-50%)"}}>✨
+          </div>
         </div>
       </div>
 
-      <div className={css("flex", "flex-col","justify-center", "items-center")}>
+      <div className={css("flex", "flex-col", "justify-center", "items-center")}>
         <div className={css("text-center", "md:text-3xl", "p-2", "max-w-3xl", "text-xl")}>
-          Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and all Doge related projects. Pitch your
+          Backed by the DOG Community Fund, the Bark Tank acts as an incubator for any and all Doge related projects.
+          Pitch your
           idea and get funded today!
         </div>
         <div className={css("mt-3")}>
