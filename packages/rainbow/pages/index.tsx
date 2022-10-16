@@ -86,7 +86,7 @@ const Home: NextPage = () => {
               <div
                 className={css("border-dashed", "border-pixels-yellow-200", "border-2", "items-center")}>
                 <div className={css("text-start", "flex", "gap-4", "mb-2")}>
-                  {Object.keys(CampaignTab).map(key => <span>{key}</span>)}
+                  {Object.keys(CampaignTab).map(key => <span key={`2-${key}`}>{key}</span>)}
                 </div>
                 <div className={css("flex", "flex-col", "gap-5")}>{donars.map(donar => <DonateItem
                   key={`${donar.txHash}`}
@@ -121,7 +121,7 @@ const Home: NextPage = () => {
               <TitleDivider>Leaderboard</TitleDivider>
               <div>
                 <div className={css("text-start", "flex", "gap-4", "mb-2")}>
-                  {Object.keys(CampaignTab).map(key => <span>{key}</span>)}
+                  {Object.keys(CampaignTab).map(key => <span key={`1-${key}`}>{key}</span>)}
                 </div>
                 <div className={css("flex", "flex-col", "gap-6")}>
                   {donars.map(donar => <DonateItem key={`${donar.txHash}`} item={donar}/>)}
