@@ -35,7 +35,6 @@ const Home: NextPage = () => {
 
         <div className={css("flex", "justify-center")}>
           <div className={css("max-w-4xl", "w-full")}>
-
             <section className={css("text-center", "mt-4")}>
               <div>indicator here</div>
               <div className={css("mt-2")}>
@@ -94,7 +93,6 @@ const Home: NextPage = () => {
               </div>
             </section>
 
-
             <section className={css("flex", "flex-col", "items-center", "mt-14")}>
               <TitleDivider>Rewards</TitleDivider>
               <div className={css("flex", "justify-center", "w-full")}>
@@ -131,7 +129,7 @@ const Home: NextPage = () => {
 
             <footer className={css("my-28")}>
               <Divider/>
-              <div className={css("grid", "grid-cols-2", "my-14")}>
+              <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "my-14")}>
                 <div className={css("grid", "grid-cols-2")}>
                   <div className={css("flex", "flex-col")}>
                     <div className={css("font-bold")}>The Doge NFT</div>
@@ -146,7 +144,7 @@ const Home: NextPage = () => {
                     <div>Twitter</div>
                   </div>
                 </div>
-                <div className={css("flex", "justify-end")}>
+                <div className={css("flex", "justify-center", "md:justify-end", "mt-8", "md:mt-0")}>
                   <Button>
                     <div className={css("p-2", "max-w-xs", "text-xl")}>Help us build {`Kabosu's`} statue in her
                       hometown.
@@ -182,7 +180,8 @@ const Home: NextPage = () => {
 const BirthdayStar = () => {
   return <div className={css("relative")}>
     <Image src={"/images/star.svg"} width={175} height={175}/>
-    <div className={css("absolute", "w-full", "h-full", "flex", "justify-center", "items-center", "inset-0")}>
+    <div
+      className={css("absolute", "w-full", "h-full", "flex", "justify-center", "items-center", "-top-[7px]", "-right-[6px]")}>
       <div className={css("text-5xl")}>🎂</div>
     </div>
   </div>

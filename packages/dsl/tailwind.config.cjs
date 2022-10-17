@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   important: true,
+  future: {
+    hoverOnlyWhenSupported: true
+  },
   content: [
     "./src/**/*.{js,ts,tsx,jsx}"
   ],
@@ -41,7 +44,10 @@ module.exports = {
       },
       fontSize: {
         'xxs': '.6rem',
-      }
+      },
+      // screens: {
+      //   'hover-hover': {'raw': '(hover: hover)'}
+      // }
     },
   },
   plugins: [],
