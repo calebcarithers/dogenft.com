@@ -39,7 +39,9 @@ const Home: NextPage = () => {
             <section className={css("text-center", "mt-4")}>
               <div>indicator here</div>
               <div className={css("mt-2")}>
-                <Button>
+                <Button emojisForExploding={["🌈", "🌈", "🌈"]} onClick={() => {
+                  // alert("click!")
+                }}>
                   <div className={css("text-2xl")}>
                     ✨ DONATE ✨
                   </div>
@@ -130,9 +132,9 @@ const Home: NextPage = () => {
 
             <footer className={css("my-28")}>
               <Divider/>
-              <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "my-14")}>
-                <div className={css("grid", "grid-cols-2")}>
-                  <div className={css("flex", "flex-col")}>
+              <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "my-14", "gap-12")}>
+                <div className={css("grid", "grid-cols-2", "order-2", "md:order-1")}>
+                  <div className={css("flex", "flex-col", "items-start")}>
                     <div className={css("font-bold")}>The Doge NFT</div>
                     <Link type={LinkType.Black} isExternal href={"https://ownthedoge.com"}>About</Link>
                     <Link type={LinkType.Black} isExternal href={"https://pixels.ownthedoge.com"}>Mint Pixels</Link>
@@ -148,7 +150,8 @@ const Home: NextPage = () => {
                     <Link type={LinkType.Black} isExternal href={"https://learn.rainbow.me/"}>Learn</Link>
                   </div>
                 </div>
-                <div className={css("flex", "justify-center", "md:justify-end", "mt-8", "md:mt-0")}>
+                <div
+                  className={css("flex", "justify-center", "md:justify-end", "order-1", "md:order-2")}>
                   <Button>
                     <div className={css("p-2", "max-w-xs", "text-xl")}>Help us build {`Kabosu's`} statue in her
                       hometown.

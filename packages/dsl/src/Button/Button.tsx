@@ -1,5 +1,5 @@
 import {css} from "ownthedoge/helpers/css";
-import React, {PropsWithChildren, useEffect} from "react";
+import React, {PropsWithChildren, useCallback, useEffect, useRef} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
 import Dropdown, {DropdownType} from "ownthedoge/components/Dropdown/Dropdown";
 import Link, {LinkSize, LinkType} from "dsl/src/Link/Link";
@@ -7,6 +7,8 @@ import {useDisconnect} from "wagmi";
 import {useRouter} from "next/router";
 import {ClipLoader} from "react-spinners";
 import {BsArrowLeft} from "react-icons/bs";
+import {emojisplosion} from "emojisplosion";
+import cumulativeOffset from "ownthedoge/helpers/cumulativeOffset";
 
 const tailwindconfig = require("../../tailwind.config.cjs");
 
@@ -41,7 +43,8 @@ interface ButtonProps {
   disabled?: boolean
   rounded?: boolean;
   isLoading?: boolean;
-  type?: ButtonType
+  type?: ButtonType;
+  emojisForExploding?: string[]
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
@@ -51,11 +54,56 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
                                                             disabled = false,
                                                             rounded = false,
                                                             isLoading,
-                                                            type = ButtonType.Primary
+                                                            type = ButtonType.Primary,
+                                                            emojisForExploding
                                                           }) => {
+
+  const ref = useRef<HTMLDivElement | null>(null)
   const isDisabled = disabled || isLoading;
-  return <div className={css("relative", "inline-block", "z-10", "h-fit", "select-none", {"w-full": block})}>
-    <button disabled={isDisabled} onClick={onClick && onClick}
+
+  const explode = useCallback((xInitialVelocity: number, yInitialVelocity: number) => {
+    emojisplosion({
+      process(e) {
+        e.className += " emojipop";
+        //@ts-ignore
+        e.style.zIndex = 0;
+      },
+      position: () => {
+        let x = Math.random() * innerWidth;
+        let y = Math.random() * innerHeight;
+        if (ref.current) {
+          const offset = cumulativeOffset(ref.current)
+          x = offset.left + ref.current!.clientWidth / 2;
+          y = offset.top + ref.current!.clientHeight / 2;
+        }
+        return {x, y}
+      },
+      emojis: emojisForExploding,
+      physics: {
+        fontSize: {
+          min: 14,
+          max: 54
+        },
+        gravity: 2,
+        initialVelocities: {
+          y: {max: yInitialVelocity, min: 0},
+          x: {max: xInitialVelocity, min: 0},
+          rotation: 15
+        }
+      }
+    })
+  }, [])
+
+  return <div className={css("relative", "inline-block", "z-10", "h-fit", "select-none", {"w-full": block})} ref={ref}>
+    <button disabled={isDisabled} onClick={() => {
+      if (onClick) {
+        if (emojisForExploding) {
+          explode(60, -50)
+          explode(-60, -50)
+        }
+        onClick()
+      }
+    }}
             className={css(baseButtonStyles, buttonTypeStyles[type], "relative", "active:translate-x-1", "active:translate-y-1",
               "border-2", "border-solid", {
                 "w-full": block,
