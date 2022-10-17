@@ -4,5 +4,5 @@ const nextConfig = {
   swcMinify: true,
 }
 
-const withTm = require('next-transpile-modules')(['dsl', 'ownthedoge'])
+const withTm = require('next-transpile-modules')(['dsl', 'ownthedoge', 'three'])
 module.exports = withTm(nextConfig)

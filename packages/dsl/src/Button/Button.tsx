@@ -8,10 +8,8 @@ import {useRouter} from "next/router";
 import {ClipLoader} from "react-spinners";
 import {BsArrowLeft} from "react-icons/bs";
 import {emojisplosion} from "emojisplosion";
-import cumulativeOffset from "ownthedoge/helpers/cumulativeOffset";
 
 const tailwindconfig = require("../../tailwind.config.cjs");
-
 
 export enum ButtonType {
   Primary = "primary",
@@ -72,9 +70,9 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
         let x = Math.random() * innerWidth;
         let y = Math.random() * innerHeight;
         if (ref.current) {
-          const offset = cumulativeOffset(ref.current)
-          x = offset.left + ref.current!.clientWidth / 2;
-          y = offset.top + ref.current!.clientHeight / 2;
+          const bounding = ref.current.getBoundingClientRect()
+          x = bounding.x + (bounding.width / 2)
+          y = bounding.y + (bounding.height / 2)
         }
         return {x, y}
       },

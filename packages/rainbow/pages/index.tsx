@@ -4,10 +4,15 @@ import {css} from "dsl/helpers/css";
 import Image from "next/image"
 import Button from "dsl/src/Button/Button";
 import {Divider} from "dsl/src/Divider/Divider";
-import {PropsWithChildren, ReactNode} from "react";
+import {PropsWithChildren, ReactNode, Suspense, useEffect, useRef} from "react";
 import ColoredText from "dsl/src/ColoredText/ColoredText";
 import {CampaignTab, Donar, useAppStore} from "../store/app.store";
 import Link, {LinkType} from "dsl/src/Link/Link";
+import {Canvas, useLoader, useThree} from "@react-three/fiber";
+import {STLLoader} from "three/examples/jsm/loaders/STLLoader";
+import {PresentationControls} from "@react-three/drei"
+import {getDonars} from "../api";
+import {useQuery} from "@tanstack/react-query";
 
 const Home: NextPage = () => {
   const {swappers, donars, campaignTab} = useAppStore((state) => ({
@@ -15,6 +20,13 @@ const Home: NextPage = () => {
     donars: state.donars,
     campaignTab: state.campaignTab
   }))
+
+  const {
+    isLoading,
+    error,
+    data
+  } = useQuery(['getDonars'], getDonars)
+  console.log("debug:: data", data)
   return (
     <>
       <Head>
@@ -23,24 +35,28 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <main className={css("relative", "overflow-hidden", "p-5")}>
-        <section className={css("flex", "justify-center", "items-center", "gap-6")}>
-          <BirthdayStar/>
-          <div className={css("text-center")}>
-            <div className={css("text-4xl", "font-bold")}>
-              Doge Turns 17!
-            </div>
-            <div className={css("mt-1")}>(yes {`that's`} right! - this Shiba Inu is turning 84 in human years)</div>
-          </div>
-          <BirthdayStar/>
-        </section>
-
         <div className={css("flex", "justify-center")}>
           <div className={css("max-w-4xl", "w-full")}>
+            <section className={css("flex", "justify-center", "items-center", "gap-6")}>
+              <BirthdayStar/>
+              <div className={css("text-center")}>
+                <div className={css("text-4xl", "font-bold")}>
+                  Doge Turns 17!
+                </div>
+                <div className={css("mt-1")}>(yes {`that's`} right! - this Shiba Inu is turning 84 in human years)</div>
+              </div>
+              <BirthdayStar/>
+            </section>
+
+            <section>
+              <ThreeScene/>
+            </section>
+
             <section className={css("text-center", "mt-4")}>
               <div>indicator here</div>
               <div className={css("mt-2")}>
                 <Button emojisForExploding={["🌈", "🌈", "🌈"]} onClick={() => {
-                  // alert("click!")
+                  console.log("debug:: show modal")
                 }}>
                   <div className={css("text-2xl")}>
                     ✨ DONATE ✨
@@ -99,7 +115,7 @@ const Home: NextPage = () => {
             <section className={css("flex", "flex-col", "items-center", "mt-14")}>
               <TitleDivider>Rewards</TitleDivider>
               <div className={css("flex", "justify-center", "w-full")}>
-                <div className={css("flex", "flex-col", "w-full", "gap-12")}>
+                <div className={css("flex", "flex-col", "w-full", "gap-5")}>
                   <div className={css("max-w-xl", "w-full")}>
                     <RewardButton title={"100 Doge Pixels"} description={"Swap for 42,069 $DOG on Rainbow"}/>
                   </div>
@@ -124,7 +140,7 @@ const Home: NextPage = () => {
                 <div className={css("text-start", "flex", "gap-4", "mb-2")}>
                   {Object.keys(CampaignTab).map(key => <span key={`1-${key}`}>{key}</span>)}
                 </div>
-                <div className={css("flex", "flex-col", "gap-6")}>
+                <div className={css("flex", "flex-col", "gap-5")}>
                   {donars.map(donar => <DonateItem key={`${donar.txHash}`} item={donar}/>)}
                 </div>
               </div>
@@ -240,5 +256,43 @@ const Pill: React.FC<PropsWithChildren<{ type: "donation" | "swap" }>> = ({type}
     {type === "donation" ? "donation" : "🌈 swap"}
   </span>
 }
+
+const ThreeScene = () => {
+  return <div className={css("border-dashed", "border-2", "border-pixels-yellow-200")}>
+    <Canvas camera={{position: [0, 20, 60]}}>
+      <Suspense fallback={null}>
+        <PresentationControls
+          enabled={true} // the controls can be disabled by setting this to false
+          global={false} // Spin globally or by dragging the model
+          cursor={true} // Whether to toggle cursor style on drag
+          snap={false} // Snap-back to center (can also be a spring config)
+          speed={1} // Speed factor
+          zoom={1} // Zoom factor when half the polar-max is reached
+          rotation={[0, 0, 0]} // Default rotation
+          polar={[0, Math.PI / 2]} // Vertical limits
+          azimuth={[-Infinity, Infinity]} // Horizontal limits
+          config={{mass: 1, tension: 170, friction: 26}} // Spring config
+        >
+          <Model/>
+        </PresentationControls>
+        <ambientLight intensity={0.5}/>
+      </Suspense>
+    </Canvas>
+  </div>
+}
+
+const Model = () => {
+  const ref = useRef<any>()
+  const model = useLoader(STLLoader, "/models/doge.stl")
+  const {camera} = useThree()
+  useEffect(() => {
+    camera.lookAt(ref.current.position)
+  }, [])
+  return <mesh ref={ref}>
+    <primitive object={model} attach={"geometry"}/>
+    <meshStandardMaterial color={"black"}/>
+  </mesh>
+}
+Model.displayName = "Model"
 
 export default Home
