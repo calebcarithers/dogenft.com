@@ -15,6 +15,7 @@ import {getDonars} from "../api";
 import {useQuery} from "@tanstack/react-query";
 import {Tabs} from "dsl/src/Tabs/Tabs";
 import {BsArrowRight} from "react-icons/all";
+import {ProgressBar} from "dsl/src/ProgressBar/ProgressBar";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)
@@ -51,7 +52,7 @@ const Home: NextPage = () => {
             </section>
 
             <section className={css("text-center", "mt-4")}>
-              <div>indicator here</div>
+              <ProgressBar max={100000} min={0} now={50000}/>
               <div className={css("mt-2")}>
                 <Button emojisForExploding={["🌈", "🌈", "🌈"]} onClick={() => {
                   console.log("debug:: show modal")
@@ -250,7 +251,7 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donar }>> = ({item}) => {
         <div>+{item.amount}</div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
-        <div className={css("font-normal")}>{item.ens}</div>
+        <div className={css("font-normal", "text-lg")}>{item.ens}</div>
         <Pill type={"donation"}/>
       </div>
     </div>
@@ -273,7 +274,7 @@ const SwapItem: React.FC<PropsWithChildren<{ item: Swapper }>> = ({item}) => {
         </div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
-        <div className={css("font-normal")}>{item.ens}</div>
+        <div className={css("font-normal", "text-lg")}>{item.ens}</div>
         <Pill type={"swap"}/>
       </div>
     </div>
