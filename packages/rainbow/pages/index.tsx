@@ -6,20 +6,18 @@ import Button from "dsl/src/Button/Button";
 import {Divider} from "dsl/src/Divider/Divider";
 import {PropsWithChildren, ReactNode, Suspense, useEffect, useRef} from "react";
 import ColoredText from "dsl/src/ColoredText/ColoredText";
-import {CampaignTab, Donar, useAppStore} from "../store/app.store";
+import {Donar, Swapper, TabType, useAppStore} from "../store/app.store";
 import Link, {LinkType} from "dsl/src/Link/Link";
 import {Canvas, useLoader, useThree} from "@react-three/fiber";
 import {STLLoader} from "three/examples/jsm/loaders/STLLoader";
 import {PresentationControls} from "@react-three/drei"
 import {getDonars} from "../api";
 import {useQuery} from "@tanstack/react-query";
+import {Tabs} from "dsl/src/Tabs/Tabs";
+import {BsArrowRight} from "react-icons/all";
 
 const Home: NextPage = () => {
-  const {swappers, donars, campaignTab} = useAppStore((state) => ({
-    swappers: state.swappers,
-    donars: state.donars,
-    campaignTab: state.campaignTab
-  }))
+  const state = useAppStore((state) => state)
 
   const {
     isLoading,
@@ -102,13 +100,20 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <div
-                className={css("border-dashed", "border-pixels-yellow-200", "border-2", "items-center")}>
-                <div className={css("text-start", "flex", "gap-4", "mb-2")}>
-                  {Object.keys(CampaignTab).map(key => <span key={`2-${key}`}>{key}</span>)}
+                className={css("items-center")}>
+                <Tabs
+                  className={css("mb-2", "text-xl")}
+                  items={Object.keys(TabType).map(tab => ({name: tab, key: tab}))}
+                  onClick={(type) => state.setCampaignTab(type as TabType)}
+                  selected={state.campaignTab}
+                />
+                <div
+                  className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "overflow-x-hidden", "pr-4", "pb-4")}>
+                  {state.campaignTab === TabType.Donate && state.donars.map(donar => <DonateItem
+                    key={`${donar.txHash}`} item={donar}/>)}
+                  {state.campaignTab === TabType.Swap && state.swappers.map(swap => <SwapItem key={`${swap.txHash}`}
+                                                                                              item={swap}/>)}
                 </div>
-                <div className={css("flex", "flex-col", "gap-5")}>{donars.map(donar => <DonateItem
-                  key={`${donar.txHash}`}
-                  item={donar}/>)}</div>
               </div>
             </section>
 
@@ -137,11 +142,17 @@ const Home: NextPage = () => {
             <section className={css("mt-14")}>
               <TitleDivider>Leaderboard</TitleDivider>
               <div>
-                <div className={css("text-start", "flex", "gap-4", "mb-2")}>
-                  {Object.keys(CampaignTab).map(key => <span key={`1-${key}`}>{key}</span>)}
-                </div>
-                <div className={css("flex", "flex-col", "gap-5")}>
-                  {donars.map(donar => <DonateItem key={`${donar.txHash}`} item={donar}/>)}
+                <Tabs
+                  className={css("mb-2", "text-xl")}
+                  items={Object.keys(TabType).map(tab => ({name: tab, key: tab}))}
+                  onClick={(type) => state.setLeaderboardTab(type as TabType)}
+                  selected={state.leaderboardTab}
+                />
+                <div className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "pr-4", "pb-4")}>
+                  {state.leaderboardTab === TabType.Donate && state.donars.map(donar => <DonateItem
+                    key={`${donar.txHash}`} item={donar}/>)}
+                  {state.leaderboardTab === TabType.Swap && state.swappers.map(swap => <SwapItem key={`${swap.txHash}`}
+                                                                                                 item={swap}/>)}
                 </div>
               </div>
             </section>
@@ -180,19 +191,22 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <div className={css("flex", "justify-center")}>
-          <div className={css("absolute", "-bottom-[140px]", "-left-[100px]", "rotate-[30deg]")}>
-            <Image src={"/images/doge.png"} height={320.25} width={320.75} layout={"fixed"}/>
+        <div className={css("z-10")}>
+          <div
+            className={css("absolute", "-bottom-[60px]", "-left-[40px]", "md:-bottom-[140px]", "md:-left-[100px]", "rotate-[30deg]", "max-w-[150px]", "md:max-w-[305px]", "w-full")}>
+            <Image src={"/images/doge.png"} height={320.25} width={320.75} layout={"responsive"}/>
           </div>
-          <div className={css("flex", "gap-4", "text-xl", "z-10")}>
-            <span className={css("font-bold")}>The Doge NFT</span>
+          <div
+            className={css("absolute", "-bottom-[60px]", "-right-[20px]", "md:-bottom-[75px]", "md:-right-[75px]", "rotate-[270deg]", "max-w-[150px]", "md:max-w-[220px]", "w-full")}>
+            <Image src={"/images/rainbow.svg"} width={225} height={225} layout={"responsive"}/>
+          </div>
+
+          <div className={css("flex", "justify-center", "text-xl", "z-10", "gap-5")}>
+            <span className={css("font-bold", "z-10", "text-center")}>The Doge NFT</span>
             <span>🤝</span>
-            <span>
-              <Image src={"/images/rainbow-logo.svg"} height={30} width={100}/>
+            <span className={css("max-w-[100px]", "w-full")}>
+              <Image src={"/images/rainbow-logo.svg"} height={30} width={100} layout={"responsive"}/>
             </span>
-          </div>
-          <div className={css("absolute", "-bottom-[75px]", "-right-[75px]", "rotate-[270deg]")}>
-            <Image src={"/images/rainbow.svg"} width={225} height={225} layout={"fixed"}/>
           </div>
         </div>
       </main>
@@ -238,6 +252,29 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donar }>> = ({item}) => {
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
         <div className={css("font-normal")}>{item.ens}</div>
         <Pill type={"donation"}/>
+      </div>
+    </div>
+  </Button>
+}
+
+const SwapItem: React.FC<PropsWithChildren<{ item: Swapper }>> = ({item}) => {
+  return <Button block>
+    <div className={css("w-full", "p-1")}>
+      <div className={css("flex", "justify-between", "text-2xl")}>
+        <div className={css("flex", "items-center", "gap-2")}>
+          <div>{item.baseCurrency}</div>
+          <div>
+            <BsArrowRight size={25}/>
+          </div>
+          <div>{item.quoteCurrency}</div>
+        </div>
+        <div>
+          +{item.amountDonated}
+        </div>
+      </div>
+      <div className={css("flex", "justify-between", "items-center", "mt-1")}>
+        <div className={css("font-normal")}>{item.ens}</div>
+        <Pill type={"swap"}/>
       </div>
     </div>
   </Button>

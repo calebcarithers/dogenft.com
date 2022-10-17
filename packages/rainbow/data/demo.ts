@@ -6,14 +6,28 @@ export const demoDonars: Donar[] = [
     amount: 10,
     address: "0x77509a9adFB1A85C2113eE80FBb195d771dcdFc2",
     ens: "gainormather.eth",
-    txHash: ""
+    txHash: "erggsdf"
   },
   {
     currency: "DOG",
     amount: 10,
     address: "0x77509a9adFB1A85C2113eE80FBb195d771dcdFc2",
     ens: "gainormather.eth",
-    txHash: ""
+    txHash: "asdffe"
+  },
+  {
+    currency: "DOG",
+    amount: 10,
+    address: "0x77509a9adFB1A85C2113eE80FBb195d771dcdFc2",
+    ens: "gainormather.eth",
+    txHash: "asdf"
+  },
+  {
+    currency: "DOG",
+    amount: 10,
+    address: "0x77509a9adFB1A85C2113eE80FBb195d771dcdFc2",
+    ens: "gainormather.eth",
+    txHash: "ffdsd"
   },
 ]
 

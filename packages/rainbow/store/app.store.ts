@@ -22,10 +22,13 @@ export interface Swapper {
 export interface AppStore {
   donars: Donar[];
   swappers: Swapper[];
-  campaignTab: CampaignTab
+  campaignTab: TabType;
+  leaderboardTab: TabType;
+  setCampaignTab: (tabType: TabType) => void;
+  setLeaderboardTab: (tabType: TabType) => void;
 }
 
-export enum CampaignTab {
+export enum TabType {
   Swap = "Swap",
   Donate = "Donate"
 }
@@ -33,5 +36,12 @@ export enum CampaignTab {
 export const useAppStore = create<AppStore>((set) => ({
   donars: demoDonars,
   swappers: demoSwappers,
-  campaignTab: CampaignTab.Swap
+  campaignTab: TabType.Swap,
+  leaderboardTab: TabType.Swap,
+  setCampaignTab: (tabType: TabType) => set({
+    campaignTab: tabType
+  }),
+  setLeaderboardTab: (tabType: TabType) => set({
+    leaderboardTab: tabType
+  })
 }))
