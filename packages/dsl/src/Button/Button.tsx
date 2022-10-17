@@ -54,7 +54,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
                                                             type = ButtonType.Primary
                                                           }) => {
   const isDisabled = disabled || isLoading;
-  return <div className={css("relative", "inline-block", "z-10", "h-fit", {"w-full": block})}>
+  return <div className={css("relative", "inline-block", "z-10", "h-fit", "select-none", {"w-full": block})}>
     <button disabled={isDisabled} onClick={onClick && onClick}
             className={css(baseButtonStyles, buttonTypeStyles[type], "relative", "active:translate-x-1", "active:translate-y-1",
               "border-2", "border-solid", {
@@ -92,7 +92,7 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
     "text-pixels-yellow-500": !isFraction,
     "hover:text-yellow-400": !isFraction,
     "text-white": isFraction,
-    "hover:text-gray-600": isFraction
+    "hover:text-gray-600": isFraction,
   })
 
   useEffect(() => {

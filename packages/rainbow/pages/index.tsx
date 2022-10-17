@@ -7,6 +7,7 @@ import {Divider} from "dsl/src/Divider/Divider";
 import {PropsWithChildren, ReactNode} from "react";
 import ColoredText from "dsl/src/ColoredText/ColoredText";
 import {CampaignTab, Donar, useAppStore} from "../store/app.store";
+import Link, {LinkType} from "dsl/src/Link/Link";
 
 const Home: NextPage = () => {
   const {swappers, donars, campaignTab} = useAppStore((state) => ({
@@ -133,15 +134,18 @@ const Home: NextPage = () => {
                 <div className={css("grid", "grid-cols-2")}>
                   <div className={css("flex", "flex-col")}>
                     <div className={css("font-bold")}>The Doge NFT</div>
-                    <div>About</div>
-                    <div>Mint Pixels</div>
-                    <div>Pixel Perks</div>
-                    <div>Aquire</div>
+                    <Link type={LinkType.Black} isExternal href={"https://ownthedoge.com"}>About</Link>
+                    <Link type={LinkType.Black} isExternal href={"https://pixels.ownthedoge.com"}>Mint Pixels</Link>
+                    <Link type={LinkType.Black} isExternal href={"https://pixels.ownthedoge.com/perks"}>Pixel
+                      Perks</Link>
+                    <Link type={LinkType.Black} isExternal
+                          href={"https://www.coingecko.com/en/coins/the-doge-nft"}>Aquire</Link>
                   </div>
                   <div className={css("flex", "flex-col")}>
                     <div className={css("font-bold")}>Rainbow</div>
-                    <div>Download</div>
-                    <div>Twitter</div>
+                    <Link type={LinkType.Black} isExternal href={"https://rainbow.me/"}>Download</Link>
+                    <Link type={LinkType.Black} isExternal href={"https://twitter.com/rainbowdotme"}>Twitter</Link>
+                    <Link type={LinkType.Black} isExternal href={"https://learn.rainbow.me/"}>Learn</Link>
                   </div>
                 </div>
                 <div className={css("flex", "justify-center", "md:justify-end", "mt-8", "md:mt-0")}>
