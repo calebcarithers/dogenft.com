@@ -3,10 +3,10 @@ import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 import {useNetwork, useSigner} from "wagmi";
 import {Contract, ethers} from "ethers";
-import Button, {BackOrHomeButton} from "../../dsl/src/Button/Button";
+import Button, {BackOrHomeButton} from "../../dsl/components/Button/Button";
 import PageLayout from "../layouts/Page/Page.layout";
-import ColoredText from "../../dsl/src/ColoredText/ColoredText";
-import Modal, {DialogSize} from "../components/Modal/Modal";
+import ColoredText from "../../dsl/components/ColoredText/ColoredText";
+import Modal, {DialogSize} from "dsl/components/Modal/Modal";
 import SoulBoundAbi from "../services/abis/soulBound.abi";
 import {css} from "../helpers/css";
 import DropShadow from "../components/DropShadow/DropShadow";
@@ -14,7 +14,7 @@ import {vars} from "../environment/vars";
 import {getProof} from "../services/merkletree";
 import {getSoulboundWhitelist, isProduction} from "../environment";
 import axios from "axios";
-import Link from "../../dsl/src/Link/Link";
+import Link from "../../dsl/components/Link/Link";
 import {targetChain} from "../services/wagmi";
 
 interface IMetadata {

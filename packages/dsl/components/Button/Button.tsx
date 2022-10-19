@@ -1,8 +1,8 @@
-import {css} from "ownthedoge/helpers/css";
+import {css} from "../../helpers/css";
 import React, {PropsWithChildren, useCallback, useEffect, useRef} from "react";
 import {ConnectButton as RainbowConnectButton} from '@rainbow-me/rainbowkit';
-import Dropdown, {DropdownType} from "ownthedoge/components/Dropdown/Dropdown";
-import Link, {LinkSize, LinkType} from "dsl/src/Link/Link";
+import Dropdown, {DropdownType} from "../Dropdown/Dropdown";
+import Link, {LinkSize, LinkType} from "dsl/components/Link/Link";
 import {useDisconnect} from "wagmi";
 import {useRouter} from "next/router";
 import {ClipLoader} from "react-spinners";

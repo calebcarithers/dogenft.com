@@ -1,8 +1,8 @@
 import React, {PropsWithChildren} from "react";
-import {objectKeys} from "ownthedoge/helpers/arrays";
-import {css} from "ownthedoge/helpers/css";
+import {objectKeys} from "../../helpers/arrays";
+import {css} from "../../helpers/css";
 
-const tailwindconfig = require("../../../ownthedoge/tailwind.config")
+const tailwindconfig = require("../../tailwind.config.cjs")
 
 const dogeColors = tailwindconfig.theme.extend.colors.doge
 const dogeColorNames = objectKeys(dogeColors)

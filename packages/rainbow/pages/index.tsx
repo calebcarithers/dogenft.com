@@ -2,20 +2,20 @@ import type {NextPage} from 'next'
 import Head from 'next/head'
 import {css} from "dsl/helpers/css";
 import Image from "next/image"
-import Button from "dsl/src/Button/Button";
-import {Divider} from "dsl/src/Divider/Divider";
+import Button from "dsl/components/Button/Button";
+import {Divider} from "dsl/components/Divider/Divider";
 import {PropsWithChildren, ReactNode, Suspense, useEffect, useRef} from "react";
-import ColoredText from "dsl/src/ColoredText/ColoredText";
+import ColoredText from "dsl/components/ColoredText/ColoredText";
 import {Donar, Swapper, TabType, useAppStore} from "../store/app.store";
-import Link, {LinkType} from "dsl/src/Link/Link";
+import Link, {LinkType} from "dsl/components/Link/Link";
 import {Canvas, useLoader, useThree} from "@react-three/fiber";
 import {STLLoader} from "three/examples/jsm/loaders/STLLoader";
 import {PresentationControls} from "@react-three/drei"
 import {getDonars} from "../api";
 import {useQuery} from "@tanstack/react-query";
-import {Tabs} from "dsl/src/Tabs/Tabs";
-import {BsArrowRight} from "react-icons/all";
-import {ProgressBar} from "dsl/src/ProgressBar/ProgressBar";
+import {Tabs} from "dsl/components/Tabs/Tabs";
+import {BsArrowRight} from "react-icons/bs";
+import {ProgressBar} from "dsl/components/ProgressBar/ProgressBar";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)

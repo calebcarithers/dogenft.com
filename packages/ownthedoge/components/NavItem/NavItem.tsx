@@ -1,8 +1,8 @@
 import React, {PropsWithChildren} from "react";
 import {css} from "../../helpers/css";
-import {objectKeys} from "../../helpers/arrays";
+import {objectKeys} from "dsl/helpers/arrays";
 import NoSsr from "../../environment/NoSsr";
-import ColoredText from "../../../dsl/src/ColoredText/ColoredText";
+import ColoredText from "../../../dsl/components/ColoredText/ColoredText";
 
 const tailwindconfig = require("../../tailwind.config")
 

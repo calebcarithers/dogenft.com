@@ -1,16 +1,16 @@
 import {css} from "../../helpers/css";
 import Image from "next/image";
 import HomeFeature from "./HomeFeature";
-import Link from "../../../dsl/src/Link/Link";
+import Link from "../../../dsl/components/Link/Link";
 import HelperContent from "../HelperContent/HelperContent";
 import styles from "./HomeItems.module.css"
 import BarkTankItem from "../BarkTankItem/BarkTankItem";
-import Button from "../../../dsl/src/Button/Button";
+import Button from "../../../dsl/components/Button/Button";
 import {useRouter} from "next/router";
 import React, {PropsWithChildren, useRef, useState} from "react";
 import {emojisplosion} from "emojisplosion";
 import cumulativeOffset from "../../helpers/cumulativeOffset";
-import Modal, {DialogSize} from "../Modal/Modal";
+import Modal, {DialogSize} from "dsl/components/Modal/Modal";
 import {useHomeContext} from "../../pages";
 import Pixel, {PixelSize} from "../Pixel/Pixel";
 import env from "../../environment";

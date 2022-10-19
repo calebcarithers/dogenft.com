@@ -2,7 +2,7 @@ import {css} from "../../helpers/css";
 import React, {PropsWithChildren, useState} from "react";
 import Nav, {NavProvider} from "./Nav";
 import {motion} from "framer-motion";
-import {Divider} from "dsl/src/Divider/Divider";
+import {Divider} from "dsl/components/Divider/Divider";
 
 const HomeLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
   const [navSelection, setNavSelection] = useState("doge")

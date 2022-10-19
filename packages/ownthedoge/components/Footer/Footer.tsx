@@ -1,6 +1,6 @@
 import {css} from "../../helpers/css";
 import Image from "next/image";
-import Link, {LinkSize, LinkType} from "../../../dsl/src/Link/Link";
+import Link, {LinkSize, LinkType} from "../../../dsl/components/Link/Link";
 import React from "react";
 import {actionLinks, tradeLinks, readLinks, socialLinks} from "./Links";
 import {useRouter} from "next/router";

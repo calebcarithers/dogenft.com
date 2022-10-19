@@ -1,4 +1,4 @@
-import {objectKeys} from "../helpers/arrays";
+import {objectKeys} from "dsl/helpers/arrays";
 
 interface Vars {
     AIRTABLE_API_KEY: string;

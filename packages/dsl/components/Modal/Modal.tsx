@@ -1,5 +1,5 @@
 import * as RadixDialog from '@radix-ui/react-dialog';
-import {css} from "../../helpers/css";
+import {css} from "ownthedoge/helpers/css";
 import React, {PropsWithChildren} from "react";
 import {MdClose} from "react-icons/md";
 
@@ -17,13 +17,13 @@ interface DialogProps {
 }
 
 const Modal: React.FC<PropsWithChildren<DialogProps>> = ({
-                                                             children,
-                                                             isOpen,
-                                                             title,
-                                                             description,
-                                                             onChange,
-                                                             size = DialogSize.sm
-                                                         }) => {
+    children,
+    isOpen,
+    title,
+    description,
+    onChange,
+    size = DialogSize.sm
+}) => {
     return <RadixDialog.Root open={isOpen} onOpenChange={(value) => onChange && onChange(value)}>
         <RadixDialog.Portal>
             <RadixDialog.Overlay className={css("fixed", "bg-black", "inset-0", "opacity-80", "z-50")}/>

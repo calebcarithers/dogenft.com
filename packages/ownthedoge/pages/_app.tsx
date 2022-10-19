@@ -6,7 +6,7 @@ import {WagmiConfig} from 'wagmi';
 import {chains, wagmiClient} from "../services/wagmi";
 import {lightTheme, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import {ConnectButton} from "../../dsl/src/Button/Button";
+import {ConnectButton} from "../../dsl/components/Button/Button";
 import {css} from "../helpers/css";
 const tailwindconfig = require("../tailwind.config")
 import {pageView} from "../services/ga";

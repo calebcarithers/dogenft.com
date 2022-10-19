@@ -2,11 +2,11 @@ import {GetServerSideProps} from "next";
 import Head from "next/head"
 import React from "react";
 import {css} from "../../helpers/css";
-import {BackOrHomeButton} from "../../../dsl/src/Button/Button";
+import {BackOrHomeButton} from "../../../dsl/components/Button/Button";
 import {AirtableSubmissionProject} from "../../interfaces";
 import PageLayout from "../../layouts/Page/Page.layout";
-import ColoredText from "../../../dsl/src/ColoredText/ColoredText";
-import Link from "../../../dsl/src/Link/Link";
+import ColoredText from "../../../dsl/components/ColoredText/ColoredText";
+import Link from "../../../dsl/components/Link/Link";
 import {oldBarkTankItems} from "../../constants";
 
 interface BarkTankProjectProps {

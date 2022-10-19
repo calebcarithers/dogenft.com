@@ -3,13 +3,13 @@ import {BsArrowLeft, BsDot, BsPlayFill, BsSkipBackwardFill, BsSkipForwardFill} f
 import {MdPause} from "react-icons/md";
 import PageLayout from "../layouts/Page/Page.layout";
 import {css} from "../helpers/css";
-import Button, {BackOrHomeButton} from "../../dsl/src/Button/Button";
+import Button, {BackOrHomeButton} from "../../dsl/components/Button/Button";
 import {useAccount, useNetwork, useSigner} from "wagmi";
 import NftRadioStore, {Song} from "../stores/NftRadio.store";
 import {observer} from "mobx-react-lite";
 import SongStore from "../stores/Song.store";
 import {ethers} from "ethers";
-import Link, {LinkSize, LinkType} from "../../dsl/src/Link/Link";
+import Link, {LinkSize, LinkType} from "../../dsl/components/Link/Link";
 import {useRouter} from "next/router";
 import {isDev, isProduction} from "../environment";
 import Head from "next/head";

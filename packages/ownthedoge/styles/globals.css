@@ -1,4 +1,4 @@
-@import 'dsl/src/index.css';
+@import 'dsl/styles/globals.css';
 
 @tailwind base;
 @tailwind components;
