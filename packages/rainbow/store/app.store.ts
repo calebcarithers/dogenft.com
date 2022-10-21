@@ -26,6 +26,8 @@ export interface AppStore {
   leaderboardTab: TabType;
   setCampaignTab: (tabType: TabType) => void;
   setLeaderboardTab: (tabType: TabType) => void;
+  isDonateDialogOpen: boolean
+  setIsDonateDialogOpen: (isOpen: boolean) => void
 }
 
 export enum TabType {
@@ -38,10 +40,14 @@ export const useAppStore = create<AppStore>((set) => ({
   swappers: demoSwappers,
   campaignTab: TabType.Swap,
   leaderboardTab: TabType.Swap,
+  isDonateDialogOpen: false,
   setCampaignTab: (tabType: TabType) => set({
     campaignTab: tabType
   }),
   setLeaderboardTab: (tabType: TabType) => set({
     leaderboardTab: tabType
+  }),
+  setIsDonateDialogOpen: (isOpen: boolean) => set({
+    isDonateDialogOpen: isOpen
   })
 }))

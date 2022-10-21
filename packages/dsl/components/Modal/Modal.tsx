@@ -1,5 +1,5 @@
 import * as RadixDialog from '@radix-ui/react-dialog';
-import {css} from "ownthedoge/helpers/css";
+import {css} from "../../helpers/css";
 import React, {PropsWithChildren} from "react";
 import {MdClose} from "react-icons/md";
 
@@ -31,14 +31,15 @@ const Modal: React.FC<PropsWithChildren<DialogProps>> = ({
                 style={{transform: "translate(-50%, -50%)"}}
                 className={css("bg-pixels-yellow-100", "rounded-sm", "top-1/2", "left-1/2", "fixed", "w-full", "p-10", "text-black",
                     "border-2", "border-solid", "border-black", "max-w-3xl", "z-50", "max-h-screen", "overflow-y-auto", {
-                        "md:w-7/12": size === DialogSize.sm,
+                        "md:w-6/12": size === DialogSize.sm,
+                        "lg:w-4/12": size === DialogSize.sm,
                         "md:w-9/12": size === DialogSize.lg
                     })}>
                 {onChange && <RadixDialog.Close style={{right: "5px", top: "5px"}}
                                                 className={css("absolute", "text-black", "hover:text-doge-orange")}>
                   <MdClose size={"25px"}/>
                 </RadixDialog.Close>}
-                <RadixDialog.Title className={css("text-black", "text-3xl", "font-bold", "text-center", "mb-12")}>
+                <RadixDialog.Title className={css("text-black", "text-4xl", "font-bold", "text-center", "mb-12")}>
                     {title}
                 </RadixDialog.Title>
                 <RadixDialog.Description>{description}</RadixDialog.Description>

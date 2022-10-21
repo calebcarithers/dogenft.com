@@ -16,6 +16,7 @@ import {useQuery} from "@tanstack/react-query";
 import {Tabs} from "dsl/components/Tabs/Tabs";
 import {BsArrowRight} from "react-icons/bs";
 import {ProgressBar} from "dsl/components/ProgressBar/ProgressBar";
+import Modal from "dsl/components/Modal/Modal"
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)
@@ -52,12 +53,14 @@ const Home: NextPage = () => {
             </section>
 
             <section className={css("text-center", "mt-4")}>
-              <ProgressBar max={100000} min={0} now={50000}/>
+              <ProgressBar max={100000} min={0} now={50000} thumb={<div className={css("relative", "w-full")}>
+                <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258}/>
+              </div>}/>
               <div className={css("mt-2")}>
                 <Button emojisForExploding={["🌈", "🌈", "🌈"]} onClick={() => {
                   console.log("debug:: show modal")
                 }}>
-                  <div className={css("text-2xl")}>
+                  <div className={css("text-2xl")} onClick={() => state.setIsDonateDialogOpen(true)}>
                     ✨ DONATE ✨
                   </div>
                 </Button>
@@ -211,6 +214,27 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
+      {state.isDonateDialogOpen && <Modal title={"✨ Donate ✨"} isOpen={state.isDonateDialogOpen} onChange={(isOpen) => state.setIsDonateDialogOpen(isOpen)}>
+          <div className={css("flex", "flex-col", "items-center", "gap-8")}>
+            <div>
+              <Link isExternal href={"rainbow://token?addr=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"}>
+                <Button>
+                <div className={css("text-3xl", "font-normal", "p-3")}>Swap DOG on 🌈 Rainbow</div>
+                </Button>              
+              </Link>
+            </div>
+            <div className={css("flex", "items-center", "w-full")}>
+                <Divider/>
+                <div className={css("text-2xl", "mx-6")}>or</div>
+                <Divider/>
+            </div>
+            <div>
+              <Button>
+                <div className={css("text-3xl", "font-normal", "p-3")}>Send Crypto</div>
+              </Button>              
+            </div>
+          </div>
+        </Modal>}
     </>
   )
 }
