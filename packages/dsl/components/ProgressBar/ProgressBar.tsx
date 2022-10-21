@@ -11,13 +11,12 @@ interface ProgressBarProps {
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb}) => {
-  const conatinerRef = useRef<HTMLDivElement>()
+  const conatinerRef = useRef<HTMLDivElement | null>(null)
   const progressRef = useRef<HTMLDivElement>()
   const thumbRef = useRef<HTMLDivElement>()
   return <div className={css("relative", "my-14")}>
     {/*<div>{min}</div>*/}
-    <div
-      ref={conatinerRef}
+    <div ref={conatinerRef}
       className={css("h-[15px]", "bg-transparent", "w-full", "rounded-full", "border-2", "border-black", "relative")}>
       <div className={css("h-full", "w-1/2", "bg-meme-yellow", "rounded-full", styles.rainbow)}/>
       <div
