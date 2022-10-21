@@ -58,9 +58,9 @@ const Home: NextPage = () => {
               </div>}/>
               <div className={css("mt-2")}>
                 <Button emojisForExploding={["🌈", "🌈", "🌈"]} onClick={() => {
-                  console.log("debug:: show modal")
+                  state.setIsDonateDialogOpen(true)
                 }}>
-                  <div className={css("text-2xl")} onClick={() => state.setIsDonateDialogOpen(true)}>
+                  <div className={css("text-2xl")}>
                     ✨ DONATE ✨
                   </div>
                 </Button>
