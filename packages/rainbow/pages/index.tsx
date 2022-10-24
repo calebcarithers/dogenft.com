@@ -1,5 +1,3 @@
-import { PresentationControls } from "@react-three/drei";
-import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import { useQuery } from "@tanstack/react-query";
 import Button from "dsl/components/Button/Button";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
@@ -12,12 +10,11 @@ import { abbreviate } from "dsl/helpers/strings";
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from "next/image";
-import { PropsWithChildren, ReactNode, Suspense, useCallback, useEffect, useRef } from "react";
+import { PropsWithChildren, ReactNode, useCallback } from "react";
 import { BsArrowRight } from "react-icons/bs";
-import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
-import { ClientSide, getDonations, getLeaderboard, getSwaps, RainbowSwap } from "../api";
+import { ClientSide, Donation, getDonations, getLeaderboard, getSwaps, RainbowSwap } from "../api";
 import DonateModal from "../components/DonateModal";
-import { Donar, TabType, useAppStore } from "../store/app.store";
+import { TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)
@@ -139,15 +136,15 @@ const Home: NextPage = () => {
               <div className={css("flex", "justify-center", "w-full")}>
                 <div className={css("flex", "flex-col", "w-full", "gap-5")}>
                   <div className={css("max-w-xl", "w-full")}>
-                    <RewardButton title={"100 Doge Pixels"} description={"Swap for 42,069 $DOG on Rainbow"}/>
+                    <RewardButton title={"Rainbow Doge Icon & POAP"} description={"Swap for 42,069 $DOG on Rainbow"}/>
                   </div>
                   <div className={css("max-w-xl", "self-end", "w-full")}>
-                    <RewardButton title={"60 Doge Pixels"}
-                                  description={"Swap for 42,069 $DOG on Rainbow and mint a Doge Pixel"}/>
+                    <RewardButton title={"Rainbow Doge Icon & POAP + Chance to Win Pixel"}
+                                  description={"Swaps for 42,069 $DOG on Rainbow and mint a Doge Pixel"}/>
                   </div>
                   <div className={css("max-w-xl", "w-full")}>
-                    <RewardButton title={"20 Doge Pixels"}
-                                  description={"Swap for 42,069 $DOG on Rainbow, mints a Doge Pixel, and donates directly to the cause!"}/>
+                    <RewardButton title={"Rainbow Doge Icon & POAP + Chance to Win 25 Pixels"}
+                                  description={"Swap for 42,069 $DOG on Rainbow, mint a Doge Pixel, and donate directly to the cause!"}/>
                   </div>
                 </div>
               </div>
@@ -278,7 +275,7 @@ const TitleDivider: React.FC<PropsWithChildren<{ children: ReactNode }>> = ({chi
   </div>
 }
 
-const DonateItem: React.FC<PropsWithChildren<{ item: Donar }>> = ({item}) => {
+const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({item}) => {
   return <Button block>
     <div className={css("w-full", "p-1")}>
       <div className={css("flex", "justify-between", "text-2xl")}>
@@ -286,7 +283,7 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donar }>> = ({item}) => {
         <div>+{item.amount}</div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
-        <div className={css("font-normal", "text-lg")}>{item.ens}</div>
+        <div className={css("font-normal", "text-lg")}>{item.clientAddress}</div>
         <Pill type={"donation"}/>
       </div>
     </div>
@@ -346,43 +343,5 @@ const Pill: React.FC<PropsWithChildren<{ type: "donation" | "swap" }>> = ({type}
     {type === "donation" ? "donation" : "🌈 swap"}
   </span>
 }
-
-const ThreeScene = () => {
-  return <div className={css("border-dashed", "border-2", "border-pixels-yellow-200")}>
-    <Canvas camera={{position: [0, 20, 60]}}>
-      <Suspense fallback={null}>
-        <PresentationControls
-          enabled={true} // the controls can be disabled by setting this to false
-          global={false} // Spin globally or by dragging the model
-          cursor={true} // Whether to toggle cursor style on drag
-          snap={false} // Snap-back to center (can also be a spring config)
-          speed={1} // Speed factor
-          zoom={1} // Zoom factor when half the polar-max is reached
-          rotation={[0, 0, 0]} // Default rotation
-          polar={[0, Math.PI / 2]} // Vertical limits
-          azimuth={[-Infinity, Infinity]} // Horizontal limits
-          config={{mass: 1, tension: 170, friction: 26}} // Spring config
-        >
-          <Model/>
-        </PresentationControls>
-        <ambientLight intensity={0.5}/>
-      </Suspense>
-    </Canvas>
-  </div>
-}
-
-const Model = () => {
-  const ref = useRef<any>()
-  const model = useLoader(STLLoader, "/models/doge.stl")
-  const {camera} = useThree()
-  useEffect(() => {
-    camera.lookAt(ref.current.position)
-  }, [])
-  return <mesh ref={ref}>
-    <primitive object={model} attach={"geometry"}/>
-    <meshStandardMaterial color={"black"}/>
-  </mesh>
-}
-Model.displayName = "Model"
 
 export default Home

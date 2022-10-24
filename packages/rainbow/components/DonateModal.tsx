@@ -56,7 +56,12 @@ const IndexView = () => {
         <div className={css("w-full")}>
             <Link block isExternal href={"rainbow://token?addr=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"}>
             <Button block>
-                <div className={css("text-3xl", "font-normal", "p-3")}>Swap DOG on 🌈 Rainbow</div>
+                <div className={css("flex", "items-center", "w-full", "justify-center")}>
+                    <div className={css("text-3xl", "font-normal", "p-3")}>Swap DOG on</div>
+                    <div className={css("max-w-[140px]", "relative", "w-full")}>
+                        <Image layout={"responsive"} width={150} height={75} src={"/images/rainbow-logo.svg"}/>
+                    </div>
+                </div>
             </Button>              
             </Link>
         </div>
