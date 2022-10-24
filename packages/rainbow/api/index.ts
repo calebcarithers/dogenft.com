@@ -1,3 +1,34 @@
+
+export enum ClientSide {
+  BUY = "BUY",
+  SELL = "SELL"
+}
+
+export interface RainbowSwap {
+  id: number
+  blockNumber: number
+  blockCreatedAt: Date
+  insertedAt: Date
+  updatedAt: Date
+  baseCurrency: string
+  quoteCurrency: string
+  baseAmount: number
+  quoteAmount: number
+  clientSide: ClientSide
+  txHash: string
+  clientAddress: string
+  clientEns: string | null
+  donatedCurrency: string
+  donatedAmount: number
+  donatedUSDNotional: number
+}
+
+const baseUrl = "http://localhost:3003/statue-campaign"
+
 export const getDonars = () => {
-  return fetch("https://staging.api.ownthedoge.com/v1/config").then(res => res.json())
+  return fetch(baseUrl + "/donations").then(res => res.json())
+}
+
+export const getSwaps = (): Promise<RainbowSwap[]> => {
+  return fetch(baseUrl + "/swaps").then(res => res.json())
 }

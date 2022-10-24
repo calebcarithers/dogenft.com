@@ -1,32 +1,42 @@
-import type {NextPage} from 'next'
-import Head from 'next/head'
-import {css} from "dsl/helpers/css";
-import Image from "next/image"
+import { PresentationControls } from "@react-three/drei";
+import { Canvas, useLoader, useThree } from "@react-three/fiber";
+import { useQuery } from "@tanstack/react-query";
 import Button from "dsl/components/Button/Button";
-import {Divider} from "dsl/components/Divider/Divider";
-import {PropsWithChildren, ReactNode, Suspense, useEffect, useRef} from "react";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
-import {Donar, Swapper, TabType, useAppStore} from "../store/app.store";
-import Link, {LinkType} from "dsl/components/Link/Link";
-import {Canvas, useLoader, useThree} from "@react-three/fiber";
-import {STLLoader} from "three/examples/jsm/loaders/STLLoader";
-import {PresentationControls} from "@react-three/drei"
-import {getDonars} from "../api";
-import {useQuery} from "@tanstack/react-query";
-import {Tabs} from "dsl/components/Tabs/Tabs";
-import {BsArrowRight} from "react-icons/bs";
-import {ProgressBar} from "dsl/components/ProgressBar/ProgressBar";
-import Modal from "dsl/components/Modal/Modal"
+import { Divider } from "dsl/components/Divider/Divider";
+import Link, { LinkType } from "dsl/components/Link/Link";
+import Modal from "dsl/components/Modal/Modal";
+import { ProgressBar } from "dsl/components/ProgressBar/ProgressBar";
+import { Tabs } from "dsl/components/Tabs/Tabs";
+import { css } from "dsl/helpers/css";
+import { abbreviate } from "dsl/helpers/strings";
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from "next/image";
+import { PropsWithChildren, ReactNode, Suspense, useCallback, useEffect, useRef } from "react";
+import { BsArrowRight } from "react-icons/bs";
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
+import { ClientSide, getDonars, getSwaps, RainbowSwap } from "../api";
+import { Donar, TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)
 
   const {
-    isLoading,
-    error,
-    data
+    isLoading: isDonarsLoading,
+    error: isDonarsErrorLoading,
+    data: donars
   } = useQuery(['getDonars'], getDonars)
-  console.log("debug:: data", data)
+  console.log("donars", donars)
+
+  const {
+    isLoading: isSwapsLoading,
+    error: isSwapsErrorLoading,
+    data: swaps
+  } = useQuery(['getSwaps'], getSwaps)
+  console.log("swaps", swaps)
+
+
   return (
     <>
       <Head>
@@ -48,9 +58,9 @@ const Home: NextPage = () => {
               <BirthdayStar/>
             </section>
 
-            <section>
+            {/* <section>
               <ThreeScene/>
-            </section>
+            </section> */}
 
             <section className={css("text-center", "mt-4")}>
               <ProgressBar max={100000} min={0} now={50000} thumb={<div className={css("relative", "w-full")}>
@@ -115,7 +125,7 @@ const Home: NextPage = () => {
                   className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "overflow-x-hidden", "pr-4", "pb-4")}>
                   {state.campaignTab === TabType.Donate && state.donars.map(donar => <DonateItem
                     key={`${donar.txHash}`} item={donar}/>)}
-                  {state.campaignTab === TabType.Swap && state.swappers.map(swap => <SwapItem key={`${swap.txHash}`}
+                  {state.campaignTab === TabType.Swap && swaps && swaps.map(swap => <SwapItem key={`${swap.txHash}`}
                                                                                               item={swap}/>)}
                 </div>
               </div>
@@ -219,7 +229,7 @@ const Home: NextPage = () => {
             <div>
               <Link isExternal href={"rainbow://token?addr=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"}>
                 <Button>
-                <div className={css("text-3xl", "font-normal", "p-3")}>Swap DOG on 🌈 Rainbow</div>
+                  <div className={css("text-3xl", "font-normal", "p-3")}>Swap DOG on 🌈 Rainbow</div>
                 </Button>              
               </Link>
             </div>
@@ -282,23 +292,39 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donar }>> = ({item}) => {
   </Button>
 }
 
-const SwapItem: React.FC<PropsWithChildren<{ item: Swapper }>> = ({item}) => {
+const SwapItem: React.FC<PropsWithChildren<{ item: RainbowSwap }>> = ({item}) => {
+
+  const renderSwapIndicator = useCallback(() => {
+    if (item.clientSide === ClientSide.BUY) {
+      return <>
+        <div>{item.baseCurrency}</div>
+        <div>
+          <BsArrowRight size={25}/>
+        </div>
+        <div>{item.quoteCurrency}</div>
+      </>
+    }
+    return <>
+        <div>{item.quoteCurrency}</div>
+        <div>
+          <BsArrowRight size={25}/>
+        </div>
+        <div>{item.baseCurrency}</div>
+      </>
+  }, [item.clientSide])
+
   return <Button block>
     <div className={css("w-full", "p-1")}>
       <div className={css("flex", "justify-between", "text-2xl")}>
         <div className={css("flex", "items-center", "gap-2")}>
-          <div>{item.baseCurrency}</div>
-          <div>
-            <BsArrowRight size={25}/>
-          </div>
-          <div>{item.quoteCurrency}</div>
+          {renderSwapIndicator()}
         </div>
         <div>
-          +{item.amountDonated}
+          +{item.baseAmount}
         </div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
-        <div className={css("font-normal", "text-lg")}>{item.ens}</div>
+        <div className={css("font-normal", "text-lg")}>{item.clientEns ? item.clientEns : abbreviate(item.clientAddress, 4)}</div>
         <Pill type={"swap"}/>
       </div>
     </div>
