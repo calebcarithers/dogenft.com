@@ -19,7 +19,7 @@ const DonateModal = () => {
     }}>
         <div className={css("relative", "mt-4")}>
             {state.donationModalView !== DonationModalView.Index && <div
-            className={css("cursor-pointer", "text-4xl", "inline-block", "absolute", "-top-[45px]")} 
+            className={css("cursor-pointer", "text-4xl", "inline-block", "absolute", "-top-[45px]", "active:translate-x-1", "active:translate-y-1")} 
             onClick={() => {
                 let viewToSet = DonationModalView.Index
                 switch (state.donationModalView) {
@@ -121,17 +121,17 @@ const WarningView = () => {
         }
     }, [state.donationModalCurrency])
 
-    return <div>
-        <div className={css("flex", "justify-center", "mb-4")}>
+    return <div className={css("flex", "flex-col", "gap-6")}>
+        <div className={css("flex", "justify-center")}>
             <div className={css("max-w-[150px]", "relative", "w-full", "inline-block", "border-2", "border-black")}>
                 <Image layout={"responsive"} width={100} height={100} src={"/images/doge-actually.png"}/>
             </div>
         </div>
-        <div className={css("text-2xl", "text-center", "mb-4")}>
+        <div className={css("text-2xl", "text-center")}>
             {description}
         </div>
         <Button block onClick={() => state.setDonationModalView(DonationModalView.Address)}>
-            <div className={css("p-3", "text-xl")}>OK!</div>
+            <div className={css("p-3", "text-xl")}>Got it</div>
         </Button>
     </div>
 }
@@ -142,15 +142,13 @@ const AddressView = () => {
         return state.donationModalCurrency === DonationCurrency.Ethereum ? state.ethereumDonationAddress : state.dogeDonationAddress
     }, [state.donationModalCurrency])
 
-    console.log("debug::", state.ethereumDonationAddress, state.dogeDonationAddress)
-
     return <div>
-        <div className={css("p-4", "border-2", "border-dashed", "border-pixels-yellow-200", "font-bold", "text-lg")}>
-            <div className={css("font-normal", "underline")}>
+        <div className={css("p-4", "font-bold", "text-lg", "flex", "flex-col", "items-center", "gap-4")}>
+            {/* <div className={css("font-normal", "underline")}>
                 {state.donationModalCurrency}
-            </div>
-            <div>
-                <QRCode value={depositAddress}/>
+            </div> */}
+            <div className={css("p-5", "border-2", "border-black", "max-w-fit", "bg-pixels-yellow-200")}>
+                <QRCode value={depositAddress} style={{display: "inline-block"}}/>
             </div>
             <div>
                 {depositAddress}
