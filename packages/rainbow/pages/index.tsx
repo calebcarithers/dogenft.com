@@ -24,21 +24,21 @@ const Home: NextPage = () => {
     error: donationsError,
     data: donations
   } = useQuery(['getDonations'], getDonations)
-  console.log("donations", donations)
+  // console.log("donations", donations)
 
   const {
     isLoading: isSwapsLoading,
     error: swapsError,
     data: swaps
   } = useQuery(['getSwaps'], getSwaps)
-  console.log("swaps", swaps)
+  // console.log("swaps", swaps)
 
   const {
     isLoading: isLeaderboardLoading,
     error: leaderBoardError,
     data: leaderboard
   } = useQuery(['getLeaderboard'], getLeaderboard)
-  console.log("leaderboard", leaderboard)
+  // console.log("leaderboard", leaderboard)
 
 
   const max = 50000
