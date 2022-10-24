@@ -58,10 +58,6 @@ const Home: NextPage = () => {
               <BirthdayStar/>
             </section>
 
-            {/* <section>
-              <ThreeScene/>
-            </section> */}
-
             <section className={css("text-center", "mt-4")}>
               <ProgressBar max={100000} min={0} now={50000} thumb={<div className={css("relative", "w-full")}>
                 <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258}/>
@@ -320,7 +316,7 @@ const SwapItem: React.FC<PropsWithChildren<{ item: RainbowSwap }>> = ({item}) =>
           {renderSwapIndicator()}
         </div>
         <div>
-          +{item.baseAmount}
+          ~${item.donatedUSDNotional.toLocaleString()}
         </div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
