@@ -63,8 +63,10 @@ const Home: NextPage = () => {
             </section>
 
             <section className={css("text-center", "mt-4")}>
-              <ProgressBar max={100000} min={0} now={50000} thumb={<div className={css("relative", "w-full")}>
+              <ProgressBar max={100000} min={0} now={50000} thumb={<div className={css("relative", "w-full", "h-full", "border-2", "rounded-full", "border-black", "bg-meme-yellow", "overflow-hidden")}>
+              <div className={css("absolute", "w-[80px]", "-left-[18px]", "-top-[3px]")}>
                 <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258}/>
+              </div>
               </div>}/>
               <div className={css("mt-2")}>
                 <Button emojisForExploding={["🌈", "🌈", "🌈"]} onClick={() => {
@@ -120,7 +122,7 @@ const Home: NextPage = () => {
                   onClick={(type) => state.setCampaignTab(type as TabType)}
                   selected={state.campaignTab}
                 />
-                <div className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "overflow-x-hidden", "pr-4", "pb-4", "h-full")}>
+                <div className={css("flex", "flex-col", "gap-5", "h-[500px]", "overflow-y-auto", "overflow-x-hidden", "pr-4", "pb-4")}>
                   {state.campaignTab === TabType.Donations && <RenderIfValid notValidLabel={"No donations yet 🥹"} isValid={donations && donations.length > 0}>
                       {donations?.map(donation => <DonateItem key={`${donation.txHash}`} item={donation}/>)}
                   </RenderIfValid>}
@@ -162,7 +164,7 @@ const Home: NextPage = () => {
                   onClick={(type) => state.setLeaderboardTab(type as TabType)}
                   selected={state.leaderboardTab}
                 />
-                <div className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "pr-4", "pb-4", "h-full")}>
+                <div className={css("flex", "flex-col", "gap-5", "h-[350px]", "overflow-y-auto", "pr-4", "pb-4")}>
                   {state.leaderboardTab === TabType.Donations && <RenderIfValid notValidLabel={"No donations yet 🥹"} isValid={leaderboard && leaderboard?.donations?.length > 0}>
                       {leaderboard?.donations?.map(donation => <DonateItem key={`${donation.txHash}`} item={donation}/>)}
                   </RenderIfValid>}
@@ -195,11 +197,16 @@ const Home: NextPage = () => {
                 </div>
                 <div
                   className={css("flex", "justify-center", "md:justify-end", "order-1", "md:order-2")}>
-                  <Button>
-                    <div className={css("p-2", "max-w-xs", "text-xl")}>Help us build {`Kabosu's`} statue in her
-                      hometown.
+                    <div className={css("inline-block", "relative")}>
+                      <Button>
+                        <div className={css("p-2", "max-w-xs", "text-xl")}>Help us build {`Kabosu's`} statue in her
+                          hometown.
+                        </div>
+                      </Button>
+                      <div className={css("max-w-[50px]", "absolute", "w-full", "right-0", "-top-[38px]")}>
+                        <Image layout={"responsive"} width={182} height={154} src={"/images/pixel-doge.png"}/>
+                      </div>
                     </div>
-                  </Button>
                 </div>
               </div>
               <Divider/>
@@ -242,8 +249,8 @@ const RenderIfValid: React.FC<PropsWithChildren<RenderIfValidProps>> = ({ isVali
   }
 
   return <div className={css("h-full", "flex", "justify-center", "items-center", "border-2", "border-dashed", 
-  "border-pixels-yellow-200", "text-pixels-yellow-400", "text-xl")}>
-  <div>no swaps yet 🥺</div>
+  "border-pixels-yellow-200", "text-pixels-yellow-400", "text-xl", "flex-grow")}>
+  <div>{notValidLabel}</div>
 </div>
 }
 
