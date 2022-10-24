@@ -8,14 +8,16 @@ interface ProgressBarProps {
   min: number;
   now: number;
   thumb?: any;
+  minLabel?: string;
+  maxLabel?: string;
+  nowLabel?: string;
 }
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb}) => {
+export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, minLabel, maxLabel, nowLabel}) => {
   const conatinerRef = useRef<HTMLDivElement | null>(null)
   const progressRef = useRef<HTMLDivElement>()
   const thumbRef = useRef<HTMLDivElement>()
   return <div className={css("relative", "my-14")}>
-    {/*<div>{min}</div>*/}
     <div ref={conatinerRef}
       className={css("h-[15px]", "bg-transparent", "w-full", "rounded-full", "border-2", "border-black", "relative")}>
       <div className={css("h-full", "w-1/2", "bg-meme-yellow", "rounded-full", styles.rainbow)}/>
@@ -24,6 +26,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb}) 
         {thumb ? thumb : <div className={css("text-3xl")}>🐕</div>}
       </div>
     </div>
-    {/*<div>{max}</div>*/}
+    <div className={css("absolute", "left-1/2", "top-10", "-translate-x-1/2")}>{nowLabel ? nowLabel : now}</div>
+    <div className={css("absolute", "left-0", "top-10")}>{minLabel ? minLabel : min}</div>
+    <div className={css("absolute", "right-0", "top-10")}>{maxLabel ? maxLabel : max}</div>
   </div>
 }

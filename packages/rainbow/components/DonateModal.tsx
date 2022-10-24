@@ -17,9 +17,9 @@ const DonateModal = () => {
         }
         state.setIsDonateDialogOpen(isOpen)
     }}>
-        <div className={css("relative", "mt-4")}>
+        <div className={css("relative")}>
             {state.donationModalView !== DonationModalView.Index && <div
-            className={css("cursor-pointer", "text-4xl", "inline-block", "absolute", "-top-[45px]", "active:translate-x-1", "active:translate-y-1")} 
+            className={css("cursor-pointer", "text-4xl", "inline-block", "absolute", "-top-[60px]", "active:translate-x-1", "active:translate-y-1")} 
             onClick={() => {
                 let viewToSet = DonationModalView.Index
                 switch (state.donationModalView) {
@@ -40,12 +40,12 @@ const DonateModal = () => {
             }}>
                 <BsArrowLeft />    
             </div>}
-            <>
+            <div className={css("mt-16")}>
                 {state.donationModalView === DonationModalView.Index && <IndexView />}
                 {state.donationModalView === DonationModalView.Donate && <DonateView />}
                 {state.donationModalView === DonationModalView.Warning && <WarningView />}
                 {state.donationModalView === DonationModalView.Address && <AddressView />}
-            </>
+            </div>
         </div>
   </Modal>
 }
