@@ -23,6 +23,14 @@ export interface RainbowSwap {
   donatedUSDNotional: number
 }
 
+export interface DonationTransfer {
+  currency: string;
+  amount: number;
+  txHash: string;
+  blockexplorerUrl: string;
+  clientAddress: string;
+}
+
 const baseUrl = "http://localhost:3003/statue-campaign"
 
 export const getDonars = () => {

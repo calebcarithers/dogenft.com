@@ -123,9 +123,9 @@ const Home: NextPage = () => {
                 />
                 <div
                   className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "overflow-x-hidden", "pr-4", "pb-4")}>
-                  {state.campaignTab === TabType.Donate && state.donars.map(donar => <DonateItem
+                  {state.campaignTab === TabType.Donations && state.donations.map(donar => <DonateItem
                     key={`${donar.txHash}`} item={donar}/>)}
-                  {state.campaignTab === TabType.Swap && swaps && swaps.map(swap => <SwapItem key={`${swap.txHash}`}
+                  {state.campaignTab === TabType.Swaps && swaps && swaps.map(swap => <SwapItem key={`${swap.txHash}`}
                                                                                               item={swap}/>)}
                 </div>
               </div>
@@ -163,9 +163,9 @@ const Home: NextPage = () => {
                   selected={state.leaderboardTab}
                 />
                 <div className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "pr-4", "pb-4")}>
-                  {state.leaderboardTab === TabType.Donate && state.donars.map(donar => <DonateItem
+                  {state.leaderboardTab === TabType.Donations && state.donations.map(donar => <DonateItem
                     key={`${donar.txHash}`} item={donar}/>)}
-                  {state.leaderboardTab === TabType.Swap && state.swappers.map(swap => <SwapItem key={`${swap.txHash}`}
+                  {state.leaderboardTab === TabType.Swaps && state.swaps.map(swap => <SwapItem key={`${swap.txHash}`}
                                                                                                  item={swap}/>)}
                 </div>
               </div>
