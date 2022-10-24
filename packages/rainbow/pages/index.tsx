@@ -58,10 +58,6 @@ const Home: NextPage = () => {
               <BirthdayStar/>
             </section>
 
-            {/* <section>
-              <ThreeScene/>
-            </section> */}
-
             <section className={css("text-center", "mt-4")}>
               <ProgressBar max={100000} min={0} now={50000} thumb={<div className={css("relative", "w-full")}>
                 <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258}/>
@@ -123,9 +119,9 @@ const Home: NextPage = () => {
                 />
                 <div
                   className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "overflow-x-hidden", "pr-4", "pb-4")}>
-                  {state.campaignTab === TabType.Donate && state.donars.map(donar => <DonateItem
+                  {state.campaignTab === TabType.Donations && state.donars.map(donar => <DonateItem
                     key={`${donar.txHash}`} item={donar}/>)}
-                  {state.campaignTab === TabType.Swap && swaps && swaps.map(swap => <SwapItem key={`${swap.txHash}`}
+                  {state.campaignTab === TabType.Swaps && swaps && swaps.map(swap => <SwapItem key={`${swap.txHash}`}
                                                                                               item={swap}/>)}
                 </div>
               </div>
@@ -163,9 +159,9 @@ const Home: NextPage = () => {
                   selected={state.leaderboardTab}
                 />
                 <div className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "pr-4", "pb-4")}>
-                  {state.leaderboardTab === TabType.Donate && state.donars.map(donar => <DonateItem
+                  {state.leaderboardTab === TabType.Donations && state.donars.map(donar => <DonateItem
                     key={`${donar.txHash}`} item={donar}/>)}
-                  {state.leaderboardTab === TabType.Swap && state.swappers.map(swap => <SwapItem key={`${swap.txHash}`}
+                  {state.leaderboardTab === TabType.Swaps && state.swappers.map(swap => <SwapItem key={`${swap.txHash}`}
                                                                                                  item={swap}/>)}
                 </div>
               </div>
@@ -320,7 +316,7 @@ const SwapItem: React.FC<PropsWithChildren<{ item: RainbowSwap }>> = ({item}) =>
           {renderSwapIndicator()}
         </div>
         <div>
-          +{item.baseAmount}
+          ~${item.donatedUSDNotional.toLocaleString()}
         </div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>

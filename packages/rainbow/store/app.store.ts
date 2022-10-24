@@ -1,22 +1,11 @@
 import create from "zustand";
 import { RainbowSwap } from "../api";
-import { demoDonars } from "../data/demo";
 
 export interface Donar {
   currency: string;
   amount: number;
   address: string;
   ens: string;
-  txHash: string;
-}
-
-export interface Swapper {
-  baseCurrency: string;
-  quoteCurrency: string;
-  address: string;
-  ens: string;
-  amountSwapped: number;
-  amountDonated: number;
   txHash: string;
 }
 
@@ -32,15 +21,15 @@ export interface AppStore {
 }
 
 export enum TabType {
-  Swap = "Swap",
-  Donate = "Donate"
+  Swaps = "Swaps",
+  Donations = "Donations"
 }
 
 export const useAppStore = create<AppStore>((set) => ({
-  donars: demoDonars,
+  donars: [],
   swappers: [],
-  campaignTab: TabType.Swap,
-  leaderboardTab: TabType.Swap,
+  campaignTab: TabType.Swaps,
+  leaderboardTab: TabType.Swaps,
   isDonateDialogOpen: false,
   setCampaignTab: (tabType: TabType) => set({
     campaignTab: tabType
