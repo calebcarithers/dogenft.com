@@ -1,8 +1,8 @@
 import create from "zustand";
-import { DonationTransfer, RainbowSwap } from "../api";
+import { Donation, RainbowSwap } from "../api";
 
 export interface AppStore {
-  donations: DonationTransfer[];
+  donations: Donation[];
   swaps: RainbowSwap[];
   campaignTab: TabType;
   leaderboardTab: TabType;

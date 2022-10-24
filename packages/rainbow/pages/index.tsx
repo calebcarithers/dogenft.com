@@ -16,25 +16,32 @@ import Image from "next/image";
 import { PropsWithChildren, ReactNode, Suspense, useCallback, useEffect, useRef } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
-import { ClientSide, getDonars, getSwaps, RainbowSwap } from "../api";
+import { ClientSide, getDonations, getLeaderboard, getSwaps, RainbowSwap } from "../api";
 import { Donar, TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)
 
   const {
-    isLoading: isDonarsLoading,
-    error: isDonarsErrorLoading,
-    data: donars
-  } = useQuery(['getDonars'], getDonars)
-  console.log("donars", donars)
+    isLoading: isDonationsLoading,
+    error: donationsError,
+    data: donations
+  } = useQuery(['getDonations'], getDonations)
+  console.log("donations", donations)
 
   const {
     isLoading: isSwapsLoading,
-    error: isSwapsErrorLoading,
+    error: swapsError,
     data: swaps
   } = useQuery(['getSwaps'], getSwaps)
   console.log("swaps", swaps)
+
+  const {
+    isLoading: isLeaderboardLoading,
+    error: leaderBoardError,
+    data: leaderboard
+  } = useQuery(['getLeaderboard'], getLeaderboard)
+  console.log("leaderboard", leaderboard)
 
 
   return (
@@ -109,20 +116,20 @@ const Home: NextPage = () => {
                   Cheers to 17 years of our beloved and many more to come!
                 </div>
               </div>
-              <div
-                className={css("items-center")}>
+              <div>
                 <Tabs
                   className={css("mb-2", "text-xl")}
                   items={Object.keys(TabType).map(tab => ({name: tab, key: tab}))}
                   onClick={(type) => state.setCampaignTab(type as TabType)}
                   selected={state.campaignTab}
                 />
-                <div
-                  className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "overflow-x-hidden", "pr-4", "pb-4")}>
-                  {state.campaignTab === TabType.Donations && state.donations.map(donar => <DonateItem
-                    key={`${donar.txHash}`} item={donar}/>)}
-                  {state.campaignTab === TabType.Swaps && swaps && swaps.map(swap => <SwapItem key={`${swap.txHash}`}
-                                                                                              item={swap}/>)}
+                <div className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "overflow-x-hidden", "pr-4", "pb-4", "h-full")}>
+                  {state.campaignTab === TabType.Donations && <RenderIfValid notValidLabel={"No donations yet 🥹"} isValid={donations && donations.length > 0}>
+                      {donations?.map(donation => <DonateItem key={`${donation.txHash}`} item={donation}/>)}
+                  </RenderIfValid>}
+                  {state.campaignTab === TabType.Swaps && <RenderIfValid notValidLabel={"No swaps yet 🥹"} isValid={swaps && swaps.length > 0}>
+                      {swaps?.map(swap => <SwapItem key={`${swap.txHash}`} item={swap}/>)}
+                  </RenderIfValid>}
                 </div>
               </div>
             </section>
@@ -158,11 +165,13 @@ const Home: NextPage = () => {
                   onClick={(type) => state.setLeaderboardTab(type as TabType)}
                   selected={state.leaderboardTab}
                 />
-                <div className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "pr-4", "pb-4")}>
-                  {state.leaderboardTab === TabType.Donations && state.donations.map(donar => <DonateItem
-                    key={`${donar.txHash}`} item={donar}/>)}
-                  {state.leaderboardTab === TabType.Swaps && state.swaps.map(swap => <SwapItem key={`${swap.txHash}`}
-                                                                                                 item={swap}/>)}
+                <div className={css("flex", "flex-col", "gap-5", "max-h-[500px]", "overflow-y-auto", "pr-4", "pb-4", "h-full")}>
+                  {state.leaderboardTab === TabType.Donations && <RenderIfValid notValidLabel={"No donations yet 🥹"} isValid={leaderboard && leaderboard?.donations?.length > 0}>
+                      {leaderboard?.donations?.map(donation => <DonateItem key={`${donation.txHash}`} item={donation}/>)}
+                  </RenderIfValid>}
+                  {state.leaderboardTab === TabType.Swaps && <RenderIfValid notValidLabel={"No swaps yet 🥹"} isValid={leaderboard && leaderboard?.swaps?.length > 0}>
+                      {leaderboard?.swaps?.map(swap => <SwapItem key={`${swap.txHash}`} item={swap}/>)}
+                  </RenderIfValid>}
                 </div>
               </div>
             </section>
@@ -245,6 +254,21 @@ const Home: NextPage = () => {
   )
 }
 
+interface RenderIfValidProps {
+  isValid?: boolean;
+  notValidLabel: string;
+}
+
+const RenderIfValid: React.FC<PropsWithChildren<RenderIfValidProps>> = ({ isValid, children, notValidLabel }) => {
+  if (isValid) {
+    return <>{children}</>
+  }
+
+  return <div className={css("h-full", "flex", "justify-center", "items-center", "border-2", "border-dashed", "border-pixels-yellow-200", "text-pixels-yellow-400")}>
+  <div>no swaps yet 🥺</div>
+</div>
+}
+
 const BirthdayStar = () => {
   return <div className={css("relative")}>
     <Image src={"/images/star.svg"} width={175} height={175}/>
@@ -289,7 +313,6 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donar }>> = ({item}) => {
 }
 
 const SwapItem: React.FC<PropsWithChildren<{ item: RainbowSwap }>> = ({item}) => {
-
   const renderSwapIndicator = useCallback(() => {
     if (item.clientSide === ClientSide.BUY) {
       return <>

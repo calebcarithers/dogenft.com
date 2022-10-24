@@ -23,7 +23,7 @@ export interface RainbowSwap {
   donatedUSDNotional: number
 }
 
-export interface DonationTransfer {
+export interface Donation {
   currency: string;
   amount: number;
   txHash: string;
@@ -31,12 +31,21 @@ export interface DonationTransfer {
   clientAddress: string;
 }
 
+export interface Leaderboard {
+  swaps: RainbowSwap[];
+  donations: Donation[]
+}
+
 const baseUrl = "http://localhost:3003/statue-campaign"
 
-export const getDonars = () => {
+export const getDonations = (): Promise<Donation[]> => {
   return fetch(baseUrl + "/donations").then(res => res.json())
 }
 
 export const getSwaps = (): Promise<RainbowSwap[]> => {
   return fetch(baseUrl + "/swaps").then(res => res.json())
+}
+
+export const getLeaderboard = (): Promise<Leaderboard> => {
+  return fetch(baseUrl + "/leaderboard").then(res => res.json())
 }
