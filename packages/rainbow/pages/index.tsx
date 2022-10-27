@@ -68,12 +68,12 @@ const Home: NextPage = () => {
               </div>
               <div className={css("flex", "justify-center")}>
                 <div className={css("max-w-sm", "border-solid", "border-2", "border-black", "w-full")}>
-                  <Image layout={"responsive"} src={"/images/doge-statue.jpeg"} width={1024} height={1024}/>
+                  <Image layout={"responsive"} src={"/images/doge-statue.jpeg"} width={1024} height={1024} alt={"Kabosu statue"}/>
                 </div>
               </div>
               <div className={css("flex", "justify-center", "mt-8")}>
                 <div className={css("text-center", "text-2xl", "max-w-lg")}>
-                  Let's help Kabosu (The Doge) be remembered forever by building a bronze Doge statue in Japan in her honor!
+                  Let{"'"}s help Kabosu (The Doge) be remembered forever by building a bronze Doge statue in Japan in her honor!
                 </div>
               </div>
             </section>
@@ -81,18 +81,18 @@ const Home: NextPage = () => {
             <section className={css("text-center")}>
               <div className={css("text-xl", "mt-20", "relative")}>
                 <div className={css("w-[50px]", "absolute", "left-0", "top-0", "z-10", "-translate-y-1/2", "-translate-x-1/2")}>
-                  <Image layout={"responsive"} src={"/images/cheems.png"} width={200} height={317}/>
+                  <Image layout={"responsive"} src={"/images/cheems.png"} width={200} height={317} alt={"cheems"}/>
                 </div>
 
                 <ProgressBar minLabel={"$"+min.toLocaleString()} maxLabel={"$"+max.toLocaleString()} nowLabel={"$"+now.toLocaleString()} max={max} min={min} now={now} thumb={<div 
                   className={css("relative", "w-full", "h-full", "border-[1px]", "rounded-full", "border-black", "bg-yellow-400", "overflow-hidden")}>
                   <div className={css("absolute", "w-[80px]", "-left-[18px]", "-top-[3px]")}>
-                    <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258}/>
+                    <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258} alt={"bday doge"}/>
                   </div>
                 </div>}/>
 
                 <div className={css("w-[70px]", "absolute", "right-0", "top-0", "z-10", "-translate-y-1/2", "translate-x-1/2")}>
-                  <Image layout={"responsive"} src={"/images/buff-doge.png"} width={340} height={389}/>
+                  <Image layout={"responsive"} src={"/images/buff-doge.png"} width={340} height={389} alt={"buff doge"}/>
                 </div>
               </div>
               <div className={css("my-32")}>
@@ -113,14 +113,14 @@ const Home: NextPage = () => {
                   About this campaign
                 </div>
                 <div>
-                  For Kabosu's (The Doge!) 17th Birthday, we are crowdfunding <ColoredText className={css("font-bold")}>AND EPIC BRONZE STATUE</ColoredText>
-                  {' '}in a park in Kabosu's hometown in Sakura, Japan
+                  For Kabosu{"'"}s (The Doge!) 17th Birthday, we are crowdfunding <ColoredText className={css("font-bold")}>AND EPIC BRONZE STATUE</ColoredText>
+                  {' '}in a park in Kabosu{"'"}s hometown in Sakura, Japan
                 </div>
                 <div>
-                  We are calling upon all Doge fans and communities to come together and make this a reality! To kick things off, Atsuko Sato (Doge's Momma),
+                  We are calling upon all Doge fans and communities to come together and make this a reality! To kick things off, Atsuko Sato (Doge{"'"}s Momma),
                   OwnTheDoge, The Dogecoin Foundation, Rainbow, Feisty Doge, PleasrDao, and Doge Pound are working to promote this initiative to Bronze the Doge!
                   We welcome all Doge fans and communities to participate through sharing or contributing. We also have cool rewards and perks that you can check out below!
-                  The donations run from Nov. 2nd (Kabosu's B-day) to Dec. 6th (Dogecoin's B-day)
+                  The donations run from Nov. 2nd (Kabosu{"'"}s B-day) to Dec. 6th (Dogecoin{"'"}s B-day)
                 </div>
                 <div>
                   Review the detailed overview of the project <Link isExternal href={""}>TODO: LINK</Link>
@@ -171,7 +171,8 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <div className={css("font-bold", "mt-12", "text-2xl", "text-center")}>
-                Don't let this opportunity, to be a part of the most monumental moment in Doge history pass you by! Let's make Kabosu's 17th birthday one for the history books, and ensure the world's most famous meme lives forever :)
+                Don{"'"}s let this opportunity, to be a part of the most monumental moment in Doge history pass you by! Let{"'"}s make Kabosu{"'"}s 17th birthday one for the history books, and ensure the world{"'"}s most famous 
+                meme lives forever {":)"}
               </div>
             </section>
 
@@ -231,7 +232,7 @@ const Home: NextPage = () => {
                         </div>
                       </Button>
                       <div className={css("max-w-[50px]", "absolute", "w-full", "right-0", "-top-[38px]")}>
-                        <Image layout={"responsive"} width={182} height={154} src={"/images/pixel-doge.png"}/>
+                        <Image layout={"responsive"} width={182} height={154} src={"/images/pixel-doge.png"} alt={"pixel doge"}/>
                       </div>
                     </div>
                 </div>
@@ -283,7 +284,7 @@ const RenderIfValid: React.FC<PropsWithChildren<RenderIfValidProps>> = ({ isVali
 
 const BirthdayStar = () => {
   return <div className={css("relative")}>
-    <Image src={"/images/star.svg"} width={175} height={175}/>
+    <Image src={"/images/star.svg"} width={175} height={175} alt={"bday start"}/>
     <div
       className={css("absolute", "w-full", "h-full", "flex", "justify-center", "items-center", "-top-[7px]", "-right-[6px]")}>
       <div className={css("text-5xl")}>🎂</div>
@@ -342,7 +343,7 @@ const SwapItem: React.FC<PropsWithChildren<{ item: RainbowSwap }>> = ({item}) =>
         </div>
         <div>{item.baseCurrency}</div>
       </>
-  }, [item.clientSide])
+  }, [item.clientSide, item.baseCurrency, item.quoteCurrency])
 
   return <Link isExternal href={`https://etherscan.io/tx/${item.txHash}`}>
     <Button block>
