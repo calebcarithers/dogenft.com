@@ -3,12 +3,11 @@ import { Donation, RainbowSwap } from "../api";
 import { vars } from "../environment/vars";
 
 export enum TabType {
-  Swaps = "Swaps",
-  Donations = "Donations"
+  Donations = "Donations",
+  Swaps = "Swaps"
 }
 
 export enum DonationModalView {
-  Index = "Index",
   Donate = "Donate",
   Warning = "Warning",
   Address = "Address"
@@ -40,15 +39,15 @@ export interface AppStore {
 export const useAppStore = create<AppStore>((set) => ({
   donations: [],
   swaps: [],
-  campaignTab: TabType.Swaps,
-  leaderboardTab: TabType.Swaps,
+  campaignTab: TabType.Donations,
+  leaderboardTab: TabType.Donations,
   isDonateDialogOpen: false,
   ethereumDonationAddress: vars.ethereumAddress,
   dogeDonationAddress: vars.dogecoinAddress,
-  donationModalView: DonationModalView.Index,
+  donationModalView: DonationModalView.Donate,
   donationModalCurrency: null,
   resetModalState: () => set({
-    donationModalView: DonationModalView.Index,
+    donationModalView: DonationModalView.Donate,
     donationModalCurrency: null
   }),
   setCampaignTab: (campaignTab: TabType) => set({campaignTab}),

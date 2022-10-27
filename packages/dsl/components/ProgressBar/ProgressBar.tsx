@@ -19,7 +19,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, m
   const thumbRef = useRef<HTMLDivElement>()
   return <div className={css("relative", "my-14")}>
     <div ref={conatinerRef}
-      className={css("h-[15px]", "bg-transparent", "w-full", "rounded-full", "border-2", "border-black", "relative")}>
+      className={css("h-[15px]", "bg-transparent", "w-full", "rounded-full", "border-[1px]", "border-black", "relative")}>
       <div className={css("h-full", "w-1/2", "bg-meme-yellow", "rounded-full", styles.rainbow)}/>
       <div
         className={css("absolute", "w-[60px]", "h-[60px]", "top-1/2", "-translate-y-[50%]", "left-1/2", "-translate-x-[50%]", "flex", "justify-center", "items-center")}>
