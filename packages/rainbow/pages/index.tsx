@@ -114,7 +114,7 @@ const Home: NextPage = () => {
                 </div>
                 <div>
                   For Kabosu's (The Doge!) 17th Birthday, we are crowdfunding <ColoredText className={css("font-bold")}>AND EPIC BRONZE STATUE</ColoredText>
-                  in a park in Kabosu's hometown in Sakura, Japan
+                  {' '}in a park in Kabosu's hometown in Sakura, Japan
                 </div>
                 <div>
                   We are calling upon all Doge fans and communities to come together and make this a reality! To kick things off, Atsuko Sato (Doge's Momma),
@@ -126,7 +126,7 @@ const Home: NextPage = () => {
                   Review the detailed overview of the project <Link isExternal href={""}>TODO: LINK</Link>
                 </div>
                 <div>
-                  Feel free to follow & contact us via the official twitter account for this campaign (@bronzethedoge) <Link href={"https://mobile.twitter.com/BronzeTheDoge"} isExternal>here</Link>
+                  Feel free to follow & contact us via the official twitter account for this campaign: <Link href={"https://mobile.twitter.com/BronzeTheDoge"} isExternal>@bronzethedoge</Link>
                 </div>
               </div>
               <div>
