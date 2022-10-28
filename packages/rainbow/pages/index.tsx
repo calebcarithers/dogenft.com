@@ -3,7 +3,7 @@ import AsyncLoader from "dsl/components/AsyncLoader/AsyncLoader";
 import Button from "dsl/components/Button/Button";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { Divider } from "dsl/components/Divider/Divider";
-import Link, { LinkType } from "dsl/components/Link/Link";
+import Link from "dsl/components/Link/Link";
 import { ProgressBar } from "dsl/components/ProgressBar/ProgressBar";
 import { Tabs } from "dsl/components/Tabs/Tabs";
 import { css } from "dsl/helpers/css";
@@ -210,7 +210,7 @@ const Home: NextPage = () => {
             <footer className={css("my-28")}>
               <Divider/>
               <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "my-14", "gap-12")}>
-                <div className={css("grid", "grid-cols-2", "order-2", "md:order-1")}>
+                {/* <div className={css("grid", "grid-cols-2", "order-2", "md:order-1")}>
                   <div className={css("flex", "flex-col", "items-start")}>
                     <div className={css("font-bold")}>The Doge NFT</div>
                     <Link type={LinkType.Black} isExternal href={"https://ownthedoge.com"}>About</Link>
@@ -226,6 +226,9 @@ const Home: NextPage = () => {
                     <Link type={LinkType.Black} isExternal href={"https://twitter.com/rainbowdotme"}>Twitter</Link>
                     <Link type={LinkType.Black} isExternal href={"https://learn.rainbow.me/"}>Learn</Link>
                   </div>
+                </div> */}
+                <div>
+                  TODO something else here
                 </div>
                 <div
                   className={css("flex", "justify-center", "md:justify-end", "order-1", "md:order-2")}>
