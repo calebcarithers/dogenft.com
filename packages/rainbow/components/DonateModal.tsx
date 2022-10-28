@@ -62,7 +62,7 @@ const DonateView = () => {
                 <div className={css("max-w-[40px]", "relative", "w-full")}>
                     <Image layout={"responsive"} width={100} height={100} src={"/images/ethereum.svg"} alt={"ethereum"} priority/>
                 </div>
-                <div className={css("text-3xl", "font-normal", "p-3")}>Ethereum</div>
+                <div className={css("text-3xl", "font-normal", "p-3")}>ETH / ERC20s</div>
             </div>
         </Button>              
     </div>
