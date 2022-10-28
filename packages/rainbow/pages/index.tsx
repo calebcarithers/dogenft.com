@@ -103,6 +103,10 @@ const Home: NextPage = () => {
                     ✨ DONATE ✨
                   </div>
                 </Button>
+
+                <div className={css("my-10", "text-red-500", "font-bold")}>
+                  TODO: TWEET BUTTON
+                </div>
               </div>
             </section>
 
@@ -159,10 +163,10 @@ const Home: NextPage = () => {
               <div className={css("flex", "justify-center", "w-full")}>
                 <div className={css("flex", "flex-col", "w-full", "gap-20")}>
                   <div className={css("max-w-2xl", "w-full", "md:hover:translate-x-[15%]", "ease-out", "duration-300")}>
-                    <RewardButton title={"Top 11 donators get their ENS or wallet address included in on Plaque"} description={"Family friendly names only!"}/>
+                    <RewardButton title={"The top 11 donors will get their ENS or wallet address engraved on the Kabosu statue"} description={"Family friendly names only!"}/>
                   </div>
                   <div className={css("max-w-2xl", "self-end", "w-full", "md:hover:-translate-x-[15%]", "ease-out", "duration-300")}>
-                    <RewardButton title={"All Donors over $11 will be added to a global registry that will be immortalized as an NFT on the blockchain!"}/>
+                    <RewardButton title={"All donors over $11 will be added to a global registry that will be immortalized as an NFT on the blockchain!"}/>
                   </div>
                   <div className={css("max-w-2xl", "w-full", "md:hover:translate-x-[15%]", "ease-out", "duration-300")}>
                     <RewardButton title={"Those that use Rainbow Wallet to swap $DOG between Nov. 2nd and 16th will receive a dank Doge wallet icon on their phone + a chance to win a Doge Pixel from OwnTheDoge."}
@@ -171,7 +175,7 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <div className={css("font-bold", "mt-12", "text-2xl", "text-center")}>
-                Don{"'"}s let this opportunity, to be a part of the most monumental moment in Doge history pass you by! Let{"'"}s make Kabosu{"'"}s 17th birthday one for the history books, and ensure the world{"'"}s most famous 
+                Don{"'"}t let this opportunity to be a part of the most monumental moment in Doge history pass you by! Let{"'"}s make Kabosu{"'"}s 17th birthday one for the history books, and ensure the world{"'"}s most famous 
                 meme lives forever {":)"}
               </div>
             </section>
@@ -277,7 +281,7 @@ const BirthdayStar: React.FC<PropsWithChildren> = ({children}) => {
 }
 
 const RewardButton: React.FC<PropsWithChildren<{ title: string, description?: string }>> = ({title, description}) => {
-  return <div className={css("border-2", "border-black", "p-2")}>
+  return <div className={css("border-2", "border-black", "p-2", "bg-pixels-yellow-100")}>
     <div className={css("p-1")}>
       <div className={css("text-left", "text-2xl")}>{title}</div>
       {description && <div className={css("font-normal", "text-left", "text-lg")}>{description}</div>}
