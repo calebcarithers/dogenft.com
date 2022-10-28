@@ -55,7 +55,7 @@ const DonateView = () => {
         }}>
             <div className={css("flex", "items-center", "justify-center")}>
                 <div className={css("max-w-[40px]", "relative", "w-full")}>
-                    <Image layout={"responsive"} width={100} height={100} src={"/images/ethereum.svg"} alt={"ethereum"}/>
+                    <Image layout={"responsive"} width={100} height={100} src={"/images/ethereum.svg"} alt={"ethereum"} priority/>
                 </div>
                 <div className={css("text-3xl", "font-normal", "p-3")}>Ethereum</div>
             </div>
@@ -73,7 +73,7 @@ const DonateView = () => {
         }}>
             <div className={css("flex", "items-center", "justify-center")}>
                 <div className={css("max-w-[40px]", "relative", "w-full")}>
-                    <Image layout={"responsive"} width={100} height={100} src={"/images/dogecoin.svg"} alt={"dogecoin"}/>
+                    <Image layout={"responsive"} width={100} height={100} src={"/images/dogecoin.svg"} alt={"dogecoin"} priority/>
                 </div>
                 <div className={css("text-3xl", "font-normal", "p-3")}>Dogecoin</div>
             </div>
@@ -96,7 +96,7 @@ const WarningView = () => {
     return <div className={css("flex", "flex-col", "gap-6")}>
         <div className={css("flex", "justify-center")}>
             <div className={css("max-w-[150px]", "relative", "w-full", "inline-block", "border-2", "border-black")}>
-                <Image layout={"responsive"} width={100} height={100} src={"/images/doge-actually.jpeg"} alt={"doge actually"}/>
+                <Image layout={"responsive"} width={100} height={100} src={"/images/doge-actually.jpeg"} alt={"doge actually"} priority/>
             </div>
         </div>
         <div className={css("text-2xl", "text-center")}>
