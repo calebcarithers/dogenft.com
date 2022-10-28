@@ -42,7 +42,7 @@ const Home: NextPage = () => {
   // console.log("leaderboard", leaderboard)
 
 
-  const max = 50000
+  const max = 42069
   const now = 10000
   const min = 0
 
