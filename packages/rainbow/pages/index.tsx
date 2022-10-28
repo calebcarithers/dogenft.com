@@ -157,14 +157,14 @@ const Home: NextPage = () => {
             <section className={css("flex", "flex-col", "items-center", "mt-14")}>
               <TitleDivider>Rewards</TitleDivider>
               <div className={css("flex", "justify-center", "w-full")}>
-                <div className={css("flex", "flex-col", "w-full", "gap-5")}>
-                  <div className={css("max-w-2xl", "w-full")}>
+                <div className={css("flex", "flex-col", "w-full", "gap-20")}>
+                  <div className={css("max-w-2xl", "w-full", "md:hover:translate-x-[15%]", "ease-out", "duration-300")}>
                     <RewardButton title={"Top 11 donators get their ENS or wallet address included in on Plaque"} description={"Family friendly names only!"}/>
                   </div>
-                  <div className={css("max-w-2xl", "self-end", "w-full")}>
+                  <div className={css("max-w-2xl", "self-end", "w-full", "md:hover:-translate-x-[15%]", "ease-out", "duration-300")}>
                     <RewardButton title={"All Donors over $11 will be added to a global registry that will be immortalized as an NFT on the blockchain!"}/>
                   </div>
-                  <div className={css("max-w-2xl", "w-full")}>
+                  <div className={css("max-w-2xl", "w-full", "md:hover:translate-x-[15%]", "ease-out", "duration-300")}>
                     <RewardButton title={"Those that use Rainbow Wallet to swap $DOG between Nov. 2nd and 16th will receive a dank Doge wallet icon on their phone + a chance to win a Doge Pixel from OwnTheDoge."}
                                   description={"Rainbow is also donating all $DOG swap fees during this period to the campaign!"}/>
                   </div>
