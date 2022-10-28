@@ -87,7 +87,7 @@ const WarningView = () => {
 
     const description = useMemo(() => {
         if (state.donationModalCurrency === DonationCurrency.Ethereum) {
-            return "Please only send ETH or ERC-20's to the following address."
+            return "Please only send ETH or ERC-20's to the following address on Mainnet."
         } else if (state.donationModalCurrency === DonationCurrency.Dogecoin) {
             return "Please only send Dogecoin to the following address."
         }
@@ -103,7 +103,7 @@ const WarningView = () => {
             {description}
         </div>
         <Button block onClick={() => state.setDonationModalView(DonationModalView.Address)}>
-            <div className={css("p-3", "text-xl")}>Got it</div>
+            <div className={css("p-3", "text-3xl")}>🆗</div>
         </Button>
     </div>
 }
