@@ -1,6 +1,6 @@
 import { css } from "../../helpers/css";
 //@ts-ignore
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import styles from "./ProgressBar.module.css";
 
 interface ProgressBarProps {
@@ -15,14 +15,25 @@ interface ProgressBarProps {
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, minLabel, maxLabel, nowLabel}) => {
   const conatinerRef = useRef<HTMLDivElement | null>(null)
-  const progressRef = useRef<HTMLDivElement>()
-  const thumbRef = useRef<HTMLDivElement>()
+  const progressRef = useRef<HTMLDivElement>(null)
+  const thumbRef = useRef<HTMLDivElement>(null)
+
+  const percentage = useMemo(() => {
+    return (now / (max - min)) * 100
+  }, [now, min, max])
+
+  console.log("debug:: percentage", percentage)
+
   return <div className={css("relative", "my-14")}>
     <div ref={conatinerRef}
       className={css("h-[15px]", "bg-transparent", "w-full", "rounded-full", "border-[1px]", "border-black", "relative")}>
-      <div className={css("h-full", "w-1/2", "bg-meme-yellow", "rounded-full", styles.rainbow)}/>
+      <div className={css("h-full", "bg-meme-yellow", "rounded-full", styles.rainbow)} style={{width: `${percentage}%`}}/>
       <div
-        className={css("absolute", "w-[60px]", "h-[60px]", "top-1/2", "-translate-y-[50%]", "left-1/2", "-translate-x-[50%]", "flex", "justify-center", "items-center")}>
+        ref={thumbRef}
+        style={{
+          left: `${percentage}%`
+        }}
+        className={css("absolute", "z-10", "w-[60px]", "h-[60px]", "top-1/2", "-translate-y-[50%]", "-translate-x-[50%]", "flex", "justify-center", "items-center")}>
         {thumb ? thumb : <div className={css("text-3xl")}>🐕</div>}
       </div>
     </div>

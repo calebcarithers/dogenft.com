@@ -43,7 +43,7 @@ const Home: NextPage = () => {
 
 
   const max = 50000
-  const now = 25000
+  const now = 10000
   const min = 0
 
   return (
@@ -57,14 +57,14 @@ const Home: NextPage = () => {
         <div className={css("flex", "justify-center")}>
           <div className={css("max-w-4xl", "w-full")}>
             <section>
-              <div className={css("flex", "justify-center", "items-center", "gap-6", "mb-14")}>
-                {/* <BirthdayStar/> */}
+              <div className={css("flex", "justify-center", "items-center", "gap-6", "mb-14", "text-3xl", "md:text-6xl")}>
+                <BirthdayStar>🗿</BirthdayStar>
                 <div className={css("text-center")}>
                   <div className={css("text-4xl", "font-bold")}>
                     Happy 17th Birthday Doge!
                   </div>
                 </div>
-                {/* <BirthdayStar/> */}
+                <BirthdayStar>🐕</BirthdayStar>
               </div>
               <div className={css("flex", "justify-center")}>
                 <div className={css("max-w-sm", "border-solid", "border-2", "border-black", "w-full")}>
@@ -78,7 +78,7 @@ const Home: NextPage = () => {
               </div>
             </section>
 
-            <section className={css("text-center")}>
+            <section className={css("text-center", "px-10")}>
               <div className={css("text-xl", "mt-20", "relative")}>
                 <div className={css("w-[50px]", "absolute", "left-0", "top-0", "z-10", "-translate-y-1/2", "-translate-x-1/2")}>
                   <Image layout={"responsive"} src={"/images/cheems.png"} width={200} height={317} alt={"cheems"}/>
@@ -91,7 +91,7 @@ const Home: NextPage = () => {
                   </div>
                 </div>}/>
 
-                <div className={css("w-[70px]", "absolute", "right-0", "top-0", "z-10", "-translate-y-1/2", "translate-x-1/2")}>
+                <div className={css("w-[85px]", "absolute", "right-0", "top-0", "z-10", "-translate-y-1/2", "translate-x-1/2")}>
                   <Image layout={"responsive"} src={"/images/buff-doge.png"} width={340} height={389} alt={"buff doge"}/>
                 </div>
               </div>
@@ -266,34 +266,18 @@ const Home: NextPage = () => {
   )
 }
 
-interface RenderIfValidProps {
-  isValid?: boolean;
-  notValidLabel: string;
-}
-
-const RenderIfValid: React.FC<PropsWithChildren<RenderIfValidProps>> = ({ isValid, children, notValidLabel }) => {
-  if (isValid) {
-    return <>{children}</>
-  }
-
-  return <div className={css("h-full", "flex", "justify-center", "items-center", "border-2", "border-dashed", 
-  "border-pixels-yellow-200", "text-pixels-yellow-400", "text-xl", "flex-grow")}>
-  <div>{notValidLabel}</div>
-</div>
-}
-
-const BirthdayStar = () => {
+const BirthdayStar: React.FC<PropsWithChildren> = ({children}) => {
   return <div className={css("relative")}>
     <Image src={"/images/star.svg"} width={175} height={175} alt={"bday start"}/>
     <div
       className={css("absolute", "w-full", "h-full", "flex", "justify-center", "items-center", "-top-[7px]", "-right-[6px]")}>
-      <div className={css("text-5xl")}>🎂</div>
+      <div>{children}</div>
     </div>
   </div>
 }
 
 const RewardButton: React.FC<PropsWithChildren<{ title: string, description?: string }>> = ({title, description}) => {
-  return <div>
+  return <div className={css("border-2", "border-black", "p-2")}>
     <div className={css("p-1")}>
       <div className={css("text-left", "text-2xl")}>{title}</div>
       {description && <div className={css("font-normal", "text-left", "text-lg")}>{description}</div>}
