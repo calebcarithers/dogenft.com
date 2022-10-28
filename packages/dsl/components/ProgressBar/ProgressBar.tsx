@@ -22,8 +22,6 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, m
     return (now / (max - min)) * 100
   }, [now, min, max])
 
-  console.log("debug:: percentage", percentage)
-
   return <div className={css("relative", "my-14")}>
     <div ref={conatinerRef}
       className={css("h-[15px]", "bg-transparent", "w-full", "rounded-full", "border-[1px]", "border-black", "relative")}>
