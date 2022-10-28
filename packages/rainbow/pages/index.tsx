@@ -99,7 +99,7 @@ const Home: NextPage = () => {
                 <Button emojisForExploding={["🐕", "🗿", "🐕", "🗿"]} onClick={() => {
                   state.setIsDonateDialogOpen(true)
                 }}>
-                  <div className={css("text-2xl")}>
+                  <div className={css("text-4xl", "p-1")}>
                     ✨ DONATE ✨
                   </div>
                 </Button>
@@ -140,7 +140,7 @@ const Home: NextPage = () => {
                   <AsyncLoader 
                     renderNoData={() => {
                       return <div className={css("h-full", "flex", "justify-center", "items-center", "border-2", "border-dashed", 
-                      "border-pixels-yellow-200", "text-pixels-yellow-400", "text-xl", "flex-grow")}>
+                      "border-pixels-yellow-300", "text-pixels-yellow-400", "text-xl", "flex-grow")}>
                         {state.campaignTab === TabType.Donations ? "No donations yet 😢" : "No swaps yet 🌈"}
                       </div>
                     }}
@@ -189,7 +189,7 @@ const Home: NextPage = () => {
                   <AsyncLoader 
                     renderNoData={() => {
                       return <div className={css("h-full", "flex", "justify-center", "items-center", "border-2", "border-dashed", 
-                      "border-pixels-yellow-200", "text-pixels-yellow-400", "text-xl", "flex-grow")}>
+                      "border-pixels-yellow-300", "text-pixels-yellow-400", "text-xl", "flex-grow")}>
                         {state.leaderboardTab === TabType.Donations ? "No donations yet 😢" : "No swaps yet 🌈"}
                       </div>
                     }}

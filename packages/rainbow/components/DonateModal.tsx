@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useMemo } from "react"
 import { BsArrowLeft } from "react-icons/bs"
 import QRCode from "react-qr-code"
+import { CSSTransition } from "react-transition-group"
 import { DonationCurrency, DonationModalView, useAppStore } from "../store/app.store"
 
 const DonateModal = () => {
@@ -16,7 +17,7 @@ const DonateModal = () => {
         }
         state.setIsDonateDialogOpen(isOpen)
     }}>
-        <div className={css("relative")}>
+        <div className={css("relative", "pb-6")}>
             {state.donationModalView !== DonationModalView.Donate && <div
             className={css("cursor-pointer", "text-4xl", "inline-block", "absolute", "-top-[60px]", "active:translate-x-1", "active:translate-y-1")} 
             onClick={() => {
@@ -37,9 +38,13 @@ const DonateModal = () => {
                 <BsArrowLeft />    
             </div>}
             <div className={css("mt-16")}>
-                {state.donationModalView === DonationModalView.Donate && <DonateView />}
-                {state.donationModalView === DonationModalView.Warning && <WarningView />}
-                {state.donationModalView === DonationModalView.Address && <AddressView />}
+                <CSSTransition timeout={1000} classNames={"donate-modal"}>
+                    <>
+                        {state.donationModalView === DonationModalView.Donate && <DonateView />}
+                        {state.donationModalView === DonationModalView.Warning && <WarningView />}
+                        {state.donationModalView === DonationModalView.Address && <AddressView />}
+                    </>
+                </CSSTransition>
             </div>
         </div>
   </Modal>
