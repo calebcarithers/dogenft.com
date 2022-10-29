@@ -13,7 +13,7 @@ import Head from 'next/head';
 import Image from "next/image";
 import { PropsWithChildren, ReactNode, useCallback } from "react";
 import { BsArrowRight } from "react-icons/bs";
-import { ClientSide, Donation, getDonations, getLeaderboard, getSwaps, RainbowSwap } from "../api";
+import { ClientSide, Donation, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
 import DonateModal from "../components/DonateModal";
 import { TabType, useAppStore } from "../store/app.store";
 
@@ -25,25 +25,26 @@ const Home: NextPage = () => {
     error: donationsError,
     data: donations
   } = useQuery(['getDonations'], getDonations)
-  // console.log("donations", donations)
 
   const {
     isLoading: isSwapsLoading,
     error: swapsError,
     data: swaps
   } = useQuery(['getSwaps'], getSwaps)
-  // console.log("swaps", swaps)
 
   const {
     isLoading: isLeaderboardLoading,
     error: leaderBoardError,
     data: leaderboard
   } = useQuery(['getLeaderboard'], getLeaderboard)
-  // console.log("leaderboard", leaderboard)
 
+
+  const {
+    data: now
+  } = useQuery(['getNow'], getNow)
 
   const max = 42069
-  const now = 10000
+  const _now = now ? now.usdNotional : 0
   const min = 0
 
   return (
@@ -84,7 +85,7 @@ const Home: NextPage = () => {
                   <Image layout={"responsive"} src={"/images/cheems.png"} width={200} height={317} alt={"cheems"}/>
                 </div>
 
-                <ProgressBar minLabel={"$"+min.toLocaleString()} maxLabel={"$"+max.toLocaleString()} nowLabel={"$"+now.toLocaleString()} max={max} min={min} now={now} thumb={<div 
+                <ProgressBar minLabel={"$"+min.toLocaleString()} maxLabel={"$"+max.toLocaleString()} nowLabel={_now ? ("$"+_now.toLocaleString()) : ""} max={max} min={min} now={_now} thumb={<div 
                   className={css("relative", "w-full", "h-full", "border-[1px]", "rounded-full", "border-black", "bg-yellow-400", "overflow-hidden")}>
                   <div className={css("absolute", "w-[80px]", "-left-[18px]", "-top-[3px]")}>
                     <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258} alt={"bday doge"}/>
@@ -302,18 +303,20 @@ const TitleDivider: React.FC<PropsWithChildren<{ children: ReactNode }>> = ({chi
 }
 
 const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({item}) => {
-  return <Button block>
+  return <Link isExternal href={item.explorerUrl}>
+    <Button block>
     <div className={css("w-full", "p-1")}>
       <div className={css("flex", "justify-between", "text-2xl")}>
         <div>{item.currency}</div>
-        <div>+{item.amount}</div>
+        <div>~${item.currencyUSDNotional.toLocaleString()}</div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
-        <div className={css("font-normal", "text-lg")}>{item.clientAddress}</div>
+        <div className={css("font-normal", "text-lg")}>{abbreviate(item.fromAddress, 4)}</div>
         <Pill type={"donation"}/>
       </div>
     </div>
   </Button>
+  </Link>
 }
 
 const SwapItem: React.FC<PropsWithChildren<{ item: RainbowSwap }>> = ({item}) => {
