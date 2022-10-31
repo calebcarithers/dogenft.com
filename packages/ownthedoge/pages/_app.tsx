@@ -6,10 +6,9 @@ import {WagmiConfig} from 'wagmi';
 import {chains, wagmiClient} from "../services/wagmi";
 import {lightTheme, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import {ConnectButton} from "../components/Button/Button";
+import {ConnectButton} from "../../dsl/components/Button/Button";
 import {css} from "../helpers/css";
-import tailwindconfig from "../tailwind.config"
-import {isProduction} from "../environment";
+const tailwindconfig = require("../tailwind.config")
 import {pageView} from "../services/ga";
 import {useRouter} from "next/router";
 import Script from "next/script";

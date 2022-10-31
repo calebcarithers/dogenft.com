@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --toastify-color-progress-light: #fbcc14!important;
+  --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6)!important;
+  --rsbs-bg: #FFF8E4!important;
+  --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14)!important;
+  --rsbs-max-w: 850px!important;
+  --rsbs-ml: auto!important;
+  --rsbs-mr: auto!important;
+  --rsbs-overlay-rounded: 16px!important;
+}
+
+reach-portal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.emojipop {
+  z-index: -10;
+}
+
+.Toastify__toast {
+  background: #FFF8E4!important;
+  border-radius: 0px!important;
+  border-width: 1px!important;
+  border-color: black!important;
+  /* z-index: 999999; */
+  color: black!important;
+  font-family: 'Comic Neue'!important;
+  font-weight: normal!important;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: "#FFF8E4";
+}

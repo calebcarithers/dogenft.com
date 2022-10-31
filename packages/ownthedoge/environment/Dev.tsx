@@ -1,6 +1,6 @@
 import React, {PropsWithChildren, useState} from "react"
 import {isDev} from "./index";
-import Button from "../components/Button/Button";
+import Button from "../../dsl/components/Button/Button";
 import {css} from "../helpers/css";
 
 

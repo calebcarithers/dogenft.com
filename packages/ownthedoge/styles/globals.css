@@ -1,78 +1,14 @@
+@import 'dsl/styles/globals.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@font-face {
-  font-family: "Comic Neue";
-  src: url("/fonts/ComicNeue-Light.ttf");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Comic Neue";
-  src: url("/fonts/ComicNeue-Regular.ttf");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Comic Neue";
-  src: url("/fonts/ComicNeue-Bold.ttf");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PressStart2P";
-  src: url("/fonts/PressStart2P-Regular.ttf");
-  font-weight: 400;
-  font-style: normal;
-}
-
-.emojipop {
-  z-index: -10;
-}
-
-html {
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
 
 #__next {
   height: 100%;
   min-height: inherit;
   display: flex;
   flex-direction: column;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-wekbik-scrollbar-track {
-  border-style: solid;
-  border-width: 2px;
-  border-color: #d2cbbb;
-  border-radius: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #d2cbbb;
-  border-radius: 8px;
-}
-
-::-webkit-scrollbar-corner {
-  background-color: #d2cbbb;
 }
 
 [data-rk] {

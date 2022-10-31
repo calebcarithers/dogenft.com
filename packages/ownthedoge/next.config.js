@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  images: {
-    domains: ["dl.airtable.com"]
-  }
 }
 
-module.exports = nextConfig
+const withTm = require('next-transpile-modules')(['dsl'])
+module.exports = withTm(nextConfig)

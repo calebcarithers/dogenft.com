@@ -1,8 +1,8 @@
-import Modal, {DialogSize} from "../../components/Modal/Modal";
+import Modal, {DialogSize} from "dsl/components/Modal/Modal";
 import React from "react";
 import {css} from "../../helpers/css";
 import {actionLinks, tradeLinks, chains, readLinks, socialLinks} from "../../components/Footer/Links";
-import Link, {LinkSize, LinkType} from "../../components/Link/Link";
+import Link, {LinkSize, LinkType} from "../../../dsl/components/Link/Link";
 import {GoLinkExternal} from "react-icons/go";
 
 const LinksModal = ({open, onChange}: {open: boolean, onChange: (value: boolean) => void}) => {
