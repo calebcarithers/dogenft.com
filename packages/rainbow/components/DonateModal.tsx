@@ -121,12 +121,12 @@ const AddressView = () => {
         if (state.donationModalCurrency === DonationCurrency.Ethereum) {
             return {
                 address: state.ethereumDonationAddress,
-                title: "ERC20's / ETH Address"
+                title: "ERC20's / ETH address"
             }
         } else if (state.donationModalCurrency === DonationCurrency.Dogecoin) {
             return {
                 address: state.dogeDonationAddress,
-                title: "Dogecoin Address"
+                title: "Dogecoin address"
             }
         }
     }, [state.donationModalCurrency, state.ethereumDonationAddress, state.dogeDonationAddress])
@@ -139,7 +139,7 @@ const AddressView = () => {
             <div className={css("mt-8")}>
                 <div className={css("font-bold", "flex", "justify-between", "items-center")}>
                     <div className={css("text-2xl")}>{depositDetails?.title}</div>
-                    <div className={css("cursor-pointer", "active:translate-x-[1px]", "active:translate-y-[1px]")} onClick={() => {
+                    <div className={css("cursor-pointer", "active:translate-x-[1px]", "active:translate-y-[1px]", "text-pixels-yellow-500")} onClick={() => {
                         try {
                             navigator.clipboard.writeText(depositDetails!.address).then(() => {
                                 toast(`✅ ${depositDetails?.title} copied`, {toastId: `donate-${depositDetails?.address}`})
