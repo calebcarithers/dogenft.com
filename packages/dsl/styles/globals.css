@@ -28,10 +28,6 @@ reach-portal {
   z-index: -10;
 }
 
-/* .Toastify {
-  z-index: 999999;
-} */
-
 .Toastify__toast {
   background: #FFF8E4;
   border-radius: 0px;
@@ -42,10 +38,6 @@ reach-portal {
   font-family: 'Comic Neue';
   font-weight: normal;
 }
-
-/* .Toastify__toast-container {
-  z-index: 999999;
-} */
 
 html {
   padding: 0;
