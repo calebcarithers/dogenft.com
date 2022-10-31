@@ -19,24 +19,28 @@ import { TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)
+  const config = {
+    refetchInterval: 2 * 1000,
+    refetchIntervalInBackground: true
+  }
 
   const {
     isLoading: isDonationsLoading,
     error: donationsError,
     data: donations
-  } = useQuery(['getDonations'], getDonations)
+  } = useQuery(['getDonations'], getDonations, config)
 
   const {
     isLoading: isSwapsLoading,
     error: swapsError,
     data: swaps
-  } = useQuery(['getSwaps'], getSwaps)
+  } = useQuery(['getSwaps'], getSwaps, config)
 
   const {
     isLoading: isLeaderboardLoading,
     error: leaderBoardError,
     data: leaderboard
-  } = useQuery(['getLeaderboard'], getLeaderboard)
+  } = useQuery(['getLeaderboard'], getLeaderboard, config)
 
 
   const {
