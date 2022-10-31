@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import '../styles/globals.css';
 
 const queryClient = new QueryClient()
@@ -11,6 +13,7 @@ function MyApp({Component, pageProps}: AppProps) {
     <div>
       <Component {...pageProps} />
     </div>
+    <ToastContainer position={"bottom-center"} autoClose={1500} limit={1}/>
   </QueryClientProvider>
 }
 

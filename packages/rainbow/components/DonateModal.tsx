@@ -5,7 +5,9 @@ import { css } from "dsl/helpers/css"
 import Image from "next/image"
 import { useMemo } from "react"
 import { BsArrowLeft } from "react-icons/bs"
+import { IoCopyOutline } from "react-icons/io5"
 import QRCode from "react-qr-code"
+import { toast } from "react-toastify"
 import { CSSTransition } from "react-transition-group"
 import { DonationCurrency, DonationModalView, useAppStore } from "../store/app.store"
 
@@ -115,20 +117,43 @@ const WarningView = () => {
 
 const AddressView = () => {
     const state = useAppStore(state => state)
-    const depositAddress = useMemo(() => {
-        return state.donationModalCurrency === DonationCurrency.Ethereum ? state.ethereumDonationAddress : state.dogeDonationAddress
+    const depositDetails = useMemo(() => {
+        if (state.donationModalCurrency === DonationCurrency.Ethereum) {
+            return {
+                address: state.ethereumDonationAddress,
+                title: "ERC20's / ETH Address"
+            }
+        } else if (state.donationModalCurrency === DonationCurrency.Dogecoin) {
+            return {
+                address: state.dogeDonationAddress,
+                title: "Dogecoin Address"
+            }
+        }
     }, [state.donationModalCurrency, state.ethereumDonationAddress, state.dogeDonationAddress])
 
     return <div>
         <div className={css("p-4", "font-bold", "text-lg", "flex", "flex-col", "items-center", "gap-4")}>
-            {/* <div className={css("font-normal", "underline")}>
-                {state.donationModalCurrency}
-            </div> */}
             <div className={css("p-5", "border-2", "border-pixels-yellow-400", "border-dashed", "max-w-fit", "bg-pixels-yellow-200")}>
-                <QRCode value={depositAddress} style={{display: "inline-block"}}/>
+                <QRCode value={depositDetails!.address} style={{display: "inline-block"}}/>
             </div>
-            <div>
-                {depositAddress}
+            <div className={css("mt-8")}>
+                <div className={css("font-bold", "flex", "justify-between", "items-center")}>
+                    <div className={css("text-2xl")}>{depositDetails?.title}</div>
+                    <div className={css("cursor-pointer", "active:translate-x-[1px]", "active:translate-y-[1px]")} onClick={() => {
+                        try {
+                            navigator.clipboard.writeText(depositDetails!.address).then(() => {
+                                toast(`✅ ${depositDetails?.title} copied`)
+                            })
+                        } catch (e) {
+                            throw new Error("Could not copy")
+                        }
+                    }}>
+                        <IoCopyOutline/>
+                    </div>
+                </div>
+                <div className={css("font-normal", "text-2xl", "break-all", "text-pixels-yellow-500")}>
+                    {depositDetails!.address}
+                </div>
             </div>
         </div>
     </div>
