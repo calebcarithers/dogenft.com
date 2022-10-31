@@ -85,6 +85,7 @@ const Home: NextPage = () => {
               </div>
             </section>
 
+
             <section className={css("text-center", "px-10")}>
               <div className={css("text-xl", "mt-20", "relative")}>
                 <div className={css("w-[50px]", "absolute", "left-0", "top-0", "z-10", "-translate-y-1/2", "-translate-x-1/2")}>
