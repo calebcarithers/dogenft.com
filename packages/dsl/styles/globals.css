@@ -4,9 +4,32 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --toastify-color-progress-light: #fbcc14;
+}
+
 .emojipop {
   z-index: -10;
 }
+
+.Toastify {
+  z-index: 999999;
+}
+
+.Toastify__toast {
+  background: #FFF8E4;
+  border-radius: 0px;
+  border-width: 2px;
+  border-color: black;
+  z-index: 999999;
+  color: black;
+  font-family: 'Comic Neue';
+  font-weight: bold;
+}
+
+.Toastify__toast-container {
+  z-index: 999999;
+  }
 
 html {
   padding: 0;

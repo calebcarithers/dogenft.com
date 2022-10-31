@@ -16,7 +16,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { TwitterIcon, TwitterShareButton } from "react-share";
 import { ClientSide, Donation, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
 import DonateModal from "../components/DonateModal";
-import { TabType, useAppStore } from "../store/app.store";
+import { TabToTitle, TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)
@@ -154,7 +154,7 @@ const Home: NextPage = () => {
               <div>
                 <Tabs
                   className={css("mb-2", "text-xl")}
-                  items={Object.keys(TabType).map(tab => ({name: tab, key: tab}))}
+                  items={Object.keys(TabType).map(tab => ({name: TabToTitle[tab as TabType], key: tab}))}
                   onClick={(type) => state.setCampaignTab(type as TabType)}
                   selected={state.campaignTab}
                 />
@@ -203,7 +203,7 @@ const Home: NextPage = () => {
               <div>
                 <Tabs
                   className={css("mb-2", "text-xl")}
-                  items={Object.keys(TabType).map(tab => ({name: tab, key: tab}))}
+                  items={Object.keys(TabType).map(tab => ({name: TabToTitle[tab as TabType], key: tab}))}
                   onClick={(type) => state.setLeaderboardTab(type as TabType)}
                   selected={state.leaderboardTab}
                 />

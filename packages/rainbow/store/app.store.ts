@@ -7,6 +7,11 @@ export enum TabType {
   Swaps = "Swaps"
 }
 
+export const TabToTitle = {
+  [TabType.Donations]: "Donations",
+  [TabType.Swaps]: "🌈 Swaps"
+}
+
 export enum DonationModalView {
   Donate = "Donate",
   Warning = "Warning",

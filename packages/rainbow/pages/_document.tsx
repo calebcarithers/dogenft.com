@@ -1,6 +1,9 @@
 import { css } from "dsl/helpers/css";
 import { Head, Html, Main, NextScript } from 'next/document';
 
+
+export const toastifyPortalId = "react-toastify-portal"
+
 export default function Document() {
   return (
     <Html>
@@ -9,8 +12,8 @@ export default function Document() {
         backgroundImage: `url(/images/doge-tiled.jpg)`,
         backgroundColor: 'rgba(255, 248, 228, 0.92)'
         }}>
-      <Main/>
-      <NextScript/>
+        <Main/>
+        <NextScript/>
       </body>
     </Html>
   )

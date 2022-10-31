@@ -142,16 +142,16 @@ const AddressView = () => {
                     <div className={css("cursor-pointer", "active:translate-x-[1px]", "active:translate-y-[1px]")} onClick={() => {
                         try {
                             navigator.clipboard.writeText(depositDetails!.address).then(() => {
-                                toast(`✅ ${depositDetails?.title} copied`)
+                                toast(`✅ ${depositDetails?.title} copied`, {toastId: `donate-${depositDetails?.address}`})
                             })
                         } catch (e) {
                             throw new Error("Could not copy")
                         }
                     }}>
-                        <IoCopyOutline/>
+                        <IoCopyOutline size={22}/>
                     </div>
                 </div>
-                <div className={css("font-normal", "text-2xl", "break-all", "text-pixels-yellow-500")}>
+                <div className={css("font-normal", "text-2xl", "break-all", "text-pixels-yellow-500", "mt-1")}>
                     {depositDetails!.address}
                 </div>
             </div>

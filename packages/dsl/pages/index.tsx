@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Button from '../components/Button/Button'
 import ColoredText from '../components/ColoredText/ColoredText'
+import ToastDemo from '../components/Toast/Toast.demo'
 import { css } from '../helpers/css'
 import styles from '../styles/Home.module.css'
 
@@ -22,6 +22,7 @@ const Home: NextPage = () => {
         <div className={css("max-w-xl", "w-full", "border-2", "border-pixels-yellow-200", "border-dashed", "p-3")}>
           <Button>test this out!</Button>
         </div>
+        <ToastDemo/>
       </main>
     </div>
   )

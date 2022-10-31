@@ -8,13 +8,13 @@ import '../styles/globals.css';
 const queryClient = new QueryClient()
 
 function MyApp({Component, pageProps}: AppProps) {
-  return <QueryClientProvider client={queryClient}>
-    <ReactQueryDevtools initialIsOpen={false}/>
-    <div>
+  return <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false}/>
       <Component {...pageProps} />
-    </div>
-    <ToastContainer position={"bottom-center"} autoClose={1500} limit={1}/>
+      <ToastContainer position={"bottom-center"} autoClose={1000} limit={1}/>
   </QueryClientProvider>
+  </>
 }
 
 export default MyApp

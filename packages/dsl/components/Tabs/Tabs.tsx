@@ -1,4 +1,4 @@
-import {css} from "../../helpers/css";
+import { css } from "../../helpers/css";
 
 interface TabsProps {
   items: { key: string, name: string }[];
@@ -9,7 +9,7 @@ interface TabsProps {
 
 export const Tabs: React.FC<TabsProps> = ({items, className, onClick, selected}) => {
   return <div className={css("flex", "gap-4", className)}>
-    {items.map(item => <span className={css("cursor-pointer", {
+    {items.map(item => <span className={css("cursor-pointer", "underline-offset-4", {
       "underline": selected === item.key
     })} onClick={() => {
       if (onClick) {
