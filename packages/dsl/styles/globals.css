@@ -28,24 +28,24 @@ reach-portal {
   z-index: -10;
 }
 
-.Toastify {
+/* .Toastify {
   z-index: 999999;
-}
+} */
 
 .Toastify__toast {
   background: #FFF8E4;
   border-radius: 0px;
   border-width: 1px;
   border-color: black;
-  z-index: 999999;
+  /* z-index: 999999; */
   color: black;
   font-family: 'Comic Neue';
   font-weight: normal;
 }
 
-.Toastify__toast-container {
+/* .Toastify__toast-container {
   z-index: 999999;
-  }
+} */
 
 html {
   padding: 0;
@@ -65,18 +65,18 @@ body {
   height: 8px;
 }
 
-::-wekbik-scrollbar-track {
+::-webkit-scrollbar-track {
   border-style: solid;
-  border-width: 2px;
-  border-color: #d2cbbb;
+  border-width: 1px;
+  border-color: black;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d2cbbb;
+  background-color: black;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: #d2cbbb;
+  background-color: "#FFF8E4";
 }
