@@ -226,7 +226,6 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </section>
-
             <footer className={css("my-28")}>
               <Divider/>
               <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "my-14", "gap-12")}>
