@@ -6,6 +6,22 @@
 
 :root {
   --toastify-color-progress-light: #fbcc14;
+  --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6);
+  --rsbs-bg: #FFF8E4;
+  --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14);
+  --rsbs-max-w: 850px;
+  --rsbs-ml: auto;
+  --rsbs-mr: auto;
+  --rsbs-overlay-rounded: 16px;
+}
+
+reach-portal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 .emojipop {
@@ -19,7 +35,7 @@
 .Toastify__toast {
   background: #FFF8E4;
   border-radius: 0px;
-  border-width: 2px;
+  border-width: 1px;
   border-color: black;
   z-index: 999999;
   color: black;

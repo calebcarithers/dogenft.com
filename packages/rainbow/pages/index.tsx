@@ -12,10 +12,11 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from "next/image";
 import { PropsWithChildren, ReactNode, useCallback } from "react";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
+import { TfiWorld } from "react-icons/tfi";
 import { TwitterIcon, TwitterShareButton } from "react-share";
 import { ClientSide, Donation, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
-import DonateModal from "../components/DonateModal";
+import { DonateBottomSheet } from "../components/DonateModal";
 import { TabToTitle, TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
@@ -135,7 +136,8 @@ const Home: NextPage = () => {
                   About this campaign
                 </div>
                 <div>
-                  For Kabosu{"'"}s (The Doge!) 17th Birthday, we are crowdfunding <ColoredText className={css("font-bold")}>AND EPIC BRONZE STATUE</ColoredText>
+                  For Kabosu{"'"}s (The Doge!) 17th Birthday, we are crowdfunding 
+                  <ColoredText className={css("font-bold")}>AND EPIC BRONZE STATUE</ColoredText>
                   {' '}in a park in Kabosu{"'"}s hometown in Sakura, Japan
                 </div>
                 <div>
@@ -249,10 +251,35 @@ const Home: NextPage = () => {
               </div>
               <Divider/>
             </footer>
+            <div className={css("flex", "items-center", "justify-center")}>
+              <div className={css("flex", "items-center", "gap-4")}>
+                <div>
+                  <Link isExternal href={"https://twitter.com/kabosumama"}>
+                    <div className={css("text-pixels-yellow-400")}>
+                      <BsTwitter/>
+                    </div>
+                  </Link>
+                </div>
+                <div>
+                  <Link isExternal href={"https://kabochan.blog.jp/"}>
+                    <div className={css("text-pixels-yellow-400")}>
+                      <TfiWorld/>
+                    </div>
+                  </Link>
+                </div>
+                <div>
+                  <Link isExternal href={"https://www.instagram.com/kabosumama/"}>
+                    <div className={css("text-pixels-yellow-400")}>
+                      <BsInstagram/>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
-      {state.isDonateDialogOpen && <DonateModal />}
+      <DonateBottomSheet/>
     </>
   )
 }

@@ -1,3 +1,4 @@
+import BottomSheet from "dsl/components/BottomSheet/BottomSheet"
 import Button from "dsl/components/Button/Button"
 import { Divider } from "dsl/components/Divider/Divider"
 import Modal from "dsl/components/Modal/Modal"
@@ -8,7 +9,6 @@ import { BsArrowLeft } from "react-icons/bs"
 import { IoCopyOutline } from "react-icons/io5"
 import QRCode from "react-qr-code"
 import { toast } from "react-toastify"
-import { CSSTransition } from "react-transition-group"
 import { DonationCurrency, DonationModalView, useAppStore } from "../store/app.store"
 
 const DonateModal = () => {
@@ -17,39 +17,55 @@ const DonateModal = () => {
         if (!isOpen) {
             state.resetModalState()
         }
-        state.setIsDonateDialogOpen(isOpen)
     }}>
-        <div className={css("relative", "pb-6")}>
-            {state.donationModalView !== DonationModalView.Donate && <div
-            className={css("cursor-pointer", "text-4xl", "inline-block", "absolute", "-top-[60px]", "active:translate-x-1", "active:translate-y-1")} 
-            onClick={() => {
-                let viewToSet = DonationModalView.Donate
-                switch (state.donationModalView) {
-                    case DonationModalView.Warning:
-                        viewToSet = DonationModalView.Donate
-                        break
-                    case DonationModalView.Address:
-                        viewToSet = DonationModalView.Warning
-                        break
-                    default:
-                        viewToSet = DonationModalView.Donate
-                        break
-                }
-                state.setDonationModalView(viewToSet)
-            }}>
-                <BsArrowLeft />    
-            </div>}
-            <div className={css("mt-16")}>
-                <CSSTransition timeout={1000} classNames={"donate-modal"}>
-                    <>
-                        {state.donationModalView === DonationModalView.Donate && <DonateView />}
-                        {state.donationModalView === DonationModalView.Warning && <WarningView />}
-                        {state.donationModalView === DonationModalView.Address && <AddressView />}
-                    </>
-                </CSSTransition>
-            </div>
-        </div>
+        <DonateDialog/>
   </Modal>
+}
+
+export const DonateBottomSheet = () => {
+    const state = useAppStore(state => state)
+    return <BottomSheet 
+        // defaultSnap={({minHeight}) => minHeight}
+        open={state.isDonateDialogOpen} 
+        onDismiss={() => state.resetModalState()}
+    >
+        <div className={css("text-4xl", "font-bold", "text-center")}>✨ Donate ✨</div>
+        <DonateDialog/>
+  </BottomSheet>
+}
+
+const DonateDialog = () => {
+    const state = useAppStore((state) => state)
+    return <div className={css("relative", "pb-6", "h-full")}>
+    {state.donationModalView !== DonationModalView.Donate && <div
+        className={css("cursor-pointer", "text-4xl", "inline-block", "absolute", "-top-[60px]", "active:translate-x-1", "active:translate-y-1")} 
+    onClick={() => {
+        let viewToSet = DonationModalView.Donate
+        switch (state.donationModalView) {
+            case DonationModalView.Warning:
+                viewToSet = DonationModalView.Donate
+                break
+            case DonationModalView.Address:
+                viewToSet = DonationModalView.Warning
+                break
+            default:
+                viewToSet = DonationModalView.Donate
+                break
+        }
+        state.setDonationModalView(viewToSet)
+    }}>
+        <BsArrowLeft />    
+    </div>}
+    <div className={css("mt-16")}>
+        {/* <CSSTransition timeout={1000} classNames={"donate-modal"}> */}
+            <>
+                {state.donationModalView === DonationModalView.Donate && <DonateView />}
+                {state.donationModalView === DonationModalView.Warning && <WarningView />}
+                {state.donationModalView === DonationModalView.Address && <AddressView />}
+            </>
+        {/* </CSSTransition> */}
+    </div>
+</div>
 }
 
 const DonateView = () => {
@@ -151,7 +167,7 @@ const AddressView = () => {
                         <IoCopyOutline size={22}/>
                     </div>
                 </div>
-                <div className={css("font-normal", "text-2xl", "break-all", "text-pixels-yellow-500", "mt-1")}>
+                <div className={css("font-normal", "text-2xl", "break-all", "text-pixels-yellow-500", "mt-1", "select-text")}>
                     {depositDetails!.address}
                 </div>
             </div>

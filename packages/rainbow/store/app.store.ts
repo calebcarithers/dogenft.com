@@ -53,7 +53,8 @@ export const useAppStore = create<AppStore>((set) => ({
   donationModalCurrency: null,
   resetModalState: () => set({
     donationModalView: DonationModalView.Donate,
-    donationModalCurrency: null
+    donationModalCurrency: null,
+    isDonateDialogOpen: false
   }),
   setCampaignTab: (campaignTab: TabType) => set({campaignTab}),
   setLeaderboardTab: (leaderboardTab: TabType) => set({leaderboardTab}),

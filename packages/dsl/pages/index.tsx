@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Button from '../components/Button/Button'
+import BottomSheetDemo from '../components/BottomSheet/BottomSheet.demo'
 import ColoredText from '../components/ColoredText/ColoredText'
 import ToastDemo from '../components/Toast/Toast.demo'
 import { css } from '../helpers/css'
@@ -15,14 +15,12 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={css("bg-pixels-yellow-100", "flex", "flex-col", "items-center")}>
+      <main className={css("bg-pixels-yellow-100", "flex", "flex-col", "items-center", "gap-6")}>
         <div className={css("font-bold", "text-3xl", "mb-4")}>
           <ColoredText>Own The Doge DSL</ColoredText>
         </div>
-        <div className={css("max-w-xl", "w-full", "border-2", "border-pixels-yellow-200", "border-dashed", "p-3")}>
-          <Button>test this out!</Button>
-        </div>
         <ToastDemo/>
+        <BottomSheetDemo/>
       </main>
     </div>
   )
