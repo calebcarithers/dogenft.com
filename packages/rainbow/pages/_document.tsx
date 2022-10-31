@@ -9,7 +9,7 @@ export default function Document() {
     <Html>
       <Head title={"Rainbow x The Doge NFT"}/>
       <body className={css("font-ComicNeue", "bg-blend-lighten")} style={{
-        backgroundImage: `url(/images/doge-tiled.jpg)`,
+        backgroundImage: `url(/images/doge-tiled.png)`,
         backgroundColor: 'rgba(255, 248, 228, 0.92)'
         }}>
         <Main/>
