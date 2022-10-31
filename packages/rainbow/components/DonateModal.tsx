@@ -118,7 +118,7 @@ const WarningView = () => {
 
     return <div className={css("flex", "flex-col", "gap-6")}>
         <div className={css("flex", "justify-center")}>
-            <div className={css("max-w-[150px]", "relative", "w-full", "inline-block", "border-2", "border-black")}>
+            <div className={css("max-w-[250px]", "relative", "w-full", "inline-block", "border-2", "border-black")}>
                 <Image layout={"responsive"} width={100} height={100} src={"/images/doge-actually.jpeg"} alt={"doge actually"} priority/>
             </div>
         </div>

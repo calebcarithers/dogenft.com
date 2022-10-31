@@ -12,7 +12,7 @@ function MyApp({Component, pageProps}: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false}/>
       <Component {...pageProps} />
-      <ToastContainer position={"bottom-center"} autoClose={1500} limit={1} closeOnClick/>
+      <ToastContainer position={"bottom-center"} autoClose={1500}/>
   </QueryClientProvider>
   </>
 }

@@ -40,7 +40,7 @@ reach-portal {
   z-index: 999999;
   color: black;
   font-family: 'Comic Neue';
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .Toastify__toast-container {
