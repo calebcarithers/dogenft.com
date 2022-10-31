@@ -65,13 +65,17 @@ const Home: NextPage = () => {
           <div className={css("max-w-4xl", "w-full")}>
             <section>
               <div className={css("flex", "justify-center", "items-center", "gap-6", "mb-14", "text-3xl", "md:text-6xl")}>
+                <div className={css("hidden", "lg:block")}>
                 <BirthdayStar>🗿</BirthdayStar>
+                </div>
                 <div className={css("text-center")}>
                   <div className={css("text-4xl", "font-bold")}>
                     Happy 17th Birthday Doge!
                   </div>
                 </div>
-                <BirthdayStar>🐕</BirthdayStar>
+                <div className={css("hidden", "lg:block")}>
+                  <BirthdayStar>🐕</BirthdayStar>
+                </div>
               </div>
               <div className={css("flex", "justify-center")}>
                 <div className={css("max-w-sm", "border-solid", "border-2", "border-black", "w-full")}>

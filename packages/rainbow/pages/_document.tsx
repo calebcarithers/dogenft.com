@@ -8,9 +8,8 @@ export default function Document() {
   return (
     <Html>
       <Head title={"Rainbow x The Doge NFT"}/>
-      <body className={css("font-ComicNeue", "bg-blend-lighten")} style={{
-        backgroundImage: `url(/images/doge-tiled.jpg)`,
-        backgroundColor: 'rgba(255, 248, 228, 0.92)'
+      <body className={css("font-ComicNeue")} style={{
+          backgroundImage: `url(/images/doge-tiled.jpg)`
         }}>
         <Main/>
         <NextScript/>
