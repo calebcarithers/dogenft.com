@@ -13,6 +13,7 @@ import Head from 'next/head';
 import Image from "next/image";
 import { PropsWithChildren, ReactNode, useCallback } from "react";
 import { BsArrowRight } from "react-icons/bs";
+import { TwitterIcon, TwitterShareButton } from "react-share";
 import { ClientSide, Donation, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
 import DonateModal from "../components/DonateModal";
 import { TabType, useAppStore } from "../store/app.store";
@@ -110,7 +111,19 @@ const Home: NextPage = () => {
                 </Button>
 
                 <div className={css("my-10", "text-red-500", "font-bold")}>
-                  TODO: TWEET BUTTON
+                    <TwitterShareButton
+                      url={"https://bronzethedoge.xyz"}
+                      title={"Happy 17th Birthday Doge!\nLet's help Kabosu (Doge) be remembered forever. Help us raise funds to create a bronze Kabosu statue in Japan."}
+                      related={["bronzethedoge", "Kabosu17Birthday", "Doge", "kabosu"]}
+                      hashtags={["bronzethedoge"]}
+                    >
+                      <Button rounded>
+                        <div className={css("flex", "items-center", "gap-2", "mr-1")}>
+                          <TwitterIcon size={32} round/>
+                          <div>Tweet it</div>
+                        </div>
+                      </Button>
+                    </TwitterShareButton>
                 </div>
               </div>
             </section>
@@ -215,28 +228,13 @@ const Home: NextPage = () => {
             <footer className={css("my-28")}>
               <Divider/>
               <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "my-14", "gap-12")}>
-                {/* <div className={css("grid", "grid-cols-2", "order-2", "md:order-1")}>
-                  <div className={css("flex", "flex-col", "items-start")}>
-                    <div className={css("font-bold")}>The Doge NFT</div>
-                    <Link type={LinkType.Black} isExternal href={"https://ownthedoge.com"}>About</Link>
-                    <Link type={LinkType.Black} isExternal href={"https://pixels.ownthedoge.com"}>Mint Pixels</Link>
-                    <Link type={LinkType.Black} isExternal href={"https://pixels.ownthedoge.com/perks"}>Pixel
-                      Perks</Link>
-                    <Link type={LinkType.Black} isExternal
-                          href={"https://www.coingecko.com/en/coins/the-doge-nft"}>Aquire</Link>
+                <div className={css("flex", "justify-center")}>
+                  <div className={css("max-w-[250px]", "w-full", "border-2", "border-black")}>
+                    <Image layout={"responsive"} width={1440} height={1440} src={"/images/kabosu-birthday.png"} alt={"birthday doge"}/>
                   </div>
-                  <div className={css("flex", "flex-col")}>
-                    <div className={css("font-bold")}>Rainbow</div>
-                    <Link type={LinkType.Black} isExternal href={"https://rainbow.me/"}>Download</Link>
-                    <Link type={LinkType.Black} isExternal href={"https://twitter.com/rainbowdotme"}>Twitter</Link>
-                    <Link type={LinkType.Black} isExternal href={"https://learn.rainbow.me/"}>Learn</Link>
-                  </div>
-                </div> */}
-                <div>
-                  TODO something else here
                 </div>
                 <div
-                  className={css("flex", "justify-center", "md:justify-end", "order-1", "md:order-2")}>
+                  className={css("flex", "justify-center", "md:justify-end", "order-1", "md:order-2", "items-center")}>
                     <div className={css("inline-block", "relative")}>
                       <Button>
                         <div className={css("p-2", "max-w-xs", "text-xl")}>Help us build {`Kabosu's`} statue in her
@@ -253,25 +251,6 @@ const Home: NextPage = () => {
             </footer>
           </div>
         </div>
-
-        {/* <div className={css("z-10")}>
-          <div
-            className={css("absolute", "-bottom-[60px]", "-left-[40px]", "md:-bottom-[140px]", "md:-left-[100px]", "rotate-[30deg]", "max-w-[150px]", "md:max-w-[305px]", "w-full")}>
-            <Image src={"/images/doge.png"} height={320.25} width={320.75} layout={"responsive"}/>
-          </div>
-          <div
-            className={css("absolute", "-bottom-[60px]", "-right-[20px]", "md:-bottom-[75px]", "md:-right-[75px]", "rotate-[270deg]", "max-w-[150px]", "md:max-w-[220px]", "w-full")}>
-            <Image src={"/images/rainbow.svg"} width={225} height={225} layout={"responsive"}/>
-          </div>
-
-          <div className={css("flex", "justify-center", "text-xl", "z-10", "gap-5")}>
-            <span className={css("font-bold", "z-10", "text-center")}>The Doge NFT</span>
-            <span>🤝</span>
-            <span className={css("max-w-[100px]", "w-full")}>
-              <Image src={"/images/rainbow-logo.svg"} height={30} width={100} layout={"responsive"}/>
-            </span>
-          </div>
-        </div> */}
       </main>
       {state.isDonateDialogOpen && <DonateModal />}
     </>

@@ -15,7 +15,6 @@ interface ProgressBarProps {
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, minLabel, maxLabel, nowLabel}) => {
   const conatinerRef = useRef<HTMLDivElement | null>(null)
-  const progressRef = useRef<HTMLDivElement>(null)
   const thumbRef = useRef<HTMLDivElement>(null)
 
   const percentage = useMemo(() => {
@@ -35,10 +34,10 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, m
         {thumb ? thumb : <div className={css("text-3xl")}>🐕</div>}
       </div>
     </div>
-    <div className={css("absolute", "top-16", "-translate-x-[50%]")} style={{
+    <div className={css("absolute", "top-24", "-translate-x-[50%]", "font-bold")} style={{
       left: `${percentage}%`
     }}>{nowLabel ? nowLabel : now}</div>
-    <div className={css("absolute", "left-0", "top-16")}>{minLabel ? minLabel : min}</div>
-    <div className={css("absolute", "right-0", "top-16")}>{maxLabel ? maxLabel : max}</div>
+    <div className={css("absolute", "left-0", "top-14")}>{minLabel ? minLabel : min}</div>
+    <div className={css("absolute", "right-0", "top-14")}>{maxLabel ? maxLabel : max}</div>
   </div>
 }
