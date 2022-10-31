@@ -65,13 +65,17 @@ const Home: NextPage = () => {
           <div className={css("max-w-4xl", "w-full")}>
             <section>
               <div className={css("flex", "justify-center", "items-center", "gap-6", "mb-14", "text-3xl", "md:text-6xl")}>
+                <div className={css("hidden", "lg:block")}>
                 <BirthdayStar>🗿</BirthdayStar>
+                </div>
                 <div className={css("text-center")}>
                   <div className={css("text-4xl", "font-bold")}>
                     Happy 17th Birthday Doge!
                   </div>
                 </div>
-                <BirthdayStar>🐕</BirthdayStar>
+                <div className={css("hidden", "lg:block")}>
+                  <BirthdayStar>🐕</BirthdayStar>
+                </div>
               </div>
               <div className={css("flex", "justify-center")}>
                 <div className={css("max-w-sm", "border-solid", "border-2", "border-black", "w-full")}>
@@ -84,6 +88,7 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </section>
+
 
             <section className={css("text-center", "px-10")}>
               <div className={css("text-xl", "mt-20", "relative")}>
@@ -226,13 +231,12 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </section>
-
             <footer className={css("my-28")}>
               <Divider/>
               <div className={css("grid", "grid-cols-1", "md:grid-cols-2", "my-14", "gap-12")}>
                 <div className={css("flex", "justify-center")}>
                   <div className={css("max-w-[250px]", "w-full", "border-2", "border-black")}>
-                    <Image layout={"responsive"} width={1440} height={1440} src={"/images/kabosu-birthday.png"} alt={"birthday doge"}/>
+                    <Image layout={"responsive"} width={1440} height={1440} src={"/images/kabosu-birthday.png"} alt={"birthday doge"} priority/>
                   </div>
                 </div>
                 <div

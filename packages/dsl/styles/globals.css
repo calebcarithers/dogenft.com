@@ -5,14 +5,14 @@
 @tailwind utilities;
 
 :root {
-  --toastify-color-progress-light: #fbcc14;
-  --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6);
-  --rsbs-bg: #FFF8E4;
-  --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14);
-  --rsbs-max-w: 850px;
-  --rsbs-ml: auto;
-  --rsbs-mr: auto;
-  --rsbs-overlay-rounded: 16px;
+  --toastify-color-progress-light: #fbcc14!important;
+  --rsbs-backdrop-bg: rgba(0, 0, 0, 0.6)!important;
+  --rsbs-bg: #FFF8E4!important;
+  --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14)!important;
+  --rsbs-max-w: 850px!important;
+  --rsbs-ml: auto!important;
+  --rsbs-mr: auto!important;
+  --rsbs-overlay-rounded: 16px!important;
 }
 
 reach-portal {
@@ -28,24 +28,16 @@ reach-portal {
   z-index: -10;
 }
 
-.Toastify {
-  z-index: 999999;
-}
-
 .Toastify__toast {
-  background: #FFF8E4;
-  border-radius: 0px;
-  border-width: 1px;
-  border-color: black;
-  z-index: 999999;
-  color: black;
-  font-family: 'Comic Neue';
-  font-weight: normal;
+  background: #FFF8E4!important;
+  border-radius: 0px!important;
+  border-width: 1px!important;
+  border-color: black!important;
+  /* z-index: 999999; */
+  color: black!important;
+  font-family: 'Comic Neue'!important;
+  font-weight: normal!important;
 }
-
-.Toastify__toast-container {
-  z-index: 999999;
-  }
 
 html {
   padding: 0;
@@ -65,18 +57,18 @@ body {
   height: 8px;
 }
 
-::-wekbik-scrollbar-track {
+::-webkit-scrollbar-track {
   border-style: solid;
-  border-width: 2px;
-  border-color: #d2cbbb;
+  border-width: 1px;
+  border-color: black;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #d2cbbb;
+  background-color: black;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-corner {
-  background-color: #d2cbbb;
+  background-color: "#FFF8E4";
 }
