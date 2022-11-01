@@ -143,19 +143,19 @@ const Home: NextPage = () => {
                 <div>
                   For Kabosu{"'"}s (The Doge!) 17th Birthday, we are crowdfunding 
                   <ColoredText className={css("font-bold")}>AND EPIC BRONZE STATUE</ColoredText>
-                  {' '}in a park in Kabosu{"'"}s hometown in Sakura, Japan
+                  {' '}in a park in Kabosu{"'"}s hometown in Sakura, Japan.
                 </div>
                 <div>
                   We are calling upon all Doge fans and communities to come together and make this a reality! To kick things off, Atsuko Sato (Doge{"'"}s Momma),
                   OwnTheDoge, The Dogecoin Foundation, Rainbow, Feisty Doge, PleasrDao, and Doge Pound are working to promote this initiative to Bronze the Doge!
                   We welcome all Doge fans and communities to participate through sharing or contributing. We also have cool rewards and perks that you can check out below!
-                  The donations run from Nov. 2nd (Kabosu{"'"}s B-day) to Dec. 8th (Dogecoin{"'"}s B-day)
+                  The donations run from Nov. 2nd (Kabosu{"'"}s B-day) to Dec. 8th (Dogecoin{"'"}s B-day).
                 </div>
                 <div>
-                  Review the detailed overview of the project <Link isExternal href={""}>TODO: LINK</Link>
+                  Review the detailed overview of the project on <Link isExternal href={"https://medium.com/@saladpingers/3fb431036951"}>Medium</Link>.
                 </div>
                 <div>
-                  Feel free to follow & contact us via the official twitter account for this campaign: <Link href={"https://mobile.twitter.com/BronzeTheDoge"} isExternal>@bronzethedoge</Link>
+                  Feel free to follow & contact us via the official twitter account for this campaign: <Link href={"https://mobile.twitter.com/BronzeTheDoge"} isExternal>@bronzethedoge</Link>.
                 </div>
               </div>
               <div>
