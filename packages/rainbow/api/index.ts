@@ -1,4 +1,5 @@
 import { isProd, isStaging } from "../environment/vars";
+import { LeaderboardDonation } from "./index";
 
 export enum ClientSide {
   BUY = "BUY",
@@ -46,18 +47,21 @@ export interface Donation {
   explorerUrl: string;
 }
 
-export interface LeaderboardSwap {
+export interface BaseLeaderboard {
   address: string;
-  swaps: RainbowSwap[];
   ens: string | null;
   usdNotional: number;
 }
 
-export interface LeaderboardDonation {
+export interface LeaderboardSwap extends BaseLeaderboard {
   address: string;
-  donations: RainbowSwap[];
   ens: string | null;
   usdNotional: number;
+  swaps: RainbowSwap[];
+}
+
+export interface LeaderboardDonation extends BaseLeaderboard {
+  donations: Donation[];
 }
 
 export interface Leaderboard {

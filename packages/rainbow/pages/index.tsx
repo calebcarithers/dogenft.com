@@ -15,7 +15,7 @@ import { PropsWithChildren, ReactNode, useCallback, useEffect } from "react";
 import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
 import { TfiWorld } from "react-icons/tfi";
 import { TwitterIcon, TwitterShareButton } from "react-share";
-import { ClientSide, Donation, getConfirm, getDonations, getLeaderboard, getNow, getSwaps, LeaderboardDonation, RainbowSwap } from "../api";
+import { BaseLeaderboard, ClientSide, Donation, getConfirm, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
 import { DonateBottomSheet } from "../components/DonateModal";
 import { vars } from "../environment/vars";
 import { GaActions, gaEvent } from "../services/ga";
@@ -115,9 +115,9 @@ const Home: NextPage = () => {
                 </div>
 
                 <ProgressBar 
-                minLabel={"$"+min.toLocaleString()} 
-                maxLabel={"$"+max.toLocaleString()} 
-                nowLabel={_now ? ("$"+_now.toLocaleString()) : "...loading"} 
+                minLabel={"$"+min?.toLocaleString()} 
+                maxLabel={"$"+max?.toLocaleString()} 
+                nowLabel={_now ? ("$"+_now?.toLocaleString()) : "...loading"} 
                 max={max} 
                 min={min} 
                 now={_now} 
@@ -251,8 +251,8 @@ const Home: NextPage = () => {
                     hasData={state.leaderboardTab === TabType.Donations ? (leaderboard?.donations && leaderboard?.donations?.length > 0) : (leaderboard?.swaps && leaderboard?.swaps?.length > 0)}
                     isLoading={state.leaderboardTab === TabType.Donations ? isDonationsLoading : isSwapsLoading}
                   >
-                    {state.leaderboardTab === TabType.Donations && leaderboard?.donations?.map((donation, index) => <LeaderBoardItem type={"donation"} index={index} item={donation} />)}
-                    {state.leaderboardTab === TabType.Swaps && leaderboard?.swaps?.map((swap, index) => <LeaderBoardItem type={"swap"} index={index} item={swap} />)}
+                    {state.leaderboardTab === TabType.Donations && leaderboard?.donations?.map((donation, index) => <LeaderBoardItem key={`donation-leaderboard-${donation.address}`} type={"donation"} index={index} item={donation} />)}
+                    {state.leaderboardTab === TabType.Swaps && leaderboard?.swaps?.map((swap, index) => <LeaderBoardItem key={`swap-leaderboard-${swap.address}`} type={"swap"} index={index} item={swap} />)}
                   </AsyncLoader>
                 </div>
               </div>
@@ -342,7 +342,7 @@ const TitleDivider: React.FC<PropsWithChildren<{ children: ReactNode }>> = ({chi
   </div>
 }
 
-const LeaderBoardItem: React.FC<{index: number, item: LeaderboardDonation, type: "donation" | "swap"}> = ({ item, index, type }) => {
+const LeaderBoardItem: React.FC<{index: number, item: BaseLeaderboard, type: "donation" | "swap"}> = ({ item, index, type }) => {
   return  <Button block>
     <div className={css("w-full", "p-1")}>
       <div className={css("flex", "justify-between")}>
@@ -351,7 +351,7 @@ const LeaderBoardItem: React.FC<{index: number, item: LeaderboardDonation, type:
           <div className={css("text-2xl", "font-bold")}>{item.ens ? item.ens : abbreviate(item.address, 4)}</div>
         </div>
         <div className={css("flex", "flex-col", "items-end", "gap-1")}>
-          <div className={css("font-bold", "text-2xl")}>~${item.usdNotional.toLocaleString()}</div>
+          <div className={css("font-bold", "text-2xl")}>~${item?.usdNotional?.toLocaleString()}</div>
           <div>
             {type === "donation" ? <Pill type={"donation"}/> : <Pill type={"swap"}/>}
           </div>
@@ -367,7 +367,7 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({item}) => 
     <div className={css("w-full", "p-1")}>
       <div className={css("flex", "justify-between", "text-2xl")}>
         <div>{item.currency}</div>
-        <div>~${item.currencyUSDNotional.toLocaleString()}</div>
+        <div>~${item?.currencyUSDNotional?.toLocaleString()}</div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
         <div className={css("font-normal", "text-lg")}>{item.fromEns ? item.fromEns : abbreviate(item.fromAddress, 4)}</div>
@@ -406,7 +406,7 @@ const SwapItem: React.FC<PropsWithChildren<{ item: RainbowSwap }>> = ({item}) =>
           {renderSwapIndicator()}
         </div>
         <div>
-          ~${item.donatedUSDNotional.toLocaleString()}
+          ~${item?.donatedUSDNotional?.toLocaleString()}
         </div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
