@@ -1,5 +1,4 @@
 import { isProd, isStaging } from "../environment/vars";
-import { LeaderboardDonation } from "./index";
 
 export enum ClientSide {
   BUY = "BUY",
