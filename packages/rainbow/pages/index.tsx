@@ -48,7 +48,7 @@ const Home: NextPage = () => {
 
 
   const {
-    data: now
+    data: now,
   } = useQuery(['getNow'], getNow)
 
   const {
@@ -56,7 +56,8 @@ const Home: NextPage = () => {
   } = useQuery(['getConfirm'], getConfirm)
 
   const max = 42069
-  const _now = now ? now.usdNotional : 0
+  
+  const _now = now ? now.usdNotional : max / 2
   const min = 0
   
   useEffect(() => {
@@ -114,7 +115,14 @@ const Home: NextPage = () => {
                   <Image layout={"responsive"} src={"/images/cheems.png"} width={200} height={317} alt={"cheems"}/>
                 </div>
 
-                <ProgressBar minLabel={"$"+min.toLocaleString()} maxLabel={"$"+max.toLocaleString()} nowLabel={_now ? ("$"+_now.toLocaleString()) : ""} max={max} min={min} now={_now} thumb={<div 
+                <ProgressBar 
+                minLabel={"$"+min.toLocaleString()} 
+                maxLabel={"$"+max.toLocaleString()} 
+                nowLabel={_now ? ("$"+_now.toLocaleString()) : "...loading"} 
+                max={max} 
+                min={min} 
+                now={_now} 
+                thumb={<div 
                   className={css("relative", "w-full", "h-full", "border-[1px]", "rounded-full", "border-black", "bg-yellow-400", "overflow-hidden")}>
                   <div className={css("absolute", "w-[80px]", "-left-[18px]", "-top-[3px]")}>
                     <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258} alt={"bday doge"}/>
@@ -125,7 +133,7 @@ const Home: NextPage = () => {
                   <Image layout={"responsive"} src={"/images/buff-doge.png"} width={340} height={389} alt={"buff doge"}/>
                 </div>
               </div>
-              <div className={css("my-32")}>
+              <div className={css("mb-32", "mt-44")}>
                 <Button emojisForExploding={["🐕", "🗿", "🐕", "🗿"]} onClick={() => {
                   state.setIsDonateDialogOpen(true)
                   gaEvent({action: GaActions.DonateButtonClick, params: {}})
