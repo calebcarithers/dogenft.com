@@ -17,6 +17,7 @@ import { TfiWorld } from "react-icons/tfi";
 import { TwitterIcon, TwitterShareButton } from "react-share";
 import { ClientSide, Donation, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
 import { DonateBottomSheet } from "../components/DonateModal";
+import { GaActions, gaEvent } from "../services/ga";
 import { TabToTitle, TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
@@ -110,6 +111,7 @@ const Home: NextPage = () => {
               <div className={css("my-32")}>
                 <Button emojisForExploding={["🐕", "🗿", "🐕", "🗿"]} onClick={() => {
                   state.setIsDonateDialogOpen(true)
+                  gaEvent({action: GaActions.DonateButtonClick, params: {}})
                 }}>
                   <div className={css("text-4xl", "p-1")}>
                     ✨ DONATE ✨
