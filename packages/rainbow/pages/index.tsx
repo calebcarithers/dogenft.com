@@ -56,7 +56,6 @@ const Home: NextPage = () => {
   } = useQuery(['getConfirm'], getConfirm)
 
   const max = 42069
-  
   const _now = now ? now.usdNotional : max / 2
   const min = 0
   
