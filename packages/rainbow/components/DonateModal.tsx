@@ -9,6 +9,7 @@ import { BsArrowLeft } from "react-icons/bs"
 import { IoCopyOutline } from "react-icons/io5"
 import QRCode from "react-qr-code"
 import { toast } from "react-toastify"
+import { GaActions, gaEvent } from "../services/ga"
 import { DonationCurrency, DonationModalView, useAppStore } from "../store/app.store"
 
 const DonateModal = () => {
@@ -137,12 +138,14 @@ const AddressView = () => {
         if (state.donationModalCurrency === DonationCurrency.Ethereum) {
             return {
                 address: state.ethereumDonationAddress,
-                title: "ERC20's / ETH address"
+                title: "ERC20's / ETH address",
+                onCopy: () => gaEvent({action: GaActions.EthereumAddressCopy, params: {}})
             }
         } else if (state.donationModalCurrency === DonationCurrency.Dogecoin) {
             return {
                 address: state.dogeDonationAddress,
-                title: "Dogecoin address"
+                title: "Dogecoin address",
+                onCopy: () => gaEvent({action: GaActions.DogecoinAddressCopy, params: {}})
             }
         }
     }, [state.donationModalCurrency, state.ethereumDonationAddress, state.dogeDonationAddress])
@@ -160,6 +163,7 @@ const AddressView = () => {
                             navigator.clipboard.writeText(depositDetails!.address).then(() => {
                                 toast(`✅ ${depositDetails?.title} copied`, {toastId: `donate-${depositDetails?.address}`})
                             })
+                            depositDetails?.onCopy()
                         } catch (e) {
                             throw new Error("Could not copy")
                         }
