@@ -15,7 +15,7 @@ import { PropsWithChildren, ReactNode, useCallback, useEffect } from "react";
 import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
 import { TfiWorld } from "react-icons/tfi";
 import { TwitterIcon, TwitterShareButton } from "react-share";
-import { ClientSide, Donation, getConfirm, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
+import { ClientSide, Donation, getConfirm, getDonations, getLeaderboard, getNow, getSwaps, LeaderboardDonation, RainbowSwap } from "../api";
 import { DonateBottomSheet } from "../components/DonateModal";
 import { vars } from "../environment/vars";
 import { GaActions, gaEvent } from "../services/ga";
@@ -251,8 +251,8 @@ const Home: NextPage = () => {
                     hasData={state.leaderboardTab === TabType.Donations ? (leaderboard?.donations && leaderboard?.donations?.length > 0) : (leaderboard?.swaps && leaderboard?.swaps?.length > 0)}
                     isLoading={state.leaderboardTab === TabType.Donations ? isDonationsLoading : isSwapsLoading}
                   >
-                    {state.leaderboardTab === TabType.Donations && leaderboard?.donations?.map(donation => <DonateItem key={`leaderboard-${donation.txHash}`} item={donation}/>)}
-                    {state.leaderboardTab === TabType.Swaps && leaderboard?.swaps?.map(swap => <SwapItem key={`leaderboard-${swap.txHash}`} item={swap}/>)}
+                    {state.leaderboardTab === TabType.Donations && leaderboard?.donations?.map((donation, index) => <LeaderBoardItem type={"donation"} index={index} item={donation} />)}
+                    {state.leaderboardTab === TabType.Swaps && leaderboard?.swaps?.map((swap, index) => <LeaderBoardItem type={"swap"} index={index} item={swap} />)}
                   </AsyncLoader>
                 </div>
               </div>
@@ -340,6 +340,25 @@ const TitleDivider: React.FC<PropsWithChildren<{ children: ReactNode }>> = ({chi
       <Divider/>
     </div>
   </div>
+}
+
+const LeaderBoardItem: React.FC<{index: number, item: LeaderboardDonation, type: "donation" | "swap"}> = ({ item, index, type }) => {
+  return  <Button block>
+    <div className={css("w-full", "p-1")}>
+      <div className={css("flex", "justify-between")}>
+        <div className={css("flex", "items-center", "gap-2")}>
+          <div className={css("font-normal", "text-2xl", "text-pixels-yellow-400")}>{index}</div>
+          <div className={css("text-2xl", "font-bold")}>{item.ens ? item.ens : abbreviate(item.address, 4)}</div>
+        </div>
+        <div className={css("flex", "flex-col", "items-end", "gap-1")}>
+          <div className={css("font-bold", "text-2xl")}>~${item.usdNotional.toLocaleString()}</div>
+          <div>
+            {type === "donation" ? <Pill type={"donation"}/> : <Pill type={"swap"}/>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </Button>
 }
 
 const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({item}) => {

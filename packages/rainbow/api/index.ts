@@ -46,20 +46,39 @@ export interface Donation {
   explorerUrl: string;
 }
 
-export interface Leaderboard {
+export interface LeaderboardSwap {
+  address: string;
   swaps: RainbowSwap[];
-  donations: Donation[];
+  ens: string | null;
+  usdNotional: number;
 }
 
+export interface LeaderboardDonation {
+  address: string;
+  donations: RainbowSwap[];
+  ens: string | null;
+  usdNotional: number;
+}
 
-const proxyBaseUrl = "http://localhost:3003/statue-campaign" 
+export interface Leaderboard {
+  swaps: LeaderboardSwap[];
+  donations: LeaderboardDonation[];
+}
 
-let baseUrl = isProd()
-  ? "https://api.ownthedoge.com/statue-campaign"
-  : "https://staging.api.ownthedoge.com/statue-campaign";
+const proxyBaseUrl = "http://localhost:3003/statue-campaign";
+
+let baseUrl: string;
+
+if (proxyBaseUrl) {
+  baseUrl = proxyBaseUrl;
+} else {
+  baseUrl = isProd()
+    ? "https://api.ownthedoge.com/statue-campaign"
+    : "https://staging.api.ownthedoge.com/statue-campaign";
+}
 
 if (!isProd() && !isStaging() && proxyBaseUrl) {
-  baseUrl = proxyBaseUrl
+  baseUrl = proxyBaseUrl;
 }
 
 export const getDonations = (): Promise<Donation[]> => {
@@ -78,6 +97,9 @@ export const getNow = (): Promise<{ usdNotional: number }> => {
   return fetch(baseUrl + "/now").then((res) => res.json());
 };
 
-export const getConfirm = (): Promise<{ dogecoinAddress: string, ethereumAddress: string }> => {
+export const getConfirm = (): Promise<{
+  dogecoinAddress: string;
+  ethereumAddress: string;
+}> => {
   return fetch(baseUrl + "/confirm").then((res) => res.json());
 };
