@@ -98,7 +98,7 @@ const Home: NextPage = () => {
               </div>
               <div className={css("flex", "justify-center")}>
                 <div className={css("max-w-sm", "border-solid", "border-2", "border-black", "w-full")}>
-                  <Image layout={"responsive"} src={"/images/doge-statue.jpeg"} width={1024} height={1024} alt={"Kabosu statue"}/>
+                  <Image layout={"responsive"} src={"/images/doge-hero.jpeg"} width={1024} height={1024} alt={"Kabosu statue"}/>
                 </div>
               </div>
               <div className={css("flex", "justify-center", "mt-8")}>
@@ -179,7 +179,7 @@ const Home: NextPage = () => {
                   The donations run from Nov. 2nd (Kabosu{"'"}s B-day) to Dec. 6th (Dogecoin{"'"}s B-day).
                 </div>
                 <div>
-                  Review the detailed overview of the project on <Link isExternal href={"https://medium.com/@saladpingers/3fb431036951"}>Medium</Link>.
+                  Review the detailed overview of the project <Link isExternal href={"https://medium.com/bronzethedoge/happy-birthday-kabosu-lets-bronze-the-doge-3fb431036951"}>here</Link>.
                 </div>
                 <div>
                   Feel free to follow & contact us via the official twitter account for this campaign: <Link href={"https://mobile.twitter.com/BronzeTheDoge"} isExternal>@bronzethedoge</Link>.
