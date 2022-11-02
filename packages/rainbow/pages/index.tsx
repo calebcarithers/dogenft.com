@@ -11,19 +11,20 @@ import { abbreviate } from "dsl/helpers/strings";
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from "next/image";
-import { PropsWithChildren, ReactNode, useCallback } from "react";
+import { PropsWithChildren, ReactNode, useCallback, useEffect } from "react";
 import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
 import { TfiWorld } from "react-icons/tfi";
 import { TwitterIcon, TwitterShareButton } from "react-share";
-import { ClientSide, Donation, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
+import { ClientSide, Donation, getConfirm, getDonations, getLeaderboard, getNow, getSwaps, RainbowSwap } from "../api";
 import { DonateBottomSheet } from "../components/DonateModal";
+import { vars } from "../environment/vars";
 import { GaActions, gaEvent } from "../services/ga";
 import { TabToTitle, TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state)
   const config = {
-    refetchInterval: 2 * 1000,
+    refetchInterval:  30 * 1000,
     refetchIntervalInBackground: true
   }
 
@@ -47,12 +48,29 @@ const Home: NextPage = () => {
 
 
   const {
-    data: now
+    data: now,
   } = useQuery(['getNow'], getNow)
 
+  const {
+    data: confirm
+  } = useQuery(['getConfirm'], getConfirm)
+
   const max = 42069
-  const _now = now ? now.usdNotional : 0
+  
+  const _now = now ? now.usdNotional : max / 2
   const min = 0
+  
+  useEffect(() => {
+    if (confirm) {
+      if (confirm.dogecoinAddress !== vars.dogecoinAddress) {
+        throw new Error("ABORT")
+      }
+
+      if (confirm.ethereumAddress !== vars.ethereumAddress) {
+        throw new Error("ABORT")
+      }
+    }
+  }, [])
 
   return (
     <>
@@ -97,7 +115,14 @@ const Home: NextPage = () => {
                   <Image layout={"responsive"} src={"/images/cheems.png"} width={200} height={317} alt={"cheems"}/>
                 </div>
 
-                <ProgressBar minLabel={"$"+min.toLocaleString()} maxLabel={"$"+max.toLocaleString()} nowLabel={_now ? ("$"+_now.toLocaleString()) : ""} max={max} min={min} now={_now} thumb={<div 
+                <ProgressBar 
+                minLabel={"$"+min.toLocaleString()} 
+                maxLabel={"$"+max.toLocaleString()} 
+                nowLabel={_now ? ("$"+_now.toLocaleString()) : "...loading"} 
+                max={max} 
+                min={min} 
+                now={_now} 
+                thumb={<div 
                   className={css("relative", "w-full", "h-full", "border-[1px]", "rounded-full", "border-black", "bg-yellow-400", "overflow-hidden")}>
                   <div className={css("absolute", "w-[80px]", "-left-[18px]", "-top-[3px]")}>
                     <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258} alt={"bday doge"}/>
@@ -108,7 +133,7 @@ const Home: NextPage = () => {
                   <Image layout={"responsive"} src={"/images/buff-doge.png"} width={340} height={389} alt={"buff doge"}/>
                 </div>
               </div>
-              <div className={css("my-32")}>
+              <div className={css("mb-32", "mt-44")}>
                 <Button emojisForExploding={["🐕", "🗿", "🐕", "🗿"]} onClick={() => {
                   state.setIsDonateDialogOpen(true)
                   gaEvent({action: GaActions.DonateButtonClick, params: {}})
@@ -143,8 +168,8 @@ const Home: NextPage = () => {
                   About this campaign
                 </div>
                 <div>
-                  For Kabosu{"'"}s (The Doge!) 17th Birthday, we are crowdfunding 
-                  <ColoredText className={css("font-bold")}>AND EPIC BRONZE STATUE</ColoredText>
+                  For Kabosu{"'"}s (The Doge!) 17th Birthday, we are crowdfunding{' '} 
+                  <ColoredText className={css("font-bold")}>AN EPIC BRONZE STATUE</ColoredText>
                   {' '}in a park in Kabosu{"'"}s hometown in Sakura, Japan.
                 </div>
                 <div>

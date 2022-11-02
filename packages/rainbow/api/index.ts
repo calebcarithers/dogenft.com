@@ -1,4 +1,4 @@
-import { isProd } from "../environment/vars";
+import { isProd, isStaging } from "../environment/vars";
 
 export enum ClientSide {
   BUY = "BUY",
@@ -50,10 +50,16 @@ export interface Leaderboard {
   donations: Donation[];
 }
 
-const baseUrl = isProd()
+
+const proxyBaseUrl = "http://localhost:3003/statue-campaign" 
+
+let baseUrl = isProd()
   ? "https://api.ownthedoge.com/statue-campaign"
   : "https://staging.api.ownthedoge.com/statue-campaign";
-// const baseUrl = "http://localhost:3003/statue-campaign";
+
+if (!isProd() && !isStaging() && proxyBaseUrl) {
+  baseUrl = proxyBaseUrl
+}
 
 export const getDonations = (): Promise<Donation[]> => {
   return fetch(baseUrl + "/donations").then((res) => res.json());
@@ -69,4 +75,8 @@ export const getLeaderboard = (): Promise<Leaderboard> => {
 
 export const getNow = (): Promise<{ usdNotional: number }> => {
   return fetch(baseUrl + "/now").then((res) => res.json());
+};
+
+export const getConfirm = (): Promise<{ dogecoinAddress: string, ethereumAddress: string }> => {
+  return fetch(baseUrl + "/confirm").then((res) => res.json());
 };

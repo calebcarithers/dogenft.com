@@ -1,6 +1,7 @@
 import BottomSheet from "dsl/components/BottomSheet/BottomSheet"
 import Button from "dsl/components/Button/Button"
 import { Divider } from "dsl/components/Divider/Divider"
+import Link from "dsl/components/Link/Link"
 import Modal from "dsl/components/Modal/Modal"
 import { css } from "dsl/helpers/css"
 import Image from "next/image"
@@ -103,7 +104,26 @@ const DonateView = () => {
             </div>
         </Button>              
     </div>
+    <div className={css("flex", "items-center", "w-full")}>
+        <Divider/>
+        <div className={css("text-2xl", "mx-6")}>or</div>
+        <Divider/>
     </div>
+    <div className={css("w-full")}>
+        <Link onClick={() => {
+            gaEvent({action: GaActions.RainbowSwapButtonClick, params: {}})
+        }} block isExternal href={"https://rnbwapp.com/campaign/doge?$web_only=true"}>
+            <Button block>
+                <div className={css("flex", "items-center", "justify-center", "flex-col", "md:flex-row")}>
+                    <div className={css("text-3xl", "font-normal", "p-3")}>Buy $DOG on</div>
+                    <div className={css("max-w-[150px]", "relative", "w-full", "mb-3", "md:mb-0")}>
+                        <Image layout={"responsive"} width={192} height={45} src={"/images/rainbow-logo.png"} alt={"rainbow"} priority quality={100}/>
+                    </div>
+                </div>
+            </Button>  
+        </Link>            
+    </div>
+</div>
 }
 
 const WarningView = () => {
