@@ -5,8 +5,6 @@
 import * as Sentry from '@sentry/nextjs';
 import vars from "./environment/vars";
 
-const SENTRY_DSN = vars.sentryDSN;
-
 Sentry.init({
   dsn: vars.sentryDSN,
   // Adjust this value in production, or use tracesSampler for greater control
