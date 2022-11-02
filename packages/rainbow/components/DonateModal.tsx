@@ -117,7 +117,7 @@ const DonateView = () => {
                 <div className={css("flex", "items-center", "justify-center", "flex-col", "md:flex-row")}>
                     <div className={css("text-3xl", "font-normal", "p-3")}>Buy $DOG on</div>
                     <div className={css("max-w-[150px]", "relative", "w-full", "mb-3", "md:mb-0")}>
-                        <Image layout={"responsive"} width={192} height={45} src={"/images/rainbow-logo.svg"} alt={"rainbow"} priority quality={100}/>
+                        <Image layout={"responsive"} width={192} height={45} src={"/images/rainbow-logo.png"} alt={"rainbow"} priority quality={100}/>
                     </div>
                 </div>
             </Button>  
