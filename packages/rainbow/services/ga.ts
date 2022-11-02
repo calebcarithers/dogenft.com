@@ -1,7 +1,8 @@
 export enum GaActions {
     DonateButtonClick = "DONATE_BUTTON_CLICK",
+    RainbowSwapButtonClick = "RAINBOW_BUTTON_CLICK",
     EthereumAddressCopy = "ETHEREUM_ADDRESS_COPY",
-    DogecoinAddressCopy = 'DOGECOIN_ADDRESS_COPY'
+    DogecoinAddressCopy = 'DOGECOIN_ADDRESS_COPY',
 }
 
 export const gaEvent = ({action, params}: { action: GaActions, params: any }) => {
