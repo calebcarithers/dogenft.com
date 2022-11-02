@@ -351,7 +351,7 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({item}) => 
         <div>~${item.currencyUSDNotional.toLocaleString()}</div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
-        <div className={css("font-normal", "text-lg")}>{abbreviate(item.fromAddress, 4)}</div>
+        <div className={css("font-normal", "text-lg")}>{item.fromEns ? item.fromEns : abbreviate(item.fromAddress, 4)}</div>
         <Pill type={"donation"}/>
       </div>
     </div>

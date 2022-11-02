@@ -35,6 +35,7 @@ export interface Donation {
   blockNumber: number;
   blockCreatedAt: DatetimeString;
   fromAddress: string;
+  fromEns: string | null;
   toAddress: string;
   blockchain: ChainName;
   currency: string;
