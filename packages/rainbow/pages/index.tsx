@@ -7,11 +7,12 @@ import Link from "dsl/components/Link/Link";
 import { ProgressBar } from "dsl/components/ProgressBar/ProgressBar";
 import { Tabs } from "dsl/components/Tabs/Tabs";
 import { css } from "dsl/helpers/css";
+import LocalStorage from "dsl/helpers/local-storage";
 import { abbreviate, isValidEthereumAddress } from "dsl/helpers/strings";
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from "next/image";
-import { PropsWithChildren, ReactNode, useCallback, useEffect } from "react";
+import { PropsWithChildren, ReactNode, useCallback, useEffect, useState } from "react";
 import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
 import { TfiWorld } from "react-icons/tfi";
 import { TwitterIcon, TwitterShareButton } from "react-share";
@@ -71,6 +72,21 @@ const Home: NextPage = () => {
     }
   }, [])
 
+  const dogeTiledImg = '/images/doge-tiled.png'
+  const dogeWindmillImg = '/images/new-bg.png'
+  const lsBgKey = 'doge-bg'
+
+  const [bgImage, setBgImage] = useState(typeof window !== "undefined" ? LocalStorage.getItem(lsBgKey, LocalStorage.PARSE_STRING, dogeTiledImg) : dogeTiledImg)
+  const toggleBgImage = useCallback(() => {
+    if (bgImage === dogeTiledImg) {
+      setBgImage(dogeWindmillImg)
+      LocalStorage.setItem(lsBgKey, dogeWindmillImg)
+    } else {
+      setBgImage(dogeTiledImg)
+      LocalStorage.setItem(lsBgKey, dogeTiledImg)
+    }
+  }, [bgImage, setBgImage])
+
   return (
     <>
       <Head>
@@ -78,7 +94,9 @@ const Home: NextPage = () => {
         <meta name="description" content="Help us build a statue of the Doge, Kabosu, in her hometown"/>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
-      <main className={css("relative", "overflow-hidden", "p-5", "mt-8")}>
+      <main className={css("relative", "overflow-hidden", "p-5", "pt-8", "font-ComicNeue", "bg-auto", "bg-center", "bg-repeat-y")} style={{
+        backgroundImage: `url(${bgImage})`,
+        }}>
         <div className={css("flex", "justify-center")}>
           <div className={css("max-w-4xl", "w-full")}>
             <section>
@@ -285,7 +303,7 @@ const Home: NextPage = () => {
                 <div
                   className={css("flex", "justify-center", "md:justify-end", "order-1", "md:order-2", "items-center")}>
                     <div className={css("inline-block", "relative")}>
-                      <Button>
+                      <Button onClick={toggleBgImage}>
                         <div className={css("p-2", "max-w-xs", "text-xl")}>Help us build {`Kabosu's`} statue in her
                           hometown.
                         </div>

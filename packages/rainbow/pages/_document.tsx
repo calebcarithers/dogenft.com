@@ -1,4 +1,3 @@
-import { css } from "dsl/helpers/css";
 import { Head, Html, Main, NextScript } from 'next/document';
 
 
@@ -24,9 +23,7 @@ export default function Document() {
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:site" content="@bronzethedoge"/>
       </Head>
-      <body className={css("font-ComicNeue")} style={{
-        backgroundImage: `url(/images/doge-tiled.png)`,
-        }}>
+      <body>
         <Main/>
         <NextScript/>
       </body>
