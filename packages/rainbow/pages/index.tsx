@@ -251,8 +251,17 @@ const Home: NextPage = () => {
                     hasData={state.leaderboardTab === TabType.Donations ? (leaderboard?.donations && leaderboard?.donations?.length > 0) : (leaderboard?.swaps && leaderboard?.swaps?.length > 0)}
                     isLoading={state.leaderboardTab === TabType.Donations ? isDonationsLoading : isSwapsLoading}
                   >
-                    {state.leaderboardTab === TabType.Donations && leaderboard?.donations?.map((donation, index) => <LeaderBoardItem key={`donation-leaderboard-${donation.address}`} type={"donation"} index={index} item={donation} />)}
-                    {state.leaderboardTab === TabType.Swaps && leaderboard?.swaps?.map((swap, index) => <LeaderBoardItem key={`swap-leaderboard-${swap.address}`} type={"swap"} index={index} item={swap} />)}
+                    {state.leaderboardTab === TabType.Donations && leaderboard?.donations?.map((donation, index) => <LeaderBoardItem 
+                      key={`donation-leaderboard-${donation.address}`} 
+                      type={"donation"} 
+                      rank={index + 1} 
+                      item={donation} 
+                    />)}
+                    {state.leaderboardTab === TabType.Swaps && leaderboard?.swaps?.map((swap, index) => <LeaderBoardItem 
+                      key={`swap-leaderboard-${swap.address}`} 
+                      type={"swap"} 
+                      rank={index + 1} 
+                      item={swap} />)}
                   </AsyncLoader>
                 </div>
               </div>
@@ -342,12 +351,12 @@ const TitleDivider: React.FC<PropsWithChildren<{ children: ReactNode }>> = ({chi
   </div>
 }
 
-const LeaderBoardItem: React.FC<{index: number, item: BaseLeaderboard, type: "donation" | "swap"}> = ({ item, index, type }) => {
+const LeaderBoardItem: React.FC<{rank: number, item: BaseLeaderboard, type: "donation" | "swap"}> = ({ item, rank, type }) => {
   return  <Button block>
     <div className={css("w-full", "p-1")}>
       <div className={css("flex", "justify-between")}>
         <div className={css("flex", "items-center", "gap-2")}>
-          <div className={css("font-normal", "text-2xl", "text-pixels-yellow-400")}>{index}</div>
+          <div className={css("font-normal", "text-2xl", "text-pixels-yellow-400")}>{rank}</div>
           <div className={css("text-2xl", "font-bold")}>{item.ens ? item.ens : abbreviate(item.address, 4)}</div>
         </div>
         <div className={css("flex", "flex-col", "items-end", "gap-1")}>

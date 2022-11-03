@@ -68,8 +68,8 @@ export interface Leaderboard {
   donations: LeaderboardDonation[];
 }
 
-const proxyBaseUrl = "http://localhost:3003/statue-campaign";
-
+// const proxyBaseUrl = "http://localhost:3003/statue-campaign";
+const proxyBaseUrl = null;
 let baseUrl: string;
 
 if (isProd()) {
