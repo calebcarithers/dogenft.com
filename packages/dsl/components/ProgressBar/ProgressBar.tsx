@@ -30,11 +30,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, m
         style={{
           left: `${percentage}%`
         }}
-        className={css("absolute", "z-10", "w-[60px]", "h-[60px]", "top-1/2", "-translate-y-[50%]", "-translate-x-[50%]", "flex", "justify-center", "items-center")}>
+        className={css("absolute", "z-20", "w-[60px]", "h-[60px]", "top-1/2", "-translate-y-[50%]", "-translate-x-[50%]", "flex", "justify-center", "items-center")}>
         {thumb ? thumb : <div className={css("text-3xl")}>🐕</div>}
       </div>
     </div>
-    <div className={css("absolute", "top-24", "-translate-x-[50%]", "font-bold")} style={{
+    <div className={css("absolute", "top-24", "-translate-x-[50%]", "font-bold",)} style={{
       left: `${percentage}%`
     }}>{nowLabel ? nowLabel : now}</div>
     <div className={css("absolute", "left-0", "top-14")}>{minLabel ? minLabel : min}</div>
