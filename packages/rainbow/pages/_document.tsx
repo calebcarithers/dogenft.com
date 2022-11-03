@@ -7,8 +7,7 @@ export const toastifyPortalId = "react-toastify-portal"
 export default function Document() {
   return (
     <Html>
-      <Head>
-        <title>Bronze The Doge</title>
+      <Head title={"Bronze The Doge"}>
         <meta
           name="description"
           content="Help us raise funds to build Kabosu a statue in Japan."

@@ -352,12 +352,25 @@ const TitleDivider: React.FC<PropsWithChildren<{ children: ReactNode }>> = ({chi
 }
 
 const LeaderBoardItem: React.FC<{rank: number, item: BaseLeaderboard, type: "donation" | "swap"}> = ({ item, rank, type }) => {
+
+  const renderName = useCallback(() => {
+    if (item.myDogeName) {
+      return <div className={css("flex", "flex-col", "items-start")}>
+        <div className={css("text-2xl", "font-bold")}>{item.myDogeName}</div>
+        {/* <div className={css("text-pixels-yellow-400", "font-normal")}>({abbreviate(item.address, 4)})</div> */}
+      </div>
+    } else if (item.ens) {
+      return <div className={css("text-2xl", "font-bold")}>{item.ens}</div>
+    }
+    return <div className={css("text-2xl", "font-bold")}>{abbreviate(item.address, 4)}</div>
+  }, [item.myDogeName, item.ens, item.address])
+
   return  <Button block>
     <div className={css("w-full", "p-1")}>
       <div className={css("flex", "justify-between")}>
-        <div className={css("flex", "items-center", "gap-2")}>
+        <div className={css("flex", "items-center", "gap-3")}>
           <div className={css("font-normal", "text-2xl", "text-pixels-yellow-400")}>{rank}</div>
-          <div className={css("text-2xl", "font-bold")}>{item.ens ? item.ens : abbreviate(item.address, 4)}</div>
+          {renderName()}
         </div>
         <div className={css("flex", "flex-col", "items-end", "gap-1")}>
           <div className={css("font-bold", "text-2xl")}>~${item?.usdNotional?.toLocaleString()}</div>

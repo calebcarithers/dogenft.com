@@ -50,6 +50,7 @@ export interface BaseLeaderboard {
   address: string;
   ens: string | null;
   usdNotional: number;
+  myDogeName?: string | null;
 }
 
 export interface LeaderboardSwap extends BaseLeaderboard {
@@ -68,8 +69,8 @@ export interface Leaderboard {
   donations: LeaderboardDonation[];
 }
 
-// const proxyBaseUrl = "http://localhost:3003/statue-campaign";
-const proxyBaseUrl = null;
+const proxyBaseUrl = "http://localhost:3003/statue-campaign";
+// const proxyBaseUrl = null;
 let baseUrl: string;
 
 if (isProd()) {
