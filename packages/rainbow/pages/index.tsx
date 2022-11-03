@@ -7,7 +7,7 @@ import Link from "dsl/components/Link/Link";
 import { ProgressBar } from "dsl/components/ProgressBar/ProgressBar";
 import { Tabs } from "dsl/components/Tabs/Tabs";
 import { css } from "dsl/helpers/css";
-import { abbreviate } from "dsl/helpers/strings";
+import { abbreviate, isValidEthereumAddress } from "dsl/helpers/strings";
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from "next/image";
@@ -251,17 +251,25 @@ const Home: NextPage = () => {
                     hasData={state.leaderboardTab === TabType.Donations ? (leaderboard?.donations && leaderboard?.donations?.length > 0) : (leaderboard?.swaps && leaderboard?.swaps?.length > 0)}
                     isLoading={state.leaderboardTab === TabType.Donations ? isDonationsLoading : isSwapsLoading}
                   >
-                    {state.leaderboardTab === TabType.Donations && leaderboard?.donations?.map((donation, index) => <LeaderBoardItem 
-                      key={`donation-leaderboard-${donation.address}`} 
-                      type={"donation"} 
-                      rank={index + 1} 
-                      item={donation} 
-                    />)}
-                    {state.leaderboardTab === TabType.Swaps && leaderboard?.swaps?.map((swap, index) => <LeaderBoardItem 
+                    {state.leaderboardTab === TabType.Donations && leaderboard?.donations?.map((donation, index) => <Link
+                      href={isValidEthereumAddress(donation.address) ? `https://rainbow.me/${donation.address}` : `https://sochain.com/address/DOGE/${donation.address}`}
+                      isExternal
+                      key={`donation-leaderboard-${donation.address}`}
+                    >
+                      <LeaderBoardItem 
+                        type={"donation"} 
+                        rank={index + 1} 
+                        item={donation} 
+                      />
+                    </Link>)}
+                    {state.leaderboardTab === TabType.Swaps && leaderboard?.swaps?.map((swap, index) => <Link 
                       key={`swap-leaderboard-${swap.address}`} 
-                      type={"swap"} 
-                      rank={index + 1} 
-                      item={swap} />)}
+                      href={`https://rainbow.me/${swap.address}`} isExternal>
+                      <LeaderBoardItem 
+                        type={"swap"} 
+                        rank={index + 1} 
+                        item={swap} />
+                      </Link>)}
                   </AsyncLoader>
                 </div>
               </div>
@@ -357,7 +365,6 @@ const LeaderBoardItem: React.FC<{rank: number, item: BaseLeaderboard, type: "don
     if (item.myDogeName) {
       return <div className={css("flex", "flex-col", "items-start")}>
         <div className={css("text-2xl", "font-bold")}>{item.myDogeName}</div>
-        {/* <div className={css("text-pixels-yellow-400", "font-normal")}>({abbreviate(item.address, 4)})</div> */}
       </div>
     } else if (item.ens) {
       return <div className={css("text-2xl", "font-bold")}>{item.ens}</div>

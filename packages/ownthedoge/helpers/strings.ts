@@ -1,16 +1,19 @@
-import {ethers} from "ethers";
+import { ethers } from "ethers";
 
 export const abbreviate = (input: string, spaces: number = 4) => {
-  return `${input.substring(0,spaces)}...${input.substring(input.length-spaces, input.length)}`
-}
+  return `${input.substring(0, spaces)}...${input.substring(
+    input.length - spaces,
+    input.length
+  )}`;
+};
 
-export const jsonify = (value: any) => JSON.stringify(value, undefined, 2)
+export const jsonify = (value: any) => JSON.stringify(value, undefined, 2);
 
 export const isValidEthereumAddress = (address: string) => {
   try {
-    ethers.utils.getAddress(address)
-    return true
+    ethers.utils.getAddress(address);
+    return true;
   } catch {
-    return false
+    return false;
   }
-}
+};
