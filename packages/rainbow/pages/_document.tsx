@@ -17,8 +17,8 @@ export default function Document() {
         <meta property="og:site_name" content="Bronze The Doge"/>
         <meta property="og:title" content="Bronze The Doge"/>
         <meta property="og:description" content="Help us raise funds to build Kabosu a statue in Japan."/>
-        <meta property="og:image" content="/images/twitter-card.png"/>
-        <meta property="og:url" content={"https://bronzethedoge.xyz"}/>
+        <meta property="og:image" content="https://bronzethedoge.xyz/images/twitter-card.png"/>
+        <meta property="og:url" content="https://bronzethedoge.xyz"/>
         <meta name="twitter:title" content="Bronze The Doge"/>
         <meta name="twitter:description" content="Help us raise funds to build Kabosu a statue in Japan."/>
         <meta name="twitter:image" content="https://bronzethedoge.xyz/images/twitter-card.png"/>
