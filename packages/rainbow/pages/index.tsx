@@ -235,7 +235,7 @@ const Home: NextPage = () => {
                     <RewardButton title={"The top 11 donors will get their ENS or wallet address engraved on the Kabosu statue"} description={"Family friendly names only!"}/>
                   </div>
                   <div className={css("max-w-2xl", "self-end", "w-full", "md:hover:-translate-x-[15%]", "ease-out", "duration-300")}>
-                    <RewardButton title={"All donors over $11 will be added to a global registry that will be immortalized as an NFT on the blockchain!"}/>
+                    <RewardButton title={"All donors who gift $11 or more will be added to a global registry that will be immortalized as an NFT on the blockchain!"}/>
                   </div>
                   <div className={css("max-w-2xl", "w-full", "md:hover:translate-x-[15%]", "ease-out", "duration-300")}>
                     <RewardButton title={"Those that use Rainbow Wallet to swap $DOG between Nov. 2nd and 16th will receive a dank Doge wallet icon on their phone + a chance to win a Doge Pixel from OwnTheDoge."}
