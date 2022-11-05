@@ -94,7 +94,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Help us build a statue of the Doge, Kabosu, in her hometown"/>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
-      <main className={css("relative", "overflow-hidden", "p-5", "pt-8", "font-ComicNeue", "bg-auto", "bg-center", "bg-repeat-y")} style={{
+      <main className={css("relative", "overflow-hidden", "p-5", "pt-8", "font-ComicNeue", "bg-auto", "bg-center", "bg-repeat")} style={{
         backgroundImage: `url(${bgImage})`,
         }}>
         <div className={css("flex", "justify-center")}>
