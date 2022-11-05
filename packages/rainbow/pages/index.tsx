@@ -57,7 +57,7 @@ const Home: NextPage = () => {
   } = useQuery(['getConfirm'], getConfirm)
 
   const max = 42069
-  const _now = now ? now.usdNotional : max / 2
+  const _now = now ? now.usdNotional : 0
   const min = 0
   
   useEffect(() => {
@@ -413,7 +413,10 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({item}) => 
     <Button block>
     <div className={css("w-full", "p-1")}>
       <div className={css("flex", "justify-between", "text-2xl")}>
-        <div>{item.currency}</div>
+        <div className={css("flex", "items-center", "gap-2")}>
+          <div>{item.currency}</div>
+          <div className={css("font-normal", "text-pixels-yellow-400", "text-lg")}>({parseFloat(item.amount?.toFixed(4))})</div>
+        </div>
         <div>~${item?.currencyUSDNotional?.toLocaleString()}</div>
       </div>
       <div className={css("flex", "justify-between", "items-center", "mt-1")}>
