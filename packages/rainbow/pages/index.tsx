@@ -140,7 +140,12 @@ const Home: NextPage = () => {
                 min={min} 
                 now={_now} 
                 thumb={<div 
-                  className={css("relative", "w-full", "h-full", "border-[1px]", "rounded-full", "border-black", "bg-yellow-400", "overflow-hidden", "z-20")}>
+                  onClick={() => console.log(now)}
+                  className={css(
+                    // "cursor-pointer", 
+                    // "active:translate-x-1", 
+                    // "active:translate-y-1", 
+                    "relative", "w-full", "h-full", "border-[1px]", "rounded-full", "border-black", "bg-yellow-400", "overflow-hidden", "z-20")}>
                   <div className={css("absolute", "w-[80px]", "-left-[18px]", "-top-[3px]")}>
                     <Image layout={"responsive"} src={"/images/doge-birthday.png"} width={229} height={258} alt={"bday doge"}/>
                   </div>
