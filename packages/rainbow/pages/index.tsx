@@ -4,12 +4,10 @@ import Button from "dsl/components/Button/Button";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { Divider } from "dsl/components/Divider/Divider";
 import Link from "dsl/components/Link/Link";
-import { NewProgressBar } from "dsl/components/ProgressBar/ProgressBar";
-import styles from "dsl/components/ProgressBar/ProgressBar.module.css";
 import { Tabs } from "dsl/components/Tabs/Tabs";
 import { css } from "dsl/helpers/css";
 import LocalStorage from "dsl/helpers/local-storage";
-import { abbreviate, isValidEthereumAddress } from "dsl/helpers/strings";
+import { isValidEthereumAddress } from "dsl/helpers/strings";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -20,21 +18,19 @@ import {
   useEffect,
   useState,
 } from "react";
-import { BsArrowRight, BsInstagram, BsTwitter } from "react-icons/bs";
+import { BsInstagram, BsTwitter } from "react-icons/bs";
 import { TfiWorld } from "react-icons/tfi";
 import { TwitterIcon, TwitterShareButton } from "react-share";
-import {
-  BaseLeaderboard,
-  ClientSide,
-  Donation,
-  getConfirm,
-  getDonations,
-  getLeaderboard,
-  getNow,
-  getSwaps,
-  RainbowSwap,
-} from "../api";
+import { getConfirm, getDonations, getLeaderboard, getSwaps } from "../api";
 import { DonateBottomSheet } from "../components/DonateModal";
+import DonationProgressBar from "../components/DonationProgressBar";
+import {
+  DonateItem,
+  LeaderBoardItem,
+  RewardItem,
+  SwapItem,
+} from "../components/Item";
+import Star from "../components/Star";
 import { vars } from "../environment/vars";
 import { GaActions, gaEvent } from "../services/ga";
 import { TabToTitle, TabType, useAppStore } from "../store/app.store";
@@ -137,7 +133,7 @@ const Home: NextPage = () => {
                 )}
               >
                 <div className={css("hidden", "lg:block")}>
-                  <BirthdayStar>🗿</BirthdayStar>
+                  <Star>🗿</Star>
                 </div>
                 <div className={css("text-center")}>
                   <div className={css("text-4xl", "font-bold")}>
@@ -145,7 +141,7 @@ const Home: NextPage = () => {
                   </div>
                 </div>
                 <div className={css("hidden", "lg:block")}>
-                  <BirthdayStar>🐕</BirthdayStar>
+                  <Star>🐕</Star>
                 </div>
               </div>
               <div className={css("flex", "justify-center")}>
@@ -364,7 +360,7 @@ const Home: NextPage = () => {
                       "duration-300"
                     )}
                   >
-                    <RewardButton
+                    <RewardItem
                       title={
                         "The top 11 donors will get their ENS or wallet address engraved on the Kabosu statue"
                       }
@@ -381,7 +377,7 @@ const Home: NextPage = () => {
                       "duration-300"
                     )}
                   >
-                    <RewardButton
+                    <RewardItem
                       title={
                         "All donors who gift $11 or more will be added to a global registry that will be immortalized as an NFT on the blockchain!"
                       }
@@ -396,7 +392,7 @@ const Home: NextPage = () => {
                       "duration-300"
                     )}
                   >
-                    <RewardButton
+                    <RewardItem
                       title={
                         "Those that use Rainbow Wallet to swap $DOG between Nov. 2nd and 16th will receive a dank Doge wallet icon on their phone + a chance to win a Doge Pixel from OwnTheDoge."
                       }
@@ -616,52 +612,6 @@ const Home: NextPage = () => {
   );
 };
 
-const BirthdayStar: React.FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <div className={css("relative")}>
-      <Image
-        src={"/images/star.svg"}
-        width={175}
-        height={175}
-        alt={"bday start"}
-      />
-      <div
-        className={css(
-          "absolute",
-          "w-full",
-          "h-full",
-          "flex",
-          "justify-center",
-          "items-center",
-          "-top-[7px]",
-          "-right-[6px]"
-        )}
-      >
-        <div>{children}</div>
-      </div>
-    </div>
-  );
-};
-
-const RewardButton: React.FC<
-  PropsWithChildren<{ title: string; description?: string }>
-> = ({ title, description }) => {
-  return (
-    <div
-      className={css("border-2", "border-black", "p-2", "bg-pixels-yellow-100")}
-    >
-      <div className={css("p-1")}>
-        <div className={css("text-left", "text-2xl")}>{title}</div>
-        {description && (
-          <div className={css("font-normal", "text-left", "text-lg")}>
-            {description}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
 const TitleDivider: React.FC<PropsWithChildren<{ children: ReactNode }>> = ({
   children,
 }) => {
@@ -674,364 +624,6 @@ const TitleDivider: React.FC<PropsWithChildren<{ children: ReactNode }>> = ({
         <Divider />
       </div>
     </div>
-  );
-};
-
-const LeaderBoardItem: React.FC<{
-  rank: number;
-  item: BaseLeaderboard;
-  type: "donation" | "swap";
-}> = ({ item, rank, type }) => {
-  const renderName = useCallback(() => {
-    if (item.myDogeName) {
-      return (
-        <div className={css("flex", "flex-col", "items-start")}>
-          <div className={css("text-2xl", "font-bold")}>{item.myDogeName}</div>
-        </div>
-      );
-    } else if (item.ens) {
-      return <div className={css("text-2xl", "font-bold")}>{item.ens}</div>;
-    }
-    return (
-      <div className={css("text-2xl", "font-bold")}>
-        {abbreviate(item.address, 4)}
-      </div>
-    );
-  }, [item.myDogeName, item.ens, item.address]);
-
-  return (
-    <Button block>
-      <div className={css("w-full", "p-1")}>
-        <div className={css("flex", "justify-between")}>
-          <div className={css("flex", "items-center", "gap-3")}>
-            <div
-              className={css(
-                "font-normal",
-                "text-2xl",
-                "text-pixels-yellow-400"
-              )}
-            >
-              {rank}
-            </div>
-            {renderName()}
-          </div>
-          <div className={css("flex", "flex-col", "items-end", "gap-1")}>
-            <div className={css("font-bold", "text-2xl")}>
-              ~${item?.usdNotional?.toLocaleString()}
-            </div>
-            <div>
-              {type === "donation" ? (
-                <Pill type={"donation"} />
-              ) : (
-                <Pill type={"swap"} />
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </Button>
-  );
-};
-
-const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({
-  item,
-}) => {
-  return (
-    <Link isExternal href={item.explorerUrl}>
-      <Button block>
-        <div className={css("w-full", "p-1")}>
-          <div className={css("flex", "justify-between", "text-2xl")}>
-            <div className={css("flex", "items-center", "gap-2")}>
-              <div>{item.currency}</div>
-              <div
-                className={css(
-                  "font-normal",
-                  "text-pixels-yellow-400",
-                  "text-lg"
-                )}
-              >
-                ({parseFloat(item.amount?.toFixed(4)).toLocaleString()})
-              </div>
-            </div>
-            <div>~${item?.currencyUSDNotional?.toLocaleString()}</div>
-          </div>
-          <div
-            className={css("flex", "justify-between", "items-center", "mt-1")}
-          >
-            <div className={css("font-normal", "text-lg")}>
-              {item.fromEns ? item.fromEns : abbreviate(item.fromAddress, 4)}
-            </div>
-            <Pill type={"donation"} />
-          </div>
-        </div>
-      </Button>
-    </Link>
-  );
-};
-
-const SwapItem: React.FC<PropsWithChildren<{ item: RainbowSwap }>> = ({
-  item,
-}) => {
-  const renderSwapIndicator = useCallback(() => {
-    if (item.clientSide === ClientSide.SELL) {
-      return (
-        <>
-          <div>{item.baseCurrency}</div>
-          <div>
-            <BsArrowRight size={25} />
-          </div>
-          <div>{item.quoteCurrency}</div>
-        </>
-      );
-    }
-    return (
-      <>
-        <div>{item.quoteCurrency}</div>
-        <div>
-          <BsArrowRight size={25} />
-        </div>
-        <div>{item.baseCurrency}</div>
-      </>
-    );
-  }, [item.clientSide, item.baseCurrency, item.quoteCurrency]);
-
-  return (
-    <Link isExternal href={`https://etherscan.io/tx/${item.txHash}`}>
-      <Button block>
-        <div className={css("w-full", "p-1")}>
-          <div className={css("flex", "justify-between", "text-2xl")}>
-            <div className={css("flex", "items-center", "gap-2")}>
-              {renderSwapIndicator()}
-            </div>
-            <div>~${item?.donatedUSDNotional?.toLocaleString()}</div>
-          </div>
-          <div
-            className={css("flex", "justify-between", "items-center", "mt-1")}
-          >
-            <div className={css("font-normal", "text-lg")}>
-              {item.clientEns
-                ? item.clientEns
-                : abbreviate(item.clientAddress, 4)}
-            </div>
-            <Pill type={"swap"} />
-          </div>
-        </div>
-      </Button>
-    </Link>
-  );
-};
-
-const donationStyle = css("bg-doge-orange");
-const swapStyle = css("bg-doge-blue");
-
-const Pill: React.FC<PropsWithChildren<{ type: "donation" | "swap" }>> = ({
-  type,
-}) => {
-  return (
-    <span
-      style={{ borderWidth: "1px" }}
-      className={css(
-        "inline-block",
-        "font-normal",
-        "text-sm",
-        "border-black",
-        "rounded-full",
-        "px-2",
-        "py-0.5",
-        {
-          [donationStyle]: type === "donation",
-          [swapStyle]: type === "swap",
-        }
-      )}
-    >
-      {type === "donation" ? "donation" : "🌈 swap"}
-    </span>
-  );
-};
-
-const DonationLabel: React.FC<
-  PropsWithChildren<{ width: number; value: number }>
-> = ({ width, value, children }) => {
-  return (
-    <div className={css("relative")}>
-      <div className={css(`w-[${width}px]`)}>{children}</div>
-      <div
-        className={css(
-          "absolute",
-          "left-1/2",
-          "-translate-x-[50%]",
-          "top-[115px]",
-          "text-base"
-        )}
-      >
-        ${value.toLocaleString()}
-      </div>
-    </div>
-  );
-};
-
-const DonationProgressBar: React.FC<{}> = ({}) => {
-  const { data: now } = useQuery(["getNow"], getNow, {
-    refetchInterval: 30 * 1000,
-    refetchIntervalInBackground: true,
-  });
-  const _max = 250000;
-  const _now = now ? now.usdNotional : 0;
-  const _min = 0;
-  //@ts-ignore
-  const dogecoinPrice = now ? now?.dogecoin[0]?.usdPrice : 0;
-  const getSteps = useCallback(() => {
-    return [
-      {
-        value: _min,
-        renderLabel: () => {
-          return (
-            <DonationLabel width={90} value={_min}>
-              <Image
-                layout={"responsive"}
-                src={"/images/cheems.png"}
-                width={2000}
-                height={2000}
-                alt={"cheems"}
-              />
-            </DonationLabel>
-          );
-        },
-      },
-      {
-        value: 42069,
-        renderLabel: () => {
-          return (
-            <DonationLabel width={90} value={42069}>
-              <Image
-                layout={"responsive"}
-                src={"/images/buff-doge.png"}
-                width={2000}
-                height={2000}
-                alt={"buff doge"}
-              />
-            </DonationLabel>
-          );
-        },
-      },
-      {
-        value: 100000,
-        renderLabel: () => {
-          return (
-            <DonationLabel width={90} value={100000}>
-              <Image
-                layout={"responsive"}
-                src={"/images/doge-horse.png"}
-                width={2000}
-                height={2000}
-                alt={"horse sized doge"}
-              />
-            </DonationLabel>
-          );
-        },
-      },
-      {
-        value: 175000,
-        renderLabel: () => {
-          return (
-            <DonationLabel width={90} value={175000}>
-              <Image
-                layout={"responsive"}
-                src={"/images/doge-elephant.png"}
-                width={2000}
-                height={2000}
-                alt={"elephant sized doge"}
-              />
-            </DonationLabel>
-          );
-        },
-      },
-      {
-        value: _max,
-        renderLabel: () => {
-          return (
-            <DonationLabel width={90} value={_max}>
-              <Image
-                layout={"responsive"}
-                src={"/images/doge-zilla.png"}
-                width={2000}
-                height={2000}
-                alt={"doge-zilla"}
-              />
-            </DonationLabel>
-          );
-        },
-      },
-    ];
-  }, []);
-
-  const renderNowLabel = useCallback(() => {
-    return _now ? (
-      <div className={css("flex", "flex-col", "items-center")}>
-        <div>${_now?.toLocaleString()}</div>
-        <div
-          className={css("font-normal", "text-base", "text-pixels-yellow-500")}
-        >
-          {now?.usdNotional && (
-            <div className={css("flex", "items-center", "gap-1")}>
-              <div className={css("font-normal")}>~Ɖ</div>
-              <div className={css("font-bold")}>
-                {parseInt(
-                  Number(now.usdNotional / dogecoinPrice).toString()
-                ).toLocaleString()}
-              </div>
-            </div>
-          )}
-          <div></div>
-        </div>
-      </div>
-    ) : (
-      "...loading"
-    );
-  }, [now, _now, dogecoinPrice]);
-
-  const renderThumb = useCallback((value: number) => {
-    return (
-      <div
-        onClick={() => console.log(now)}
-        className={css(
-          "cursor-pointer",
-          "active:translate-x-1",
-          "active:translate-y-1",
-          "relative",
-          "w-full",
-          "h-full",
-          "border-[1px]",
-          "rounded-full",
-          "border-black",
-          "bg-pixels-yellow-200",
-          "overflow-hidden",
-          "z-20",
-          styles.rainbow
-        )}
-      >
-        <div
-          className={css("absolute", "w-[60px]", "-left-[10px]", "-top-[3px]")}
-        >
-          <Image
-            layout={"responsive"}
-            src={"/images/doge-birthday.png"}
-            width={229}
-            height={258}
-            alt={"bday doge"}
-          />
-        </div>
-      </div>
-    );
-  }, []);
-
-  return (
-    <NewProgressBar
-      now={_now}
-      renderThumb={renderThumb}
-      renderNowLabel={renderNowLabel}
-      steps={getSteps()}
-    />
   );
 };
 

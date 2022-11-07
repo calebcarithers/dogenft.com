@@ -9,18 +9,13 @@ export interface ProgressStep {
 }
 
 interface ProgressBarProps {
-  max: number;
-  min: number;
   now: number;
-  thumb?: any;
-  renderMinLabel?: () => ReactNode;
-  renderMaxLabel?: () => ReactNode;
-  renderNowLabel?: () => ReactNode;
+  renderNowLabel: () => ReactNode;
   steps: ProgressStep[];
   renderThumb: (now: number) => ReactNode;
 }
 
-export const NewProgressBar: React.FC<
+export const ProgressBar: React.FC<
   Pick<ProgressBarProps, "steps" | "now" | "renderThumb" | "renderNowLabel">
 > = ({ steps, now, renderThumb, renderNowLabel }) => {
   const min = steps![0];
@@ -80,7 +75,7 @@ export const NewProgressBar: React.FC<
       >
         {renderNowLabel ? renderNowLabel() : now}
       </div>
-      {steps.map((step, index, arr) => {
+      {steps.map((step) => {
         const stepPercentage = (step.value / (max.value - min.value)) * 100;
         return (
           <div
@@ -101,8 +96,6 @@ export const NewProgressBar: React.FC<
           </div>
         );
       })}
-      {/* <div className={css("absolute", "left-0", "top-14")}>{renderMinLabel ? renderMinLabel() : min}</div> */}
-      {/* <div className={css("absolute", "right-0", "top-14")}>{renderMaxLabel ? renderMaxLabel() : max}</div> */}
     </div>
   );
 };
