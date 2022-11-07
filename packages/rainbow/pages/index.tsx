@@ -420,7 +420,7 @@ const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({item}) => 
       <div className={css("flex", "justify-between", "text-2xl")}>
         <div className={css("flex", "items-center", "gap-2")}>
           <div>{item.currency}</div>
-          <div className={css("font-normal", "text-pixels-yellow-400", "text-lg")}>({parseFloat(item.amount?.toFixed(4))})</div>
+          <div className={css("font-normal", "text-pixels-yellow-400", "text-lg")}>({parseFloat(item.amount?.toFixed(4)).toLocaleString()})</div>
         </div>
         <div>~${item?.currencyUSDNotional?.toLocaleString()}</div>
       </div>
