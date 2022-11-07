@@ -15,6 +15,8 @@ export const AssetsSheet = () => {
   });
   return (
     <BottomSheet
+      snapPoints={({ maxHeight }) => [maxHeight - 10]}
+      defaultSnap={({ maxHeight }) => maxHeight - 10}
       open={isAssetsDialogOpen}
       onDismiss={() => setIsAssetsDialogOpen(false)}
     >
@@ -32,7 +34,7 @@ export const AssetsSheet = () => {
             <div>Amount</div>
             <div>USD Notional</div>
           </div>
-          <div className={css()}>
+          <div>
             <div>
               <div className={css("font-bold", "text-lg")}>Dogecoin</div>
               <div className={css("grid", "grid-cols-4")}>
@@ -78,7 +80,12 @@ const Asset: React.FC<{ item: NowAsset }> = ({ item }) => {
   return (
     <>
       <div>{item.symbol}</div>
-      <div>${parseFloat(item.usdPrice.toFixed(8)).toLocaleString()}</div>
+      <div>
+        $
+        {parseFloat(item.usdPrice.toFixed(6)).toLocaleString(undefined, {
+          maximumFractionDigits: 6,
+        })}
+      </div>
       <div>{item.amount.toLocaleString()}</div>
       <div>${item.usdNotional.toLocaleString()}</div>
     </>
