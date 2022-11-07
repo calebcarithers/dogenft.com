@@ -69,6 +69,19 @@ export interface Leaderboard {
   donations: LeaderboardDonation[];
 }
 
+export interface NowAsset {
+  amount: number;
+  symbol: string;
+  usdNotional: number;
+  usdPrice: number;
+}
+interface Now {
+  dogecoin: NowAsset[];
+  ethereum: NowAsset[];
+  swaps: NowAsset[];
+  usdNotional: number;
+}
+
 // const proxyBaseUrl = "http://localhost:3003/statue-campaign";
 const proxyBaseUrl = null;
 let baseUrl: string;
@@ -95,7 +108,7 @@ export const getLeaderboard = (): Promise<Leaderboard> => {
   return fetch(baseUrl + "/leaderboard").then((res) => res.json());
 };
 
-export const getNow = (): Promise<{ usdNotional: number }> => {
+export const getNow = (): Promise<Now> => {
   return fetch(baseUrl + "/now").then((res) => res.json());
 };
 
