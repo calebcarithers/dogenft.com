@@ -76,6 +76,9 @@ const Home: NextPage = () => {
   const dogeWindmillImg = '/images/new-bg.png'
   const lsBgKey = 'doge-bg'
 
+  //@ts-ignore
+  const dogecoinPrice = now ? now?.dogecoin[0]?.usdPrice : 0
+
   const [bgImage, setBgImage] = useState(typeof window !== "undefined" ? LocalStorage.getItem(lsBgKey, LocalStorage.PARSE_STRING, dogeTiledImg) : dogeTiledImg)
   const toggleBgImage = useCallback(() => {
     if (bgImage === dogeTiledImg) {
@@ -132,10 +135,19 @@ const Home: NextPage = () => {
                   <Image layout={"responsive"} src={"/images/cheems.png"} width={200} height={317} alt={"cheems"}/>
                 </div>
 
-                <ProgressBar 
-                minLabel={"$"+min?.toLocaleString()} 
-                maxLabel={"$"+max?.toLocaleString()} 
-                nowLabel={_now ? ("$"+_now?.toLocaleString()) : "...loading"} 
+                  <ProgressBar 
+                renderMinLabel={() => "$"+min?.toLocaleString()} 
+                renderMaxLabel={() => "$"+max?.toLocaleString()} 
+                renderNowLabel={() => _now ? <div className={css("flex", "flex-col", "items-center")}>
+                  <div>${_now?.toLocaleString()}</div>
+                  <div className={css("font-normal", "text-base", "text-pixels-yellow-500")}>
+                    {now?.usdNotional && <div className={css("flex", "items-center", "gap-1")}>
+                      <div className={css("font-normal")}>~Ɖ</div>  
+                      <div className={css("font-bold")}>{parseInt(Number(now.usdNotional / dogecoinPrice).toString()).toLocaleString()}</div>  
+                    </div>}
+                    <div></div>
+                  </div>
+                </div> : "...loading"} 
                 max={max} 
                 min={min} 
                 now={_now} 

@@ -95,7 +95,12 @@ export const getLeaderboard = (): Promise<Leaderboard> => {
   return fetch(baseUrl + "/leaderboard").then((res) => res.json());
 };
 
-export const getNow = (): Promise<{ usdNotional: number }> => {
+export const getNow = (): Promise<{
+  dogecoin: object[];
+  ethereum: object[];
+  swaps: object[];
+  usdNotional: number;
+}> => {
   return fetch(baseUrl + "/now").then((res) => res.json());
 };
 

@@ -1,6 +1,6 @@
 import { css } from "../../helpers/css";
 //@ts-ignore
-import { useMemo, useRef } from "react";
+import { ReactNode, useMemo, useRef } from "react";
 import styles from "./ProgressBar.module.css";
 
 interface ProgressBarProps {
@@ -8,12 +8,12 @@ interface ProgressBarProps {
   min: number;
   now: number;
   thumb?: any;
-  minLabel?: string;
-  maxLabel?: string;
-  nowLabel?: string;
+  renderMinLabel?: () => ReactNode;
+  renderMaxLabel?: () => ReactNode;
+  renderNowLabel?: () => ReactNode;
 }
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, minLabel, maxLabel, nowLabel}) => {
+export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, renderMinLabel, renderMaxLabel, renderNowLabel}) => {
   const conatinerRef = useRef<HTMLDivElement | null>(null)
   const thumbRef = useRef<HTMLDivElement>(null)
 
@@ -36,8 +36,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({min, max, now, thumb, m
     </div>
     <div className={css("absolute", "top-24", "-translate-x-[50%]", "font-bold",)} style={{
       left: `${percentage}%`
-    }}>{nowLabel ? nowLabel : now}</div>
-    <div className={css("absolute", "left-0", "top-14")}>{minLabel ? minLabel : min}</div>
-    <div className={css("absolute", "right-0", "top-14")}>{maxLabel ? maxLabel : max}</div>
+    }}>{renderNowLabel ? renderNowLabel() : now}</div>
+    <div className={css("absolute", "left-0", "top-14")}>{renderMinLabel ? renderMinLabel() : min}</div>
+    <div className={css("absolute", "right-0", "top-14")}>{renderMaxLabel ? renderMaxLabel() : max}</div>
   </div>
 }
