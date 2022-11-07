@@ -161,7 +161,6 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
               </div>
             </div>
           )}
-          <div></div>
         </div>
       </div>
     ) : (
@@ -183,6 +182,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
           "border-[1px]",
           "rounded-full",
           "border-black",
+          "hover:border-yellow-400",
           "bg-pixels-yellow-200",
           "overflow-hidden",
           "z-20",
