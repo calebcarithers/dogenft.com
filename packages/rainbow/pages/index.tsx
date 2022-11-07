@@ -22,7 +22,8 @@ import { BsInstagram, BsTwitter } from "react-icons/bs";
 import { TfiWorld } from "react-icons/tfi";
 import { TwitterIcon, TwitterShareButton } from "react-share";
 import { getConfirm, getDonations, getLeaderboard, getSwaps } from "../api";
-import { DonateBottomSheet } from "../components/DonateModal";
+import { AssetsSheet } from "../components/AssetsSheet";
+import DonateSheet from "../components/DonateSheet";
 import DonationProgressBar from "../components/DonationProgressBar";
 import {
   DonateItem,
@@ -607,7 +608,8 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
-      <DonateBottomSheet />
+      <DonateSheet />
+      <AssetsSheet />
     </>
   );
 };

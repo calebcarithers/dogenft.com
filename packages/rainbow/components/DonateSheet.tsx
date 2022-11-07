@@ -2,7 +2,6 @@ import BottomSheet from "dsl/components/BottomSheet/BottomSheet";
 import Button from "dsl/components/Button/Button";
 import { Divider } from "dsl/components/Divider/Divider";
 import Link from "dsl/components/Link/Link";
-import Modal from "dsl/components/Modal/Modal";
 import { css } from "dsl/helpers/css";
 import Image from "next/image";
 import { useMemo } from "react";
@@ -17,28 +16,10 @@ import {
   useAppStore,
 } from "../store/app.store";
 
-const DonateModal = () => {
-  const state = useAppStore((state) => state);
-  return (
-    <Modal
-      title={"✨ Donate ✨"}
-      isOpen={state.isDonateDialogOpen}
-      onChange={(isOpen) => {
-        if (!isOpen) {
-          state.resetModalState();
-        }
-      }}
-    >
-      <DonateDialog />
-    </Modal>
-  );
-};
-
-export const DonateBottomSheet = () => {
+export const DonateSheet = () => {
   const state = useAppStore((state) => state);
   return (
     <BottomSheet
-      // defaultSnap={({minHeight}) => minHeight}
       open={state.isDonateDialogOpen}
       onDismiss={() => state.resetModalState()}
     >
@@ -366,4 +347,4 @@ const AddressView = () => {
   );
 };
 
-export default DonateModal;
+export default DonateSheet;

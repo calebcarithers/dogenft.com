@@ -5,6 +5,7 @@ import { css } from "dsl/helpers/css";
 import Image from "next/image";
 import { PropsWithChildren, useCallback } from "react";
 import { getNow } from "../api";
+import { useAppStore } from "../store/app.store";
 
 const DonationLabel: React.FC<
   PropsWithChildren<{ width: number; value: number }>
@@ -28,6 +29,7 @@ const DonationLabel: React.FC<
 };
 
 const DonationProgressBar: React.FC<{}> = ({}) => {
+  const { setIsAssetsDialogOpen } = useAppStore((store) => store);
   const { data: now } = useQuery(["getNow"], getNow, {
     refetchInterval: 30 * 1000,
     refetchIntervalInBackground: true,
@@ -150,7 +152,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
   const renderThumb = useCallback((value: number) => {
     return (
       <div
-        onClick={() => console.log(now)}
+        onClick={() => setIsAssetsDialogOpen(true)}
         className={css(
           "cursor-pointer",
           "active:translate-x-1",
