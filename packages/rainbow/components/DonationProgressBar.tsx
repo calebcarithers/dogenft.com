@@ -18,7 +18,7 @@ const DonationLabel: React.FC<
           "absolute",
           "left-1/2",
           "-translate-x-[50%]",
-          "top-[115px]",
+          "top-[105px]",
           "text-base"
         )}
       >
@@ -28,7 +28,7 @@ const DonationLabel: React.FC<
         <div
           className={css(
             "absolute",
-            "top-[135px]",
+            "top-[125px]",
             "text-sm",
             "text-pixels-yellow-500",
             "left-1/2",
