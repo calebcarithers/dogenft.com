@@ -278,7 +278,11 @@ const Home: NextPage = () => {
                 <Tabs
                   className={css("mb-2", "text-xl")}
                   items={Object.keys(TabType).map((tab) => ({
-                    name: TabToTitle[tab as TabType],
+                    name: `${TabToTitle[tab as TabType]} (${
+                      tab === TabType.Donations
+                        ? donations?.length
+                        : swaps?.length
+                    })`,
                     key: tab,
                   }))}
                   onClick={(type) => state.setCampaignTab(type as TabType)}
