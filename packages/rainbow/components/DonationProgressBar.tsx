@@ -52,6 +52,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
                 width={2000}
                 height={2000}
                 alt={"cheems"}
+                priority
               />
             </DonationLabel>
           );
@@ -68,6 +69,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
                 width={2000}
                 height={2000}
                 alt={"buff doge"}
+                priority
               />
             </DonationLabel>
           );
@@ -84,6 +86,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
                 width={2000}
                 height={2000}
                 alt={"horse sized doge"}
+                priority
               />
             </DonationLabel>
           );
@@ -100,6 +103,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
                 width={2000}
                 height={2000}
                 alt={"elephant sized doge"}
+                priority
               />
             </DonationLabel>
           );
@@ -116,6 +120,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
                 width={2000}
                 height={2000}
                 alt={"doge-zilla"}
+                priority
               />
             </DonationLabel>
           );
