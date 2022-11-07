@@ -34,7 +34,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
     refetchInterval: 30 * 1000,
     refetchIntervalInBackground: true,
   });
-  const _max = 250000;
+  const _max = 269420;
   const _now = now ? now.usdNotional : 0;
   const _min = 0;
   //@ts-ignore
@@ -76,10 +76,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
-        value: 100000,
+        value: 69420,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={100000}>
+            <DonationLabel width={90} value={69420}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-horse.png"}
@@ -93,10 +93,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
-        value: 175000,
+        value: 169420,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={175000}>
+            <DonationLabel width={90} value={169420}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-elephant.png"}

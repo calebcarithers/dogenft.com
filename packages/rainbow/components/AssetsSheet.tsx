@@ -28,7 +28,14 @@ export const AssetsSheet = () => {
           ~${now?.usdNotional.toLocaleString()}
         </div>
         <div className={css("mt-12")}>
-          <div className={css("grid", "grid-cols-4", "text-pixels-yellow-400")}>
+          <div
+            className={css(
+              "grid",
+              "grid-cols-4",
+              "text-pixels-yellow-400",
+              "my-4"
+            )}
+          >
             <div>Asset</div>
             <div>Price</div>
             <div>Amount</div>
@@ -36,7 +43,9 @@ export const AssetsSheet = () => {
           </div>
           <div>
             <div>
-              <div className={css("font-bold", "text-lg")}>Dogecoin</div>
+              <div className={css("font-bold", "text-lg")}>
+                Dogecoin Donations
+              </div>
               <div className={css("grid", "grid-cols-4")}>
                 {now?.dogecoin.map((item) => (
                   <Asset key={`now-${item.symbol}`} item={item} />
@@ -49,7 +58,9 @@ export const AssetsSheet = () => {
             </div>
 
             <div>
-              <div className={css("font-bold", "text-lg")}>Ethereum</div>
+              <div className={css("font-bold", "text-lg")}>
+                Ethereum Donations
+              </div>
               <div className={css("grid", "grid-cols-4")}>
                 {now?.ethereum.map((item) => (
                   <Asset key={`now-${item.symbol}`} item={item} />
