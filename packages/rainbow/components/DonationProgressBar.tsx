@@ -8,8 +8,8 @@ import { getNow } from "../api";
 import { useAppStore } from "../store/app.store";
 
 const DonationLabel: React.FC<
-  PropsWithChildren<{ width: number; value: number }>
-> = ({ width, value, children }) => {
+  PropsWithChildren<{ width: number; value: number; label?: string }>
+> = ({ width, value, children, label }) => {
   return (
     <div className={css("relative")}>
       <div className={css(`w-[${width}px]`)}>{children}</div>
@@ -24,6 +24,21 @@ const DonationLabel: React.FC<
       >
         ${value.toLocaleString()}
       </div>
+      {label && (
+        <div
+          className={css(
+            "absolute",
+            "top-[135px]",
+            "text-sm",
+            "text-pixels-yellow-500",
+            "left-1/2",
+            "-translate-x-[50%]",
+            "w-[100px]"
+          )}
+        >
+          {label}
+        </div>
+      )}
     </div>
   );
 };
@@ -62,7 +77,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 42069,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={42069}>
+            <DonationLabel width={90} value={42069} label={"life size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/buff-doge.png"}
@@ -79,7 +94,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 69420,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={69420}>
+            <DonationLabel width={90} value={69420} label={"horse size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-horse.png"}
@@ -96,7 +111,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 169420,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={169420}>
+            <DonationLabel width={90} value={169420} label={"elephant size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-elephant.png"}
@@ -113,7 +128,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: _max,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={_max}>
+            <DonationLabel width={90} value={_max} label={"godzilla size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-zilla.png"}
