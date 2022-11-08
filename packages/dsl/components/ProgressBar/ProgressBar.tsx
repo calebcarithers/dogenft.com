@@ -54,8 +54,10 @@ export const ProgressBar: React.FC<
           className={css(
             "absolute",
             "z-20",
-            "w-[50px]",
-            "h-[50px]",
+            "w-[35px]",
+            "h-[35px]",
+            "md:w-[50px]",
+            "md:h-[50px]",
             "top-1/2",
             "-translate-y-[50%]",
             "-translate-x-[50%]",
@@ -88,8 +90,7 @@ export const ProgressBar: React.FC<
               "absolute",
               "top-0",
               "-translate-y-[50%]",
-              "-translate-x-[50%]",
-              "w-[100px]"
+              "-translate-x-[50%]"
             )}
           >
             {step.renderLabel()}

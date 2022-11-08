@@ -8,17 +8,18 @@ import { getNow } from "../api";
 import { useAppStore } from "../store/app.store";
 
 const DonationLabel: React.FC<
-  PropsWithChildren<{ width: number; value: number; label?: string }>
-> = ({ width, value, children, label }) => {
+  PropsWithChildren<{ value: number; label?: string }>
+> = ({ value, children, label }) => {
   return (
     <div className={css("relative")}>
-      <div className={css(`w-[${width}px]`)}>{children}</div>
+      <div className={css(`md:w-[90px]`, "w-[50px]")}>{children}</div>
       <div
         className={css(
           "absolute",
           "left-1/2",
           "-translate-x-[50%]",
-          "top-[105px]",
+          "top-[70px]",
+          "md:top-[105px]",
           "text-base"
         )}
       >
@@ -28,7 +29,8 @@ const DonationLabel: React.FC<
         <div
           className={css(
             "absolute",
-            "top-[125px]",
+            "top-[95px]",
+            "md:top-[125px]",
             "text-sm",
             "text-pixels-yellow-500",
             "left-1/2",
@@ -49,7 +51,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
     refetchInterval: 30 * 1000,
     refetchIntervalInBackground: true,
   });
-  const _max = 269420;
+  const _max = 500000;
   const _now = now ? now.usdNotional : 0;
   const _min = 0;
   //@ts-ignore
@@ -60,7 +62,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: _min,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={_min}>
+            <DonationLabel value={_min}>
               <Image
                 layout={"responsive"}
                 src={"/images/cheems.png"}
@@ -77,7 +79,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 42069,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={42069} label={"life size"}>
+            <DonationLabel value={42069} label={"life size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/buff-doge.png"}
@@ -91,10 +93,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
-        value: 69420,
+        value: 150000,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={69420} label={"horse size"}>
+            <DonationLabel value={150000} label={"horse size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-horse.png"}
@@ -108,10 +110,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
-        value: 169420,
+        value: 300000,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={169420} label={"elephant size"}>
+            <DonationLabel value={300000} label={"elephant size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-elephant.png"}
@@ -128,7 +130,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: _max,
         renderLabel: () => {
           return (
-            <DonationLabel width={90} value={_max} label={"godzilla size"}>
+            <DonationLabel value={_max} label={"godzilla size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-zilla.png"}
@@ -190,7 +192,13 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         )}
       >
         <div
-          className={css("absolute", "w-[60px]", "-left-[10px]", "-top-[3px]")}
+          className={css(
+            "absolute",
+            "w-[45px]",
+            "md:w-[60px]",
+            "-left-[10px]",
+            "-top-[3px]"
+          )}
         >
           <Image
             layout={"responsive"}
