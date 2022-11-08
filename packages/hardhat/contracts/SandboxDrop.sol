@@ -125,6 +125,20 @@ contract SandboxDrop is
         }
     }
 
+    function withdraw(uint256 _tokenId) public onlyOwner {
+        uint256 balance = IERC1155(sandboxAddress).balanceOf(
+            address(this),
+            _tokenId
+        );
+        IERC1155(sandboxAddress).safeTransferFrom(
+            address(this),
+            msg.sender,
+            _tokenId,
+            balance,
+            ""
+        );
+    }
+
     function isAddressInMerkleTree(
         bytes32[] calldata _merkleProof,
         address _address
