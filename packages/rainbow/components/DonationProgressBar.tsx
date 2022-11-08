@@ -51,9 +51,9 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
     refetchInterval: 30 * 1000,
     refetchIntervalInBackground: true,
   });
-  const _max = 500000;
+  const _max = 1000000;
   const _now = now ? now.usdNotional : 0;
-  const _min = 0;
+  const _min = 0.001;
   //@ts-ignore
   const dogecoinPrice = now ? now?.dogecoin[0]?.usdPrice : 0;
   const getSteps = useCallback(() => {
@@ -127,16 +127,33 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
-        value: _max,
+        value: 500000,
         renderLabel: () => {
           return (
-            <DonationLabel value={_max} label={"godzilla size"}>
+            <DonationLabel value={500000} label={"godzilla size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-zilla.png"}
                 width={2000}
                 height={2000}
                 alt={"doge-zilla"}
+                priority
+              />
+            </DonationLabel>
+          );
+        },
+      },
+      {
+        value: _max,
+        renderLabel: () => {
+          return (
+            <DonationLabel value={_max} label={"on the actual moon"}>
+              <Image
+                layout={"responsive"}
+                src={"/images/doge-moon.png"}
+                width={2000}
+                height={2000}
+                alt={"doge-on-the-moon"}
                 priority
               />
             </DonationLabel>

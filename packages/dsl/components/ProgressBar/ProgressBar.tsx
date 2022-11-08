@@ -20,6 +20,9 @@ export const ProgressBar: React.FC<
 > = ({ steps, now, renderThumb, renderNowLabel }) => {
   const min = steps![0];
   const max = steps![steps!.length - 1];
+  const minLog = Math.log10(min.value);
+  const maxLog = Math.log10(max.value);
+  const range = maxLog - minLog;
 
   const percentageComplete = useMemo(() => {
     return (now / (max.value - min.value)) * 100;
