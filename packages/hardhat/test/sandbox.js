@@ -7,10 +7,11 @@ const { expect } = require("chai");
 
 describe("Sandbox drop", function() {
     let merkleTree;
-    let signers, owner, whitelistedSigners;
+    let signers, owner, whitelistedSigners, nonWhiteListedSigners;
     let sandboxContract, erc1155Contract;
+    const amountToWhitelist = 10;
 
-        const generateMerkleTree = (addresses) => {
+    const generateMerkleTree = (addresses) => {
         const leaves = addresses.map(address => keccak256(address));
         return new MerkleTree(leaves, keccak256, { sort: true })
     }
@@ -32,7 +33,8 @@ describe("Sandbox drop", function() {
     before(async () => {
         signers = await ethers.getSigners();
         owner = signers[0];
-        whitelistedSigners = signers.slice(1, 10);
+        whitelistedSigners = signers.slice(1, amountToWhitelist);
+        nonWhiteListedSigners = signers.slice(amountToWhitelist, signers.length)
 
         erc1155Contract = await deployContract("MockFraction");
 
@@ -67,10 +69,24 @@ describe("Sandbox drop", function() {
         }
     })
 
-    it("Should claim another nft", async () => {
+    it("Should claim all tokens", async () => {
         for (const signer of whitelistedSigners) {
             await claim(signer)
             await expect(claim(signer)).to.be.revertedWith("Address has already claimed");
         }
+    })
+
+    it("Should stop claim", async () => {
+        await sandboxContract.setIsClaimOpen(false);
+        await expect(claim(owner)).to.be.revertedWith("Claim is not open");
+        await sandboxContract.setIsClaimOpen(true);
+    })
+
+    it("Should require user to be whitelisted", async () => {
+        const tokenId = 10000
+        const amount = 10
+        await erc1155Contract.mint(tokenId, amount)
+        await sandboxContract.deposit(tokenId, amount)
+        await expect(claim(nonWhiteListedSigners[0])).to.be.revertedWith("Not in whitelisted addresses")
     })
 })

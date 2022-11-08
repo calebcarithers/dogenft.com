@@ -10,9 +10,6 @@ import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
-// remove this
-import "hardhat/console.sol";
-
 contract SandboxDrop is
     Initializable,
     OwnableUpgradeable,
@@ -24,11 +21,6 @@ contract SandboxDrop is
     mapping(uint256 => bool) private isTokenIdAvailable;
     mapping(address => bool) public whitelistClaimed;
     bytes32 public merkleRoot;
-
-
-    // constructor() {
-    //     _disableInitializers();
-    // }
 
     function initialize(address _sandboxAddress, bytes32 _merkleRoot)
         public
@@ -83,11 +75,10 @@ contract SandboxDrop is
         );
 
         // get random index from available token ids
-        uint256 index = psuedoRandom(availableTokenIds.length);
+        uint256 index = getPsuedoRandom(availableTokenIds.length);
 
         // get the token id
         uint256 tokenId = availableTokenIds[index];
-        console.log("debug:: got tokenId", tokenId);
 
         // token ID must be availble
         require(isTokenIdAvailable[tokenId], "Token ID is not available");
@@ -155,7 +146,7 @@ contract SandboxDrop is
         isClaimOpen = _isOpen;
     }
 
-    function psuedoRandom(uint256 _mod) private view returns (uint256) {
+    function getPsuedoRandom(uint256 _mod) private view returns (uint256) {
         return
             uint256(
                 keccak256(
