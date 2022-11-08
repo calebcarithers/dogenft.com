@@ -20,40 +20,63 @@ contract SandboxDrop is
     }
 
     address public pixelAddress;
-    mapping(address => bool) availbleTokens;
+    address public sandboxAddress;
+    bool public isClaimOpen;
+    uint256[] private availableTokenIds;
+    mapping(uint256 => bool) private tokenIdAvailable;
 
     constructor() {
         _disableInitializers();
     }
 
-    function initialize(address _pixelAddress) public initializer {
+    function initialize(address _pixelAddress, address _sandboxAddress)
+        public
+        initializer
+    {
         __Ownable_init();
         pixelAddress = _pixelAddress;
+        sandboxAddress = _sandboxAddress;
+        isClaimOpen = true;
     }
 
-    function deposit(
-        address _erc1155Address,
-        uint256 _fractionId,
-        uint256 _amount
-    ) public onlyOwner {
+    function deposit(uint256 _tokenId, uint256 _amount) public onlyOwner {
         // must deposit at least one token
         require(_amount > 0, "Amount must be greater than 0");
 
         // must have sufficient balance
         require(
-            IERC1155(_erc1155Address).balanceOf(msg.sender, _fractionId) >=
-                _amount,
+            IERC1155(sandboxAddress).balanceOf(msg.sender, _tokenId) >= _amount,
             "Insufficient balance"
         );
 
         // transfer tokens to contract
-        IERC1155(_erc1155Address).safeTransferFrom(
+        IERC1155(sandboxAddress).safeTransferFrom(
             msg.sender,
             address(this),
-            _fractionId,
+            _tokenId,
             _amount,
             ""
         );
+
+        // mark token as availble
+        if (!tokenIdAvailable[_tokenId]) {
+            tokenIdAvailable[_tokenId] = true;
+            availableTokenIds.push(_tokenId);
+        }
+    }
+
+    function claim() public {
+        require(isClaimOpen, "Claim is not open");
+    }
+
+    function psuedoRandom(uint256 _mod) private view returns (uint256) {
+        return
+            uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))) %
+            _mod;
+    }
+
+    function setIsClaimOpen(bool _isOpen) public onlyOwner {
+        isClaimOpen = _isOpen;
     }
 
     function onERC1155Received(
