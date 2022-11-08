@@ -8,6 +8,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC1155/IERC1155ReceiverUpgrad
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 contract SandboxDrop is
     Initializable,
@@ -23,19 +24,23 @@ contract SandboxDrop is
     address public sandboxAddress;
     bool public isClaimOpen;
     uint256[] private availableTokenIds;
-    mapping(uint256 => bool) private tokenIdAvailable;
+    mapping(uint256 => bool) private isTokenIdAvailable;
+    mapping(address => bool) public whitelistClaimed;
+    bytes32 public merkleRoot;
 
     constructor() {
         _disableInitializers();
     }
 
-    function initialize(address _pixelAddress, address _sandboxAddress)
-        public
-        initializer
-    {
+    function initialize(
+        address _pixelAddress,
+        address _sandboxAddress,
+        bytes32 _merkleRoot
+    ) public initializer {
         __Ownable_init();
         pixelAddress = _pixelAddress;
         sandboxAddress = _sandboxAddress;
+        merkleRoot = _merkleRoot;
         isClaimOpen = true;
     }
 
@@ -59,24 +64,94 @@ contract SandboxDrop is
         );
 
         // mark token as availble
-        if (!tokenIdAvailable[_tokenId]) {
-            tokenIdAvailable[_tokenId] = true;
+        if (!isTokenIdAvailable[_tokenId]) {
+            isTokenIdAvailable[_tokenId] = true;
             availableTokenIds.push(_tokenId);
         }
     }
 
-    function claim() public {
+    function claim(bytes32[] calldata _merkleProof) public {
+        // claim must be open
         require(isClaimOpen, "Claim is not open");
+
+        // can only claim once
+        require(!whitelistClaimed[msg.sender], "Address has already claimed");
+
+        // require user to be whitelisted to claim
+        require(
+            this.isAddressInMerkleTree(_merkleProof, msg.sender),
+            "Not in whitelisted addresses"
+        );
+
+        // get random index from available token ids
+        uint256 index = psuedoRandom(availableTokenIds.length);
+
+        // get the token id
+        uint256 tokenId = availableTokenIds[index];
+
+        // token ID must be availble
+        require(isTokenIdAvailable[tokenId], "Token ID is not available");
+
+        // contract must be holding at least one of these tokens
+        uint256 contractBalance = IERC1155(sandboxAddress).balanceOf(
+            address(this),
+            tokenId
+        );
+        uint256 amountToSpend = 1;
+        require(
+            contractBalance >= amountToSpend,
+            "Contract is not holding this token"
+        );
+
+        // send token to caller
+        IERC1155(sandboxAddress).safeTransferFrom(
+            address(this),
+            msg.sender,
+            tokenId,
+            amountToSpend,
+            ""
+        );
+
+        // mark address as claimed
+        whitelistClaimed[msg.sender] = true;
+
+        // remove this tokenid from available tokens
+        if (contractBalance == 1) {
+            availableTokenIds[index] = availableTokenIds[
+                availableTokenIds.length - 1
+            ];
+            availableTokenIds.pop();
+            isTokenIdAvailable[tokenId] = false;
+        }
     }
 
-    function psuedoRandom(uint256 _mod) private view returns (uint256) {
-        return
-            uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender))) %
-            _mod;
+    function isAddressInMerkleTree(
+        bytes32[] calldata _merkleProof,
+        address _address
+    ) public view returns (bool) {
+        bytes32 leaf = keccak256(abi.encodePacked(_address));
+        return MerkleProof.verify(_merkleProof, merkleRoot, leaf);
+    }
+
+    function setMerkleRoot(bytes32 _merkleRoot) public onlyOwner {
+        merkleRoot = _merkleRoot;
     }
 
     function setIsClaimOpen(bool _isOpen) public onlyOwner {
         isClaimOpen = _isOpen;
+    }
+
+    function psuedoRandom(uint256 _mod) private view returns (uint256) {
+        return
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        block.timestamp,
+                        block.difficulty,
+                        msg.sender
+                    )
+                )
+            ) % _mod;
     }
 
     function onERC1155Received(
