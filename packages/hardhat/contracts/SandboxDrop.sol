@@ -20,7 +20,7 @@ contract SandboxDrop is
     }
 
     address public pixelAddress;
-    mapping(address => SandboxNFT) availbleTokens;
+    mapping(address => bool) availbleTokens;
 
     constructor() {
         _disableInitializers();
