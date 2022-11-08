@@ -10,17 +10,14 @@ import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
+// remove this
+import "hardhat/console.sol";
+
 contract SandboxDrop is
     Initializable,
     OwnableUpgradeable,
     IERC1155ReceiverUpgradeable
 {
-    struct SandboxNFT {
-        address _address;
-        uint256 _amount;
-    }
-
-    address public pixelAddress;
     address public sandboxAddress;
     bool public isClaimOpen;
     uint256[] private availableTokenIds;
@@ -28,17 +25,16 @@ contract SandboxDrop is
     mapping(address => bool) public whitelistClaimed;
     bytes32 public merkleRoot;
 
-    constructor() {
-        _disableInitializers();
-    }
 
-    function initialize(
-        address _pixelAddress,
-        address _sandboxAddress,
-        bytes32 _merkleRoot
-    ) public initializer {
+    // constructor() {
+    //     _disableInitializers();
+    // }
+
+    function initialize(address _sandboxAddress, bytes32 _merkleRoot)
+        public
+        initializer
+    {
         __Ownable_init();
-        pixelAddress = _pixelAddress;
         sandboxAddress = _sandboxAddress;
         merkleRoot = _merkleRoot;
         isClaimOpen = true;
@@ -77,6 +73,9 @@ contract SandboxDrop is
         // can only claim once
         require(!whitelistClaimed[msg.sender], "Address has already claimed");
 
+        // we must have some available tokens
+        require(availableTokenIds.length > 0, "No tokens available");
+
         // require user to be whitelisted to claim
         require(
             this.isAddressInMerkleTree(_merkleProof, msg.sender),
@@ -88,6 +87,7 @@ contract SandboxDrop is
 
         // get the token id
         uint256 tokenId = availableTokenIds[index];
+        console.log("debug:: got tokenId", tokenId);
 
         // token ID must be availble
         require(isTokenIdAvailable[tokenId], "Token ID is not available");
