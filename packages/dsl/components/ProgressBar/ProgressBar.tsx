@@ -73,7 +73,7 @@ export const ProgressBar: React.FC<
         </div>
       </div>
       <div
-        className={css("absolute", "top-28", "-translate-x-[50%]", "font-bold")}
+        className={css("absolute", "top-24", "-translate-x-[50%]", "font-bold")}
         style={{
           left: `${percentageComplete}%`,
         }}

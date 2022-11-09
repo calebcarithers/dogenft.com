@@ -51,9 +51,9 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
     refetchInterval: 30 * 1000,
     refetchIntervalInBackground: true,
   });
-  const _max = 1000000;
+  const _max = 42069;
   const _now = now ? now.usdNotional : 0;
-  const _min = 0.001;
+  const _min = 0;
   //@ts-ignore
   const dogecoinPrice = now ? now?.dogecoin[0]?.usdPrice : 0;
   const getSteps = useCallback(() => {
@@ -76,10 +76,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
-        value: 42069,
+        value: _max,
         renderLabel: () => {
           return (
-            <DonationLabel value={42069} label={"life size"}>
+            <DonationLabel value={_max}>
               <Image
                 layout={"responsive"}
                 src={"/images/buff-doge.png"}
@@ -92,74 +92,74 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
           );
         },
       },
-      {
-        value: 150000,
-        renderLabel: () => {
-          return (
-            <DonationLabel value={150000} label={"horse size"}>
-              <Image
-                layout={"responsive"}
-                src={"/images/doge-horse.png"}
-                width={2000}
-                height={2000}
-                alt={"horse sized doge"}
-                priority
-              />
-            </DonationLabel>
-          );
-        },
-      },
-      {
-        value: 300000,
-        renderLabel: () => {
-          return (
-            <DonationLabel value={300000} label={"elephant size"}>
-              <Image
-                layout={"responsive"}
-                src={"/images/doge-elephant.png"}
-                width={2000}
-                height={2000}
-                alt={"elephant sized doge"}
-                priority
-              />
-            </DonationLabel>
-          );
-        },
-      },
-      {
-        value: 500000,
-        renderLabel: () => {
-          return (
-            <DonationLabel value={500000} label={"godzilla size"}>
-              <Image
-                layout={"responsive"}
-                src={"/images/doge-zilla.png"}
-                width={2000}
-                height={2000}
-                alt={"doge-zilla"}
-                priority
-              />
-            </DonationLabel>
-          );
-        },
-      },
-      {
-        value: _max,
-        renderLabel: () => {
-          return (
-            <DonationLabel value={_max} label={"on the actual moon"}>
-              <Image
-                layout={"responsive"}
-                src={"/images/doge-moon.png"}
-                width={2000}
-                height={2000}
-                alt={"doge-on-the-moon"}
-                priority
-              />
-            </DonationLabel>
-          );
-        },
-      },
+      // {
+      //   value: 150000,
+      //   renderLabel: () => {
+      //     return (
+      //       <DonationLabel value={150000} label={"horse size"}>
+      //         <Image
+      //           layout={"responsive"}
+      //           src={"/images/doge-horse.png"}
+      //           width={2000}
+      //           height={2000}
+      //           alt={"horse sized doge"}
+      //           priority
+      //         />
+      //       </DonationLabel>
+      //     );
+      //   },
+      // },
+      // {
+      //   value: 300000,
+      //   renderLabel: () => {
+      //     return (
+      //       <DonationLabel value={300000} label={"elephant size"}>
+      //         <Image
+      //           layout={"responsive"}
+      //           src={"/images/doge-elephant.png"}
+      //           width={2000}
+      //           height={2000}
+      //           alt={"elephant sized doge"}
+      //           priority
+      //         />
+      //       </DonationLabel>
+      //     );
+      //   },
+      // },
+      // {
+      //   value: 500000,
+      //   renderLabel: () => {
+      //     return (
+      //       <DonationLabel value={500000} label={"godzilla size"}>
+      //         <Image
+      //           layout={"responsive"}
+      //           src={"/images/doge-zilla.png"}
+      //           width={2000}
+      //           height={2000}
+      //           alt={"doge-zilla"}
+      //           priority
+      //         />
+      //       </DonationLabel>
+      //     );
+      //   },
+      // },
+      // {
+      //   value: _max,
+      //   renderLabel: () => {
+      //     return (
+      //       <DonationLabel value={_max} label={"on the actual moon"}>
+      //         <Image
+      //           layout={"responsive"}
+      //           src={"/images/doge-moon.png"}
+      //           width={2000}
+      //           height={2000}
+      //           alt={"doge-on-the-moon"}
+      //           priority
+      //         />
+      //       </DonationLabel>
+      //     );
+      //   },
+      // },
     ];
   }, []);
 
