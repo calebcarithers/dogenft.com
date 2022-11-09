@@ -14,9 +14,17 @@ import {
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useAccount, useNetwork } from "wagmi";
+import {
+  useAccount,
+  useContractWrite,
+  useNetwork,
+  usePrepareContractWrite,
+} from "wagmi";
 import { getDogetownWhitelist } from "../environment";
+import { vars } from "../environment/vars";
 import { css } from "../helpers/css";
+import sandboxAbi from "../services/abis/sandbox";
+import { getProof } from "../services/merkletree";
 import { targetChain } from "../services/wagmi";
 
 interface Model {
@@ -112,9 +120,37 @@ const LordsOfDogetown = () => {
   const model = useMemo(() => models[modelIndex], [modelIndex]);
 
   const { chain } = useNetwork();
-  const { address, isConnecting } = useAccount();
+  const { address } = useAccount();
 
+  const proof = useMemo(
+    () =>
+      getProof(
+        address ? address : "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5",
+        whitelist
+      ),
+    [address]
+  );
+
+  const { config } = usePrepareContractWrite({
+    address: vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS,
+    abi: sandboxAbi,
+    functionName: "claim",
+    args: [proof],
+    onError: (args) => console.error(args),
+  });
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
   const isConnectedToTargetChain = targetChain.id === chain?.id;
+
+  useEffect(() => {
+    if (isLoading && !isClaiming) {
+      console.log("debug:: set true");
+      setIsClaiming(true);
+    } else if (!isLoading && isClaiming) {
+      console.log("debug:: set false");
+      setIsClaiming(false);
+    }
+  }, [isLoading, isClaiming]);
 
   const incrementModel = useCallback(
     () => setModelIndex(modelIndex + 1),
@@ -132,13 +168,15 @@ const LordsOfDogetown = () => {
 
   useEffect(() => {
     if (address && isConnectedToTargetChain) {
+      console.log("debug:: address", address);
+      // console.log("debug:: whitelist", whitelist);
       if (whitelist.includes(address)) {
         setIsInWhitelist(true);
       } else {
         setIsInWhitelist(false);
       }
     }
-  }, [address, isConnectedToTargetChain]);
+  }, [address, isConnectedToTargetChain, setIsInWhitelist]);
 
   useEffect(() => {
     if (isClaiming) {
@@ -205,16 +243,21 @@ const LordsOfDogetown = () => {
     } else {
       return (
         <div>
-          <Button disabled={isClaiming} onClick={() => setIsClaiming(true)}>
+          <Button
+            disabled={isClaiming}
+            onClick={() => {
+              write?.();
+            }}
+          >
             Mint
           </Button>
-          {isClaiming && (
+          {/* {isClaiming && (
             <Button onClick={() => setIsClaiming(false)}>Stop Claim</Button>
-          )}
+          )} */}
         </div>
       );
     }
-  }, [chain?.id, isClaiming]);
+  }, [isClaiming, isConnectedToTargetChain, isInWhitelist, write]);
 
   return (
     <div
