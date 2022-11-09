@@ -36,7 +36,7 @@ describe("Sandbox drop", function() {
         whitelistedSigners = signers.slice(1, amountToWhitelist);
         nonWhiteListedSigners = signers.slice(amountToWhitelist, signers.length)
 
-        erc1155Contract = await deployContract("MockFraction");
+        erc1155Contract = await deployContract("MockERC1155");
 
         const factory = await ethers.getContractFactory("SandboxDrop");
         merkleTree = generateMerkleTree(whitelistedSigners.map(account => account.address))

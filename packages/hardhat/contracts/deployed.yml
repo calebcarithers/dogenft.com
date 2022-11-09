@@ -26,6 +26,14 @@ fractionManager:
   rinkeby: 0x4b0f835fCb31Ef090549A811023d50B6430B6620
   mainnet: 0x92fE30c4208a5b6F62223d5DDA695F8D5B941Bb5
 
+sandbox:
+  erc1155:
+    goerli:
+    mainnet: 0xa342f5D851E866E18ff98F351f2c6637f4478dB5
+  claimer:
+    goerli:
+    mainnet:
+
 # ------------- OTHER CONTRACTS --------------------
 sandboxAssets:
   mainnet: 0xa342f5D851E866E18ff98F351f2c6637f4478dB5
