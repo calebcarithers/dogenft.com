@@ -31,7 +31,11 @@ const main = async () => {
         "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5",
         "0xAd3c410Df6F60d61DEDf7202e8e4805C79EBf54a",
         "0xC096df02D3C765f6C720EBef5b947c72Ab0E6B65",
-        "0x77509a9adFB1A85C2113eE80FBb195d771dcdFc2"
+        "0x77509a9adFB1A85C2113eE80FBb195d771dcdFc2",
+        "0xC096df02D3C765f6C720EBef5b947c72Ab0E6B65",
+        "0x901e7cbA2605CD3C125dFeD78d139A26bEf23325",
+        "0x0baF1F0F6ba5d83615f51a7Dc28bf12C98A196F1",
+        "0x26562efa88602a717A3A42523d6ff8CFf2806420"
     ]
 
     const merkleRoot = generateMerkleRoot(addresses)

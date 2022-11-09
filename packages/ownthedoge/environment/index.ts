@@ -17,7 +17,6 @@ export const isProduction = () =>
 export const getSoulboundWhitelist = () => devWhitelist;
 export const getDogetownWhitelist = () =>
   isDev() ? dogetownWhitelistLocal : dogetownWhitelist;
-// export const getDogetownWhitelist = () => dogetownWhitelist;
 interface Environment {
   api: {
     baseURL: string | null;
