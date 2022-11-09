@@ -4,6 +4,7 @@ import Button from "dsl/components/Button/Button";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import Image from "next/image";
 import {
+  PropsWithChildren,
   Suspense,
   useCallback,
   useEffect,
@@ -16,6 +17,7 @@ import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import {
   useAccount,
+  useContractRead,
   useContractWrite,
   useNetwork,
   usePrepareContractWrite,
@@ -111,6 +113,23 @@ enum RotationSpeeds {
 
 const whitelist = getDogetownWhitelist();
 
+const BorderedText: React.FC<PropsWithChildren> = ({ children }) => {
+  return (
+    <div
+      className={css(
+        "text-xl",
+        "font-bold",
+        "bg-pixels-yellow-100",
+        "p-3",
+        "border-2",
+        "border-dashed"
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+
 const LordsOfDogetown = () => {
   const [isInWhitelist, setIsInWhitelist] = useState(false);
   const [modelIndex, setModelIndex] = useState(0);
@@ -136,11 +155,28 @@ const LordsOfDogetown = () => {
     abi: sandboxAbi,
     functionName: "claim",
     args: [proof],
-    onError: (args) => console.error(args),
+    onError: (args) => console.error("error", args),
+    onSuccess: (data) => console.log("success", data),
+    onSettled: (data) => console.log("settled", data),
   });
 
+  const {
+    data: whitelistClaimed,
+    isError,
+    isLoading: whitelistClaimedLoading,
+  } = useContractRead({
+    address: vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS,
+    abi: sandboxAbi,
+    functionName: "whitelistClaimed",
+    args: [address ? address : ""],
+  });
+
+  //@ts-ignore
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
   const isConnectedToTargetChain = targetChain.id === chain?.id;
+
+  console.log("debug:: contract data", data);
+  console.log("debug:: is success", isSuccess);
 
   useEffect(() => {
     if (isLoading && !isClaiming) {
@@ -210,36 +246,17 @@ const LordsOfDogetown = () => {
   }, [isClaiming]);
 
   const renderAction = useCallback(() => {
+    // TODO CHECK LOGS HERE
     if (!isConnectedToTargetChain) {
       return (
-        <div
-          className={css(
-            "text-xl",
-            "font-bold",
-            "bg-pixels-yellow-100",
-            "p-3",
-            "border-2",
-            "border-dashed"
-          )}
-        >
+        <BorderedText>
           ⛔ Please connect to {targetChain.network} ⛔
-        </div>
+        </BorderedText>
       );
+    } else if (whitelistClaimed) {
+      return <BorderedText>🛹 Thanks for claiming 🛹</BorderedText>;
     } else if (!isInWhitelist) {
-      return (
-        <div
-          className={css(
-            "text-xl",
-            "font-bold",
-            "bg-pixels-yellow-100",
-            "p-3",
-            "border-2",
-            "border-dashed"
-          )}
-        >
-          Sorry you are not in the whitelist!
-        </div>
-      );
+      return <BorderedText>Sorry you are not in the whitelist!</BorderedText>;
     } else {
       return (
         <div>
@@ -251,13 +268,16 @@ const LordsOfDogetown = () => {
           >
             Mint
           </Button>
-          {/* {isClaiming && (
-            <Button onClick={() => setIsClaiming(false)}>Stop Claim</Button>
-          )} */}
         </div>
       );
     }
-  }, [isClaiming, isConnectedToTargetChain, isInWhitelist, write]);
+  }, [
+    isClaiming,
+    isConnectedToTargetChain,
+    isInWhitelist,
+    write,
+    whitelistClaimed,
+  ]);
 
   return (
     <div
