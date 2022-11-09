@@ -14,7 +14,8 @@ import {
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useNetwork } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
+import { getDogetownWhitelist } from "../environment";
 import { css } from "../helpers/css";
 import { targetChain } from "../services/wagmi";
 
@@ -100,13 +101,20 @@ enum RotationSpeeds {
   Static = 0,
 }
 
+const whitelist = getDogetownWhitelist();
+
 const LordsOfDogetown = () => {
+  const [isInWhitelist, setIsInWhitelist] = useState(false);
   const [modelIndex, setModelIndex] = useState(0);
   const [isClaiming, setIsClaiming] = useState(false);
   const [rotationSpeed, setRotationSpeed] = useState(RotationSpeeds.Default);
   const [_interval, _setInterval] = useState<NodeJS.Timer | null>(null);
   const model = useMemo(() => models[modelIndex], [modelIndex]);
+
   const { chain } = useNetwork();
+  const { address, isConnecting } = useAccount();
+
+  const isConnectedToTargetChain = targetChain.id === chain?.id;
 
   const incrementModel = useCallback(
     () => setModelIndex(modelIndex + 1),
@@ -121,6 +129,16 @@ const LordsOfDogetown = () => {
     [modelIndex]
   );
   const isDecrementDisabled = useMemo(() => modelIndex === 0, [modelIndex]);
+
+  useEffect(() => {
+    if (address && isConnectedToTargetChain) {
+      if (whitelist.includes(address)) {
+        setIsInWhitelist(true);
+      } else {
+        setIsInWhitelist(false);
+      }
+    }
+  }, [address, isConnectedToTargetChain]);
 
   useEffect(() => {
     if (isClaiming) {
@@ -154,7 +172,7 @@ const LordsOfDogetown = () => {
   }, [isClaiming]);
 
   const renderAction = useCallback(() => {
-    if (targetChain.id !== chain?.id) {
+    if (!isConnectedToTargetChain) {
       return (
         <div
           className={css(
@@ -167,6 +185,21 @@ const LordsOfDogetown = () => {
           )}
         >
           ⛔ Please connect to {targetChain.network} ⛔
+        </div>
+      );
+    } else if (!isInWhitelist) {
+      return (
+        <div
+          className={css(
+            "text-xl",
+            "font-bold",
+            "bg-pixels-yellow-100",
+            "p-3",
+            "border-2",
+            "border-dashed"
+          )}
+        >
+          Sorry you are not in the whitelist!
         </div>
       );
     } else {
@@ -185,7 +218,7 @@ const LordsOfDogetown = () => {
 
   return (
     <div
-      className={css("flex", "flex-col", "pt-14", "bg-contain")}
+      className={css("flex", "flex-col", "py-14", "bg-contain")}
       style={{ backgroundImage: `url(/images/lord-of-dogetown.jpeg)` }}
     >
       <div className={css("flex", "justify-center")}>
