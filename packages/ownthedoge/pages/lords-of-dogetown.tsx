@@ -91,7 +91,7 @@ const LordsOfDogetown = () => {
       style={{ backgroundImage: `url(/images/lord-of-dogetown.jpeg)` }}
     >
       <div className={css("flex", "justify-center")}>
-        <div className={css("max-w-xl", "w-full", "border-2", "border-dashed")}>
+        <div className={css("max-w-xl", "w-full")}>
           <div className={css("max-w-xs", "w-full", "my-8", "m-auto")}>
             <Image
               width={798}
@@ -108,7 +108,8 @@ const LordsOfDogetown = () => {
                 "border-dashed",
                 "bg-pixels-yellow-100",
                 "text-xl",
-                "font-bold"
+                "font-bold",
+                "p-3"
               )}
             >
               Welcome to the November Pixel Perk! The Lords of Dogetown
@@ -119,7 +120,8 @@ const LordsOfDogetown = () => {
                 "border-2",
                 "border-dashed",
                 "relative",
-                "h-[400px]"
+                "h-[400px]",
+                "relative"
               )}
             >
               <div
@@ -130,12 +132,16 @@ const LordsOfDogetown = () => {
                   "w-full",
                   "h-full",
                   "bg-pixels-yellow-100",
-                  "opacity-80"
+                  "opacity-100"
                 )}
               />
               <Canvas camera={{ position: [0, 0, 4.5] }}>
                 <Suspense fallback={null}>
-                  <PivotControls lineWidth={1} depthTest={false}>
+                  <PivotControls
+                    visible={false}
+                    lineWidth={1}
+                    depthTest={false}
+                  >
                     <Model
                       url={model.url}
                       scale={model.scale}
@@ -153,6 +159,28 @@ const LordsOfDogetown = () => {
                   <ambientLight intensity={0.5} />
                 </Suspense>
               </Canvas>
+              <div
+                className={css(
+                  "absolute",
+                  "bottom-7",
+                  "left-1/2",
+                  "-translate-x-1/2",
+                  "font-bold"
+                )}
+              >
+                {model.name}
+              </div>
+              <div
+                className={css(
+                  "absolute",
+                  "bottom-2",
+                  "left-1/2",
+                  "-translate-x-1/2",
+                  "font-normal"
+                )}
+              >
+                {model.description}
+              </div>
             </div>
             <div className={css("flex", "flex-col", "gap-4", "items-center")}>
               <div className={css("flex", "gap-3")}>
