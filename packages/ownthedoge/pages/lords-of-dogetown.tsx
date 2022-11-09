@@ -14,7 +14,9 @@ import {
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { useNetwork } from "wagmi";
 import { css } from "../helpers/css";
+import { targetChain } from "../services/wagmi";
 
 interface Model {
   url: string;
@@ -102,8 +104,9 @@ const LordsOfDogetown = () => {
   const [modelIndex, setModelIndex] = useState(0);
   const [isClaiming, setIsClaiming] = useState(false);
   const [rotationSpeed, setRotationSpeed] = useState(RotationSpeeds.Default);
-  const [_interval, _setInterval] = useState(null);
+  const [_interval, _setInterval] = useState<NodeJS.Timer | null>(null);
   const model = useMemo(() => models[modelIndex], [modelIndex]);
+  const { chain } = useNetwork();
 
   const incrementModel = useCallback(
     () => setModelIndex(modelIndex + 1),
@@ -146,9 +149,39 @@ const LordsOfDogetown = () => {
       _setInterval(interval);
     } else {
       setRotationSpeed(RotationSpeeds.Default);
-      clearInterval(_interval);
+      clearInterval(_interval as NodeJS.Timer);
     }
   }, [isClaiming]);
+
+  const renderAction = useCallback(() => {
+    if (targetChain.id !== chain?.id) {
+      return (
+        <div
+          className={css(
+            "text-xl",
+            "font-bold",
+            "bg-pixels-yellow-100",
+            "p-3",
+            "border-2",
+            "border-dashed"
+          )}
+        >
+          ⛔ Please connect to {targetChain.network} ⛔
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Button disabled={isClaiming} onClick={() => setIsClaiming(true)}>
+            Mint
+          </Button>
+          {isClaiming && (
+            <Button onClick={() => setIsClaiming(false)}>Stop Claim</Button>
+          )}
+        </div>
+      );
+    }
+  }, [chain?.id, isClaiming]);
 
   return (
     <div
@@ -281,19 +314,7 @@ const LordsOfDogetown = () => {
                   <BsArrowRight />
                 </Button>
               </div>
-              <div>
-                <Button
-                  disabled={isClaiming}
-                  onClick={() => setIsClaiming(true)}
-                >
-                  Mint
-                </Button>
-                {isClaiming && (
-                  <Button onClick={() => setIsClaiming(false)}>
-                    Stop Claim
-                  </Button>
-                )}
-              </div>
+              {renderAction()}
             </div>
           </div>
         </div>
