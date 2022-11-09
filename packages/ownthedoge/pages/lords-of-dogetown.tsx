@@ -21,6 +21,7 @@ import {
   useContractWrite,
   useNetwork,
   usePrepareContractWrite,
+  useWaitForTransaction,
 } from "wagmi";
 import { getDogetownWhitelist } from "../environment";
 import { vars } from "../environment/vars";
@@ -107,7 +108,7 @@ const models: Model[] = [
 
 enum RotationSpeeds {
   Default = 0.01,
-  Claiming = 0.1,
+  Claiming = 0.2,
   Static = 0,
 }
 
@@ -150,31 +151,59 @@ const LordsOfDogetown = () => {
     () =>
       getProof(
         address ? address : "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5",
-        whitelist
+        whitelist as string[]
       ),
     [address]
   );
 
-  const { config } = usePrepareContractWrite({
-    address: vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS,
+  // const sandBoxContractAddress = isDev()
+  //   ? "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c"
+  //   : vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS;
+
+  const sandBoxContractAddress =
+    vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS;
+
+  const {
+    data: whitelistClaimed,
+    isLoading: whitelistClaimedLoading,
+    refetch: refetchWhiteListClaimed,
+  } = useContractRead({
+    address: sandBoxContractAddress,
     abi: sandboxAbi,
-    functionName: "claim",
-    args: [proof],
-    onError: (args) => console.error("error", args),
-    onSuccess: (data) => console.log("success", data),
-    onSettled: (data) => console.log("settled", data),
+    functionName: "whitelistClaimed",
+    args: [address ? address : ""],
   });
 
-  const { data: whitelistClaimed, isLoading: whitelistClaimedLoading } =
-    useContractRead({
-      address: vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS,
-      abi: sandboxAbi,
-      functionName: "whitelistClaimed",
-      args: [address ? address : ""],
-    });
-
+  const { config } = usePrepareContractWrite({
+    address: sandBoxContractAddress,
+    abi: sandboxAbi,
+    functionName: "claim",
+    args: [proof] as unknown[],
+  });
   //@ts-ignore
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  useWaitForTransaction({
+    wait: data?.wait,
+    onSuccess(data) {
+      if (data?.status === 1) {
+        refetchWhiteListClaimed();
+      }
+    },
+  });
+
+  // const erc1155Address = isDev()
+  //   ? "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+  //   : vars.NEXT_PUBLIC_SANDBOX_ASSETS_CONTRACT_ADDRESS;
+
+  // useContractEvent({
+  //   address: erc1155Address,
+  //   abi: erc1155abi,
+  //   eventName: "TransferSingle",
+  //   listener(data) {
+  //     console.log("debug:: transfer hit", data);
+  //   },
+  // });
+
   const isConnectedToTargetChain = targetChain.id === chain?.id;
 
   useEffect(() => {
@@ -250,8 +279,8 @@ const LordsOfDogetown = () => {
       );
     } else if (whitelistClaimed) {
       return (
-        <BorderedText className={css("font-bold")}>
-          🛹 Thanks for claiming 🛹
+        <BorderedText className={css("font-bold", "text-2xl", "mt-2")}>
+          🛹 Thanks for claiming! 🛹
         </BorderedText>
       );
     } else if (!isInWhitelist) {
@@ -298,6 +327,8 @@ const LordsOfDogetown = () => {
               alt={"Lords of Dogetown"}
             />
           </div>
+          {/* <div>{erc1155Address}</div> */}
+          {/* <div>{sandBoxContractAddress}</div> */}
           <div className={css("flex", "flex-col", "gap-8")}>
             <BorderedText className={css("font-normal")}>
               As part of our Lords of Dogetown project, we have 100{" "}

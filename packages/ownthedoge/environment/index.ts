@@ -14,8 +14,9 @@ export const isProduction = () =>
   vars.NEXT_PUBLIC_APP_ENV === "production";
 
 export const getSoulboundWhitelist = () => devWhitelist;
+// export const getDogetownWhitelist = () =>
+//   isDev() ? dogetownWhitelistLocal : dogetownWhitelist;
 export const getDogetownWhitelist = () => dogetownWhitelist;
-
 interface Environment {
   api: {
     baseURL: string | null;
