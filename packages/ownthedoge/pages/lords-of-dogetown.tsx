@@ -1,5 +1,5 @@
 import { PivotControls } from "@react-three/drei";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, Vector3 } from "@react-three/fiber";
 import Button from "dsl/components/Button/Button";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import Image from "next/image";
@@ -13,7 +13,6 @@ import {
   useState,
 } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import {
   useAccount,
@@ -44,7 +43,7 @@ const models: Model[] = [
     name: "Mech",
     description: "Doge Mech",
     scale: 0.05,
-    position: new Vector3(0, -1.2, 0),
+    position: [0, -1.2, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980232,
   },
   {
@@ -52,7 +51,7 @@ const models: Model[] = [
     name: "Doge Backpack",
     description: "A Doge backpack to wear",
     scale: 0.08,
-    position: new Vector3(0, -2.7, 0),
+    position: [0, -2.7, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980231,
   },
   {
@@ -60,7 +59,7 @@ const models: Model[] = [
     name: "Doge Drives",
     description: "A Doge driver",
     scale: 0.03,
-    position: new Vector3(0, -0.7, 0),
+    position: [0, -0.7, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980230,
   },
   {
@@ -68,7 +67,7 @@ const models: Model[] = [
     name: "Doge Head Hat",
     description: "A Doge hat to wear on your head",
     scale: 0.09,
-    position: new Vector3(0, -5, 0),
+    position: [0, -5, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980227,
   },
   {
@@ -76,7 +75,7 @@ const models: Model[] = [
     name: "Doge Paw Slippers",
     description: "Doge slippers for your feet",
     scale: 0.1,
-    position: new Vector3(0, 0, 0),
+    position: [0, 0, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980229,
   },
   {
@@ -84,7 +83,7 @@ const models: Model[] = [
     name: "Doge Rest",
     description: "Doge for resting",
     scale: 0.02,
-    position: new Vector3(0, -1, 0),
+    position: [0, -1, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980226,
   },
   {
@@ -92,7 +91,7 @@ const models: Model[] = [
     name: "Doge Statue",
     description: "Doge statue for worship",
     scale: 0.028,
-    position: new Vector3(0, -1.9, 0),
+    position: [0, -1.9, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980224,
   },
   {
@@ -100,7 +99,7 @@ const models: Model[] = [
     name: "Doge Tail",
     description: "Doge tail for wearing",
     scale: 0.1,
-    position: new Vector3(0, -2, 0),
+    position: [0, -2, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980225,
   },
 ];
@@ -432,7 +431,10 @@ const Model: React.FC<ModelProps> = ({
   position,
   rotationSpeed,
 }) => {
-  const ref = useRef<Mesh<BufferGeometry, Material | Material[]> | null>(null);
+  const ref = useRef<THREE.Mesh<
+    THREE.BufferGeometry,
+    THREE.Material | THREE.Material[]
+  > | null>(null);
   const model = useLoader(GLTFLoader, url);
   useEffect(() => {
     ref.current?.rotateY(Math.PI);
