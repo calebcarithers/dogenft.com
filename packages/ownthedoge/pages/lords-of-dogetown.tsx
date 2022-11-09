@@ -1,12 +1,19 @@
-import { GizmoHelper, GizmoViewport, PivotControls } from "@react-three/drei";
+import { PivotControls } from "@react-three/drei";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import Button from "dsl/components/Button/Button";
+import ColoredText from "dsl/components/ColoredText/ColoredText";
 import Image from "next/image";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { BufferGeometry, Material, Mesh, Vector3 } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { isDev } from "../environment";
 import { css } from "../helpers/css";
 
 interface Model {
@@ -64,8 +71,8 @@ const models: Model[] = [
     url: "/models/doge-statue.gltf",
     name: "Doge Statue",
     description: "Doge statue for worship",
-    scale: 0.03,
-    position: new Vector3(0, -2.2, 0),
+    scale: 0.028,
+    position: new Vector3(0, -1.9, 0),
   },
   {
     url: "/models/doge-tail.gltf",
@@ -76,14 +83,64 @@ const models: Model[] = [
   },
 ];
 
+enum RotationSpeeds {
+  Default = 0.01,
+  Claiming = 0.1,
+  Static = 0,
+}
+
 const LordsOfDogetown = () => {
-  const [modelIndex, setModelIndex] = useState(7);
+  const [modelIndex, setModelIndex] = useState(0);
+  const [isClaiming, setIsClaiming] = useState(false);
+  const [rotationSpeed, setRotationSpeed] = useState(RotationSpeeds.Default);
   const model = useMemo(() => models[modelIndex], [modelIndex]);
 
-  const incrementModel = () => setModelIndex(modelIndex + 1);
-  const decrementModel = () => setModelIndex(modelIndex - 1);
-  const isIncrementDisabled = modelIndex === models.length - 1;
-  const isDecrementDisabled = modelIndex === 0;
+  const incrementModel = useCallback(
+    () => setModelIndex(modelIndex + 1),
+    [modelIndex, setModelIndex]
+  );
+  const decrementModel = useCallback(
+    () => setModelIndex(modelIndex - 1),
+    [modelIndex, setModelIndex]
+  );
+  const isIncrementDisabled = useMemo(
+    () => modelIndex === models.length - 1,
+    [modelIndex]
+  );
+  const isDecrementDisabled = useMemo(() => modelIndex === 0, [modelIndex]);
+
+  useEffect(() => {
+    let interval;
+    if (isClaiming) {
+      if (rotationSpeed !== RotationSpeeds.Claiming) {
+        setRotationSpeed(RotationSpeeds.Claiming);
+      }
+
+      let isIncreasing = true;
+
+      interval = setInterval(() => {
+        setModelIndex((prevState) => {
+          if (isIncreasing && prevState !== models.length - 1) {
+            return prevState + 1;
+          } else if (!isIncreasing && prevState !== 0) {
+            return prevState - 1;
+          } else if (isIncreasing && prevState === models.length - 1) {
+            isIncreasing = false;
+            return prevState - 1;
+          } else if (!isIncreasing && prevState === 0) {
+            isIncreasing = true;
+            return prevState + 1;
+          }
+          return 0;
+        });
+      }, 500);
+    } else {
+      if (interval) {
+        console.log("clearing interval");
+        clearInterval(interval);
+      }
+    }
+  }, [isClaiming]);
 
   return (
     <div
@@ -143,44 +200,63 @@ const LordsOfDogetown = () => {
                     depthTest={false}
                   >
                     <Model
+                      rotationSpeed={rotationSpeed}
                       url={model.url}
                       scale={model.scale}
                       position={model.position}
                     />
                   </PivotControls>
-                  {isDev() && (
+                  {/* {isDev() && (
                     <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
                       <GizmoViewport
                         axisColors={["red", "green", "blue"]}
                         labelColor="black"
                       />
                     </GizmoHelper>
-                  )}
+                  )} */}
                   <ambientLight intensity={0.5} />
                 </Suspense>
               </Canvas>
-              <div
-                className={css(
-                  "absolute",
-                  "bottom-7",
-                  "left-1/2",
-                  "-translate-x-1/2",
-                  "font-bold"
-                )}
-              >
-                {model.name}
-              </div>
-              <div
-                className={css(
-                  "absolute",
-                  "bottom-2",
-                  "left-1/2",
-                  "-translate-x-1/2",
-                  "font-normal"
-                )}
-              >
-                {model.description}
-              </div>
+              {isClaiming && (
+                <div
+                  className={css(
+                    "absolute",
+                    "bottom-3",
+                    "left-1/2",
+                    "-translate-x-1/2",
+                    "text-3xl"
+                  )}
+                >
+                  <ColoredText bold>...CLAIMING...</ColoredText>
+                </div>
+              )}
+              {!isClaiming && (
+                <>
+                  <div
+                    className={css(
+                      "absolute",
+                      "bottom-7",
+                      "left-1/2",
+                      "-translate-x-1/2",
+                      "font-bold",
+                      "text-xl"
+                    )}
+                  >
+                    {model.name}
+                  </div>
+                  <div
+                    className={css(
+                      "absolute",
+                      "bottom-2",
+                      "left-1/2",
+                      "-translate-x-1/2",
+                      "font-normal"
+                    )}
+                  >
+                    {model.description}
+                  </div>
+                </>
+              )}
             </div>
             <div className={css("flex", "flex-col", "gap-4", "items-center")}>
               <div className={css("flex", "gap-3")}>
@@ -192,7 +268,7 @@ const LordsOfDogetown = () => {
                 </Button>
               </div>
               <div>
-                <Button>Mint</Button>
+                <Button onClick={() => setIsClaiming(true)}>Mint</Button>
               </div>
             </div>
           </div>
@@ -206,16 +282,22 @@ interface ModelProps {
   url: string;
   scale: number;
   position: Vector3;
+  rotationSpeed: number;
 }
 
-const Model: React.FC<ModelProps> = ({ url, scale, position }) => {
+const Model: React.FC<ModelProps> = ({
+  url,
+  scale,
+  position,
+  rotationSpeed,
+}) => {
   const ref = useRef<Mesh<BufferGeometry, Material | Material[]> | null>(null);
   const model = useLoader(GLTFLoader, url);
   useEffect(() => {
     ref.current?.rotateY(Math.PI);
   }, []);
   useFrame(({ clock }) => {
-    ref.current!.rotation.y += 0.01;
+    ref.current!.rotation.y += rotationSpeed;
   });
   return (
     <mesh ref={ref} scale={scale} position={position}>
