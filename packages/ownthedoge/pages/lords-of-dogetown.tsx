@@ -102,6 +102,7 @@ const LordsOfDogetown = () => {
   const [modelIndex, setModelIndex] = useState(0);
   const [isClaiming, setIsClaiming] = useState(false);
   const [rotationSpeed, setRotationSpeed] = useState(RotationSpeeds.Default);
+  const [_interval, _setInterval] = useState(null);
   const model = useMemo(() => models[modelIndex], [modelIndex]);
 
   const incrementModel = useCallback(
@@ -119,7 +120,6 @@ const LordsOfDogetown = () => {
   const isDecrementDisabled = useMemo(() => modelIndex === 0, [modelIndex]);
 
   useEffect(() => {
-    let interval;
     if (isClaiming) {
       if (rotationSpeed !== RotationSpeeds.Claiming) {
         setRotationSpeed(RotationSpeeds.Claiming);
@@ -127,7 +127,7 @@ const LordsOfDogetown = () => {
 
       let isIncreasing = true;
 
-      interval = setInterval(() => {
+      const interval = setInterval(() => {
         setModelIndex((prevState) => {
           if (isIncreasing && prevState !== models.length - 1) {
             return prevState + 1;
@@ -143,11 +143,10 @@ const LordsOfDogetown = () => {
           return 0;
         });
       }, 500);
+      _setInterval(interval);
     } else {
-      if (interval) {
-        console.log("clearing interval");
-        clearInterval(interval);
-      }
+      setRotationSpeed(RotationSpeeds.Default);
+      clearInterval(_interval);
     }
   }, [isClaiming]);
 
@@ -289,6 +288,11 @@ const LordsOfDogetown = () => {
                 >
                   Mint
                 </Button>
+                {isClaiming && (
+                  <Button onClick={() => setIsClaiming(false)}>
+                    Stop Claim
+                  </Button>
+                )}
               </div>
             </div>
           </div>
