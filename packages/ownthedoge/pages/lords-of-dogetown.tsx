@@ -139,7 +139,6 @@ const BorderedText: React.FC<PropsWithChildren<{ className?: string }>> = ({
 const LordsOfDogetown = () => {
   const [isInWhitelist, setIsInWhitelist] = useState(false);
   const [modelIndex, setModelIndex] = useState(0);
-  const [isClaiming, setIsClaiming] = useState(false);
   const [rotationSpeed, setRotationSpeed] = useState(RotationSpeeds.Default);
   const [_interval, _setInterval] = useState<NodeJS.Timer | null>(null);
   const model = useMemo(() => models[modelIndex], [modelIndex]);
@@ -155,10 +154,6 @@ const LordsOfDogetown = () => {
       ),
     [address]
   );
-
-  // const sandBoxContractAddress = isDev()
-  //   ? "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c"
-  //   : vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS;
 
   const sandBoxContractAddress =
     vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS;
@@ -181,38 +176,44 @@ const LordsOfDogetown = () => {
     args: [proof] as unknown[],
   });
   //@ts-ignore
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
-  useWaitForTransaction({
-    wait: data?.wait,
+  const {
+    data: contractData,
+    isLoading: isSignLoading,
+    isSuccess,
+    write,
+  } = useContractWrite(config);
+
+  // console.log("debug:: contract data", contractData);
+  // console.log("debug:: contract data hash", contractData?.hash);
+
+  const {
+    isLoading: isTxLoading,
+    isError: isTxErrored,
+    data: txData,
+  } = useWaitForTransaction({
+    hash: contractData?.hash,
     onSuccess(data) {
+      console.log("tx successful", data);
       if (data?.status === 1) {
         refetchWhiteListClaimed();
+      } else {
+        console.error("tx unsuccessful", data);
       }
     },
   });
 
-  // const erc1155Address = isDev()
-  //   ? "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-  //   : vars.NEXT_PUBLIC_SANDBOX_ASSETS_CONTRACT_ADDRESS;
+  // console.log("debug:: istxloading", isTxLoading);
+  // console.log("debug:: tx data", txData);
 
-  // useContractEvent({
-  //   address: erc1155Address,
-  //   abi: erc1155abi,
-  //   eventName: "TransferSingle",
-  //   listener(data) {
-  //     console.log("debug:: transfer hit", data);
-  //   },
-  // });
+  const isConnectedToTargetChain = useMemo(
+    () => targetChain.id === chain?.id,
+    [chain?.id]
+  );
 
-  const isConnectedToTargetChain = targetChain.id === chain?.id;
-
-  useEffect(() => {
-    if (isLoading && !isClaiming) {
-      setIsClaiming(true);
-    } else if (!isLoading && isClaiming) {
-      setIsClaiming(false);
-    }
-  }, [isLoading, isClaiming]);
+  const isWaiting = useMemo(
+    () => isSignLoading || isTxLoading,
+    [isSignLoading, isTxLoading]
+  );
 
   const incrementModel = useCallback(
     () => setModelIndex(modelIndex + 1),
@@ -239,7 +240,7 @@ const LordsOfDogetown = () => {
   }, [address, isConnectedToTargetChain, setIsInWhitelist]);
 
   useEffect(() => {
-    if (isClaiming) {
+    if (isWaiting) {
       if (rotationSpeed !== RotationSpeeds.Claiming) {
         setRotationSpeed(RotationSpeeds.Claiming);
       }
@@ -267,7 +268,7 @@ const LordsOfDogetown = () => {
       setRotationSpeed(RotationSpeeds.Default);
       clearInterval(_interval as NodeJS.Timer);
     }
-  }, [isClaiming]);
+  }, [isWaiting]);
 
   const renderAction = useCallback(() => {
     // TODO CHECK LOGS HERE
@@ -293,18 +294,18 @@ const LordsOfDogetown = () => {
       return (
         <div>
           <Button
-            disabled={isClaiming}
+            disabled={isWaiting}
             onClick={() => {
               write?.();
             }}
           >
-            Mint
+            Claim
           </Button>
         </div>
       );
     }
   }, [
-    isClaiming,
+    isWaiting,
     isConnectedToTargetChain,
     isInWhitelist,
     write,
@@ -327,8 +328,6 @@ const LordsOfDogetown = () => {
               alt={"Lords of Dogetown"}
             />
           </div>
-          {/* <div>{erc1155Address}</div> */}
-          {/* <div>{sandBoxContractAddress}</div> */}
           <div className={css("flex", "flex-col", "gap-8")}>
             <BorderedText className={css("font-normal")}>
               As part of our Lords of Dogetown project, we have 100{" "}
@@ -398,7 +397,7 @@ const LordsOfDogetown = () => {
                   <ambientLight intensity={0.5} />
                 </Suspense>
               </Canvas>
-              {isClaiming && (
+              {isWaiting && (
                 <div
                   className={css(
                     "absolute",
@@ -408,10 +407,10 @@ const LordsOfDogetown = () => {
                     "text-3xl"
                   )}
                 >
-                  <ColoredText bold>...CLAIMING...</ColoredText>
+                  <ColoredText bold>✨ CLAIMING ✨</ColoredText>
                 </div>
               )}
-              {!isClaiming && (
+              {!isWaiting && (
                 <>
                   <div
                     className={css(
@@ -442,13 +441,13 @@ const LordsOfDogetown = () => {
             <div className={css("flex", "flex-col", "gap-4", "items-center")}>
               <div className={css("flex", "gap-3")}>
                 <Button
-                  disabled={isClaiming || isDecrementDisabled}
+                  disabled={isWaiting || isDecrementDisabled}
                   onClick={decrementModel}
                 >
                   <BsArrowLeft />
                 </Button>
                 <Button
-                  disabled={isClaiming || isIncrementDisabled}
+                  disabled={isWaiting || isIncrementDisabled}
                   onClick={incrementModel}
                 >
                   <BsArrowRight />

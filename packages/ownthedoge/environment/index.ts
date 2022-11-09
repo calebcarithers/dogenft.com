@@ -1,4 +1,5 @@
 import devWhitelist from "../services/whitelists/devSoulboundWhitelist.json";
+import dogetownWhitelistLocal from "../services/whitelists/lord-of-dogetown-whitelist-hardhat.json";
 import dogetownWhitelist from "../services/whitelists/lord-of-dogetown-whitelist.json";
 import development from "./development";
 import production from "./production";
@@ -14,9 +15,9 @@ export const isProduction = () =>
   vars.NEXT_PUBLIC_APP_ENV === "production";
 
 export const getSoulboundWhitelist = () => devWhitelist;
-// export const getDogetownWhitelist = () =>
-//   isDev() ? dogetownWhitelistLocal : dogetownWhitelist;
-export const getDogetownWhitelist = () => dogetownWhitelist;
+export const getDogetownWhitelist = () =>
+  isDev() ? dogetownWhitelistLocal : dogetownWhitelist;
+// export const getDogetownWhitelist = () => dogetownWhitelist;
 interface Environment {
   api: {
     baseURL: string | null;

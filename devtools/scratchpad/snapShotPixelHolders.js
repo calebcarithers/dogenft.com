@@ -25,12 +25,20 @@ const writeJsonBlobToFile = (name, data) => {
 }
 
 const main = async () => {
-    const addresses = await getPixelHolderAddresses()
+    // const addresses = await getPixelHolderAddresses()
+    const addresses = [
+        "0x12E9d84aF808C26F21e383af5762F48b990aDC09",
+        "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5",
+        "0xAd3c410Df6F60d61DEDf7202e8e4805C79EBf54a",
+        "0xC096df02D3C765f6C720EBef5b947c72Ab0E6B65",
+        "0x77509a9adFB1A85C2113eE80FBb195d771dcdFc2"
+    ]
+
     const merkleRoot = generateMerkleRoot(addresses)
     console.log("address of length", addresses.length, "found")
     console.log("got merkle root", merkleRoot)
     
-    const filename = "lord-of-dogetown-whitelist.json"
+    const filename = "lord-of-dogetown-whitelist-hardhat.json"
     writeJsonBlobToFile(`../../packages/ownthedoge/services/whitelists/${filename}`, addresses)
     writeJsonBlobToFile(`./${filename}`, addresses)
 }
