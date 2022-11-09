@@ -22,6 +22,7 @@ interface Model {
   description: string;
   scale: number;
   position: Vector3;
+  tokenId: number;
 }
 
 const models: Model[] = [
@@ -31,6 +32,7 @@ const models: Model[] = [
     description: "Doge Mech",
     scale: 0.05,
     position: new Vector3(0, -1.2, 0),
+    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980232,
   },
   {
     url: "/models/doge-backpack.gltf",
@@ -38,6 +40,7 @@ const models: Model[] = [
     description: "A Doge backpack to wear",
     scale: 0.08,
     position: new Vector3(0, -2.7, 0),
+    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980231,
   },
   {
     url: "/models/doge-drives.gltf",
@@ -45,6 +48,7 @@ const models: Model[] = [
     description: "A Doge driver",
     scale: 0.03,
     position: new Vector3(0, -0.7, 0),
+    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980230,
   },
   {
     url: "/models/doge-head-hat.gltf",
@@ -52,6 +56,7 @@ const models: Model[] = [
     description: "A Doge hat to wear on your head",
     scale: 0.09,
     position: new Vector3(0, -5, 0),
+    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980227,
   },
   {
     url: "/models/doge-paw-slippers.gltf",
@@ -59,6 +64,7 @@ const models: Model[] = [
     description: "Doge slippers for your feet",
     scale: 0.1,
     position: new Vector3(0, 0, 0),
+    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980229,
   },
   {
     url: "/models/doge-rest.gltf",
@@ -66,6 +72,7 @@ const models: Model[] = [
     description: "Doge for resting",
     scale: 0.02,
     position: new Vector3(0, -1, 0),
+    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980226,
   },
   {
     url: "/models/doge-statue.gltf",
@@ -73,6 +80,7 @@ const models: Model[] = [
     description: "Doge statue for worship",
     scale: 0.028,
     position: new Vector3(0, -1.9, 0),
+    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980224,
   },
   {
     url: "/models/doge-tail.gltf",
@@ -80,6 +88,7 @@ const models: Model[] = [
     description: "Doge tail for wearing",
     scale: 0.1,
     position: new Vector3(0, -2, 0),
+    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980225,
   },
 ];
 
@@ -260,15 +269,26 @@ const LordsOfDogetown = () => {
             </div>
             <div className={css("flex", "flex-col", "gap-4", "items-center")}>
               <div className={css("flex", "gap-3")}>
-                <Button disabled={isDecrementDisabled} onClick={decrementModel}>
+                <Button
+                  disabled={isClaiming || isDecrementDisabled}
+                  onClick={decrementModel}
+                >
                   <BsArrowLeft />
                 </Button>
-                <Button disabled={isIncrementDisabled} onClick={incrementModel}>
+                <Button
+                  disabled={isClaiming || isIncrementDisabled}
+                  onClick={incrementModel}
+                >
                   <BsArrowRight />
                 </Button>
               </div>
               <div>
-                <Button onClick={() => setIsClaiming(true)}>Mint</Button>
+                <Button
+                  disabled={isClaiming}
+                  onClick={() => setIsClaiming(true)}
+                >
+                  Mint
+                </Button>
               </div>
             </div>
           </div>
