@@ -28,10 +28,10 @@ fractionManager:
 
 sandbox:
   erc1155:
-    goerli:
+    goerli: 0x642b4001F582E83f719bFbe6aB0D060770442e14
     mainnet: 0xa342f5D851E866E18ff98F351f2c6637f4478dB5
   claimer:
-    goerli:
+    goerli: 0x1FE48305EC26142B1335F6B016fC7017e67f427C
     mainnet:
 
 # ------------- OTHER CONTRACTS --------------------

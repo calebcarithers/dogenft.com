@@ -13,14 +13,14 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
-  const sandboxGoerliAddress = ""
+  const sandboxGoerliAddress = "0x642b4001F582E83f719bFbe6aB0D060770442e14"
   const sandboxMainnetAddress = "0xa342f5D851E866E18ff98F351f2c6637f4478dB5"
   const merkleRoot = "0x6cb8b6c57591c30ab9530e1699ba7a08f9a45804c210b6ba832e475e7304637a"
 
   const factory = await hre.ethers.getContractFactory("SandboxDrop");
   const contract = await hre.upgrades.deployProxy(factory, [sandboxGoerliAddress, merkleRoot]);
   await contract.deployed();
-  console.log("DogeMajor Manager deployed to:", contract.address);
+  console.log("Sandbox contract deployed to:", contract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
