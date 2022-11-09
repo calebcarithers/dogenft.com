@@ -307,12 +307,20 @@ const LordsOfDogetown = () => {
               wearable NFTs to give Pixel holders 🛹.
             </BorderedText>
             <BorderedText className={css("font-normal")}>
-              There are 8 different wearables up for grabs with mixed rarity and
-              value ($3.50 - $10). This claim is first come first serve until
-              all 100 are claimed 🏃. You will be given a random wearable
-              selected from the 8 avaiable (seen below). The claim window will
-              be open for 30 days and you much have held a pixel by October 31st
-              to be eligible.
+              There are 8 different wearables up for grabs with mixed rarity and{" "}
+              <Link
+                isExternal
+                href={
+                  "https://www.sandbox.game/en/collections/lords-of-dogetown-much-doge-pack/122/"
+                }
+              >
+                value
+              </Link>
+              . This claim is {'"first come first serve"'} until all 100 are
+              claimed 🏃. You will be given a random wearable selected from the
+              8 available (seen below). The claim window will be open for 30
+              days and you must have held a pixel by October 31st to be
+              eligible.
             </BorderedText>
             <div
               className={css(
