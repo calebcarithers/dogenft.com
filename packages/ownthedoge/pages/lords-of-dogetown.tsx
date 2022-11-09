@@ -175,12 +175,13 @@ const LordsOfDogetown = () => {
     functionName: "claim",
     args: [proof] as unknown[],
   });
-  //@ts-ignore
+
   const {
     data: contractData,
     isLoading: isSignLoading,
     isSuccess,
     write,
+    //@ts-ignore
   } = useContractWrite(config);
 
   // console.log("debug:: contract data", contractData);
