@@ -174,6 +174,8 @@ const LordsOfDogetown = () => {
     abi: sandboxAbi,
     functionName: "claim",
     args: [proof] as unknown[],
+    staleTime: 1000,
+    cacheTime: 1000,
   });
 
   const {
@@ -272,7 +274,6 @@ const LordsOfDogetown = () => {
   }, [isWaiting]);
 
   const renderAction = useCallback(() => {
-    // TODO CHECK LOGS HERE
     if (!isConnectedToTargetChain) {
       return (
         <BorderedText className={css("font-bold")}>
@@ -454,6 +455,15 @@ const LordsOfDogetown = () => {
                   <BsArrowRight />
                 </Button>
               </div>
+              {contractData?.hash && isTxErrored && (
+                <BorderedText>
+                  <div
+                    className={css("text-base", "text-red-600", "font-bold")}
+                  >
+                    TX failed. Please try with higher gas limit.
+                  </div>
+                </BorderedText>
+              )}
               {renderAction()}
             </div>
           </div>

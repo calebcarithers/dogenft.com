@@ -13,6 +13,42 @@ export const AssetsSheet = () => {
     refetchInterval: 30 * 1000,
     refetchIntervalInBackground: true,
   });
+
+  const dataSetData = [{ label: "DOGE", value: now?.dogecoin[0].usdNotional }];
+  const ethereumData = now?.ethereum
+    ? now?.ethereum?.map((item) => ({
+        label: item.symbol,
+        value: item.usdNotional,
+      }))
+    : [];
+  dataSetData.concat(ethereumData);
+
+  // const chartData = {
+  //   labels: dataSetData.map((item) => item.label),
+  //   dataSets: [
+  //     {
+  //       label: "Treasury",
+  //       data: dataSetData.map((item) => item.value),
+  //       backgroundColor: [
+  //         "rgba(255, 99, 132, 0.2)",
+  //         "rgba(54, 162, 235, 0.2)",
+  //         "rgba(255, 206, 86, 0.2)",
+  //         "rgba(75, 192, 192, 0.2)",
+  //         "rgba(153, 102, 255, 0.2)",
+  //         "rgba(255, 159, 64, 0.2)",
+  //       ],
+  //       borderColor: [
+  //         "rgba(255, 99, 132, 1)",
+  //         "rgba(54, 162, 235, 1)",
+  //         "rgba(255, 206, 86, 1)",
+  //         "rgba(75, 192, 192, 1)",
+  //         "rgba(153, 102, 255, 1)",
+  //         "rgba(255, 159, 64, 1)",
+  //       ],
+  //       borderWidth: 1,
+  //     },
+  //   ],
+  // };
   return (
     <BottomSheet
       snapPoints={({ maxHeight }) => [maxHeight - 10]}
@@ -28,6 +64,8 @@ export const AssetsSheet = () => {
           ~${now?.usdNotional.toLocaleString()}
         </div>
         <div className={css("mt-12")}>
+          <div></div>
+
           <div
             className={css(
               "grid",
