@@ -19,7 +19,7 @@ describe("Fractional Contract", function () {
     await mockPixelContract.deployed();
     console.log('Mock Pixel deployed')
 
-    const ERC1155Factory = await ethers.getContractFactory("MockFraction");
+    const ERC1155Factory = await ethers.getContractFactory("MockERC1155");
     mockERC1155Contract = await ERC1155Factory.deploy();
     await mockERC1155Contract.deployed();
     console.log('Mock ERC1155 deployed')

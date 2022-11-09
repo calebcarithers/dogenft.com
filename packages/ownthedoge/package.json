@@ -13,6 +13,8 @@
     "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-dropdown-menu": "^0.1.6",
     "@rainbow-me/rainbowkit": "^0.7.1",
+    "@react-three/drei": "^9.40.0",
+    "@react-three/fiber": "^8.9.1",
     "airtable": "^0.11.3",
     "autoprefixer": "^10.4.4",
     "classnames": "^2.3.1",
@@ -33,12 +35,14 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.3.1",
     "react-spinners": "^0.13.2",
+    "three": "^0.146.0",
     "wagmi": "^0.7.2"
   },
   "devDependencies": {
     "@types/node": "18.11.0",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@types/three": "^0.146.0",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
     "tailwindcss": "^3.0.24",

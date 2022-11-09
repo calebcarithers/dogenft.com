@@ -19,6 +19,11 @@
       "address": "0x92fE30c4208a5b6F62223d5DDA695F8D5B941Bb5",
       "txHash": "0xb8cfa2eac8c6136bf649a57d6d92c66da17447d9069f90c5ac17c068d1ebca3a",
       "kind": "transparent"
+    },
+    {
+      "address": "0x65C8b9b2D5663bb813641EDAd46093e303FA351A",
+      "txHash": "0xf44b7d2c91be428f3e1d694ef6b7ef083b2d34c4c05b426063fa08a92c7404ce",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -626,6 +631,146 @@
           },
           "t_mapping(t_uint256,t_mapping(t_uint256,t_bool))": {
             "label": "mapping(uint256 => mapping(uint256 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "26a2992586564c13e5ad9828e200a5d66c9e6a9df7aa5852592057c5463bb55d": {
+      "address": "0xe9A9b25304aB01552c3bc8eDc265230F9A0dFd10",
+      "txHash": "0xbb64abb60a14839ef2c1ebbc57451c62e08d8e2c67f3a5438ed4a9e5f6be79bd",
+      "layout": {
+        "solcVersion": "0.8.4",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "52",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "sandboxAddress",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_address",
+            "contract": "SandboxDrop",
+            "src": "contracts/SandboxDrop.sol:18"
+          },
+          {
+            "label": "isClaimOpen",
+            "offset": 20,
+            "slot": "101",
+            "type": "t_bool",
+            "contract": "SandboxDrop",
+            "src": "contracts/SandboxDrop.sol:19"
+          },
+          {
+            "label": "availableTokenIds",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_array(t_uint256)dyn_storage",
+            "contract": "SandboxDrop",
+            "src": "contracts/SandboxDrop.sol:20"
+          },
+          {
+            "label": "isTokenIdAvailable",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "contract": "SandboxDrop",
+            "src": "contracts/SandboxDrop.sol:21"
+          },
+          {
+            "label": "whitelistClaimed",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "SandboxDrop",
+            "src": "contracts/SandboxDrop.sol:22"
+          },
+          {
+            "label": "merkleRoot",
+            "offset": 0,
+            "slot": "105",
+            "type": "t_bytes32",
+            "contract": "SandboxDrop",
+            "src": "contracts/SandboxDrop.sol:23"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)",
             "numberOfBytes": "32"
           },
           "t_uint256": {
