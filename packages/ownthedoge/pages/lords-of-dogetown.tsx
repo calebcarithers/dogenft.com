@@ -125,6 +125,7 @@ const BorderedText: React.FC<PropsWithChildren<{ className?: string }>> = ({
         "p-3",
         "border-2",
         "border-dashed",
+        "border-pixels-yellow-300",
         "font-bold",
         className
       )}
