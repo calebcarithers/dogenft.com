@@ -18,7 +18,7 @@ async function main() {
   const merkleRoot = "0x6cb8b6c57591c30ab9530e1699ba7a08f9a45804c210b6ba832e475e7304637a"
 
   const factory = await hre.ethers.getContractFactory("SandboxDrop");
-  const contract = await hre.upgrades.deployProxy(factory, [sandboxGoerliAddress, merkleRoot]);
+  const contract = await hre.upgrades.deployProxy(factory, [sandboxMainnetAddress, merkleRoot]);
   await contract.deployed();
   console.log("Sandbox contract deployed to:", contract.address);
 }
