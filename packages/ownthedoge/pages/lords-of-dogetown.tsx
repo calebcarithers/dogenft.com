@@ -2,6 +2,7 @@ import { PivotControls } from "@react-three/drei";
 import { Canvas, useFrame, useLoader, Vector3 } from "@react-three/fiber";
 import Button from "dsl/components/Button/Button";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
+import Link from "dsl/components/Link/Link";
 import Image from "next/image";
 import {
   PropsWithChildren,
@@ -41,7 +42,7 @@ const models: Model[] = [
   {
     url: "/models/doge-mech.gltf",
     name: "Mech",
-    description: "Doge Mech",
+    description: "Mecha Doge",
     scale: 0.05,
     position: [0, -1.2, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980232,
@@ -49,7 +50,7 @@ const models: Model[] = [
   {
     url: "/models/doge-backpack.gltf",
     name: "Doge Backpack",
-    description: "A Doge backpack to wear",
+    description: "Much backpack mini Doge!",
     scale: 0.08,
     position: [0, -2.7, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980231,
@@ -57,7 +58,7 @@ const models: Model[] = [
   {
     url: "/models/doge-drives.gltf",
     name: "Doge Drives",
-    description: "A Doge driver",
+    description: "Much zoom Doge",
     scale: 0.03,
     position: [0, -0.7, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980230,
@@ -65,7 +66,7 @@ const models: Model[] = [
   {
     url: "/models/doge-head-hat.gltf",
     name: "Doge Head Hat",
-    description: "A Doge hat to wear on your head",
+    description: "Many handsome Doge!",
     scale: 0.09,
     position: [0, -5, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980227,
@@ -73,7 +74,7 @@ const models: Model[] = [
   {
     url: "/models/doge-paw-slippers.gltf",
     name: "Doge Paw Slippers",
-    description: "Doge slippers for your feet",
+    description: "Much comfy! Such Doge!",
     scale: 0.1,
     position: [0, 0, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980229,
@@ -81,7 +82,7 @@ const models: Model[] = [
   {
     url: "/models/doge-rest.gltf",
     name: "Doge Rest",
-    description: "Doge for resting",
+    description: "Much sleep",
     scale: 0.02,
     position: [0, -1, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980226,
@@ -89,7 +90,7 @@ const models: Model[] = [
   {
     url: "/models/doge-statue.gltf",
     name: "Doge Statue",
-    description: "Doge statue for worship",
+    description: "Dogely statue for wows",
     scale: 0.028,
     position: [0, -1.9, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980224,
@@ -97,7 +98,7 @@ const models: Model[] = [
   {
     url: "/models/doge-tail.gltf",
     name: "Doge Tail",
-    description: "Doge tail for wearing",
+    description: "Such Doge!",
     scale: 0.1,
     position: [0, -2, 0],
     tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980225,
@@ -112,16 +113,20 @@ enum RotationSpeeds {
 
 const whitelist = getDogetownWhitelist();
 
-const BorderedText: React.FC<PropsWithChildren> = ({ children }) => {
+const BorderedText: React.FC<PropsWithChildren<{ className?: string }>> = ({
+  children,
+  className,
+}) => {
   return (
     <div
       className={css(
         "text-xl",
-        "font-bold",
         "bg-pixels-yellow-100",
         "p-3",
         "border-2",
-        "border-dashed"
+        "border-dashed",
+        "font-bold",
+        className
       )}
     >
       {children}
@@ -159,30 +164,22 @@ const LordsOfDogetown = () => {
     onSettled: (data) => console.log("settled", data),
   });
 
-  const {
-    data: whitelistClaimed,
-    isError,
-    isLoading: whitelistClaimedLoading,
-  } = useContractRead({
-    address: vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS,
-    abi: sandboxAbi,
-    functionName: "whitelistClaimed",
-    args: [address ? address : ""],
-  });
+  const { data: whitelistClaimed, isLoading: whitelistClaimedLoading } =
+    useContractRead({
+      address: vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS,
+      abi: sandboxAbi,
+      functionName: "whitelistClaimed",
+      args: [address ? address : ""],
+    });
 
   //@ts-ignore
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
   const isConnectedToTargetChain = targetChain.id === chain?.id;
 
-  console.log("debug:: contract data", data);
-  console.log("debug:: is success", isSuccess);
-
   useEffect(() => {
     if (isLoading && !isClaiming) {
-      console.log("debug:: set true");
       setIsClaiming(true);
     } else if (!isLoading && isClaiming) {
-      console.log("debug:: set false");
       setIsClaiming(false);
     }
   }, [isLoading, isClaiming]);
@@ -203,8 +200,6 @@ const LordsOfDogetown = () => {
 
   useEffect(() => {
     if (address && isConnectedToTargetChain) {
-      console.log("debug:: address", address);
-      // console.log("debug:: whitelist", whitelist);
       if (whitelist.includes(address)) {
         setIsInWhitelist(true);
       } else {
@@ -248,14 +243,22 @@ const LordsOfDogetown = () => {
     // TODO CHECK LOGS HERE
     if (!isConnectedToTargetChain) {
       return (
-        <BorderedText>
+        <BorderedText className={css("font-bold")}>
           ⛔ Please connect to {targetChain.network} ⛔
         </BorderedText>
       );
     } else if (whitelistClaimed) {
-      return <BorderedText>🛹 Thanks for claiming 🛹</BorderedText>;
+      return (
+        <BorderedText className={css("font-bold")}>
+          🛹 Thanks for claiming 🛹
+        </BorderedText>
+      );
     } else if (!isInWhitelist) {
-      return <BorderedText>Sorry you are not in the whitelist!</BorderedText>;
+      return (
+        <BorderedText className={css("font-bold")}>
+          Sorry you are not in the whitelist!
+        </BorderedText>
+      );
     } else {
       return (
         <div>
@@ -295,19 +298,21 @@ const LordsOfDogetown = () => {
             />
           </div>
           <div className={css("flex", "flex-col", "gap-8")}>
-            <div
-              className={css(
-                "border-2",
-                "border-dashed",
-                "bg-pixels-yellow-100",
-                "text-xl",
-                "font-bold",
-                "p-3"
-              )}
-            >
-              Welcome to the November Pixel Perk! The Lords of Dogetown
-              released. Mint a random NFT from the sandbox drop.
-            </div>
+            <BorderedText className={css("font-normal")}>
+              As part of our Lords of Dogetown project, we have 100{" "}
+              <Link isExternal href={"https://twitter.com/TheSandboxGame"}>
+                @TheSandboxGame
+              </Link>{" "}
+              wearable NFTs to give Pixel holders 🛹.
+            </BorderedText>
+            <BorderedText className={css("font-normal")}>
+              There are 8 different wearables up for grabs with mixed rarity and
+              value ($3.50 - $10). This claim is first come first serve until
+              all 100 are claimed 🏃. You will be given a random wearable
+              selected from the 8 avaiable (seen below). The claim window will
+              be open for 30 days and you much have held a pixel by October 31st
+              to be eligible.
+            </BorderedText>
             <div
               className={css(
                 "border-2",
