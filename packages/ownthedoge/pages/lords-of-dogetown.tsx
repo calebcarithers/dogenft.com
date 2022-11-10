@@ -427,9 +427,9 @@ const LordsOfDogetown = () => {
               >
                 value
               </Link>
-              . This claim is {'"first come first serve"'} until all 100 are
+              . This claim is {'"first come first serve"'} until all 115 are
               claimed 🏃. You will be given a random wearable selected from the
-              8 available (seen below). The claim window will be open for 30
+              9 available (seen below). The claim window will be open for 30
               days and you must have held a pixel by Nov 2nd to be eligible.
             </BorderedText>
             <div
