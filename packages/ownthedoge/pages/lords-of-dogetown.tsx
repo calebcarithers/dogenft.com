@@ -167,6 +167,8 @@ const LordsOfDogetown = () => {
   const { chain } = useNetwork();
   const { address } = useAccount();
 
+  const MS_TO_ALERNATE_CLAIM = 500;
+
   const proof = useMemo(
     () =>
       getProof(
@@ -253,15 +255,15 @@ const LordsOfDogetown = () => {
         from === vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS &&
         toAddress === address
       ) {
+        clearInterval(_interval as NodeJS.Timer);
+        _setInterval(null);
         const id = tokenId.toString();
         setClaimedTokenId(id);
-
-        clearInterval(_interval as NodeJS.Timer);
       }
     },
   });
 
-  // set the claimed tokenId after inteval has been cleard &&
+  // set the claimed tokenId after inteval has been cleared &&
   useEffect(() => {
     if (claimedTokenId && !_interval) {
       const modelIndex = models
@@ -270,7 +272,9 @@ const LordsOfDogetown = () => {
       if (modelIndex === -1) {
         console.error("Could not find minted model");
       }
-      setModelIndex(modelIndex);
+      setTimeout(() => {
+        setModelIndex(modelIndex);
+      }, MS_TO_ALERNATE_CLAIM + 500);
     }
   }, [_interval, claimedTokenId]);
 
@@ -337,13 +341,19 @@ const LordsOfDogetown = () => {
           }
           return 0;
         });
-      }, 500);
+      }, MS_TO_ALERNATE_CLAIM);
       _setInterval(interval);
     } else {
       setRotationSpeed(RotationSpeeds.Default);
       clearInterval(_interval as NodeJS.Timer);
       _setInterval(null);
     }
+
+    return () => {
+      if (_interval) {
+        clearInterval(_interval);
+      }
+    };
   }, [isWaiting]);
 
   const renderAction = useCallback(() => {
