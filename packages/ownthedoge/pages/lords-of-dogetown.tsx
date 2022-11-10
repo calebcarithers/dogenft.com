@@ -3,6 +3,7 @@ import { Canvas, useFrame, useLoader, Vector3 } from "@react-three/fiber";
 import Button from "dsl/components/Button/Button";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import Link from "dsl/components/Link/Link";
+import { BigNumber } from "ethers";
 import Image from "next/image";
 import {
   PropsWithChildren,
@@ -17,6 +18,7 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import {
   useAccount,
+  useContractEvent,
   useContractRead,
   useContractWrite,
   useNetwork,
@@ -26,6 +28,7 @@ import {
 import { getDogetownWhitelist } from "../environment";
 import { vars } from "../environment/vars";
 import { css } from "../helpers/css";
+import erc1155abi from "../services/abis/erc1155";
 import sandboxAbi from "../services/abis/sandbox";
 import { getProof } from "../services/merkletree";
 import { targetChain } from "../services/wagmi";
@@ -36,7 +39,7 @@ interface Model {
   description: string;
   scale: number;
   position: Vector3;
-  tokenId: number;
+  tokenId: string;
 }
 
 const models: Model[] = [
@@ -46,7 +49,8 @@ const models: Model[] = [
     description: "Mecha Doge",
     scale: 0.05,
     position: [0, -1.2, 0],
-    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980232,
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980232",
   },
   {
     url: "/models/doge-backpack.gltf",
@@ -54,7 +58,8 @@ const models: Model[] = [
     description: "Much backpack mini Doge!",
     scale: 0.08,
     position: [0, -2.7, 0],
-    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980231,
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980231",
   },
   {
     url: "/models/doge-drives.gltf",
@@ -62,7 +67,8 @@ const models: Model[] = [
     description: "Much zoom Doge",
     scale: 0.03,
     position: [0, -0.7, 0],
-    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980230,
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980230",
   },
   {
     url: "/models/doge-head-hat.gltf",
@@ -70,7 +76,8 @@ const models: Model[] = [
     description: "Many handsome Doge!",
     scale: 0.09,
     position: [0, -5, 0],
-    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980227,
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980227",
   },
   {
     url: "/models/doge-paw-slippers.gltf",
@@ -78,7 +85,8 @@ const models: Model[] = [
     description: "Much comfy! Such Doge!",
     scale: 0.1,
     position: [0, 0, 0],
-    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980229,
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980229",
   },
   {
     url: "/models/doge-rest.gltf",
@@ -86,7 +94,8 @@ const models: Model[] = [
     description: "Much sleep",
     scale: 0.02,
     position: [0, -1, 0],
-    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980226,
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980226",
   },
   {
     url: "/models/doge-statue.gltf",
@@ -94,7 +103,8 @@ const models: Model[] = [
     description: "Dogely statue for wows",
     scale: 0.028,
     position: [0, -1.9, 0],
-    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980224,
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980224",
   },
   {
     url: "/models/doge-tail.gltf",
@@ -102,7 +112,17 @@ const models: Model[] = [
     description: "Such Doge!",
     scale: 0.1,
     position: [0, -2, 0],
-    tokenId: 67031862187656528318453779715773770542811847030081758913959388841425388980225,
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980225",
+  },
+  {
+    url: "/models/doge-paw-gloves.gltf",
+    name: "Doge Paw Gloves",
+    description: "Much paw! Such Doge!",
+    scale: 0.1,
+    position: [0, -2, 0],
+    tokenId:
+      "67031862187656528318453779715773770542811847030081758913959388841425388980228",
   },
 ];
 
@@ -141,6 +161,7 @@ const LordsOfDogetown = () => {
   const [modelIndex, setModelIndex] = useState(0);
   const [rotationSpeed, setRotationSpeed] = useState(RotationSpeeds.Default);
   const [_interval, _setInterval] = useState<NodeJS.Timer | null>(null);
+  const [claimedTokenId, setClaimedTokenId] = useState<string | null>(null);
   const model = useMemo(() => models[modelIndex], [modelIndex]);
 
   const { chain } = useNetwork();
@@ -178,16 +199,26 @@ const LordsOfDogetown = () => {
     cacheTime: 1000,
   });
 
+  const GAS_LIMIT_MULTIPLIER = 1.2;
+
   const {
     data: contractData,
     isLoading: isSignLoading,
     isSuccess,
     write,
     //@ts-ignore
-  } = useContractWrite(config);
-
-  // console.log("debug:: contract data", contractData);
-  // console.log("debug:: contract data hash", contractData?.hash);
+  } = useContractWrite({
+    ...config,
+    //@ts-ignore
+    request: {
+      ...config.request,
+      gasLimit: Math.ceil(
+        config?.request?.gasLimit
+          ? config?.request?.gasLimit.toNumber() * GAS_LIMIT_MULTIPLIER
+          : 0
+      ),
+    },
+  });
 
   const {
     isLoading: isTxLoading,
@@ -205,8 +236,43 @@ const LordsOfDogetown = () => {
     },
   });
 
-  // console.log("debug:: istxloading", isTxLoading);
-  // console.log("debug:: tx data", txData);
+  // listen for claimed tokenId
+  useContractEvent({
+    address: vars.NEXT_PUBLIC_SANDBOX_ASSETS_CONTRACT_ADDRESS,
+    abi: erc1155abi,
+    eventName: "TransferSingle",
+    listener(
+      operator: string,
+      from: string,
+      toAddress: string,
+      tokenId: BigNumber
+    ) {
+      console.log("debug:: got transfer", operator, from, toAddress, tokenId);
+      if (
+        operator === from &&
+        from === vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS &&
+        toAddress === address
+      ) {
+        const id = tokenId.toString();
+        setClaimedTokenId(id);
+
+        clearInterval(_interval as NodeJS.Timer);
+      }
+    },
+  });
+
+  // set the claimed tokenId after inteval has been cleard &&
+  useEffect(() => {
+    if (claimedTokenId && !_interval) {
+      const modelIndex = models
+        .map((model) => model.tokenId)
+        .indexOf(claimedTokenId);
+      if (modelIndex === -1) {
+        console.error("Could not find minted model");
+      }
+      setModelIndex(modelIndex);
+    }
+  }, [_interval, claimedTokenId]);
 
   const isConnectedToTargetChain = useMemo(
     () => targetChain.id === chain?.id,
@@ -218,20 +284,25 @@ const LordsOfDogetown = () => {
     [isSignLoading, isTxLoading]
   );
 
-  const incrementModel = useCallback(
-    () => setModelIndex(modelIndex + 1),
-    [modelIndex, setModelIndex]
-  );
-  const decrementModel = useCallback(
-    () => setModelIndex(modelIndex - 1),
-    [modelIndex, setModelIndex]
-  );
+  const incrementModel = useCallback(() => {
+    setModelIndex(modelIndex + 1);
+    if (claimedTokenId) {
+      setClaimedTokenId(null);
+    }
+  }, [modelIndex, setModelIndex, claimedTokenId]);
+  const decrementModel = useCallback(() => {
+    setModelIndex(modelIndex - 1);
+    if (claimedTokenId) {
+      setClaimedTokenId(null);
+    }
+  }, [modelIndex, setModelIndex, claimedTokenId]);
   const isIncrementDisabled = useMemo(
     () => modelIndex === models.length - 1,
     [modelIndex]
   );
   const isDecrementDisabled = useMemo(() => modelIndex === 0, [modelIndex]);
 
+  // query if user is in whitelist
   useEffect(() => {
     if (address && isConnectedToTargetChain) {
       if (whitelist.includes(address)) {
@@ -242,6 +313,7 @@ const LordsOfDogetown = () => {
     }
   }, [address, isConnectedToTargetChain, setIsInWhitelist]);
 
+  // iterate through models & update rotation speed if user is claiming
   useEffect(() => {
     if (isWaiting) {
       if (rotationSpeed !== RotationSpeeds.Claiming) {
@@ -270,6 +342,7 @@ const LordsOfDogetown = () => {
     } else {
       setRotationSpeed(RotationSpeeds.Default);
       clearInterval(_interval as NodeJS.Timer);
+      _setInterval(null);
     }
   }, [isWaiting]);
 
@@ -278,6 +351,12 @@ const LordsOfDogetown = () => {
       return (
         <BorderedText className={css("font-bold")}>
           ⛔ Please connect to {targetChain.network} ⛔
+        </BorderedText>
+      );
+    } else if (claimedTokenId) {
+      return (
+        <BorderedText className={css("font-bold", "text-2xl", "mt-2")}>
+          ✨ You claimed {model.name} ✨
         </BorderedText>
       );
     } else if (whitelistClaimed) {
