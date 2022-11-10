@@ -255,8 +255,10 @@ const LordsOfDogetown = () => {
         from === vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS &&
         toAddress === address
       ) {
-        clearInterval(_interval as NodeJS.Timer);
-        _setInterval(null);
+        if (_interval) {
+          clearInterval(_interval as NodeJS.Timer);
+          _setInterval(null);
+        }
         const id = tokenId.toString();
         setClaimedTokenId(id);
       }
@@ -272,6 +274,7 @@ const LordsOfDogetown = () => {
       if (modelIndex === -1) {
         console.error("Could not find minted model");
       }
+
       setTimeout(() => {
         setModelIndex(modelIndex);
       }, MS_TO_ALERNATE_CLAIM + 500);
@@ -345,8 +348,10 @@ const LordsOfDogetown = () => {
       _setInterval(interval);
     } else {
       setRotationSpeed(RotationSpeeds.Default);
-      clearInterval(_interval as NodeJS.Timer);
-      _setInterval(null);
+      if (_interval) {
+        clearInterval(_interval as NodeJS.Timer);
+        _setInterval(null);
+      }
     }
 
     return () => {
