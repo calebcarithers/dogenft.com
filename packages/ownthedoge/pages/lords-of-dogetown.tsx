@@ -411,14 +411,14 @@ const LordsOfDogetown = () => {
           </div>
           <div className={css("flex", "flex-col", "gap-8")}>
             <BorderedText className={css("font-normal")}>
-              As part of our Lords of Dogetown project, we have 100{" "}
+              As part of our Lords of Dogetown project, we have 115{" "}
               <Link isExternal href={"https://twitter.com/TheSandboxGame"}>
                 @TheSandboxGame
               </Link>{" "}
               wearable NFTs to give Pixel holders 🛹.
             </BorderedText>
             <BorderedText className={css("font-normal")}>
-              There are 8 different wearables up for grabs with mixed rarity and{" "}
+              There are 9 different wearables up for grabs with mixed rarity and{" "}
               <Link
                 isExternal
                 href={
