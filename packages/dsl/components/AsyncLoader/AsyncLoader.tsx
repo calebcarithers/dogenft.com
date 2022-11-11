@@ -20,7 +20,7 @@ const AsyncLoader: React.FC<PropsWithChildren<AsyncLoaderProps>> = ({
             return <>{renderLoader()}</>
         }
         return <>
-            {new Array(6).fill(undefined).map(item => <div className={css("animate-pulse", "h-[60px]", "bg-pixels-yellow-200", "rounded-sm", "shrink-0")} />)}
+            {new Array(6).fill(undefined).map((item, index) => <div key={`${index}-${Math.random()}`} className={css("animate-pulse", "h-[60px]", "bg-pixels-yellow-200", "rounded-sm", "shrink-0")} />)}
         </>
     } else if (hasData) {
         return <>{children}</>

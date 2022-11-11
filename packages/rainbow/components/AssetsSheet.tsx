@@ -1,9 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import BottomSheet from "dsl/components/BottomSheet/BottomSheet";
 import { Divider } from "dsl/components/Divider/Divider";
 import { css } from "dsl/helpers/css";
+import { getRandomIntInclusive } from "dsl/helpers/numbers";
+import { useEffect, useState } from "react";
+import { Pie } from "react-chartjs-2";
 import { getNow, NowAsset } from "../api";
 import { useAppStore } from "../store/app.store";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const colors = [
+  "rgba(255, 0, 0, 0.53)",
+  "rgba(255, 143, 0, 0.53)",
+  "rgba(255, 228, 0, 0.53)",
+  "rgba(159, 255, 0, 0.53)",
+  "rgba(0, 255, 21, 0.53)",
+  "rgba(0, 255, 218, 0.53)",
+  "rgba(0, 170, 255, 0.53)",
+  "rgba(0, 37, 255, 0.53)",
+  "rgba(85, 0, 255, 0.53)",
+  "rgba(223, 0, 255, 0.53)",
+  "rgba(255, 0, 74, 0.53)",
+];
 
 export const AssetsSheet = () => {
   const { isAssetsDialogOpen, setIsAssetsDialogOpen } = useAppStore(
@@ -14,41 +34,46 @@ export const AssetsSheet = () => {
     refetchIntervalInBackground: true,
   });
 
-  const dataSetData = [{ label: "DOGE", value: now?.dogecoin[0].usdNotional }];
-  const ethereumData = now?.ethereum
-    ? now?.ethereum?.map((item) => ({
+  const [chartData, setChartData] = useState<any>();
+  useEffect(() => {
+    let data: any[] = [];
+    const dogeData = now?.dogecoin?.map((item, index) => {
+      const color = colors[getRandomIntInclusive(0, colors.length - 1)];
+      return {
         label: item.symbol,
         value: item.usdNotional,
-      }))
-    : [];
-  dataSetData.concat(ethereumData);
+        backgroundColor: color,
+        borderColor: color,
+      };
+    });
+    const ethereumData = now?.ethereum
+      ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
+      .map((item, index) => {
+        const color = colors[getRandomIntInclusive(0, colors.length - 1)];
+        return {
+          label: item.symbol,
+          value: item.usdNotional,
+          backgroundColor: color,
+          borderColor: color,
+        };
+      });
+    data = data.concat(dogeData);
+    data = data.concat(ethereumData?.splice(0, 4));
+    const _chartdata = {
+      labels: data?.map((item) => item?.label),
+      datasets: [
+        {
+          label: "Treasury",
+          data: data?.map((item) => item?.value),
+          backgroundColor: data?.map((item) => item?.backgroundColor),
+          borderColor: data?.map((item) => item?.borderColor),
+          borderWidth: 1,
+        },
+      ],
+    };
+    setChartData(_chartdata);
+  }, [now]);
 
-  // const chartData = {
-  //   labels: dataSetData.map((item) => item.label),
-  //   dataSets: [
-  //     {
-  //       label: "Treasury",
-  //       data: dataSetData.map((item) => item.value),
-  //       backgroundColor: [
-  //         "rgba(255, 99, 132, 0.2)",
-  //         "rgba(54, 162, 235, 0.2)",
-  //         "rgba(255, 206, 86, 0.2)",
-  //         "rgba(75, 192, 192, 0.2)",
-  //         "rgba(153, 102, 255, 0.2)",
-  //         "rgba(255, 159, 64, 0.2)",
-  //       ],
-  //       borderColor: [
-  //         "rgba(255, 99, 132, 1)",
-  //         "rgba(54, 162, 235, 1)",
-  //         "rgba(255, 206, 86, 1)",
-  //         "rgba(75, 192, 192, 1)",
-  //         "rgba(153, 102, 255, 1)",
-  //         "rgba(255, 159, 64, 1)",
-  //       ],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
   return (
     <BottomSheet
       snapPoints={({ maxHeight }) => [maxHeight - 10]}
@@ -64,8 +89,18 @@ export const AssetsSheet = () => {
           ~${now?.usdNotional.toLocaleString()}
         </div>
         <div className={css("mt-12")}>
-          <div></div>
-
+          <div className={css("flex", "justify-center")}>
+            <div className={css("max-w-xs")}>
+              {chartData && (
+                <Pie
+                  data={chartData}
+                  options={{
+                    font: { family: "Comic Neue" },
+                  }}
+                />
+              )}
+            </div>
+          </div>
           <div
             className={css(
               "grid",
@@ -85,7 +120,7 @@ export const AssetsSheet = () => {
                 Dogecoin Donations
               </div>
               <div className={css("grid", "grid-cols-4")}>
-                {now?.dogecoin.map((item) => (
+                {now?.dogecoin?.map((item) => (
                   <Asset key={`now-${item.symbol}`} item={item} />
                 ))}
               </div>
@@ -100,9 +135,11 @@ export const AssetsSheet = () => {
                 Ethereum Donations
               </div>
               <div className={css("grid", "grid-cols-4")}>
-                {now?.ethereum.map((item) => (
-                  <Asset key={`now-${item.symbol}`} item={item} />
-                ))}
+                {now?.ethereum
+                  ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
+                  .map((item) => (
+                    <Asset key={`now-${item.symbol}`} item={item} />
+                  ))}
               </div>
             </div>
 
@@ -113,9 +150,11 @@ export const AssetsSheet = () => {
             <div>
               <div className={css("font-bold", "text-lg")}>🌈 Swaps</div>
               <div className={css("grid", "grid-cols-4")}>
-                {now?.swaps.map((item) => (
-                  <Asset key={`now-${item.symbol}`} item={item} />
-                ))}
+                {now?.swaps
+                  ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
+                  .map((item) => (
+                    <Asset key={`now-${item.symbol}`} item={item} />
+                  ))}
               </div>
             </div>
           </div>
