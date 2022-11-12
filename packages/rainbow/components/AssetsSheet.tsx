@@ -3,7 +3,6 @@ import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import BottomSheet from "dsl/components/BottomSheet/BottomSheet";
 import { Divider } from "dsl/components/Divider/Divider";
 import { css } from "dsl/helpers/css";
-import { getRandomIntInclusive } from "dsl/helpers/numbers";
 import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { getNow, NowAsset } from "../api";
@@ -38,27 +37,30 @@ export const AssetsSheet = () => {
   useEffect(() => {
     let data: any[] = [];
     const dogeData = now?.dogecoin?.map((item, index) => {
-      const color = colors[getRandomIntInclusive(0, colors.length - 1)];
       return {
         label: item.symbol,
         value: item.usdNotional,
-        backgroundColor: color,
-        borderColor: color,
+        backgroundColor: null,
+        borderColor: null,
       };
     });
     const ethereumData = now?.ethereum
       ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
       .map((item, index) => {
-        const color = colors[getRandomIntInclusive(0, colors.length - 1)];
         return {
           label: item.symbol,
           value: item.usdNotional,
-          backgroundColor: color,
-          borderColor: color,
+          backgroundColor: null,
+          borderColor: null,
         };
       });
     data = data.concat(dogeData);
-    data = data.concat(ethereumData?.splice(0, 4));
+    data = data.concat(ethereumData?.splice(0, 3));
+    data = data.map((item, index) => ({
+      ...item,
+      backgroundColor: colors[index],
+      borderColor: colors[index],
+    }));
     const _chartdata = {
       labels: data?.map((item) => item?.label),
       datasets: [
@@ -96,6 +98,18 @@ export const AssetsSheet = () => {
                   data={chartData}
                   options={{
                     font: { family: "Comic Neue" },
+                    plugins: {
+                      legend: {
+                        position: "bottom",
+                      },
+                      tooltip: {
+                        callbacks: {
+                          label: (model) => {
+                            return `~$${model.formattedValue} ${model.label}`;
+                          },
+                        },
+                      },
+                    },
                   }}
                 />
               )}
