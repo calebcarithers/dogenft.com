@@ -36,6 +36,7 @@ export interface Donation {
   blockCreatedAt: DatetimeString;
   fromAddress: string;
   fromEns: string | null;
+  fromUD: string | null;
   toAddress: string;
   blockchain: ChainName;
   currency: string;
@@ -51,6 +52,7 @@ export interface BaseLeaderboard {
   ens: string | null;
   usdNotional: number;
   myDogeName?: string | null;
+  ud: string | null;
 }
 
 export interface LeaderboardSwap extends BaseLeaderboard {
