@@ -38,12 +38,14 @@ export const LeaderBoardItem: React.FC<{
           <div className={css("text-2xl", "font-bold")}>{item.myDogeName}</div>
         </div>
       );
+    } else if (item.ud) {
+      return <div className={css("text-2xl", "font-bold")}>{item.ud}</div>;
     } else if (item.ens) {
       return <div className={css("text-2xl", "font-bold")}>{item.ens}</div>;
     }
     return (
       <div className={css("text-2xl", "font-bold")}>
-        {item.ud ? item.ud : abbreviate(item.address, 4)}
+        {abbreviate(item.address, 4)}
       </div>
     );
   }, [item.myDogeName, item.ens, item.address]);
