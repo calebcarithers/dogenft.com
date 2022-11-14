@@ -43,7 +43,7 @@ export const LeaderBoardItem: React.FC<{
     }
     return (
       <div className={css("text-2xl", "font-bold")}>
-        {abbreviate(item.address, 4)}
+        {item.ud ? item.ud : abbreviate(item.address, 4)}
       </div>
     );
   }, [item.myDogeName, item.ens, item.address]);
@@ -85,6 +85,12 @@ export const LeaderBoardItem: React.FC<{
 export const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({
   item,
 }) => {
+  let displayName = abbreviate(item.fromAddress, 4);
+  if (item.fromUD) {
+    displayName = item.fromUD;
+  } else if (item.fromEns) {
+    displayName = item.fromEns;
+  }
   return (
     <Link isExternal href={item.explorerUrl}>
       <Button block>
@@ -107,9 +113,7 @@ export const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({
           <div
             className={css("flex", "justify-between", "items-center", "mt-1")}
           >
-            <div className={css("font-normal", "text-lg")}>
-              {item.fromEns ? item.fromEns : abbreviate(item.fromAddress, 4)}
-            </div>
+            <div className={css("font-normal", "text-lg")}>{displayName}</div>
             <Pill type={"donation"} />
           </div>
         </div>
