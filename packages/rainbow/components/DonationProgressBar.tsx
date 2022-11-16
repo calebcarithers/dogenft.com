@@ -8,34 +8,40 @@ import { getNow } from "../api";
 import { useAppStore } from "../store/app.store";
 
 const DonationLabel: React.FC<
-  PropsWithChildren<{ value: number; label?: string }>
-> = ({ value, children, label }) => {
+  PropsWithChildren<{ value: number; showValue?: boolean; label?: string }>
+> = ({ value, children, label, showValue = true }) => {
   return (
     <div className={css("relative")}>
       <div className={css(`md:w-[90px]`, "w-[50px]")}>{children}</div>
-      <div
-        className={css(
-          "absolute",
-          "left-1/2",
-          "-translate-x-[50%]",
-          "top-[70px]",
-          "md:top-[105px]",
-          "text-base"
-        )}
-      >
-        ${value.toLocaleString()}
-      </div>
+      {showValue && (
+        <div
+          className={css(
+            "absolute",
+            "left-1/2",
+            "-translate-x-[50%]",
+            "top-[70px]",
+            "md:top-[105px]",
+            "text-xs",
+            "md:text-base"
+          )}
+        >
+          ${value.toLocaleString()}
+        </div>
+      )}
       {label && (
         <div
           className={css(
             "absolute",
-            "top-[95px]",
+            "top-[90px]",
+            "md:top-[95px]",
             "md:top-[125px]",
             "text-sm",
+            "md:text-base",
             "text-pixels-yellow-500",
             "left-1/2",
             "-translate-x-[50%]",
-            "w-[100px]"
+            "w-[100px]",
+            "leading-snug"
           )}
         >
           {label}
@@ -51,7 +57,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
     refetchInterval: 30 * 1000,
     refetchIntervalInBackground: true,
   });
-  const _max = 42069;
+  const _max = 1_000_000;
   const _now = now ? now.usdNotional : 0;
   const _min = 0;
   //@ts-ignore
@@ -62,7 +68,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: _min,
         renderLabel: () => {
           return (
-            <DonationLabel value={_min}>
+            <DonationLabel value={_min} showValue={false}>
               <Image
                 layout={"responsive"}
                 src={"/images/cheems.png"}
@@ -76,10 +82,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
-        value: _max,
+        value: 42_069,
         renderLabel: () => {
           return (
-            <DonationLabel value={_max}>
+            <DonationLabel value={42_069} label={"life size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/buff-doge.png"}
@@ -92,74 +98,74 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
           );
         },
       },
-      // {
-      //   value: 150000,
-      //   renderLabel: () => {
-      //     return (
-      //       <DonationLabel value={150000} label={"horse size"}>
-      //         <Image
-      //           layout={"responsive"}
-      //           src={"/images/doge-horse.png"}
-      //           width={2000}
-      //           height={2000}
-      //           alt={"horse sized doge"}
-      //           priority
-      //         />
-      //       </DonationLabel>
-      //     );
-      //   },
-      // },
-      // {
-      //   value: 300000,
-      //   renderLabel: () => {
-      //     return (
-      //       <DonationLabel value={300000} label={"elephant size"}>
-      //         <Image
-      //           layout={"responsive"}
-      //           src={"/images/doge-elephant.png"}
-      //           width={2000}
-      //           height={2000}
-      //           alt={"elephant sized doge"}
-      //           priority
-      //         />
-      //       </DonationLabel>
-      //     );
-      //   },
-      // },
-      // {
-      //   value: 500000,
-      //   renderLabel: () => {
-      //     return (
-      //       <DonationLabel value={500000} label={"godzilla size"}>
-      //         <Image
-      //           layout={"responsive"}
-      //           src={"/images/doge-zilla.png"}
-      //           width={2000}
-      //           height={2000}
-      //           alt={"doge-zilla"}
-      //           priority
-      //         />
-      //       </DonationLabel>
-      //     );
-      //   },
-      // },
-      // {
-      //   value: _max,
-      //   renderLabel: () => {
-      //     return (
-      //       <DonationLabel value={_max} label={"on the actual moon"}>
-      //         <Image
-      //           layout={"responsive"}
-      //           src={"/images/doge-moon.png"}
-      //           width={2000}
-      //           height={2000}
-      //           alt={"doge-on-the-moon"}
-      //           priority
-      //         />
-      //       </DonationLabel>
-      //     );
-      //   },
-      // },
+      {
+        value: 150_000,
+        renderLabel: () => {
+          return (
+            <DonationLabel value={150_000} label={"horse size"}>
+              <Image
+                layout={"responsive"}
+                src={"/images/doge-horse.png"}
+                width={2000}
+                height={2000}
+                alt={"horse sized doge"}
+                priority
+              />
+            </DonationLabel>
+          );
+        },
+      },
+      {
+        value: 300_000,
+        renderLabel: () => {
+          return (
+            <DonationLabel value={300_000} label={"elephant size"}>
+              <Image
+                layout={"responsive"}
+                src={"/images/doge-elephant.png"}
+                width={2000}
+                height={2000}
+                alt={"elephant sized doge"}
+                priority
+              />
+            </DonationLabel>
+          );
+        },
+      },
+      {
+        value: 500_000,
+        renderLabel: () => {
+          return (
+            <DonationLabel value={500_000} label={"????"}>
+              <Image
+                layout={"responsive"}
+                src={"/images/doge-question.png"}
+                width={2000}
+                height={2000}
+                alt={"doge-question"}
+                priority
+              />
+            </DonationLabel>
+          );
+        },
+      },
+      {
+        value: _max,
+        renderLabel: () => {
+          return (
+            <DonationLabel value={_max} label={"on the actual moon"}>
+              <Image
+                layout={"responsive"}
+                src={"/images/doge-moon.png"}
+                width={2000}
+                height={2000}
+                alt={"doge-on-the-moon"}
+                priority
+              />
+            </DonationLabel>
+          );
+        },
+      },
     ];
   }, []);
 

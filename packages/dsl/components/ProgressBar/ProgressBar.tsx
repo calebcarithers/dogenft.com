@@ -73,7 +73,7 @@ export const ProgressBar: React.FC<
         </div>
       </div>
       <div
-        className={css("absolute", "top-24", "-translate-x-[50%]", "font-bold")}
+        className={css("absolute", "top-32", "-translate-x-[50%]", "font-bold")}
         style={{
           left: `${percentageComplete}%`,
         }}
@@ -93,7 +93,8 @@ export const ProgressBar: React.FC<
               "absolute",
               "top-0",
               "-translate-y-[50%]",
-              "-translate-x-[50%]"
+              "-translate-x-[50%]",
+              "leading-3"
             )}
           >
             {step.renderLabel()}
