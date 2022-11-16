@@ -21,8 +21,7 @@ const DonationLabel: React.FC<
             "-translate-x-[50%]",
             "top-[70px]",
             "md:top-[105px]",
-            "text-xs",
-            "md:text-base"
+            "text-base"
           )}
         >
           ${value.toLocaleString()}
@@ -65,7 +64,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
   const getSteps = useCallback(() => {
     return [
       {
-        value: _min,
+        value: 0,
         renderLabel: () => {
           return (
             <DonationLabel value={_min} showValue={false}>
@@ -85,7 +84,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 42_069,
         renderLabel: () => {
           return (
-            <DonationLabel value={42_069} label={"life size"}>
+            <DonationLabel value={42_069} label={"human size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/buff-doge.png"}
@@ -99,10 +98,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
-        value: 150_000,
+        value: 100_000,
         renderLabel: () => {
           return (
-            <DonationLabel value={150_000} label={"horse size"}>
+            <DonationLabel value={111_111} label={"horse size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-horse.png"}
@@ -136,7 +135,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 500_000,
         renderLabel: () => {
           return (
-            <DonationLabel value={500_000} label={"????"}>
+            <DonationLabel value={500_000} label={"???"}>
               <Image
                 layout={"responsive"}
                 src={"/images/doge-question.png"}
@@ -237,6 +236,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
 
   return (
     <ProgressBar
+      log
       now={_now}
       renderThumb={renderThumb}
       renderNowLabel={renderNowLabel}

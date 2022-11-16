@@ -249,7 +249,6 @@ const LordsOfDogetown = () => {
       toAddress: string,
       tokenId: BigNumber
     ) {
-      console.log("debug:: got transfer", operator, from, toAddress, tokenId);
       if (
         operator === from &&
         from === vars.NEXT_PUBLIC_SANDBOX_CLAIM_CONTRACT_ADDRESS &&

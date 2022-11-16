@@ -1,6 +1,6 @@
 import { css } from "../../helpers/css";
 //@ts-ignore
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useCallback, useMemo } from "react";
 import styles from "./ProgressBar.module.css";
 
 export interface ProgressStep {
@@ -13,20 +13,54 @@ interface ProgressBarProps {
   renderNowLabel: () => ReactNode;
   steps: ProgressStep[];
   renderThumb: (now: number) => ReactNode;
+  log?: boolean;
 }
 
-export const ProgressBar: React.FC<
-  Pick<ProgressBarProps, "steps" | "now" | "renderThumb" | "renderNowLabel">
-> = ({ steps, now, renderThumb, renderNowLabel }) => {
+export const ProgressBar: React.FC<ProgressBarProps> = ({
+  steps,
+  now,
+  renderThumb,
+  renderNowLabel,
+  log,
+}) => {
   const min = steps![0];
   const max = steps![steps!.length - 1];
   const minLog = Math.log10(min.value);
   const maxLog = Math.log10(max.value);
   const range = maxLog - minLog;
 
+  const getLogX = useCallback(
+    (value: number) => {
+      const min = steps[0].value;
+      const max = steps[steps.length - 1].value;
+      const divMax = (value / max) * 10;
+      let logX;
+
+      if (divMax === 0) {
+        logX = 0;
+      } else {
+        logX = Math.log10(divMax);
+      }
+
+      //TODO: this is extremely hardcoded
+      const factorToShift = Math.log10((steps[1].value / max) * 10);
+      const plus = logX + Math.abs(factorToShift) * 2;
+
+      const maxPlus =
+        Math.log10((max / max) * 10) + Math.abs(factorToShift) * 2;
+      const percentage = (plus / maxPlus) * 100;
+      return value === 0 ? value : percentage;
+    },
+    [steps]
+  );
+
   const percentageComplete = useMemo(() => {
-    return (now / (max.value - min.value)) * 100;
-  }, [now, min, max]);
+    if (log) {
+      return getLogX(now);
+    } else {
+      return (now / (max.value - min.value)) * 100;
+    }
+  }, [now, min, max, log, getLogX]);
 
   return (
     <div className={css("relative", "my-14")}>
@@ -73,7 +107,7 @@ export const ProgressBar: React.FC<
         </div>
       </div>
       <div
-        className={css("absolute", "top-32", "-translate-x-[50%]", "font-bold")}
+        className={css("absolute", "top-28", "-translate-x-[50%]", "font-bold")}
         style={{
           left: `${percentageComplete}%`,
         }}
@@ -81,7 +115,12 @@ export const ProgressBar: React.FC<
         {renderNowLabel ? renderNowLabel() : now}
       </div>
       {steps.map((step) => {
-        const stepPercentage = (step.value / (max.value - min.value)) * 100;
+        let stepPercentage;
+        if (log) {
+          stepPercentage = getLogX(step.value);
+        } else {
+          stepPercentage = (step.value / (max.value - min.value)) * 100;
+        }
         return (
           <div
             style={{
