@@ -121,7 +121,6 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
         } else {
           stepPercentage = (step.value / (max.value - min.value)) * 100;
         }
-        console.log("debug:: stepPercentage", stepPercentage);
         return (
           <div
             style={{
