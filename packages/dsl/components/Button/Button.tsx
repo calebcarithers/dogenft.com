@@ -67,6 +67,7 @@ interface ButtonProps {
   isLoading?: boolean;
   type?: ButtonType;
   emojisForExploding?: string[];
+  as?: "button" | "div";
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
@@ -78,9 +79,11 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   isLoading,
   type = ButtonType.Primary,
   emojisForExploding,
+  as = "button",
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const isDisabled = disabled || isLoading;
+  const Component = as;
 
   const explode = useCallback(
     (xInitialVelocity: number, yInitialVelocity: number) => {
@@ -130,7 +133,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       )}
       ref={ref}
     >
-      <button
+      <Component
         disabled={isDisabled}
         onClick={() => {
           if (onClick) {
@@ -185,7 +188,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
             />
           </div>
         )}
-      </button>
+      </Component>
       <div
         aria-disabled={isDisabled}
         className={css("absolute", "w-full", "h-full", {

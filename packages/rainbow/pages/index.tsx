@@ -79,11 +79,12 @@ const Home: NextPage = () => {
   const dogeWindmillImg = "/images/new-bg.png";
   const lsBgKey = "doge-bg";
 
-  const [bgImage, setBgImage] = useState(
-    typeof window !== "undefined"
-      ? LocalStorage.getItem(lsBgKey, LocalStorage.PARSE_STRING, dogeTiledImg)
-      : dogeTiledImg
-  );
+  const [bgImage, setBgImage] = useState(dogeTiledImg);
+  useEffect(() => {
+    setBgImage(
+      LocalStorage.getItem(lsBgKey, LocalStorage.PARSE_STRING, dogeTiledImg)
+    );
+  }, []);
   const toggleBgImage = useCallback(() => {
     if (bgImage === dogeTiledImg) {
       setBgImage(dogeWindmillImg);
@@ -205,7 +206,7 @@ const Home: NextPage = () => {
                     ]}
                     hashtags={["bronzethedoge"]}
                   >
-                    <Button rounded>
+                    <Button as={"div"} rounded>
                       <div
                         className={css("flex", "items-center", "gap-2", "mr-1")}
                       >
