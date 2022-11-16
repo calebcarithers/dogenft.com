@@ -135,13 +135,13 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 500_000,
         renderLabel: () => {
           return (
-            <DonationLabel value={500_000} label={"godzilla size"}>
+            <DonationLabel value={500_000} label={"???"}>
               <Image
                 layout={"responsive"}
-                src={"/images/doge-zilla.png"}
+                src={"/images/doge-question.png"}
                 width={2000}
                 height={2000}
-                alt={"doge-zilla"}
+                alt={"doge-question"}
                 priority
               />
             </DonationLabel>
