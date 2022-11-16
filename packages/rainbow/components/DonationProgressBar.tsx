@@ -21,7 +21,7 @@ const DonationLabel: React.FC<
             "-translate-x-[50%]",
             "top-[70px]",
             "md:top-[105px]",
-            "text-base"
+            "text-sm"
           )}
         >
           ${value.toLocaleString()}
@@ -34,7 +34,7 @@ const DonationLabel: React.FC<
             "top-[90px]",
             "md:top-[95px]",
             "md:top-[125px]",
-            "text-sm",
+            "text-xs",
             "md:text-base",
             "text-pixels-yellow-500",
             "left-1/2",
@@ -131,23 +131,23 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
           );
         },
       },
-      {
-        value: 500_000,
-        renderLabel: () => {
-          return (
-            <DonationLabel value={500_000} label={"???"}>
-              <Image
-                layout={"responsive"}
-                src={"/images/doge-question.png"}
-                width={2000}
-                height={2000}
-                alt={"doge-question"}
-                priority
-              />
-            </DonationLabel>
-          );
-        },
-      },
+      // {
+      //   value: 500_000,
+      //   renderLabel: () => {
+      //     return (
+      //       <DonationLabel value={500_000} label={"???"}>
+      //         <Image
+      //           layout={"responsive"}
+      //           src={"/images/doge-question.png"}
+      //           width={2000}
+      //           height={2000}
+      //           alt={"doge-question"}
+      //           priority
+      //         />
+      //       </DonationLabel>
+      //     );
+      //   },
+      // },
       {
         value: _max,
         renderLabel: () => {
