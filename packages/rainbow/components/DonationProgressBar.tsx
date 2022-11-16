@@ -21,7 +21,12 @@ const DonationLabel: React.FC<
             "-translate-x-[50%]",
             "top-[70px]",
             "md:top-[105px]",
+<<<<<<< HEAD
             "text-base"
+=======
+            "text-xs",
+            "md:text-base"
+>>>>>>> 4d0dcbfaa12241b56682441685473f1e47861621
           )}
         >
           ${value.toLocaleString()}
@@ -31,13 +36,16 @@ const DonationLabel: React.FC<
         <div
           className={css(
             "absolute",
-            "top-[95px]",
+            "top-[90px]",
+            "md:top-[95px]",
             "md:top-[125px]",
             "text-sm",
+            "md:text-base",
             "text-pixels-yellow-500",
             "left-1/2",
             "-translate-x-[50%]",
-            "w-[100px]"
+            "w-[100px]",
+            "leading-snug"
           )}
         >
           {label}
@@ -64,7 +72,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 0,
         renderLabel: () => {
           return (
-            <DonationLabel value={_min}>
+            <DonationLabel value={_min} showValue={false}>
               <Image
                 layout={"responsive"}
                 src={"/images/cheems.png"}
@@ -81,7 +89,11 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 42_069,
         renderLabel: () => {
           return (
+<<<<<<< HEAD
             <DonationLabel value={42_069} label={"human size"}>
+=======
+            <DonationLabel value={42_069} label={"life size"}>
+>>>>>>> 4d0dcbfaa12241b56682441685473f1e47861621
               <Image
                 layout={"responsive"}
                 src={"/images/buff-doge.png"}
@@ -95,10 +107,17 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         },
       },
       {
+<<<<<<< HEAD
         value: 100_000,
         renderLabel: () => {
           return (
             <DonationLabel value={111_111} label={"horse size"}>
+=======
+        value: 150_000,
+        renderLabel: () => {
+          return (
+            <DonationLabel value={150_000} label={"horse size"}>
+>>>>>>> 4d0dcbfaa12241b56682441685473f1e47861621
               <Image
                 layout={"responsive"}
                 src={"/images/doge-horse.png"}
@@ -132,6 +151,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 500_000,
         renderLabel: () => {
           return (
+<<<<<<< HEAD
             <DonationLabel value={500_000} label={"godzilla size"}>
               <Image
                 layout={"responsive"}
@@ -139,6 +159,15 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
                 width={2000}
                 height={2000}
                 alt={"doge-zilla"}
+=======
+            <DonationLabel value={500_000} label={"????"}>
+              <Image
+                layout={"responsive"}
+                src={"/images/doge-question.png"}
+                width={2000}
+                height={2000}
+                alt={"doge-question"}
+>>>>>>> 4d0dcbfaa12241b56682441685473f1e47861621
                 priority
               />
             </DonationLabel>

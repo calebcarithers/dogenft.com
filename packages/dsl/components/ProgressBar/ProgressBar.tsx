@@ -133,7 +133,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
               "absolute",
               "top-0",
               "-translate-y-[50%]",
-              "-translate-x-[50%]"
+              "-translate-x-[50%]",
+              "leading-3"
             )}
           >
             {step.renderLabel()}

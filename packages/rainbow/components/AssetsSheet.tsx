@@ -68,7 +68,7 @@ export const AssetsSheet = () => {
           label: "Treasury",
           data: data?.map((item) => item?.value),
           backgroundColor: data?.map((item) => item?.backgroundColor),
-          borderColor: data?.map((item) => item?.borderColor),
+          borderColor: "black",
           borderWidth: 1,
         },
       ],
