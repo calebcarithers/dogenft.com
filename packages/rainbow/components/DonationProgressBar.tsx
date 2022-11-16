@@ -84,7 +84,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: 42_069,
         renderLabel: () => {
           return (
-            <DonationLabel value={42_069} label={"human size"}>
+            <DonationLabel value={42_069} label={"doge size"}>
               <Image
                 layout={"responsive"}
                 src={"/images/buff-doge.png"}
