@@ -166,9 +166,10 @@ const Home: NextPage = () => {
               </div>
               <div className={css("flex", "justify-center", "mt-8")}>
                 <div className={css("text-center", "text-2xl", "max-w-lg")}>
-                  UPDATE: We've reached our initial fundraising goal! Everything
-                  raised beyond this point increases the statue's Size and WOW.
-                  Doge willing, maybe even a sister statue on the MOON!
+                  UPDATE: We{"'"}ve reached our initial fundraising goal!
+                  Everything raised beyond this point increases the statue{"'"}s
+                  Size and WOW. Doge willing, maybe even a sister statue on the
+                  MOON!
                 </div>
               </div>
             </section>
