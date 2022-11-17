@@ -184,7 +184,6 @@ const Home: NextPage = () => {
               <div className={css("mb-32", "mt-44")}>
                 <Button
                   onClick={() => {
-                    throw new Error("OOOPS");
                     state.setIsDonateDialogOpen(true);
                     gaEvent({
                       action: GaActions.DonateButtonClick,
@@ -209,14 +208,7 @@ const Home: NextPage = () => {
                     ]}
                     hashtags={["bronzethedoge"]}
                   >
-                    <Button
-                      as={"div"}
-                      rounded
-                      onClick={() => {
-                        //@ts-ignore
-                        console.log(what);
-                      }}
-                    >
+                    <Button as={"div"} rounded>
                       <div
                         className={css("flex", "items-center", "gap-2", "mr-1")}
                       >
