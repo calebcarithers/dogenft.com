@@ -88,7 +88,7 @@ export const AssetsSheet = () => {
       </div>
       <div className={css("mt-8")}>
         <div className={css("text-4xl", "text-center", "font-bold")}>
-          ~${now?.usdNotional.toLocaleString()}
+          ~${now?.usdNotional?.toLocaleString()}
         </div>
         <div className={css("mt-12")}>
           <div className={css("flex", "justify-center")}>
@@ -181,15 +181,15 @@ export const AssetsSheet = () => {
 const Asset: React.FC<{ item: NowAsset }> = ({ item }) => {
   return (
     <>
-      <div>{item.symbol}</div>
+      <div>{item?.symbol}</div>
       <div>
         $
-        {parseFloat(item.usdPrice.toFixed(6)).toLocaleString(undefined, {
+        {parseFloat(item.usdPrice.toFixed(6))?.toLocaleString(undefined, {
           maximumFractionDigits: 6,
         })}
       </div>
-      <div>{item.amount.toLocaleString()}</div>
-      <div>${item.usdNotional.toLocaleString()}</div>
+      <div>{item?.amount?.toLocaleString()}</div>
+      <div>${item?.usdNotional?.toLocaleString()}</div>
     </>
   );
 };

@@ -24,7 +24,7 @@ const DonationLabel: React.FC<
             "text-sm"
           )}
         >
-          ${value.toLocaleString()}
+          ${value?.toLocaleString()}
         </div>
       )}
       {label && (
@@ -181,7 +181,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
               <div className={css("font-bold")}>
                 {parseInt(
                   Number(now.usdNotional / dogecoinPrice).toString()
-                ).toLocaleString()}
+                )?.toLocaleString()}
               </div>
             </div>
           )}
