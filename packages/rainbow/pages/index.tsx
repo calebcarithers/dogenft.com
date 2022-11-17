@@ -40,7 +40,7 @@ const Home: NextPage = () => {
   const state = useAppStore((state) => state);
   const config = {
     refetchInterval: 30 * 1000,
-    refetchIntervalInBackground: true,
+    refetchIntervalInBackground: false,
   };
 
   const { isLoading: isDonationsLoading, data: donations } = useQuery(
