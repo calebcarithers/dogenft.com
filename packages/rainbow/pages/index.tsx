@@ -75,6 +75,8 @@ const Home: NextPage = () => {
     }
   }, []);
 
+  useEffect(() => console.log("Happy Birthday Kabosu 🎈"), []);
+
   const dogeTiledImg = "/images/doge-tiled.png";
   const dogeWindmillImg = "/images/new-bg.png";
   const lsBgKey = "doge-bg";
