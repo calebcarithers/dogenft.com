@@ -21,7 +21,8 @@ const DonationLabel: React.FC<
             "-translate-x-[50%]",
             "top-[70px]",
             "md:top-[105px]",
-            "text-sm"
+            "text-sm",
+            "md:text-base"
           )}
         >
           ${value?.toLocaleString()}
