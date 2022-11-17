@@ -107,7 +107,7 @@ export const DonateItem: React.FC<PropsWithChildren<{ item: Donation }>> = ({
                   "text-lg"
                 )}
               >
-                ({parseFloat(item.amount?.toFixed(4)).toLocaleString()})
+                ({parseFloat(item.amount?.toFixed(4))?.toLocaleString()})
               </div>
             </div>
             <div>~${item?.currencyUSDNotional?.toLocaleString()}</div>

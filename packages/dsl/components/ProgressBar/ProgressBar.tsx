@@ -23,15 +23,15 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   renderNowLabel,
   log,
 }) => {
-  const min = steps![0];
-  const max = steps![steps!.length - 1];
+  const min = steps?.[0];
+  const max = steps?.[steps!.length - 1];
   const minLog = Math.log10(min.value);
   const maxLog = Math.log10(max.value);
   const range = maxLog - minLog;
 
   const getLogX = useCallback(
     (value: number) => {
-      const min = steps[0].value;
+      const min = steps?.[0].value;
       const max = steps[steps.length - 1].value;
       const divMax = (value / max) * 10;
       let logX;
