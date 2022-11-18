@@ -61,7 +61,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
   const _now = now ? now.usdNotional : 0;
   const _min = 0;
   //@ts-ignore
-  const dogecoinPrice = now ? now?.dogecoin[0]?.usdPrice : 0;
+  const dogecoinPrice = now ? now?.dogecoin?.[0]?.usdPrice : 0;
   const getSteps = useCallback(() => {
     return [
       {
