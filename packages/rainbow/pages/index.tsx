@@ -286,7 +286,11 @@ const Home: NextPage = () => {
                     name: `${TabToTitle[tab as TabType]} (${
                       tab === TabType.Donations
                         ? donations?.length
+                          ? donations?.length
+                          : ""
                         : swaps?.length
+                        ? swaps?.length
+                        : ""
                     })`,
                     key: tab,
                   }))}
@@ -434,7 +438,11 @@ const Home: NextPage = () => {
                     } (${
                       tab === TabType.Donations
                         ? donations?.length
+                          ? donations?.length
+                          : ""
                         : swaps?.length
+                        ? swaps?.length
+                        : ""
                     })`,
                     key: tab,
                   }))}

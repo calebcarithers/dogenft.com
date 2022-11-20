@@ -153,7 +153,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: _max,
         renderLabel: () => {
           return (
-            <DonationLabel value={_max} label={"on the actual moon"}>
+            <DonationLabel
+              value={_max}
+              label={"on the actual moon (1kg mini statue)"}
+            >
               <Image
                 layout={"responsive"}
                 src={"/images/doge-moon.png"}
