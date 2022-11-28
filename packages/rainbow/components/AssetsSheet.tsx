@@ -151,6 +151,7 @@ export const AssetsSheet = () => {
               </div>
               <div className={css("grid", "grid-cols-4")}>
                 {now?.ethereum
+                  ?.filter((item) => item.usdNotional > 0)
                   ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
                   .map((item) => (
                     <Asset key={`now-${item.symbol}`} item={item} />
