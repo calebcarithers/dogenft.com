@@ -408,7 +408,7 @@ const Home: NextPage = () => {
                   >
                     <RewardItem
                       title={
-                        "Those that use Rainbow Wallet to swap $DOG between Nov. 2nd and 16th will receive a dank Doge wallet icon on their phone + a chance to win a Doge Pixel from OwnTheDoge."
+                        "Those that use Rainbow Wallet to swap $DOG between Nov. 2nd and Dec. 6th will receive a dank Doge wallet icon on their phone + a chance to win a Doge Pixel from OwnTheDoge."
                       }
                       description={
                         "Rainbow is also donating all $DOG swap fees during this period to the campaign!"

@@ -45,6 +45,7 @@ export const AssetsSheet = () => {
       };
     });
     const ethereumData = now?.ethereum
+      ?.filter((item) => item.usdNotional > 0)
       ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
       .map((item, index) => {
         return {
