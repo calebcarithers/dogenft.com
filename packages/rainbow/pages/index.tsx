@@ -75,6 +75,8 @@ const Home: NextPage = () => {
     }
   }, []);
 
+  useEffect(() => console.log("Happy Birthday Kabosu 🎈"), []);
+
   const dogeTiledImg = "/images/doge-tiled.png";
   const dogeWindmillImg = "/images/new-bg.png";
   const lsBgKey = "doge-bg";
@@ -284,7 +286,11 @@ const Home: NextPage = () => {
                     name: `${TabToTitle[tab as TabType]} (${
                       tab === TabType.Donations
                         ? donations?.length
+                          ? donations?.length
+                          : ""
                         : swaps?.length
+                        ? swaps?.length
+                        : ""
                     })`,
                     key: tab,
                   }))}
@@ -432,7 +438,11 @@ const Home: NextPage = () => {
                     } (${
                       tab === TabType.Donations
                         ? donations?.length
+                          ? donations?.length
+                          : ""
                         : swaps?.length
+                        ? swaps?.length
+                        : ""
                     })`,
                     key: tab,
                   }))}

@@ -25,7 +25,7 @@ const DonationLabel: React.FC<
             "md:text-base"
           )}
         >
-          ${value.toLocaleString()}
+          ${value?.toLocaleString()}
         </div>
       )}
       {label && (
@@ -61,7 +61,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
   const _now = now ? now.usdNotional : 0;
   const _min = 0;
   //@ts-ignore
-  const dogecoinPrice = now ? now?.dogecoin[0]?.usdPrice : 0;
+  const dogecoinPrice = now ? now?.dogecoin?.[0]?.usdPrice : 0;
   const getSteps = useCallback(() => {
     return [
       {
@@ -153,7 +153,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
         value: _max,
         renderLabel: () => {
           return (
-            <DonationLabel value={_max} label={"on the actual moon"}>
+            <DonationLabel
+              value={_max}
+              label={"on the actual moon (1kg mini statue)"}
+            >
               <Image
                 layout={"responsive"}
                 src={"/images/doge-moon.png"}
@@ -182,7 +185,7 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
               <div className={css("font-bold")}>
                 {parseInt(
                   Number(now.usdNotional / dogecoinPrice).toString()
-                ).toLocaleString()}
+                )?.toLocaleString()}
               </div>
             </div>
           )}
