@@ -8,7 +8,6 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradea
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
-import "hardhat/console.sol";
 
 contract RainbowClaim is
     Initializable,
@@ -123,14 +122,4 @@ contract RainbowClaim is
         }
         return this.onERC721Received.selector;
     }
-
-    // function supportsInterface(bytes4 interfaceId)
-    //     external
-    //     view
-    //     virtual
-    //     override
-    //     returns (bool)
-    // {
-    //     return interfaceId == type(IERC165).interfaceId;
-    // }
 }

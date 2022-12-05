@@ -5,7 +5,7 @@ const { expect } = require("chai");
 const { loadFixture } = require("@nomicfoundation/hardhat-network-helpers");
 
 
-describe("Rainbow", function() {
+describe("Rainbow Pixel Claim", function() {
 
     async function deployContractFixture() {
         const amountToWhitelist = 10;
@@ -51,7 +51,7 @@ describe("Rainbow", function() {
         }
     }
 
-    async function depositPixels({
+    async function safeTransferPixels({
         pixelContract,
         rainbowContract,        
         owner,
@@ -78,24 +78,46 @@ describe("Rainbow", function() {
     it("Should mint and deposit pixels", async function() {
         const {pixelContract,  owner, rainbowContract} = await loadFixture(deployContractFixture)
         const pixelsToMint = 15
-        await depositPixels({pixelContract, rainbowContract, owner, count: pixelsToMint})
+        await safeTransferPixels({pixelContract, rainbowContract, owner, count: pixelsToMint})
         expect(await pixelContract.balanceOf(rainbowContract.address)).to.equal(pixelsToMint)
     })
 
     it("Should claim all tokens", async () => {
         const {rainbowContract, pixelContract, merkleTree, whitelistedSigners, owner} = await loadFixture(deployContractFixture)
-        await depositPixels({pixelContract, rainbowContract, owner, count: 15})
+        await safeTransferPixels({pixelContract, rainbowContract, owner, count: 15})
         for (const signer of whitelistedSigners) {
             await claim({signer, merkleTree, rainbowContract})
             await expect(claim({signer, merkleTree, rainbowContract})).to.be.revertedWith("Address has already claimed");
         }
     })
 
-    // it("Should stop claim", async () => {
-    //     await sandboxContract.setIsClaimOpen(false);
-    //     await expect(claim(owner)).to.be.revertedWith("Claim is not open");
-    //     await sandboxContract.setIsClaimOpen(true);
-    // })
+    it("Should deposit pixels", async () => {
+        const {rainbowContract, pixelContract, owner} = await loadFixture(deployContractFixture)
+        const tokenIds = []
+        const countToMint = 10;
+        for (let i = 0; i < countToMint; i++) {
+            await pixelContract.mint()
+            tokenIds.push(i)
+        }
+
+        // set approval to transfer pixels
+        await pixelContract.setApprovalForAll(rainbowContract.address, true)
+
+        // check balances before transfer
+        const ownerBalanceBefore = await pixelContract.balanceOf(owner.address)
+        expect(ownerBalanceBefore).to.equal(countToMint)
+        const rainbowBalanceBefore = await pixelContract.balanceOf(rainbowContract.address)
+        expect(rainbowBalanceBefore).to.equal(0)
+
+        // deposit pixels
+        await rainbowContract.deposit(tokenIds)
+
+        // check balances after deposit
+        const ownerBalanceAfter = await pixelContract.balanceOf(owner.address)
+        expect(ownerBalanceAfter).to.equal(0)
+        const rainbowBalanceAfter = await pixelContract.balanceOf(rainbowContract.address)
+        expect(rainbowBalanceAfter).to.equal(countToMint)
+    })
 
     // it("Should require user to be whitelisted", async () => {
     //     const tokenId = 10000
