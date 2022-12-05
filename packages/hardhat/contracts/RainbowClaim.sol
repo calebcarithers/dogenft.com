@@ -8,6 +8,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradea
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "hardhat/console.sol";
 
 contract RainbowClaim is
     Initializable,
@@ -50,6 +51,17 @@ contract RainbowClaim is
         );
         pixelIds[index] = pixelIds[pixelIds.length - 1];
         pixelIds.pop();
+    }
+
+    function deposit(uint256[] calldata _tokenIds) public {
+        for (uint256 i = 0; i < _tokenIds.length; i++) {
+            IERC721(pixelAddress).safeTransferFrom(
+                msg.sender,
+                address(this),
+                _tokenIds[i],
+                ""
+            );
+        }
     }
 
     function withdraw(
@@ -102,7 +114,7 @@ contract RainbowClaim is
         uint256 tokenId,
         bytes calldata data
     ) external virtual override returns (bytes4) {
-        if (operator == pixelAddress) {
+        if (msg.sender == pixelAddress) {
             // save available pixel id
             pixelIds.push(tokenId);
         }
