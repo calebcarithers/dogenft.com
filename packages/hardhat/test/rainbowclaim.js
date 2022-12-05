@@ -58,9 +58,7 @@ describe("Rainbow", function() {
         }
 
         const balance = await pixelContract.balanceOf(rainbowContract.address)
-
-        console.log(balance)
-        // expect(await pixelContract.balanceOf(rainbowContract.address)).to.equal(pixelsToMint)
+        expect(balance).to.equal(pixelsToMint)
 
         // const tokenIdToBalance = {
         //     [100001]: 3,
