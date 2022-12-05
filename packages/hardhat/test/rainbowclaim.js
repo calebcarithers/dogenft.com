@@ -56,25 +56,7 @@ describe("Rainbow", function() {
             await pixelContract.mint()
             await pixelContract["safeTransferFrom(address,address,uint256)"](owner.address, rainbowContract.address, i);
         }
-
-        const balance = await pixelContract.balanceOf(rainbowContract.address)
-        expect(balance).to.equal(pixelsToMint)
-
-        // const tokenIdToBalance = {
-        //     [100001]: 3,
-        //     [100023]: 3,
-        //     [103]: 3
-        // }
-
-        // for (const tokenId of Object.keys(tokenIdToBalance)) {
-        //     const balance = tokenIdToBalance[tokenId]
-        //     await erc1155Contract.mint(tokenId, balance)
-        //     expect((await erc1155Contract.balanceOf(owner.address, tokenId)).toNumber()).to.equal(balance)
-
-        //     await sandboxContract.deposit(tokenId, balance)
-        //     expect((await erc1155Contract.balanceOf(owner.address, tokenId)).toNumber()).to.equal(0)
-        //     expect((await erc1155Contract.balanceOf(sandboxContract.address, tokenId)).toNumber()).to.equal(balance)
-        // }
+        expect(await pixelContract.balanceOf(rainbowContract.address)).to.equal(pixelsToMint)
     })
 
     // it("Should claim all tokens", async () => {
