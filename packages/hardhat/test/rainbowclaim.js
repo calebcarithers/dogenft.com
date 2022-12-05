@@ -50,23 +50,34 @@ describe("Rainbow", function() {
         expect(await rainbowContract.pixelAddress()).to.equal(pixelContract.address);
     })
 
-    // it("Should deposit erc1155s to contract", async function() {
-    //     const tokenIdToBalance = {
-    //         [100001]: 3,
-    //         [100023]: 3,
-    //         [103]: 3
-    //     }
+    it("Should mint and deposit pixels", async function() {
+        const pixelsToMint = 15;
+        for (let i = 0; i < pixelsToMint; i++) {
+            await pixelContract.mint()
+            await pixelContract["safeTransferFrom(address,address,uint256)"](owner.address, rainbowContract.address, i);
+        }
 
-    //     for (const tokenId of Object.keys(tokenIdToBalance)) {
-    //         const balance = tokenIdToBalance[tokenId]
-    //         await erc1155Contract.mint(tokenId, balance)
-    //         expect((await erc1155Contract.balanceOf(owner.address, tokenId)).toNumber()).to.equal(balance)
+        const balance = await pixelContract.balanceOf(rainbowContract.address)
 
-    //         await sandboxContract.deposit(tokenId, balance)
-    //         expect((await erc1155Contract.balanceOf(owner.address, tokenId)).toNumber()).to.equal(0)
-    //         expect((await erc1155Contract.balanceOf(sandboxContract.address, tokenId)).toNumber()).to.equal(balance)
-    //     }
-    // })
+        console.log(balance)
+        // expect(await pixelContract.balanceOf(rainbowContract.address)).to.equal(pixelsToMint)
+
+        // const tokenIdToBalance = {
+        //     [100001]: 3,
+        //     [100023]: 3,
+        //     [103]: 3
+        // }
+
+        // for (const tokenId of Object.keys(tokenIdToBalance)) {
+        //     const balance = tokenIdToBalance[tokenId]
+        //     await erc1155Contract.mint(tokenId, balance)
+        //     expect((await erc1155Contract.balanceOf(owner.address, tokenId)).toNumber()).to.equal(balance)
+
+        //     await sandboxContract.deposit(tokenId, balance)
+        //     expect((await erc1155Contract.balanceOf(owner.address, tokenId)).toNumber()).to.equal(0)
+        //     expect((await erc1155Contract.balanceOf(sandboxContract.address, tokenId)).toNumber()).to.equal(balance)
+        // }
+    })
 
     // it("Should claim all tokens", async () => {
     //     for (const signer of whitelistedSigners) {
