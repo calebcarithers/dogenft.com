@@ -1,4 +1,6 @@
 const {MerkleTree} = require("merkletreejs");
+const { keccak256 } = require("ethers/lib/utils")
+
 
 const generateMerkleRoot = (addresses) => {
     if (!Array.isArray(addresses)) {
@@ -7,7 +9,10 @@ const generateMerkleRoot = (addresses) => {
 
     const leafNodes = addresses.map(address => keccak256(address))
     const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true })
-    return merkleTree.getHexRoot()
+    return {
+        merkleTree,
+        merkleRoot: merkleTree.getHexRoot()
+    }
 }
 
 module.exports = {generateMerkleRoot}

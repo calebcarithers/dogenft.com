@@ -3,17 +3,12 @@ const { keccak256 } = require("ethers/lib/utils");
 const { MerkleTree } = require("merkletreejs");
 const { expect } = require("chai");
 const { loadFixture } = require("@nomicfoundation/hardhat-network-helpers");
-
+const { generateMerkleRoot } = require("../utils/merkle")
 
 describe("Rainbow Pixel Claim", function() {
 
     async function deployContractFixture() {
         const amountToWhitelist = 10;
-
-        const generateMerkleTree = (addresses) => {
-            const leaves = addresses.map(address => keccak256(address));
-            return new MerkleTree(leaves, keccak256, { sort: true })
-        }
 
         const deployContract = async (name) => {
             const factory = await ethers.getContractFactory(name);
@@ -31,8 +26,7 @@ describe("Rainbow Pixel Claim", function() {
         const pixelContract = await deployContract("MockPixel");
 
         const factory = await ethers.getContractFactory("RainbowClaim");
-        const merkleTree = generateMerkleTree(whitelistedSigners.map(account => account.address))
-        const merkleRoot = merkleTree.getHexRoot()
+        const {merkleRoot, merkleTree} = generateMerkleRoot(whitelistedSigners.map(account => account.address))
         console.log("got merkle root:", merkleRoot)
         
         const rainbowContract = await upgrades.deployProxy(factory, [pixelContract.address, merkleRoot])
