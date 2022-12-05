@@ -49,32 +49,26 @@ describe("Rainbow", function() {
             merkleTree,
             merkleRoot
         }
-
     }
 
-    const claim = async (signer) => {
+    async function depositPixels({
+        pixelContract,
+        rainbowContract,        
+        owner,
+        count
+    }) {
+        for (let i = 0; i < count; i++) {
+            await pixelContract.mint()
+            await pixelContract["safeTransferFrom(address,address,uint256)"](owner.address, rainbowContract.address, i);
+            expect(await rainbowContract.pixelIds(i)).to.equal(i)
+        }
+    }
+
+    const claim = async ({signer, merkleTree, rainbowContract}) => {
         const contract = rainbowContract.connect(signer);
         const proof = merkleTree.getHexProof(keccak256(signer.address));
         return contract.claim(proof)
     }
-
-    // before(async () => {
-    //     signers = await ethers.getSigners();
-    //     owner = signers[0];
-    //     whitelistedSigners = signers.slice(1, amountToWhitelist);
-    //     nonWhiteListedSigners = signers.slice(amountToWhitelist, signers.length)
-
-    //     pixelContract = await deployContract("MockPixel");
-
-    //     const factory = await ethers.getContractFactory("RainbowClaim");
-    //     merkleTree = generateMerkleTree(whitelistedSigners.map(account => account.address))
-    //     const merkleRoot = merkleTree.getHexRoot()
-    //     console.log("got merkle root:", merkleRoot)
-        
-    //     rainbowContract = await upgrades.deployProxy(factory, [pixelContract.address, merkleRoot])
-    //     await rainbowContract.deployed()
-    //     console.log(`rainbow contract deployed with adderss: ${rainbowContract.address}`)
-    // })
 
     it("Read the pixel contract address", async function() {
         const {rainbowContract, pixelContract} = await loadFixture(deployContractFixture)
@@ -83,21 +77,19 @@ describe("Rainbow", function() {
 
     it("Should mint and deposit pixels", async function() {
         const {pixelContract,  owner, rainbowContract} = await loadFixture(deployContractFixture)
-        const pixelsToMint = 15;
-        for (let i = 0; i < pixelsToMint; i++) {
-            await pixelContract.mint()
-            await pixelContract["safeTransferFrom(address,address,uint256)"](owner.address, rainbowContract.address, i);
-            expect(await rainbowContract.pixelIds(i)).to.equal(i)
-        }
+        const pixelsToMint = 15
+        await depositPixels({pixelContract, rainbowContract, owner, count: pixelsToMint})
         expect(await pixelContract.balanceOf(rainbowContract.address)).to.equal(pixelsToMint)
     })
 
-    // it("Should claim all tokens", async () => {
-    //     for (const signer of whitelistedSigners) {
-    //         await claim(signer)
-    //         await expect(claim(signer)).to.be.revertedWith("Address has already claimed");
-    //     }
-    // })
+    it("Should claim all tokens", async () => {
+        const {rainbowContract, pixelContract, merkleTree, whitelistedSigners, owner} = await loadFixture(deployContractFixture)
+        await depositPixels({pixelContract, rainbowContract, owner, count: 15})
+        for (const signer of whitelistedSigners) {
+            await claim({signer, merkleTree, rainbowContract})
+            await expect(claim({signer, merkleTree, rainbowContract})).to.be.revertedWith("Address has already claimed");
+        }
+    })
 
     // it("Should stop claim", async () => {
     //     await sandboxContract.setIsClaimOpen(false);

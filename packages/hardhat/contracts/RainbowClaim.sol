@@ -18,6 +18,7 @@ contract RainbowClaim is
     bytes32 public merkleRoot;
     address public pixelAddress;
     uint256[] public pixelIds;
+    mapping(address => bool) public addressHasClaimed;
 
     function initialize(address _pixelAddress, bytes32 _merkleRoot)
         public
@@ -35,6 +36,7 @@ contract RainbowClaim is
         );
 
         require(pixelIds.length > 0, "No more pixels");
+        require(!addressHasClaimed[msg.sender], "Address has already claimed");
 
         uint256 index = getPsuedoRandom(pixelIds.length);
         uint256 tokenId = pixelIds[index];
@@ -49,6 +51,7 @@ contract RainbowClaim is
             tokenId,
             ""
         );
+        addressHasClaimed[msg.sender] = true;
         pixelIds[index] = pixelIds[pixelIds.length - 1];
         pixelIds.pop();
     }
