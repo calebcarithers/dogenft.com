@@ -144,8 +144,9 @@ describe("Rainbow Pixel Claim", function() {
         expectPixelBalance({pixelContract, signer: owner, balance: 0})
         expectPixelBalance({pixelContract, signer: rainbowContract, balance: amountToMint})
 
-        const pixelIds = await rainbowContract.getPixelIds();
-        await rainbowContract.connect(owner).withdraw(pixelContract.address, owner.address, pixelIds)
+        await rainbowContract.connect(owner).withdrawPixels()
+        const pixelIds = await rainbowContract.getPixelIds()
+        expect(pixelIds.length).to.equal(0)
 
         expectPixelBalance({pixelContract, signer: owner, balance: amountToMint})
         expectPixelBalance({pixelContract, signer: rainbowContract, balance: 0})

@@ -9,8 +9,6 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
-import "hardhat/console.sol";
-
 contract RainbowClaim is
     Initializable,
     OwnableUpgradeable,
@@ -37,8 +35,7 @@ contract RainbowClaim is
         );
 
         require(pixelIds.length > 0, "No more pixels");
-        // @next DEV ONLY -- UNCOMMENT THIS WHEN DEPLOYING TO MAINNET
-        // require(!addressHasClaimed[msg.sender], "Address has already claimed");
+        require(!addressHasClaimed[msg.sender], "Address has already claimed");
 
         uint256 index = getPsuedoRandom(pixelIds.length);
         uint256 tokenId = pixelIds[index];
@@ -69,19 +66,16 @@ contract RainbowClaim is
         }
     }
 
-    function withdraw(
-        address _tokenAddress,
-        address _to,
-        uint256[] calldata _tokenIds
-    ) external onlyOwner {
-        for (uint256 i = 0; i < _tokenIds.length; i++) {
-            IERC721(_tokenAddress).safeTransferFrom(
+    function withdrawPixels() external onlyOwner {
+        for (uint256 i = 0; i < pixelIds.length; i++) {
+            IERC721(pixelAddress).safeTransferFrom(
                 address(this),
-                _to,
-                _tokenIds[i],
+                msg.sender,
+                pixelIds[i],
                 ""
             );
         }
+        delete pixelIds;
     }
 
     function isAddressInMerkleTree(
