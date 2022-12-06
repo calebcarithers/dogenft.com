@@ -58,6 +58,22 @@ describe("Rainbow Pixel Claim", function() {
         }
     }
 
+    async function mintPixels({
+        pixelContract,
+        signer,
+        count
+    }) {
+        const contract = pixelContract.connect(signer)
+        for (let i = 0; i < count; i++) {
+            await contract.mint()
+        }
+    }
+
+    const expectPixelBalance = async ({pixelContract, signer, balance}) => {
+        const actualBalance = await pixelContract.connect(signer).balanceOf(signer.address)
+        expect(actualBalance).to.equal(balance) 
+    }
+
     const claim = async ({signer, merkleTree, rainbowContract}) => {
         const contract = rainbowContract.connect(signer);
         const proof = merkleTree.getHexProof(keccak256(signer.address));
@@ -85,12 +101,12 @@ describe("Rainbow Pixel Claim", function() {
         }
     })
 
-    it("Should deposit pixels", async () => {
+    it("Should deposit pixels and withdraw pixels", async () => {
         const {rainbowContract, pixelContract, owner} = await loadFixture(deployContractFixture)
         const tokenIds = []
-        const countToMint = 10;
-        for (let i = 0; i < countToMint; i++) {
-            await pixelContract.mint()
+        const count = 10;
+        await mintPixels({pixelContract, signer: owner, count})
+        for (let i = 0; i < count; i++) {
             tokenIds.push(i)
         }
 
@@ -98,26 +114,40 @@ describe("Rainbow Pixel Claim", function() {
         await pixelContract.setApprovalForAll(rainbowContract.address, true)
 
         // check balances before transfer
-        const ownerBalanceBefore = await pixelContract.balanceOf(owner.address)
-        expect(ownerBalanceBefore).to.equal(countToMint)
-        const rainbowBalanceBefore = await pixelContract.balanceOf(rainbowContract.address)
-        expect(rainbowBalanceBefore).to.equal(0)
+        expectPixelBalance({pixelContract, signer: owner, balance: count})
+        expectPixelBalance({pixelContract, signer: rainbowContract, balance: 0})
+
 
         // deposit pixels
-        await rainbowContract.deposit(tokenIds)
+        await rainbowContract.connect(owner).deposit(tokenIds)
 
         // check balances after deposit
-        const ownerBalanceAfter = await pixelContract.balanceOf(owner.address)
-        expect(ownerBalanceAfter).to.equal(0)
-        const rainbowBalanceAfter = await pixelContract.balanceOf(rainbowContract.address)
-        expect(rainbowBalanceAfter).to.equal(countToMint)
+        expectPixelBalance({pixelContract, signer: owner, balance: 0})
+        expectPixelBalance({pixelContract, signer: rainbowContract, balance: count})
+
     })
 
-    // it("Should require user to be whitelisted", async () => {
-    //     const tokenId = 10000
-    //     const amount = 10
-    //     await erc1155Contract.mint(tokenId, amount)
-    //     await sandboxContract.deposit(tokenId, amount)
-    //     await expect(claim(nonWhiteListedSigners[0])).to.be.revertedWith("Not in whitelisted addresses")
-    // })
+    it("Should deposit and withdraw pixels", async () => {
+        const {rainbowContract, owner, pixelContract} = await loadFixture(deployContractFixture)
+        const amountToMint = 10
+        const tokenIds = []
+        for (let i = 0; i < amountToMint; i++) {
+            tokenIds.push(i)
+        }
+
+        await mintPixels({pixelContract, signer: owner, count: amountToMint})
+        expectPixelBalance({pixelContract, signer: owner, balance: amountToMint})
+
+        await pixelContract.setApprovalForAll(rainbowContract.address, true)
+        await rainbowContract.connect(owner).deposit(tokenIds)
+
+        expectPixelBalance({pixelContract, signer: owner, balance: 0})
+        expectPixelBalance({pixelContract, signer: rainbowContract, balance: amountToMint})
+
+        const pixelIds = await rainbowContract.getPixelIds();
+        await rainbowContract.connect(owner).withdraw(pixelContract.address, owner.address, pixelIds)
+
+        expectPixelBalance({pixelContract, signer: owner, balance: amountToMint})
+        expectPixelBalance({pixelContract, signer: rainbowContract, balance: 0})
+    })
 })
