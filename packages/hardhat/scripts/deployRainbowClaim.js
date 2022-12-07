@@ -17,7 +17,7 @@ async function deploy() {
   console.log("got merkle root", merkleRoot)
 
   const factory = await hre.ethers.getContractFactory("RainbowClaim");
-  const contract = await hre.upgrades.deployProxy(factory, [pixelGoerliAddress, merkleRoot]);
+  const contract = await hre.upgrades.deployProxy(factory, [pixelMainnetAddress, merkleRoot]);
   await contract.deployed();
   console.log("Rainbow contract deployed to:", contract.address);
 }
