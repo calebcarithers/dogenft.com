@@ -44,15 +44,15 @@ contract RainbowClaim is
             tokenOwner == address(this),
             "Contract does not own this token"
         );
+        addressHasClaimed[msg.sender] = true;
+        pixelIds[index] = pixelIds[pixelIds.length - 1];
+        pixelIds.pop();
         IERC721(pixelAddress).safeTransferFrom(
             address(this),
             msg.sender,
             tokenId,
             ""
         );
-        addressHasClaimed[msg.sender] = true;
-        pixelIds[index] = pixelIds[pixelIds.length - 1];
-        pixelIds.pop();
     }
 
     function deposit(uint256[] calldata _tokenIds) public {

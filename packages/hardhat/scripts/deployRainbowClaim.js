@@ -1,20 +1,50 @@
 const hre = require("hardhat");
 const { generateMerkleRoot } = require("../utils/merkle")
+const axios = require("axios")
+const fs = require("fs")
 
 async function main() {
+  await deploy()
+}
+
+async function deploy() {
   const pixelGoerliAddress = "0x0eAADb89776e98B5D9a278f4a11f4b3f20226276"
   const pixelMainnetAddress = "0x07887Ee0Bd24E774903963d50cF4Ec6a0a16977D"
-  const {merkleRoot} = generateMerkleRoot([
-    "0xd801d86C10e2185a8FCBccFB7D7baF0A6C5B6BD5",
-    "0xf716B2783c6dD45753b99Fc28636b0E1a0376179",
-    "0xAd3c410Df6F60d61DEDf7202e8e4805C79EBf54a",
-    "0x901e7cbA2605CD3C125dFeD78d139A26bEf23325"
-  ])
+
+  // const addresses = await getWhitelistedAddresses()
+  // const merkleRoot = getMerkleRoot()
+  const merkleRoot = "0x5c4e2c7b746f6d6100a9aaffada1a09e4378a762402366b48440459fb1fd05a5"
+  console.log("got merkle root", merkleRoot)
 
   const factory = await hre.ethers.getContractFactory("RainbowClaim");
   const contract = await hre.upgrades.deployProxy(factory, [pixelGoerliAddress, merkleRoot]);
   await contract.deployed();
   console.log("Rainbow contract deployed to:", contract.address);
+}
+
+async function getMerkleRoot() {
+  const whitelist = JSON.parse(fs.readFileSync("./rainbow-whitelist.json"))
+  const { merkleRoot } = generateMerkleRoot(whitelist)
+  return merkleRoot
+}
+
+async function getWhitelistedAddresses() {
+  const {data: mainnetSwappers} = await axios.get("http://localhost:3003/statue-campaign/swaps")
+  console.log("total swappers:", mainnetSwappers.length)
+
+  const qualifiedSwappers = mainnetSwappers.filter(item => item.baseAmount >= 16969)
+  console.log("qualified swappers:", qualifiedSwappers.length)
+
+  const addresses = qualifiedSwappers.map(item => item.clientAddress)
+  const uniqueAddresses = []
+  for (const address of addresses) {
+    if (!uniqueAddresses.includes(address)) {
+      uniqueAddresses.push(address)
+    }
+  }
+  console.log("unique swappers found:", uniqueAddresses.length)
+  fs.writeFileSync("./rainbow-whitelist.json", JSON.stringify(uniqueAddresses))
+  return uniqueAddresses
 }
 
 // We recommend this pattern to be able to use async/await everywhere
@@ -23,5 +53,5 @@ main()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
-    process.exit(1);
+    process.exit(1)
   });

@@ -9,9 +9,10 @@ const generateMerkleRoot = (addresses) => {
 
     const leafNodes = addresses.map(address => keccak256(address))
     const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true })
+    const merkleRoot = merkleTree.getHexRoot()
     return {
         merkleTree,
-        merkleRoot: merkleTree.getHexRoot()
+        merkleRoot
     }
 }
 

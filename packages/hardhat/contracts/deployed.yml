@@ -37,8 +37,8 @@ sandbox:
     mainnet: 0x65C8b9b2D5663bb813641EDAd46093e303FA351A
 
 rainbowClaim:
-  goerli: 0x028e2d212aD55C09E47B22f9324d91A0C465Bb2c
-  mainnet: 
+  goerli: 0x5b256146cd40820ffCEAc9329f4eD35b61a70fe6
+  mainnet: 0xb4a12A947293cE9FBb63a0e4B63989eCB9c9a8Fc
 
 # ------------- OTHER CONTRACTS --------------------
 sandboxAssets:
