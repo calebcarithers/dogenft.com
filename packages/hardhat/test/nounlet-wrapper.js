@@ -25,7 +25,7 @@ describe("Nounlet Wrapper", function() {
     }
 
     it("Wraps nounlet", async function() {
-        const {contract, owner} = await loadFixture(deployContractFixture)
+        const {contract: wrapperContractOwner, owner} = await loadFixture(deployContractFixture)
         const nounletOwnerAddress = "0xaF46dc96bd783E683fD0EFeF825e6110165b8f9E"
         await impersonateAccount(nounletOwnerAddress)
         const nounletOwnerSigner = await ethers.getSigner(nounletOwnerAddress)
@@ -38,23 +38,22 @@ describe("Nounlet Wrapper", function() {
         const contractURI = await nounletContract.contractURI();
 
         // give approval to wrapper contract to move our nounlet
-        const tx = await nounletContract.setApprovalForAll(contract.address, true);  
+        const tx = await nounletContract.setApprovalForAll(wrapperContractOwner.address, true);  
         await tx.wait()      
 
         // wrap nounlet
-        const wrapperContract = contract.connect(nounletOwnerSigner)
-        await wrapperContract.wrap(nounletId, {gasLimit: 2100000});
+        await wrapperContractOwner.connect(nounletOwnerSigner).wrap(nounletId, {gasLimit: 2100000});
 
         // check tokenURI and contractURI
-        const wrappedTokenURI = await contract.tokenURI(nounletId);
-        const wrappedContractURI = await contract.contractURI();
+        const wrappedTokenURI = await wrapperContractOwner.tokenURI(nounletId);
+        const wrappedContractURI = await wrapperContractOwner.contractURI();
 
         expect(tokenURI).to.eq(wrappedTokenURI)
         expect(contractURI).to.eq(wrappedContractURI)
 
         // previous nounlet owner should be owner of wrapped nounlet
-        expect(await wrapperContract.ownerOf(nounletId)).to.eq(nounletOwnerAddress)
+        expect(await wrapperContractOwner.ownerOf(nounletId)).to.eq(nounletOwnerAddress)
         // wrapper contract should be owner of the nounlet
-        expect(await nounletContract.balanceOf(contract.address, nounletId)).to.eq(1)
+        expect(await nounletContract.balanceOf(wrapperContractOwner.address, nounletId)).to.eq(1)
     })
 })
