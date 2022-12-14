@@ -9,6 +9,8 @@ const nounletAbi = require("./abis/nounlet.json")
 describe("Nounlet Wrapper", function() {
 
     const nounletMainnetAddress = "0x13901ecbBc74242795Af3a3c9880a319D78796Eb"
+    const testNounlet69 = {id: 69, ownerAddress: "0xaF46dc96bd783E683fD0EFeF825e6110165b8f9E"}
+    const testNounlet70 = {id: 70, ownerAddress: "0x65657E65292C3Dfd4c67bceC2d22FC44DE87702E"}
 
     async function deployContractFixture() {
         const signers = await ethers.getSigners();
@@ -27,7 +29,6 @@ describe("Nounlet Wrapper", function() {
     async function getNounletOwner(id) {
         const contract = new ethers.Contract(nounletMainnetAddress, nounletAbi, ethers.provider)
         const address = await contract.ownerOf(id);
-        console.log("hit", address)
         await impersonateAccount(address)
         const signer = await ethers.getSigner(address)
 
@@ -57,12 +58,33 @@ describe("Nounlet Wrapper", function() {
         expect(await nounletContract.balanceOf(wrapperContract.address, id)).to.eq(1)
     }
 
-    it("Wraps nounlet", async function() {
-        const testNounlet = {id: 69, ownerAddress: "0xaF46dc96bd783E683fD0EFeF825e6110165b8f9E"}
-        const {contract: wrapperContract} = await loadFixture(deployContractFixture)
-        const nounletContract = await getNounletOwner(testNounlet.id)
-        expect(nounletContract.signer.address).eq(testNounlet.ownerAddress)
+    async function getOwnerAndWrap({id, ownerAddress, wrapperContract}) {
+        let _wrapper
+        if (wrapperContract) {
+            _wrapper = wrapperContract
+        } else {
+            const {contract} = await loadFixture(deployContractFixture)
+            _wrapper = contract
+        }
+        const nounletContract = await getNounletOwner(id)
+        expect(nounletContract.signer.address).eq(ownerAddress)
+        await wrapNounlet({nounletContract, wrapperContract: _wrapper, id: id})
+        return {nounletContract, wrapperContract: _wrapper}
+    }
 
-        await wrapNounlet({nounletContract, wrapperContract, id: testNounlet.id})
+    it("Wraps nounlet #69", async function() {
+        await getOwnerAndWrap(testNounlet69)
+    })
+
+    it("Wraps Nounlet #70", async function() {
+        await getOwnerAndWrap(testNounlet70)
+    })
+
+    it("Wraps Nounlet #69 & #70", async function() {
+        const {contract: wrapperContract} = await loadFixture(deployContractFixture)
+        await getOwnerAndWrap({wrapperContract, ...testNounlet69})
+        await getOwnerAndWrap({wrapperContract, ...testNounlet70})
+        expect(await wrapperContract.isTokenWrapped(testNounlet69.id)).eq(true)
+        expect(await wrapperContract.isTokenWrapped(testNounlet70.id)).eq(true)
     })
 })
