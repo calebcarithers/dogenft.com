@@ -24,17 +24,25 @@ describe("Nounlet Wrapper", function() {
         }
     }
 
+    async function getNounletOwner(id) {
+        const contract = new ethers.Contract(nounletMainnetAddress, nounletAbi, ethers.provider)
+        const address = await contract.ownerOf(id);
+        console.log("hit", address)
+        await impersonateAccount(address)
+        const signer = await ethers.getSigner(address)
+
+        // owner should only have single nounlet as only 1 of each ID exists
+        expect(await contract.balanceOf(address, id)).eq(1)
+        return contract.connect(signer)
+    }
+
     it("Wraps nounlet", async function() {
         const {contract: wrapperContractOwner, owner} = await loadFixture(deployContractFixture)
-        const nounletOwnerAddress = "0xaF46dc96bd783E683fD0EFeF825e6110165b8f9E"
-        await impersonateAccount(nounletOwnerAddress)
-        const nounletOwnerSigner = await ethers.getSigner(nounletOwnerAddress)
+        const testNounlet = {id: 69, ownerAddress: "0xaF46dc96bd783E683fD0EFeF825e6110165b8f9E"}
+        const nounletContract = await getNounletOwner(testNounlet.id)
+        expect(nounletContract.signer.address).eq(testNounlet.ownerAddress)
 
-        const nounletId = 69;
-        const nounletContract = new ethers.Contract(nounletMainnetAddress, nounletAbi).connect(nounletOwnerSigner)
-        expect(await nounletContract.balanceOf(nounletOwnerAddress, nounletId)).eq(1)
-
-        const tokenURI = await nounletContract.uri(nounletId)
+        const tokenURI = await nounletContract.uri(testNounlet.id)
         const contractURI = await nounletContract.contractURI();
 
         // give approval to wrapper contract to move our nounlet
@@ -42,18 +50,18 @@ describe("Nounlet Wrapper", function() {
         await tx.wait()      
 
         // wrap nounlet
-        await wrapperContractOwner.connect(nounletOwnerSigner).wrap(nounletId, {gasLimit: 2100000});
+        await wrapperContractOwner.connect(nounletContract.signer).wrap(testNounlet.id, {gasLimit: 2100000});
 
         // check tokenURI and contractURI
-        const wrappedTokenURI = await wrapperContractOwner.tokenURI(nounletId);
+        const wrappedTokenURI = await wrapperContractOwner.tokenURI(testNounlet.id);
         const wrappedContractURI = await wrapperContractOwner.contractURI();
 
         expect(tokenURI).to.eq(wrappedTokenURI)
         expect(contractURI).to.eq(wrappedContractURI)
 
         // previous nounlet owner should be owner of wrapped nounlet
-        expect(await wrapperContractOwner.ownerOf(nounletId)).to.eq(nounletOwnerAddress)
+        expect(await wrapperContractOwner.ownerOf(testNounlet.id)).to.eq(nounletContract.signer.address)
         // wrapper contract should be owner of the nounlet
-        expect(await nounletContract.balanceOf(wrapperContractOwner.address, nounletId)).to.eq(1)
+        expect(await nounletContract.balanceOf(wrapperContractOwner.address, testNounlet.id)).to.eq(1)
     })
 })
