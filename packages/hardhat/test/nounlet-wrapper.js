@@ -1,9 +1,6 @@
-const { ethers, upgrades } = require("hardhat");
-const { keccak256 } = require("ethers/lib/utils");
-const { MerkleTree } = require("merkletreejs");
+const { ethers } = require("hardhat");
 const { expect } = require("chai");
 const { loadFixture, impersonateAccount } = require("@nomicfoundation/hardhat-network-helpers");
-const { generateMerkleRoot } = require("../utils/merkle")
 const nounletAbi = require("./abis/nounlet.json")
 
 describe("Nounlet Wrapper", function() {

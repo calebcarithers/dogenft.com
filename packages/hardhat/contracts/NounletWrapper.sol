@@ -19,7 +19,7 @@ contract NounletWrapper is
     ERC1155Holder
 {
     address private nounletAddress;
-    // nounlets are an ERC1155 with distinct token IDs ascending from 1-
+    // nounlets are an ERC1155 with distinct token IDs ascending from 1-100
     // only a single nounlet can be wrapped and unwrapped at a time
     uint256 private allowedDepositAmount = 1;
     mapping(uint256 => bool) public isTokenWrapped;
@@ -36,7 +36,6 @@ contract NounletWrapper is
         require(balance == allowedDepositAmount, "You do not own this nounlet");
         require(!isTokenWrapped[_tokenId], "This token is already wrapped");
         isTokenWrapped[_tokenId] = true;
-        // grab the nounlet
         INounlet(nounletAddress).safeTransferFrom(
             msg.sender,
             address(this),
@@ -44,7 +43,6 @@ contract NounletWrapper is
             allowedDepositAmount,
             ""
         );
-        // mint wrapped nounlet to caller
         _safeMint(msg.sender, _tokenId);
     }
 
@@ -52,7 +50,6 @@ contract NounletWrapper is
         require(msg.sender == this.ownerOf(_tokenId), "You do not own this wrapped nounlet.");
         require(isTokenWrapped[_tokenId], "This token is not wrapped");
         isTokenWrapped[_tokenId] = false;
-        // return the nounlet
         INounlet(nounletAddress).safeTransferFrom(
             address(this),
             msg.sender,
@@ -60,7 +57,6 @@ contract NounletWrapper is
             allowedDepositAmount,
             ""
         );
-        // burn 721 wrapped nounlet
         _burn(_tokenId);
     }
 
