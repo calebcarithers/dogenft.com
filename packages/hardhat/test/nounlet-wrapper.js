@@ -73,15 +73,16 @@ describe("Nounlet Wrapper", function() {
     }
 
     async function unwrapNounlet({id, wrapperContract, nounletContract}) {
-        await wrapperContract.unwrap(id);
+        await wrapperContract.unwrap(id, {gasLimit: 2100000});
         // check balance for ERC1155 (should have been sent from wrapper back to owner of the wNounlet315)
         // wrapper contract should not own this token anymore
-        expect(nounletContract.balanceOf(wrapperContract.address, id)).eq(0)
+        expect(await nounletContract.balanceOf(wrapperContract.address, id)).eq(0)
         // initial owner should have the nounlet returned
-        expect(nounletContract.ownerOf(id)).eq(nounletContract.signer.address)
+        expect(await nounletContract.ownerOf(id)).eq(nounletContract.signer.address)
 
-        // check balance of ERC721
-        expect(wrapperContract.ownerOf(id)).eq(0)
+        // checking balance of token that has been burned should revert
+        await expect(wrapperContract.ownerOf(id)).to.be.revertedWith("ERC721: invalid token ID")
+        await expect(wrapperContract.tokenURI(id)).to.be.revertedWith("ERC721Metadata: URI query for nonexistent token")
     }
 
     it("Wraps nounlet #69", async function() {
@@ -102,6 +103,10 @@ describe("Nounlet Wrapper", function() {
 
     it("Wraps Nounlet #69 then unwraps it", async function() {
         const {nounletContract, wrapperContract} = await wrapNounletDeployMaybe(testNounlet69)
-        await unwrapNounlet({id: testNounlet69.id, wrapperContract: wrapperContract.connect(nounletContract.signer), nounletContract})
+        await unwrapNounlet({
+            id: testNounlet69.id, 
+            wrapperContract: wrapperContract.connect(nounletContract.signer), 
+            nounletContract
+        })
     })
 })
