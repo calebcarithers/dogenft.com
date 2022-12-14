@@ -58,7 +58,7 @@ describe("Nounlet Wrapper", function() {
         expect(await nounletContract.balanceOf(wrapperContract.address, id)).to.eq(1)
     }
 
-    async function getOwnerAndWrap({id, ownerAddress, wrapperContract}) {
+    async function wrapNounletDeployMaybe({id, ownerAddress, wrapperContract}) {
         let _wrapper
         if (wrapperContract) {
             _wrapper = wrapperContract
@@ -72,19 +72,36 @@ describe("Nounlet Wrapper", function() {
         return {nounletContract, wrapperContract: _wrapper}
     }
 
+    async function unwrapNounlet({id, wrapperContract, nounletContract}) {
+        await wrapperContract.unwrap(id);
+        // check balance for ERC1155 (should have been sent from wrapper back to owner of the wNounlet315)
+        // wrapper contract should not own this token anymore
+        expect(nounletContract.balanceOf(wrapperContract.address, id)).eq(0)
+        // initial owner should have the nounlet returned
+        expect(nounletContract.ownerOf(id)).eq(nounletContract.signer.address)
+
+        // check balance of ERC721
+        expect(wrapperContract.ownerOf(id)).eq(0)
+    }
+
     it("Wraps nounlet #69", async function() {
-        await getOwnerAndWrap(testNounlet69)
+        await wrapNounletDeployMaybe(testNounlet69)
     })
 
     it("Wraps Nounlet #70", async function() {
-        await getOwnerAndWrap(testNounlet70)
+        await wrapNounletDeployMaybe(testNounlet70)
     })
 
     it("Wraps Nounlet #69 & #70", async function() {
         const {contract: wrapperContract} = await loadFixture(deployContractFixture)
-        await getOwnerAndWrap({wrapperContract, ...testNounlet69})
-        await getOwnerAndWrap({wrapperContract, ...testNounlet70})
+        await wrapNounletDeployMaybe({wrapperContract, ...testNounlet69})
+        await wrapNounletDeployMaybe({wrapperContract, ...testNounlet70})
         expect(await wrapperContract.isTokenWrapped(testNounlet69.id)).eq(true)
         expect(await wrapperContract.isTokenWrapped(testNounlet70.id)).eq(true)
+    })
+
+    it("Wraps Nounlet #69 then unwraps it", async function() {
+        const {nounletContract, wrapperContract} = await wrapNounletDeployMaybe(testNounlet69)
+        await unwrapNounlet({id: testNounlet69.id, wrapperContract: wrapperContract.connect(nounletContract.signer), nounletContract})
     })
 })
