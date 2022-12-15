@@ -9,8 +9,6 @@ describe("Nounlet Wrapper", function() {
     const testNounlet69 = {id: 69, ownerAddress: "0xaF46dc96bd783E683fD0EFeF825e6110165b8f9E"}
     const testNounlet70 = {id: 70, ownerAddress: "0x65657E65292C3Dfd4c67bceC2d22FC44DE87702E"}
 
-    // const vaultFactoryAddress = "0x04BB19E64d2C2D92dC84efF75bD0AB757625A5f2"
-
     async function deployContractFixture() {
         const signers = await ethers.getSigners();
         const owner = signers[0];
