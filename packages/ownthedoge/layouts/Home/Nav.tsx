@@ -146,9 +146,6 @@ const Nav = () => {
             <Link href={"/radio"}>
               <Button>radio</Button>
             </Link>
-            <Link href={"/lords-of-dogetown"}>
-              <Button>🛹 LOD 🛹</Button>
-            </Link>
           </div>
         </div>
       </div>

@@ -556,7 +556,10 @@ const LordsOfDogetown = () => {
                   </div>
                 </BorderedText>
               )}
-              {renderAction()}
+              {/* {renderAction()} */}
+              <BorderedText className={css("font-bold", "text-2xl", "mt-2")}>
+                Claim closed
+              </BorderedText>
             </div>
           </div>
         </div>
