@@ -1,5 +1,5 @@
 {
-  "name": "@own-the-doge-mono-repo/hardhat",
+  "name": "hardhat",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
