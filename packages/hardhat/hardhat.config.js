@@ -33,11 +33,11 @@ module.exports = {
         enabled: true,
         url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
       },
-      gas: 12_000_000,
       throwOnTransactionFailures: true,
       throwOnCallFailures: true,
       allowUnlimitedContractSize: true,
-      blockGasLimit: 0x1fffffffffffff,
+      blockGasLimit: 10_000_000,
+      gas: 10_000_000,
     },
     rinkeby: {
       url: `https://rinkeby.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,

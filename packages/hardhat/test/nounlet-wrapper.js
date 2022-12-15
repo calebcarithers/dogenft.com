@@ -123,6 +123,6 @@ describe("Nounlet Wrapper", function() {
             .connect(nounletContract.signer)
         // let fractional vault transfer our wrapped nounlet
         const tx = await wrapperContract.setApprovalForAll(fractionalVault.address, true)
-        await fractionalVault.mint(wrapperContract.address, testNounlet69.id, fractionsCount, {gasLimit})
+        await fractionalVault.mint(wrapperContract.address, testNounlet69.id, fractionsCount)
     })
 })
