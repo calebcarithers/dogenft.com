@@ -1,6 +1,6 @@
 const { ethers } = require("hardhat");
 const { expect } = require("chai");
-const { loadFixture, impersonateAccount } = require("@nomicfoundation/hardhat-network-helpers");
+const { loadFixture, impersonateAccount, setBalance } = require("@nomicfoundation/hardhat-network-helpers");
 const nounletAbi = require("./abis/nounlet.json")
 const fractionalVaultAbi = require("./abis/fractional-vault-factory.json")
 
@@ -59,8 +59,8 @@ describe("Nounlet Wrapper", function() {
         expect(await nounletContract.balanceOf(wrapperContract.address, id)).to.eq(1)
     }
 
+    // returns wrapper contract and nounlet contract connected to nounlet owner signer
     async function wrapNounletDeployMaybe({id, ownerAddress, wrapperContract}) {
-        // returns wrapper contract and nounlet contract connected to nounlet owner signer
         let _wrapper
         if (wrapperContract) {
             _wrapper = wrapperContract
@@ -69,9 +69,12 @@ describe("Nounlet Wrapper", function() {
             _wrapper = contract
         }
         const nounletContract = await getNounletOwner(id)
+        _wrapper = _wrapper.connect(nounletContract.signer)
+        // give the nounlet owner a large ETH balance
+        await setBalance(nounletContract.signer.address, ethers.BigNumber.from(100).pow(18))
         expect(nounletContract.signer.address).eq(ownerAddress)
         await wrapNounlet({nounletContract, wrapperContract: _wrapper, id: id})
-        return {nounletContract, wrapperContract: _wrapper.connect(nounletContract.signer)}
+        return {nounletContract, wrapperContract: _wrapper}
     }
 
     async function unwrapNounlet({id, wrapperContract, nounletContract}) {
@@ -115,6 +118,7 @@ describe("Nounlet Wrapper", function() {
     it("Wraps Nounlet #69 and fractionalizes it on Fractional.art", async function() {
         const fractionsCount = 6969
         const {nounletContract, wrapperContract} = await wrapNounletDeployMaybe(testNounlet69)
+        // console.log("balance", await ethers.provider.getBalance(nounletContract.signer.address))
         const fractionalVault = (new ethers.Contract(fractionalVaultAddress, fractionalVaultAbi))
             .connect(nounletContract.signer)
         // let fractional vault transfer our wrapped nounlet
