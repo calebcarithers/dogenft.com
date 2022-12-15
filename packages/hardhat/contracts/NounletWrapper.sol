@@ -7,8 +7,6 @@ import "@openzeppelin/contracts/interfaces/IERC1155MetadataURI.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
-import "hardhat/console.sol";
-
 interface INounlet is IERC1155MetadataURI {
     function contractURI() external view returns (string memory);
 }
