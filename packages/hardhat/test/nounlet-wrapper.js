@@ -43,7 +43,7 @@ describe("Nounlet Wrapper", function() {
         await nounletContract.setApprovalForAll(wrapperContract.address, true);
 
         // wrap nounlet
-        await wrapperContract.connect(nounletContract.signer).wrap(id, {gasLimit});
+        await wrapperContract.connect(nounletContract.signer).wrap(id);
 
         // assert uri/tokenURI & contractURI
         const uri = await nounletContract.uri(id)
@@ -78,7 +78,7 @@ describe("Nounlet Wrapper", function() {
     }
 
     async function unwrapNounlet({id, wrapperContract, nounletContract}) {
-        await wrapperContract.unwrap(id, {gasLimit});
+        await wrapperContract.unwrap(id);
         // check balance for ERC1155 (should have been sent from wrapper back to owner of the wNounlet315)
         // wrapper contract should not own this token anymore
         expect(await nounletContract.balanceOf(wrapperContract.address, id)).eq(0)
@@ -90,30 +90,30 @@ describe("Nounlet Wrapper", function() {
         await expect(wrapperContract.tokenURI(id)).to.be.revertedWith("ERC721Metadata: URI query for nonexistent token")
     }
 
-    // it("Wraps nounlet #69", async function() {
-    //     await wrapNounletDeployMaybe(testNounlet69)
-    // })
+    it("Wraps nounlet #69", async function() {
+        await wrapNounletDeployMaybe(testNounlet69)
+    })
 
-    // it("Wraps Nounlet #70", async function() {
-    //     await wrapNounletDeployMaybe(testNounlet70)
-    // })
+    it("Wraps Nounlet #70", async function() {
+        await wrapNounletDeployMaybe(testNounlet70)
+    })
 
-    // it("Wraps Nounlet #69 & #70", async function() {
-    //     const {contract: wrapperContract} = await loadFixture(deployContractFixture)
-    //     await wrapNounletDeployMaybe({wrapperContract, ...testNounlet69})
-    //     await wrapNounletDeployMaybe({wrapperContract, ...testNounlet70})
-    //     expect(await wrapperContract.isTokenWrapped(testNounlet69.id)).eq(true)
-    //     expect(await wrapperContract.isTokenWrapped(testNounlet70.id)).eq(true)
-    // })
+    it("Wraps Nounlet #69 & #70", async function() {
+        const {contract: wrapperContract} = await loadFixture(deployContractFixture)
+        await wrapNounletDeployMaybe({wrapperContract, ...testNounlet69})
+        await wrapNounletDeployMaybe({wrapperContract, ...testNounlet70})
+        expect(await wrapperContract.isTokenWrapped(testNounlet69.id)).eq(true)
+        expect(await wrapperContract.isTokenWrapped(testNounlet70.id)).eq(true)
+    })
 
-    // it("Wraps Nounlet #69 then unwraps it", async function() {
-    //     const {nounletContract, wrapperContract} = await wrapNounletDeployMaybe(testNounlet69)
-    //     await unwrapNounlet({
-    //         id: testNounlet69.id, 
-    //         wrapperContract: wrapperContract.connect(nounletContract.signer), 
-    //         nounletContract
-    //     })
-    // })
+    it("Wraps Nounlet #69 then unwraps it", async function() {
+        const {nounletContract, wrapperContract} = await wrapNounletDeployMaybe(testNounlet69)
+        await unwrapNounlet({
+            id: testNounlet69.id, 
+            wrapperContract: wrapperContract.connect(nounletContract.signer), 
+            nounletContract
+        })
+    })
 
     it("Wraps Nounlet #69 and fractionalizes it on Fractional.art", async function() {
         const fractionsCount = 6969
