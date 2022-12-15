@@ -41,6 +41,7 @@ const HomeContent = () => {
   const [fullSize, setFullSize] = useState(0);
   const router = useRouter();
   const { wow } = router.query;
+  console.log("debug::");
   const containerRef = useCallback<any>((node: HTMLDivElement) => {
     if (node) {
       setFullSize(node.clientHeight);
