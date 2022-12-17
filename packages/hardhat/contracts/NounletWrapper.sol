@@ -21,9 +21,11 @@ contract NounletWrapper is
     // only a single nounlet can be wrapped and unwrapped at a time
     uint256 private allowedDepositAmount = 1;
     mapping(uint256 => bool) public isTokenWrapped;
+    uint256 public totalSupply;
 
     constructor(address _nounletAddress) ERC721("WrappedNounlet315", "wNounlet315") {
         nounletAddress = _nounletAddress;
+        totalSupply = 0;
     }
 
     function wrap(uint256 _tokenId) public {
@@ -31,9 +33,11 @@ contract NounletWrapper is
             msg.sender,
             _tokenId
         );
-        require(balance == allowedDepositAmount, "You do not own this Nounlet #315");
+        require(balance != 0, "You do not own this Nounlet #315.");
+        require(balance == allowedDepositAmount, "You should not have more than 1 Nounlet #315 with the same ID.");
         require(!isTokenWrapped[_tokenId], "This Nounlet #315 is already wrapped");
         isTokenWrapped[_tokenId] = true;
+        totalSupply += 1;
         INounlet(nounletAddress).safeTransferFrom(
             msg.sender,
             address(this),
@@ -48,6 +52,7 @@ contract NounletWrapper is
         require(msg.sender == this.ownerOf(_tokenId), "You do not own this wrapped Nounlet #315.");
         require(isTokenWrapped[_tokenId], "This Nounlet #315 is not wrapped");
         isTokenWrapped[_tokenId] = false;
+        totalSupply -= 1;
         INounlet(nounletAddress).safeTransferFrom(
             address(this),
             msg.sender,

@@ -101,6 +101,7 @@ describe("Nounlet Wrapper", function() {
         const {contract: wrapperContract} = await deployWrapper()
         await wrapNounlet({wrapperContract, ...testNounlet69})
         await wrapNounlet({wrapperContract, ...testNounlet70})
+        expect(await wrapperContract.totalSupply()).eq(2)
         expect(await wrapperContract.isTokenWrapped(testNounlet69.id)).eq(true)
         expect(await wrapperContract.isTokenWrapped(testNounlet70.id)).eq(true)
     })
@@ -108,11 +109,13 @@ describe("Nounlet Wrapper", function() {
     it("Wraps Nounlet #69 then unwraps it", async function() {
         const {contract: wrapperContract} = await deployWrapper()
         const {nounletContract, wrapperContract: nounletWrapper} = await wrapNounlet({...testNounlet69, wrapperContract})
+        expect(await wrapperContract.totalSupply()).eq(1)
         await unwrapNounlet({
             id: testNounlet69.id, 
             wrapperContract: nounletWrapper, 
             nounletContract
         })
+        expect(await wrapperContract.totalSupply()).eq(0)
     })
 
     it("Wraps Nounlet #69 and fractionalizes it on Fractional.art", async function() {
@@ -139,9 +142,15 @@ describe("Nounlet Wrapper", function() {
         expect(await ferc1155Contract.uri(fractionId)).eq(baseMainnetUri  + `/${fractionId}`)
     })
 
-    // it("Wraps Nounlet #69 and attacker tries to unwrap", async function() {
-    //     const {wrapperContract, signers} = await wrapNounletDeployMaybe(testNounlet69)
-    //     const badGuyWrapperContract = wrapperContract.connect(signers[4])
-    //     await badGuyWrapperContract.unwrap(testNounlet69.id)
-    // })
+    it("Wraps Nounlet #69 and attacker tries to unwrap", async function() {
+        const {contract: wrapperContract, signers} = await deployWrapper()
+        await wrapNounlet({...testNounlet69, wrapperContract})
+        const badGuyWrapperContract = wrapperContract.connect(signers[4])
+        await expect(badGuyWrapperContract.unwrap(testNounlet69.id)).to.be.revertedWith('You do not own this wrapped Nounlet #315.')
+    })
+
+    it("Trys to wrap a Nounlet without owning a Nounlet", async function() {
+        const {contract: wrapperContract, owner} = await deployWrapper()
+        await expect(wrapperContract.wrap(testNounlet69.id)).to.be.revertedWith('You do not own this Nounlet #315.')
+    })
 })
