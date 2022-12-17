@@ -31,8 +31,8 @@ contract NounletWrapper is
             msg.sender,
             _tokenId
         );
-        require(balance == allowedDepositAmount, "You do not own this nounlet");
-        require(!isTokenWrapped[_tokenId], "This token is already wrapped");
+        require(balance == allowedDepositAmount, "You do not own this Nounlet #315");
+        require(!isTokenWrapped[_tokenId], "This Nounlet #315 is already wrapped");
         isTokenWrapped[_tokenId] = true;
         INounlet(nounletAddress).safeTransferFrom(
             msg.sender,
@@ -45,8 +45,8 @@ contract NounletWrapper is
     }
 
     function unwrap(uint256 _tokenId) public {
-        require(msg.sender == this.ownerOf(_tokenId), "You do not own this wrapped nounlet.");
-        require(isTokenWrapped[_tokenId], "This token is not wrapped");
+        require(msg.sender == this.ownerOf(_tokenId), "You do not own this wrapped Nounlet #315.");
+        require(isTokenWrapped[_tokenId], "This Nounlet #315 is not wrapped");
         isTokenWrapped[_tokenId] = false;
         INounlet(nounletAddress).safeTransferFrom(
             address(this),
