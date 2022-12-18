@@ -1,119 +1,131 @@
-import axios from 'axios';
-import {action, computed, makeObservable, observable, reaction} from "mobx";
-import {ethers} from "ethers";
-import FractionManagerABI from '../services/abis/fractionManager';
-import {isDev, isStaging} from "../environment";
+import axios from "axios";
+import { ethers } from "ethers";
+import { action, computed, makeObservable, observable } from "mobx";
+import { vars } from "../environment/vars";
+import FractionManagerABI from "../services/abis/fractionManager";
 
 class FractionStore {
-    contractAddress = process.env.NEXT_PUBLIC_FRACTION_MANAGER_CONTRACT_ADDRESS;
-    dogeMajorAddress = process.env.NEXT_PUBLIC_DOGE_MAJOR_ADDRESS;
-    dogeMajorTokenId = (isDev() || isStaging()) ? 1 : 1211
-    abi: any = FractionManagerABI;
+  contractAddress = vars.NEXT_PUBLIC_FRACTION_MANAGER_CONTRACT_ADDRESS;
+  abi: any = FractionManagerABI;
 
-    @observable
-    isClaiming = false
+  @observable
+  isClaiming = false;
 
-    @observable
-    availablePixelIds: number[] = []
+  @observable
+  availablePixelIds: number[] = [];
 
-    @observable
-    usedPixelIds: number[] = []
+  @observable
+  usedPixelIds: number[] = [];
 
-    @observable
-    isPaused = true
+  @observable
+  isPaused = true;
 
-    @observable
-    contract?: ethers.Contract
+  @observable
+  contract?: ethers.Contract;
 
-    @observable
-    signer?: ethers.Signer | null
+  @observable
+  signer?: ethers.Signer | null;
 
-    @observable
-    disposer?: () => void
+  @observable
+  isClaimOpen = false;
 
-    @observable
-    isGetClaimLoading = false
+  @observable
+  isGetClaimLoading = false;
 
-    constructor() {
-        makeObservable(this)
+  @observable
+  isClaimOpenLoading = false;
+
+  constructor(
+    private tokenToClaimAddress: string,
+    private tokenToClaimId: number
+  ) {
+    makeObservable(this);
+  }
+
+  async claim() {
+    if (this.contract) {
+      this.isClaiming = true;
+      try {
+        const tx = await this.contract.claim(
+          this.tokenToClaimAddress,
+          this.tokenToClaimId,
+          this.availablePixelIds
+        );
+        await tx.wait();
+        await this.getCanClaim();
+      } catch (e) {
+      } finally {
+        this.isClaiming = false;
+      }
     }
+  }
 
-    init() {
-      this.disposer = reaction(() => [this.contract, this.signer], () => {
-        this.getCanClaim()
-      }, {fireImmediately: true})
+  @action
+  async getIsClaimOpen() {
+    if (this.contract) {
+      this.isClaimOpenLoading = true;
+      this.isClaimOpen = await this.contract.getIsClaimOpen(
+        this.tokenToClaimAddress,
+        this.tokenToClaimId
+      );
+      this.isClaimOpenLoading = false;
     }
+  }
 
-    async claim() {
-        if (this.contract) {
-            this.isClaiming = true
-            try {
-                const tx = await this.contract.claim(this.dogeMajorAddress, this.dogeMajorTokenId, this.availablePixelIds)
-                await tx.wait()
-                await this.getCanClaim()
-            } catch (e) {
+  @action
+  async getCanClaim() {
+    this.availablePixelIds = [];
+    const newIds: number[] = [];
+    const usedIds: number[] = [];
+    if (this.contract && this.signer) {
+      const address = await this.signer.getAddress();
+      try {
+        if (vars.NEXT_PUBLIC_PIXEL_HOLDER_API) {
+          this.isGetClaimLoading = true;
+          const pixelResponse = await axios.get(
+            vars.NEXT_PUBLIC_PIXEL_HOLDER_API
+          );
+          const pixelHolders = Object.keys(pixelResponse.data);
 
-            } finally {
-                this.isClaiming = false
+          if (pixelHolders.includes(address)) {
+            const pixelIds = pixelResponse.data[address].tokenIds;
+            for (let i = 0; i < pixelIds.length; i++) {
+              const pixelId = pixelIds[i];
+              const isClaimed = await this.contract.hasPixelClaimed(
+                this.tokenToClaimAddress,
+                this.tokenToClaimId,
+                pixelId
+              );
+              if (!isClaimed && !newIds.includes(pixelIds)) {
+                newIds.push(pixelId);
+              } else {
+                usedIds.push(pixelId);
+              }
             }
-        }
-    }
-
-
-    @action
-    async getCanClaim() {
-        this.availablePixelIds = [];
-        const newIds: number[] = []
-        const usedIds: number[] = []
-        if (this.contract && this.signer) {
-            const address = await this.signer.getAddress()
-            try {
-                if (process.env.NEXT_PUBLIC_PIXEL_HOLDER_API) {
-                    this.isGetClaimLoading = true
-                    const pixelResponse = await axios.get(process.env.NEXT_PUBLIC_PIXEL_HOLDER_API);
-                    const pixelHolders = Object.keys(pixelResponse.data);
-
-                    if (pixelHolders.includes(address)) {
-                        const pixelIds = pixelResponse.data[address].tokenIds;
-                        for (let i = 0; i < pixelIds.length; i++) {
-                            const pixelId = pixelIds[i];
-                            const isClaimed = await this.contract.hasPixelClaimed(this.dogeMajorAddress, this.dogeMajorTokenId, pixelId);
-                            if (!isClaimed && !newIds.includes(pixelIds)) {
-                                newIds.push(pixelId)
-                            } else {
-                                usedIds.push(pixelId)
-                            }
-                        }
-                        this.availablePixelIds = newIds
-                        this.usedPixelIds = usedIds
-                    }
-                    this.isGetClaimLoading = false
-                } else {
-                    throw new Error("Missing env var")
-                }
-            } catch (e) {
-                console.error(e)
-            }
+            this.availablePixelIds = newIds;
+            this.usedPixelIds = usedIds;
+          }
+          this.isGetClaimLoading = false;
         } else {
-            console.error("could not get signer and contract")
+          throw new Error("Missing env var");
         }
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      console.error("could not get signer and contract");
     }
+  }
 
-    destroy() {
-        if (this.disposer) {
-            this.disposer()
-        }
-    }
+  @computed
+  get canClaim() {
+    return this.availablePixelIds.length > 0;
+  }
 
-    @computed
-    get canClaim() {
-        return this.availablePixelIds.length > 0
-    }
-
-    @computed
-    get hasAlreadyClaimed() {
-        return this.usedPixelIds.length > 0
-    }
+  @computed
+  get hasAlreadyClaimed() {
+    return this.usedPixelIds.length > 0;
+  }
 }
 
-export default FractionStore
+export default FractionStore;
