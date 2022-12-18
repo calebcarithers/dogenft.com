@@ -20,9 +20,25 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
+  solidity: {
+    version: "0.8.4",
+    optimizer: {
+      enabled: true,
+      runs: 200
+    }
+  },
   networks: {
-    hardhat: {},
+    hardhat: {
+      forking: {
+        enabled: true,
+        url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
+      },
+      throwOnTransactionFailures: true,
+      throwOnCallFailures: true,
+      allowUnlimitedContractSize: true,
+      blockGasLimit: 10_000_000,
+      gas: 10_000_000,
+    },
     rinkeby: {
       url: `https://rinkeby.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
       accounts: [process.env.RINKEBY_PRIV_KEY],
