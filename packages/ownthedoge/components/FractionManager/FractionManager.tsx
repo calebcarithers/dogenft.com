@@ -52,11 +52,11 @@ const FractionManager: React.FC<{
           fractionStore.isClaimOpenLoading
         ) {
           return (
-            <div className={css("w-full")}>
-              <div className={css("relative", "w-full", "animate-ping")}>
+            <div className={css("w-full", "animate-ping")}>
+              <div className={css("relative", "w-full")}>
                 <Image src="/images/doage.png" width={25} height={25} />
               </div>
-              <div className={css("text-base", "font-normal")}>wow</div>
+              <div className={css("text-sm", "font-normal", "-mt-2")}>wow</div>
             </div>
           );
         } else if (!fractionStore.isClaimOpen) {

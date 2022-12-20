@@ -65,11 +65,12 @@ const main = async() => {
   const contractDeployBlockNumber = 14073390
 
   const startDay = '2022-08-01T00:00:00Z'
-  const lastDay = '2022-09-01T23:59:59Z'
+  const lastDay = '2021-12-31T23:59:59Z'
 
-  const firstBlock = (await dater.getDate(startDay)).block
+  // const firstBlock = (await dater.getDate(startDay)).block
+  const firstBlock = contractDeployBlockNumber
   const lastBlock = (await dater.getDate(lastDay)).block
-  console.log(`querying mints & burns from ${startDay} -> ${lastDay}`)
+  // console.log(`querying mints & burns from ${startDay} -> ${lastDay}`)
   console.log(`blocks ${firstBlock} to ${lastBlock}`)
 
   const mints = await getEthLogs(firstBlock, lastBlock, PXContract.filters.Transfer(ethers.constants.AddressZero, null))
