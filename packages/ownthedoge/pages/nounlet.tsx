@@ -152,7 +152,7 @@ const ParentPane: React.FC<PropsWithChildren<{ withBorder?: boolean }>> = ({
         "p-3",
         {
           "rounded-lg": withBorder,
-          "bg-[#C82E30]": withBorder,
+          "bg-[#dc0d21]": withBorder,
           [borderStyles]: withBorder,
         }
       )}
@@ -160,7 +160,7 @@ const ParentPane: React.FC<PropsWithChildren<{ withBorder?: boolean }>> = ({
       <div
         className={css("p-4", "text-center", {
           [borderStyles]: withBorder,
-          "bg-[#E48632]": withBorder,
+          "bg-[#f18301]": withBorder,
         })}
       >
         {children}

@@ -50,8 +50,8 @@ const buttonTypeStyles = {
   ),
   [ButtonType.Pixel]: css(
     "font-PressStart",
-    "text-nounlet-yellow-100",
-    "bg-nounlet-yellow-50",
+    "text-[#844818]",
+    "bg-[#fbd200]",
     "rounded-lg"
   ),
 };

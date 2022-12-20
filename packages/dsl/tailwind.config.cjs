@@ -42,12 +42,6 @@ module.exports = {
             500: "#7e776d",
           },
         },
-        nounlet: {
-          yellow: {
-            50: "#ECBB40",
-            100: "#844818",
-          },
-        },
       },
       fontSize: {
         xxs: ".6rem",

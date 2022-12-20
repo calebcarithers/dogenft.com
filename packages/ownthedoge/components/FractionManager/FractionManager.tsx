@@ -90,8 +90,7 @@ const FractionManager: React.FC<{
                     "placeholder:text-sm",
                     "p-3",
                     "rounded-lg",
-                    "w-full",
-                    "disabled:opacity-98"
+                    "w-full"
                   )}
                   value={fractionStore.inputValue}
                   onChange={(e) => fractionStore.onInputChange(e.target.value)}
@@ -107,7 +106,8 @@ const FractionManager: React.FC<{
                   fractionStore.inputValue === ""
                 }
               >
-                ✨ Claim ✨
+                {buttonType !== ButtonType.Pixel && "✨ "}Claim
+                {buttonType !== ButtonType.Pixel && " ✨"}
               </Button>
             </form>
           );
