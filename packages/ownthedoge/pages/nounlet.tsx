@@ -43,13 +43,13 @@ const Nounlet = observer(() => {
                 height={640}
               />
             </div>
-            <div className={css("font-bold", "text-sm", "text-center")}>
+            <div className={css("font-bold", "text-sm", "text-center", "mt-3")}>
               Nounlet #69
             </div>
           </ParentPane>
 
           {isProduction() && (
-            <div className={css("text-black")}>
+            <div className={css("text-black", "text-lg")}>
               <FractionManager
                 contractAddress={vars.NEXT_PUBLIC_NOUNLET_ADDRESS}
                 tokenId={1267}
@@ -57,19 +57,28 @@ const Nounlet = observer(() => {
             </div>
           )}
           {!isProduction() && (
-            <div>Nounlet claim only available on Mainnet</div>
+            <div className={css("text-lg", "font-bold")}>
+              Nounlet claim only available on Mainnet
+            </div>
           )}
 
           <ParentPane>
-            <div className={css("text-lg")}>
-              WE DID THE NOUNLET BOI. All pixel holders can claim 1:1 fractions
-              of dis nounlet for each pixel held.
+            <div>Henlo Dogens 🐶</div>
+            <div className={css("mt-6")}>
+              We did to the Nounlet #69 what we did to the Doge! Fractionalized
+              for community ownership and wow✨
             </div>
-          </ParentPane>
-          <ParentPane>
-            <div className={css("text-lg")}>
-              Nounlets are sick and you want one
+            <div className={css("mt-6")}>
+              Each Nounlet represents 1% of the vaulted Noun and has a vote in
+              delegating the Noun{"'"}s governance rights. It brings the
+              ownership of Nouns a step closer to the public and we now take it
+              a step further; just because nounlets are cool and you want it 👀
             </div>
+            <div className={css("mt-6")}>
+              Claim 1:1 fractions of dis nounlet for every Pixel held and remain
+              forever a fractional owner of the Noun 315 NFT🟨
+            </div>
+            <div className={css("mt-6")}>Merry dogemas🎊</div>
           </ParentPane>
           <ParentPane>
             <div className={css("flex", "flex-row", "gap-4")}>
@@ -82,14 +91,6 @@ const Nounlet = observer(() => {
               <Link
                 isExternal
                 href={
-                  "https://medium.com/tessera-nft/wtf-are-nounlets-ec4d6e324910"
-                }
-              >
-                More Info
-              </Link>
-              <Link
-                isExternal
-                href={
                   "https://opensea.io/assets/ethereum/0xb2469a7dd9e154c97b99b33e88196f7024f2979e/1267"
                 }
               >
@@ -97,6 +98,14 @@ const Nounlet = observer(() => {
               </Link>
               <Link isExternal href={"https://nounlets.wtf/"}>
                 Nounlets
+              </Link>
+              <Link
+                isExternal
+                href={
+                  "https://medium.com/tessera-nft/wtf-are-nounlets-ec4d6e324910"
+                }
+              >
+                wtf?
               </Link>
             </div>
           </ParentPane>
@@ -111,13 +120,14 @@ const ParentPane: React.FC<PropsWithChildren<any>> = ({ children }) => {
     <div
       className={css(
         "border-2",
-        "border-meme-green",
         "p-3",
         "lg:max-w-md",
         "sm:max-w-full",
         "w-full",
         "text-center",
-        "font-bold"
+        "font-bold",
+        "text-lg",
+        "rainbow-border"
       )}
     >
       {children}
