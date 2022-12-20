@@ -2,8 +2,11 @@ import { observer } from "mobx-react-lite";
 import Head from "next/head";
 import Image from "next/image";
 import React, { PropsWithChildren } from "react";
-import { BackOrHomeButton } from "../../dsl/components/Button/Button";
-import Link from "../../dsl/components/Link/Link";
+import {
+  BackOrHomeButton,
+  ButtonType,
+} from "../../dsl/components/Button/Button";
+import Link, { LinkType } from "../../dsl/components/Link/Link";
 import FractionManager from "../components/FractionManager/FractionManager";
 import { isProduction } from "../environment";
 import { vars } from "../environment/vars";
@@ -16,10 +19,7 @@ const Nounlet = observer(() => {
       <Head>
         <title>The Doge NFT | Nounlet</title>
       </Head>
-      <PageLayout
-      // className={css("bg-repeat")}
-      // style={{ backgroundImage: `url(images/constellation.gif)` }}
-      >
+      <PageLayout className={css("bg-[#2A5C7F]", "text-white")}>
         <BackOrHomeButton />
         <div
           className={css(
@@ -33,26 +33,35 @@ const Nounlet = observer(() => {
             "gap-y-8"
           )}
         >
-          <div className={css("text-4xl", "font-bold")}>Nounlet #69</div>
-          <ParentPane>
-            <div className={css("relative")}>
-              <Image
-                src={"/images/nounlet.svg"}
-                layout={"responsive"}
-                width={640}
-                height={640}
-              />
-            </div>
-            <div className={css("font-bold", "text-sm", "text-center", "mt-3")}>
-              Nounlet #69
-            </div>
-          </ParentPane>
-
+          <div
+            className={css(
+              "relative",
+              "lg:max-w-xl",
+              "sm:max-w-full",
+              "w-full"
+            )}
+          >
+            <Image
+              src={"/images/nounlet-perk.png"}
+              layout={"responsive"}
+              width={3000}
+              height={3400}
+            />
+          </div>
           {isProduction() && (
-            <div className={css("text-black", "text-lg")}>
+            <div
+              className={css(
+                "text-white",
+                "text-lg",
+                "font-PressStart",
+                "drop-shadow-[5px_5px_0px_rgba(0,0,0,0.95)]",
+                "w-full"
+              )}
+            >
               <FractionManager
                 contractAddress={vars.NEXT_PUBLIC_NOUNLET_ADDRESS}
                 tokenId={1267}
+                buttonType={ButtonType.Pixel}
               />
             </div>
           )}
@@ -74,63 +83,88 @@ const Nounlet = observer(() => {
               ownership of Nouns a step closer to the public and we now take it
               a step further; just because nounlets are cool and you want it 👀
             </div>
-            <div className={css("mt-6")}>
+          </ParentPane>
+          <ParentPane>
+            <div>
               Claim 1:1 fractions of dis nounlet for every Pixel held and remain
-              forever a fractional owner of the Noun 315 NFT🟨
+              forever a fractional owner of the Noun 315 NFT 🟨
             </div>
             <div className={css("mt-6")}>Merry dogemas🎊</div>
           </ParentPane>
-          <ParentPane>
-            <div className={css("flex", "flex-row", "gap-4")}>
-              <Link
-                isExternal
-                href={"https://fractional.art/vaults/nounlet-69-noun-315"}
-              >
-                Tessera
-              </Link>
-              <Link
-                isExternal
-                href={
-                  "https://opensea.io/assets/ethereum/0xb2469a7dd9e154c97b99b33e88196f7024f2979e/1267"
-                }
-              >
-                OpenSea
-              </Link>
-              <Link isExternal href={"https://nounlets.wtf/"}>
-                Nounlets
-              </Link>
-              <Link
-                isExternal
-                href={
-                  "https://medium.com/tessera-nft/wtf-are-nounlets-ec4d6e324910"
-                }
-              >
-                wtf?
-              </Link>
-            </div>
-          </ParentPane>
+          <div className={css("flex", "flex-row", "gap-4", "text-xl")}>
+            <Link
+              bold
+              type={LinkType.Black}
+              isExternal
+              href={"https://fractional.art/vaults/nounlet-69-noun-315"}
+            >
+              Tessera
+            </Link>
+            <Link
+              bold
+              type={LinkType.Black}
+              isExternal
+              href={
+                "https://opensea.io/assets/ethereum/0xb2469a7dd9e154c97b99b33e88196f7024f2979e/1267"
+              }
+            >
+              OpenSea
+            </Link>
+            <Link
+              bold
+              type={LinkType.Black}
+              isExternal
+              href={"https://nounlets.wtf/"}
+            >
+              Nounlets
+            </Link>
+            <Link
+              bold
+              type={LinkType.Black}
+              isExternal
+              href={
+                "https://medium.com/tessera-nft/wtf-are-nounlets-ec4d6e324910"
+              }
+            >
+              wtf?
+            </Link>
+          </div>
         </div>
       </PageLayout>
     </>
   );
 });
 
-const ParentPane: React.FC<PropsWithChildren<any>> = ({ children }) => {
+const ParentPane: React.FC<PropsWithChildren<{ withBorder?: boolean }>> = ({
+  children,
+  withBorder = true,
+}) => {
+  const borderStyles = css("border-2", "border-black", "rounded-lg");
   return (
     <div
       className={css(
-        "border-2",
-        "p-3",
-        "lg:max-w-md",
+        "text-black",
+        "lg:max-w-xl",
         "sm:max-w-full",
         "w-full",
-        "text-center",
         "font-bold",
-        "text-lg",
-        "rainbow-border"
+        "text-2xl",
+        "p-3",
+        {
+          "rounded-lg": withBorder,
+          "bg-[#C82E30]": withBorder,
+          [borderStyles]: withBorder,
+        }
       )}
     >
-      {children}
+      <div
+        className={css("p-4", "text-center", {
+          [borderStyles]: withBorder,
+          "bg-[#E48632]": withBorder,
+        })}
+      >
+        {children}
+      </div>
     </div>
   );
 };

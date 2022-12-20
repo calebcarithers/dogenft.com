@@ -35,6 +35,12 @@ class FractionStore {
   @observable
   isClaimOpenLoading = false;
 
+  @observable
+  inputValue = "";
+
+  @observable
+  maxInputValue = 0;
+
   constructor(
     private tokenToClaimAddress: string,
     private tokenToClaimId: number
@@ -46,12 +52,17 @@ class FractionStore {
     if (this.contract) {
       this.isClaiming = true;
       try {
+        const pixelIds = this.availablePixelIds.slice(
+          0,
+          Number(this.inputValue)
+        );
         const tx = await this.contract.claim(
           this.tokenToClaimAddress,
           this.tokenToClaimId,
-          this.availablePixelIds
+          pixelIds
         );
         await tx.wait();
+        this.inputValue = "";
         await this.getCanClaim();
       } catch (e) {
       } finally {
@@ -125,6 +136,11 @@ class FractionStore {
   @computed
   get hasAlreadyClaimed() {
     return this.usedPixelIds.length > 0;
+  }
+
+  @action
+  onInputChange(value: string) {
+    this.inputValue = value;
   }
 }
 

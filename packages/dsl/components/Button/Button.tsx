@@ -1,5 +1,5 @@
 import { ConnectButton as RainbowConnectButton } from "@rainbow-me/rainbowkit";
-import Link, { LinkSize, LinkType } from "dsl/components/Link/Link";
+import Link, { LinkSize } from "dsl/components/Link/Link";
 import { emojisplosion } from "emojisplosion";
 import { useRouter } from "next/router";
 import React, {
@@ -12,13 +12,14 @@ import { BsArrowLeft } from "react-icons/bs";
 import { ClipLoader } from "react-spinners";
 import { useDisconnect } from "wagmi";
 import { css } from "../../helpers/css";
-import Dropdown, { DropdownType } from "../Dropdown/Dropdown";
+import Dropdown from "../Dropdown/Dropdown";
 
 const tailwindconfig = require("../../tailwind.config.cjs");
 
 export enum ButtonType {
   Primary = "primary",
   White = "white",
+  Pixel = "pixel",
 }
 
 const baseButtonStyles = css(
@@ -47,16 +48,24 @@ const buttonTypeStyles = {
     "hover:bg-gray-900",
     "disabled:bg-gray-900"
   ),
+  [ButtonType.Pixel]: css(
+    "font-PressStart",
+    "text-nounlet-yellow-100",
+    "bg-nounlet-yellow-50",
+    "rounded-lg"
+  ),
 };
 
 const buttonDropShadowDisabledStyles = {
   [ButtonType.Primary]: css("bg-pixels-yellow-400", "bg-pixels-yellow-500"),
   [ButtonType.White]: css(),
+  [ButtonType.Pixel]: css(),
 };
 
 const buttonDropShadowStyles = {
   [ButtonType.Primary]: css("bg-black"),
   [ButtonType.White]: css("bg-black"),
+  [ButtonType.Pixel]: css(),
 };
 
 interface ButtonProps {
@@ -68,6 +77,7 @@ interface ButtonProps {
   type?: ButtonType;
   emojisForExploding?: string[];
   as?: "button" | "div";
+  submit?: boolean;
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
@@ -80,6 +90,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   type = ButtonType.Primary,
   emojisForExploding,
   as = "button",
+  submit = false,
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const isDisabled = disabled || isLoading;
@@ -134,6 +145,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       ref={ref}
     >
       <Component
+        type={submit ? "submit" : "button"}
         disabled={isDisabled}
         onClick={() => {
           if (onClick) {
@@ -173,7 +185,9 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
               "opacity-75",
               {
                 "bg-pixels-yellow-300": type === ButtonType.Primary,
-                "bg-gray-900": type === ButtonType.White,
+                "bg-gray-900":
+                  type === ButtonType.White || type === ButtonType.Pixel,
+                "rounded-lg": type === ButtonType.Pixel,
               }
             )}
           >
@@ -202,19 +216,19 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   );
 };
 
-export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
+export const ConnectButton: React.FC<
+  PropsWithChildren<{ type?: ButtonType }>
+> = ({ type = ButtonType.Primary }) => {
   const router = useRouter();
-  const isFraction = router.pathname === "/doge-major";
-  const buttonType = isFraction ? ButtonType.White : ButtonType.Primary;
   const { disconnect } = useDisconnect();
   const [isDropDownOpen, setIsDropDownOpen] = React.useState(false);
 
-  const linkStyles = css({
-    "text-pixels-yellow-500": !isFraction,
-    "hover:text-yellow-400": !isFraction,
-    "text-white": isFraction,
-    "hover:text-gray-600": isFraction,
-  });
+  // const linkStyles = css({
+  //   "text-pixels-yellow-500": !isFraction,
+  //   "hover:text-yellow-400": !isFraction,
+  //   "text-white": isFraction,
+  //   "hover:text-gray-600": isFraction,
+  // });
 
   useEffect(() => {
     if (isDropDownOpen) {
@@ -239,7 +253,7 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
               {(() => {
                 if (!mounted || !account || !chain) {
                   return (
-                    <Button type={buttonType} onClick={openConnectModal}>
+                    <Button type={type} onClick={openConnectModal}>
                       connect
                     </Button>
                   );
@@ -247,7 +261,7 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
 
                 if (chain.unsupported) {
                   return (
-                    <Button type={buttonType} onClick={openChainModal}>
+                    <Button type={type} onClick={openChainModal}>
                       Wrong network
                     </Button>
                   );
@@ -256,13 +270,10 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
                 return (
                   <div style={{ display: "flex", gap: 12 }}>
                     <Dropdown
-                      type={
-                        isFraction ? DropdownType.White : DropdownType.Primary
-                      }
                       open={isDropDownOpen}
                       onOpenChange={setIsDropDownOpen}
                       trigger={
-                        <Button type={buttonType} rounded>
+                        <Button type={type} rounded>
                           {account.displayName}
                         </Button>
                       }
@@ -273,7 +284,6 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
                           block
                           href={`/profile/${account.address}`}
                           size={LinkSize.xl}
-                          type={isFraction ? LinkType.White : LinkType.Black}
                         >
                           Profile
                         </Link>
@@ -285,8 +295,8 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
                             className={css(
                               "cursor-pointer",
                               "text-right",
-                              "font-bold",
-                              linkStyles
+                              "font-bold"
+                              // linkStyles
                             )}
                           >
                             Disconnect
@@ -300,8 +310,8 @@ export const ConnectButton: React.FC<PropsWithChildren<any>> = () => {
                               "space-x-2",
                               "cursor-pointer",
                               "justify-between",
-                              "font-bold",
-                              linkStyles
+                              "font-bold"
+                              // linkStyles
                             )}
                             onClick={openChainModal}
                           >

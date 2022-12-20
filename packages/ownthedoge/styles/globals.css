@@ -15,8 +15,3 @@
   flex-grow: 1;
   display: grid;
 }
-
-.rainbow-border {
-    border-image: linear-gradient(to bottom right, #8cd121 0%, #f78918 25%, #fff34a 50%, #9f20a0 75%, #2b83f6 100%);
-    border-image-slice: 1;
-}

@@ -63,7 +63,7 @@ const DogeMajor = observer(() => {
           <FractionManager
             contractAddress={vars.NEXT_PUBLIC_DOGE_MAJOR_ADDRESS}
             tokenId={isDev() || isStaging() ? 1 : 1211}
-            claimButtonType={ButtonType.White}
+            buttonType={ButtonType.White}
           />
 
           <ParentPane>

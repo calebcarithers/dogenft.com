@@ -16,9 +16,9 @@ import FractionStore from "../../stores/Fraction.store";
 const FractionManager: React.FC<{
   contractAddress: string;
   tokenId: number;
-  claimButtonType?: ButtonType;
+  buttonType?: ButtonType;
 }> = observer(
-  ({ contractAddress, tokenId, claimButtonType = ButtonType.Primary }) => {
+  ({ contractAddress, tokenId, buttonType = ButtonType.Primary }) => {
     const fractionStore = useMemo(
       () => new FractionStore(contractAddress, tokenId),
       [contractAddress, tokenId]
@@ -44,7 +44,7 @@ const FractionManager: React.FC<{
     ]);
 
     const renderIndicator = useCallback(() => {
-      if (fractionStore.signer) {
+      if (fractionStore.signer && chain?.id) {
         if (targetChain.id !== chain?.id) {
           return `Please connect to: ${targetChain.name}`;
         } else if (
@@ -63,14 +63,53 @@ const FractionManager: React.FC<{
           return <div>Claim closed!</div>;
         } else if (fractionStore.canClaim) {
           return (
-            <Button
-              type={claimButtonType}
-              isLoading={fractionStore.isClaiming}
-              disabled={chain?.id !== targetChain.id}
-              onClick={() => fractionStore.claim()}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                fractionStore.claim();
+              }}
+              className={css(
+                "flex",
+                "flex-col",
+                "space-y-4",
+                "w-full",
+                "justify-center",
+                "items-center"
+              )}
             >
-              ✨ Claim ({fractionStore?.availablePixelIds.length}) ✨
-            </Button>
+              <div className={css("max-w-sm", "w-full")}>
+                <input
+                  disabled={fractionStore.isClaiming}
+                  type={"number"}
+                  required
+                  name={"input-value"}
+                  min={1}
+                  max={fractionStore.availablePixelIds.length}
+                  className={css(
+                    "text-black",
+                    "placeholder:text-sm",
+                    "p-3",
+                    "rounded-lg",
+                    "w-full",
+                    "disabled:opacity-98"
+                  )}
+                  value={fractionStore.inputValue}
+                  onChange={(e) => fractionStore.onInputChange(e.target.value)}
+                  placeholder={`# fractions (max: ${fractionStore.availablePixelIds.length})`}
+                />
+              </div>
+              <Button
+                submit
+                type={buttonType}
+                isLoading={fractionStore.isClaiming}
+                disabled={
+                  chain?.id !== targetChain.id ||
+                  fractionStore.inputValue === ""
+                }
+              >
+                ✨ Claim ✨
+              </Button>
+            </form>
           );
         } else if (fractionStore.hasAlreadyClaimed) {
           return "🌠 Thanks for claiming! 🌠";
@@ -97,7 +136,8 @@ const FractionManager: React.FC<{
       } else {
         return (
           <div className={css("flex", "items-center")}>
-            <ConnectButton /> <div className={css("ml-4")}>to claim</div>
+            <ConnectButton type={buttonType} />{" "}
+            <div className={css("ml-4")}>to claim</div>
           </div>
         );
       }
@@ -107,7 +147,9 @@ const FractionManager: React.FC<{
       fractionStore.isGetClaimLoading,
       fractionStore.isClaimOpenLoading,
       chain?.id,
-      claimButtonType,
+      buttonType,
+      fractionStore.inputValue,
+      fractionStore.onInputChange,
     ]);
 
     return (
@@ -117,7 +159,7 @@ const FractionManager: React.FC<{
           "justify-center",
           "text-center",
           "font-bold",
-          "text-2xl"
+          "w-full"
         )}
       >
         {renderIndicator()}
