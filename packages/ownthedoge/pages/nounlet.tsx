@@ -17,7 +17,7 @@ const Nounlet = observer(() => {
   return (
     <>
       <Head>
-        <title>The Doge NFT | Nounlet</title>
+        <title>The Doge NFT | Nounlet #69</title>
       </Head>
       <PageLayout className={css("bg-[#2A5C7F]", "text-white")}>
         <BackOrHomeButton />
