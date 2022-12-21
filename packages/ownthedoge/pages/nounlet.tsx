@@ -46,6 +46,7 @@ const Nounlet = observer(() => {
               layout={"responsive"}
               width={3000}
               height={3400}
+              priority
             />
           </div>
           {isProduction() && (
