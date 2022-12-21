@@ -130,6 +130,53 @@ const Nounlet = observer(() => {
               wtf?
             </Link>
           </div>
+          <div
+            className={css("w-full", "flex", "relative", "pt-60", "sm:pt-72")}
+          >
+            <div
+              className={css(
+                "max-w-[60%]",
+                "sm:max-w-xs",
+                "w-full",
+                "absolute",
+                "-left-[90px]",
+                "sm:-left-[120px]",
+                "sm:-top-8",
+                "-top-2",
+                "rotate-[90deg]"
+              )}
+            >
+              <Image
+                src={"/images/doge-nouns.png"}
+                layout={"responsive"}
+                width={2000}
+                height={2000}
+                priority
+              />
+            </div>
+            <div
+              className={css(
+                "max-w-[60%]",
+                "sm:max-w-xs",
+                "w-full",
+                "absolute",
+                "-right-[90px]",
+                "-top-2",
+                "sm:-right-[120px]",
+                "sm:-top-8",
+                "-rotate-[90deg]"
+              )}
+            >
+              <Image
+                className={"-scale-x-100"}
+                src={"/images/doge-nouns.png"}
+                layout={"responsive"}
+                width={2000}
+                height={2000}
+                priority
+              />
+            </div>
+          </div>
         </div>
       </PageLayout>
     </>
