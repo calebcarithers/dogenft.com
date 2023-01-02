@@ -1,10 +1,12 @@
-import { BackOrHomeButton } from "dsl/components/Button/Button";
+import { BackOrHomeButton, ButtonType } from "dsl/components/Button/Button";
 import Link, { LinkType } from "dsl/components/Link/Link";
 import { observer } from "mobx-react-lite";
 import Head from "next/head";
 import Image from "next/image";
 import React, { PropsWithChildren } from "react";
+import FractionManager from "../components/FractionManager/FractionManager";
 import { isProduction } from "../environment";
+import { vars } from "../environment/vars";
 import { css } from "../helpers/css";
 import PageLayout from "../layouts/Page/Page.layout";
 
@@ -44,7 +46,7 @@ const Nounlet = observer(() => {
               priority
             />
           </div>
-          {/* {isProduction() && (
+          {isProduction() && (
             <div
               className={css(
                 "text-white",
@@ -60,10 +62,10 @@ const Nounlet = observer(() => {
                 buttonType={ButtonType.Pixel}
               />
             </div>
-          )} */}
-          {isProduction() && (
-            <div className={css("text-lg", "font-bold")}>Claim not open</div>
           )}
+          {/* {isProduction() && (
+            <div className={css("text-lg", "font-bold")}>Claim not open</div>
+          )} */}
           {!isProduction() && (
             <div className={css("text-lg", "font-bold")}>
               Nounlet claim only available on Mainnet
