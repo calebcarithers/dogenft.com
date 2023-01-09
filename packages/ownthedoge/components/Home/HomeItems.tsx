@@ -394,7 +394,7 @@ export const Daoge = () => {
       </div>
       <div className={css("bg-pixels-yellow-100")}>
         After fractionalization,{" "}
-        <Link bold isExternal href={"https://dao.ge"}>
+        <Link bold isExternal href={"https://dao.ownthedoge.com"}>
           DAOge
         </Link>{" "}
         was formed to manage the community fund and guide The Doge NFT
