@@ -35,7 +35,7 @@ export default function Document() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@bronzethedoge" />
       </Head>
-      <body className={css("font-ComicNeue", "!mr-0")}>
+      <body className={css("font-ComicNeue", "!pr-0")}>
         <Main />
         <NextScript />
       </body>
