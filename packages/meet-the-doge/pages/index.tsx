@@ -15,15 +15,14 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main
+      <div
         className={css(
-          "bg-pixels-yellow-200",
           "grow",
+          "bg-pixels-yellow-200",
           "p-1.5",
           "justify-center",
           "items-center",
           "flex",
-          "font-ComicNeue",
           "text-6xl",
           "md:text-8xl"
         )}
@@ -63,7 +62,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }
