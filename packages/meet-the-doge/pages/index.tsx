@@ -53,7 +53,6 @@ export default function Home() {
             <div>
               <Button
                 onClick={() => {
-                  window.open("", "_self", "");
                   window.close();
                 }}
               >
