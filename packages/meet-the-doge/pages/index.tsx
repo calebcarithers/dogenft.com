@@ -29,17 +29,26 @@ export default function Home() {
           "font-ComicNeue"
         )}
       >
-        <div className={css("flex", "flex-col", "items-center", "gap-8")}>
+        <div className={css("flex", "flex-col", "items-center", "gap-12")}>
           <div
             className={css("font-bold", "text-8xl", "text-center", "max-w-4xl")}
           >
             DO YOU WANT TO TAKE A VOYAGE TO MEET THE DOGE?
           </div>
-          <div className={css("flex", "gap-4")}>
-            <Link href={""} isExternal>
-              <Button>yes</Button>
+          <div className={css("flex", "gap-8")}>
+            <Link
+              href={
+                "https://docs.google.com/forms/d/e/1FAIpQLSdMH83L0aAHFyVXtO_Tgoju--z9w3wmMRu-BsTQh1Ke3xxIBg/viewform"
+              }
+              isExternal
+            >
+              <Button>
+                <div className={css("text-8xl", "p-5")}>YES</div>
+              </Button>
             </Link>
-            <Button onClick={() => window.close()}>no</Button>
+            <Button onClick={() => window.close()}>
+              <div className={css("text-8xl", "p-5")}>NO</div>
+            </Button>
           </div>
         </div>
       </main>
