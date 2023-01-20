@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Meet The Doge</title>
+        <title>MEET THE DOGE</title>
         <meta
           name="description"
           content="Your chance to meet Kabosu in her hometown."
