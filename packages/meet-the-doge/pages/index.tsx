@@ -12,11 +12,7 @@ import wow3Image from "../public/images/wow3.jpg";
 export default function Home() {
   const [showOkay, setShowOkay] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
-  const images = [
-    { src: wowImage, width: 680, height: 680 },
-    { src: wow2Image, width: 680, height: 632 },
-    { src: wow3Image, width: 976, height: 1024 },
-  ];
+  const images = [{ src: wowImage }, { src: wow2Image }, { src: wow3Image }];
   const selectedImage = images[imageIndex];
 
   useEffect(() => {
@@ -50,12 +46,7 @@ export default function Home() {
             hidden: !showOkay,
           })}
         >
-          <Image
-            alt={"lmao you would"}
-            src={selectedImage.src}
-            width={selectedImage.width}
-            height={selectedImage.height}
-          />
+          <Image alt={"lmao you would"} src={selectedImage.src} priority />
         </div>
         {!showOkay && (
           <div className={css("flex", "flex-col", "items-center", "gap-12")}>
