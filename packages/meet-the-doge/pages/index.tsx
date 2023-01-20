@@ -5,14 +5,17 @@ import { getRandomIntInclusive } from "dsl/helpers/numbers";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import wowImage from "../public/images/wow.jpg";
+import wow2Image from "../public/images/wow2.jpg";
+import wow3Image from "../public/images/wow3.jpg";
 
 export default function Home() {
   const [showOkay, setShowOkay] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
   const images = [
-    { src: "/images/wow.jpg", width: 680, height: 680 },
-    { src: "/images/wow2.jpg", width: 680, height: 632 },
-    { src: "/images/wow3.jpg", width: 976, height: 1024 },
+    { src: wowImage, width: 680, height: 680 },
+    { src: wow2Image, width: 680, height: 632 },
+    { src: wow3Image, width: 976, height: 1024 },
   ];
   const selectedImage = images[imageIndex];
 
