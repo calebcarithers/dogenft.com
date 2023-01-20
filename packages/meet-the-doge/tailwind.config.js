@@ -7,4 +7,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "../dsl/components/**/*.{js,ts,jsx,tsx}",
   ],
+  theme: {
+    ...baseConfig.theme,
+    extend: {
+      ...baseConfig.theme.extend,
+      fontFamily: {
+        ...baseConfig.theme.extend.fontFamily,
+        ComicNeue: ["var(--font-comic-neue)", "sans-serif"],
+      },
+    },
+  },
 };
