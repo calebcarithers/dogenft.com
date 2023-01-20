@@ -1,11 +1,24 @@
 import Button from "dsl/components/Button/Button";
 import Link from "dsl/components/Link/Link";
 import { css } from "dsl/helpers/css";
+import { getRandomIntInclusive } from "dsl/helpers/numbers";
 import Head from "next/head";
-import { useState } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [showOkay, setShowOkay] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+  const images = [
+    { src: "/images/wow.jpg", width: 680, height: 680 },
+    { src: "/images/wow2.jpg", width: 680, height: 632 },
+    { src: "/images/wow3.jpg", width: 976, height: 1024 },
+  ];
+  const selectedImage = images[imageIndex];
+
+  useEffect(() => {
+    setImageIndex(getRandomIntInclusive(0, images.length - 1));
+  }, []);
   return (
     <>
       <Head>
@@ -29,7 +42,18 @@ export default function Home() {
           "md:text-8xl"
         )}
       >
-        {showOkay && <div>OKAY</div>}
+        <div
+          className={css("border-[1px]", "border-solid", "border-black", {
+            hidden: !showOkay,
+          })}
+        >
+          <Image
+            alt={"lmao you would"}
+            src={selectedImage.src}
+            width={selectedImage.width}
+            height={selectedImage.height}
+          />
+        </div>
         {!showOkay && (
           <div className={css("flex", "flex-col", "items-center", "gap-12")}>
             <div className={css("font-bold", "text-center", "max-w-4xl")}>
