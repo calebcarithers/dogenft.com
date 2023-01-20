@@ -10,8 +10,6 @@ const comicNeue = Comic_Neue({
   variable: "--font-comic-neue",
 });
 
-console.log(comicNeue);
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={css(`${comicNeue.className}`, "grow", "flex", "flex-col")}>
