@@ -8,15 +8,16 @@ import { useEffect, useState } from "react";
 import wowImage from "../public/images/wow.jpg";
 import wow2Image from "../public/images/wow2.jpg";
 import wow3Image from "../public/images/wow3.jpg";
+import wow4Image from "../public/images/wow4.jpg";
+import wow5Image from "../public/images/wow5.jpg";
 
 export default function Home() {
   const [showOkay, setShowOkay] = useState(false);
-  const [imageIndex, setImageIndex] = useState(0);
-  const images = [{ src: wowImage }, { src: wow2Image }, { src: wow3Image }];
-  const selectedImage = images[imageIndex];
+  const [image, setImage] = useState(wowImage);
+  const images = [wowImage, wow2Image, wow3Image, wow4Image, wow5Image];
 
   useEffect(() => {
-    setImageIndex(getRandomIntInclusive(0, images.length - 1));
+    setImage(images[getRandomIntInclusive(0, images.length - 1)]);
   }, []);
   return (
     <>
@@ -46,7 +47,7 @@ export default function Home() {
             hidden: !showOkay,
           })}
         >
-          <Image alt={"lmao you would"} src={selectedImage.src} priority />
+          <Image alt={"lmao you would"} src={image} priority />
         </div>
         {!showOkay && (
           <div className={css("flex", "flex-col", "items-center", "gap-12")}>
