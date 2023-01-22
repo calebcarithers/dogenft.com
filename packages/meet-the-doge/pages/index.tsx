@@ -33,7 +33,7 @@ export default function Home() {
       <div
         className={css(
           "grow",
-          "bg-pixels-yellow-200",
+          "bg-pixels-yellow-100",
           "p-1.5",
           "justify-center",
           "items-center",
