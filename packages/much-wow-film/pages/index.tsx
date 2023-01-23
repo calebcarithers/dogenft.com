@@ -1,4 +1,9 @@
-import { PivotControls } from "@react-three/drei";
+import {
+  GizmoHelper,
+  GizmoViewport,
+  PivotControls,
+  useVideoTexture,
+} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
@@ -7,10 +12,6 @@ import { BufferGeometry } from "three";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 
 export default function Home() {
-  const [geometry, setGeometry] = useState<BufferGeometry>();
-  useEffect(() => {
-    const stlLoader = new STLLoader();
-  }, []);
   return (
     <>
       <Head>
@@ -19,29 +20,60 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={css("bg-pixels-yellow-100", "grow")}>
-        <Canvas camera={{ position: [0, 0, 4.5] }}>
-          <Suspense fallback={null}>
-            <PivotControls visible={false} lineWidth={1} depthTest={false}>
-              {/* <Model
-                rotationSpeed={rotationSpeed}
-                url={model.url}
-                scale={model.scale}
-                position={model.position}
-              /> */}
-            </PivotControls>
-            {/* {isDev() && (
-                    <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
-                      <GizmoViewport
-                        axisColors={["red", "green", "blue"]}
-                        labelColor="black"
-                      />
-                    </GizmoHelper>
-                  )} */}
-            <ambientLight intensity={0.5} />
-          </Suspense>
-        </Canvas>
+      <main
+        className={css(
+          "bg-pixels-yellow-100",
+          "grow",
+          "flex",
+          "flex-col",
+          "items-center",
+          "justify-center"
+        )}
+      >
+        <div
+          className={css(
+            "relative",
+            "max-w-xl",
+            "w-full",
+            "shrink-0",
+            "border-[1px]",
+            "border-solid",
+            "border-black",
+            "h-[500px]"
+          )}
+        >
+          <Canvas camera={{ position: [0, 0, 20] }} className={css("grow")}>
+            <Suspense fallback={null}>
+              <PivotControls visible={false} lineWidth={1} depthTest={false}>
+                <Model />
+              </PivotControls>
+              <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
+                <GizmoViewport
+                  axisColors={["red", "green", "blue"]}
+                  labelColor="black"
+                />
+              </GizmoHelper>
+              <ambientLight intensity={0.5} />
+            </Suspense>
+          </Canvas>
+        </div>
       </main>
     </>
   );
 }
+
+const Model = () => {
+  const [geometry, setGeometry] = useState<BufferGeometry>();
+  useEffect(() => {
+    const stlLoader = new STLLoader();
+    stlLoader.load("./models/doge.stl", (geo) => setGeometry(geo));
+  }, []);
+  const texture = useVideoTexture("./videos/wow.mp4", { autoplay: true });
+  return (
+    <>
+      <mesh geometry={geometry}>
+        <meshBasicMaterial map={texture} toneMapped={false} />
+      </mesh>
+    </>
+  );
+};
