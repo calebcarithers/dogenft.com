@@ -2,14 +2,13 @@ import {
   GizmoHelper,
   GizmoViewport,
   PivotControls,
+  useGLTF,
   useVideoTexture,
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
-import { Suspense, useEffect, useState } from "react";
-import { BufferGeometry } from "three";
-import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -63,17 +62,13 @@ export default function Home() {
 }
 
 const Model = () => {
-  const [geometry, setGeometry] = useState<BufferGeometry>();
-  useEffect(() => {
-    const stlLoader = new STLLoader();
-    stlLoader.load("./models/doge.stl", (geo) => setGeometry(geo));
-  }, []);
+  const { nodes, materials, scene } = useGLTF("./models/doge.glb");
   const texture = useVideoTexture("./videos/wow.mp4", { autoplay: true });
   return (
-    <>
-      <mesh geometry={geometry}>
-        <meshBasicMaterial map={texture} toneMapped={false} />
-      </mesh>
-    </>
+    <mesh position={[0, 0, 18.5]}>
+      {/* <primitive object={scene} /> */}
+      <planeGeometry args={[1.777777778, 1]} />
+      <meshBasicMaterial map={texture} toneMapped={false} />
+    </mesh>
   );
 };
