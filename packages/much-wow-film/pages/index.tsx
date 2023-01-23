@@ -1,10 +1,4 @@
-import {
-  GizmoHelper,
-  GizmoViewport,
-  PivotControls,
-  useGLTF,
-  useVideoTexture,
-} from "@react-three/drei";
+import { PivotControls, useGLTF, useVideoTexture } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
@@ -46,12 +40,12 @@ export default function Home() {
               <PivotControls visible={false} lineWidth={1} depthTest={false}>
                 <Model />
               </PivotControls>
-              <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
+              {/* <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
                 <GizmoViewport
                   axisColors={["red", "green", "blue"]}
                   labelColor="black"
                 />
-              </GizmoHelper>
+              </GizmoHelper> */}
               <ambientLight intensity={0.5} />
             </Suspense>
           </Canvas>
