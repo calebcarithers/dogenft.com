@@ -45,8 +45,18 @@ export const AssetsSheet = () => {
       };
     });
     const ethereumData = now?.ethereum
-      ?.filter((item) => item.usdNotional > 0)
-      ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
+      ?.filter((item) => {
+        if (item.usdNotional) {
+          return item.usdNotional > 0;
+        }
+        return 0;
+      })
+      ?.sort((a, b) => {
+        if (b?.usdNotional && a?.usdNotional) {
+          return b?.usdNotional - a?.usdNotional;
+        }
+        return 0;
+      })
       .map((item, index) => {
         return {
           label: item.symbol,
@@ -151,8 +161,18 @@ export const AssetsSheet = () => {
               </div>
               <div className={css("grid", "grid-cols-4")}>
                 {now?.ethereum
-                  ?.filter((item) => item.usdNotional > 0)
-                  ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
+                  ?.filter((item) => {
+                    if (item?.usdNotional) {
+                      return item?.usdNotional > 0;
+                    }
+                    return false;
+                  })
+                  ?.sort((a, b) => {
+                    if (b?.usdNotional && a?.usdNotional) {
+                      return b?.usdNotional - a?.usdNotional;
+                    }
+                    return 0;
+                  })
                   .map((item) => (
                     <Asset key={`now-${item.symbol}`} item={item} />
                   ))}
@@ -167,7 +187,12 @@ export const AssetsSheet = () => {
               <div className={css("font-bold", "text-lg")}>🌈 Swaps</div>
               <div className={css("grid", "grid-cols-4")}>
                 {now?.swaps
-                  ?.sort((a, b) => b?.usdNotional - a?.usdNotional)
+                  ?.sort((a, b) => {
+                    if (b?.usdNotional && a?.usdNotional) {
+                      return b.usdNotional - a.usdNotional;
+                    }
+                    return 0;
+                  })
                   .map((item) => (
                     <Asset key={`now-${item.symbol}`} item={item} />
                   ))}
