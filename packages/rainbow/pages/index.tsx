@@ -38,10 +38,7 @@ import { TabToTitle, TabType, useAppStore } from "../store/app.store";
 
 const Home: NextPage = () => {
   const state = useAppStore((state) => state);
-  const config = {
-    refetchInterval: 30 * 1000,
-    refetchIntervalInBackground: false,
-  };
+  const config = { cacheTime: 0 };
 
   const { isLoading: isDonationsLoading, data: donations } = useQuery(
     ["getDonations"],
@@ -61,7 +58,7 @@ const Home: NextPage = () => {
     config
   );
 
-  const { data: confirm } = useQuery(["getConfirm"], getConfirm);
+  const { data: confirm } = useQuery(["getConfirm"], getConfirm, config);
 
   useEffect(() => {
     if (confirm) {
@@ -183,6 +180,7 @@ const Home: NextPage = () => {
               </div>
               <div className={css("mb-32", "mt-44")}>
                 <Button
+                  disabled
                   onClick={() => {
                     state.setIsDonateDialogOpen(true);
                     gaEvent({

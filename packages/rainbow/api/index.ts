@@ -74,8 +74,8 @@ export interface Leaderboard {
 export interface NowAsset {
   amount: number;
   symbol: string;
-  usdNotional: number;
-  usdPrice: number;
+  usdNotional: number | null;
+  usdPrice: number | null;
 }
 interface Now {
   dogecoin: NowAsset[];
@@ -84,8 +84,8 @@ interface Now {
   usdNotional: number;
 }
 
-const proxyBaseUrl = "http://localhost:3003/statue-campaign";
-// const proxyBaseUrl = null;
+// const proxyBaseUrl = "http://localhost:3003/statue-campaign";
+const proxyBaseUrl = null;
 let baseUrl: string;
 
 if (isProd()) {

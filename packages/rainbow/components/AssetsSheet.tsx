@@ -184,11 +184,17 @@ const Asset: React.FC<{ item: NowAsset }> = ({ item }) => {
   return (
     <>
       <div>{item?.symbol}</div>
+
       <div>
-        $
-        {parseFloat(item.usdPrice.toFixed(6))?.toLocaleString(undefined, {
-          maximumFractionDigits: 6,
-        })}
+        {item.usdPrice && (
+          <>
+            $
+            {parseFloat(item.usdPrice.toFixed(6))?.toLocaleString(undefined, {
+              maximumFractionDigits: 6,
+            })}
+          </>
+        )}
+        {!item.usdPrice && "-"}
       </div>
       <div>{item?.amount?.toLocaleString()}</div>
       <div>${item?.usdNotional?.toLocaleString()}</div>
