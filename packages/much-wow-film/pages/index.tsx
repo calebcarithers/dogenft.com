@@ -5,7 +5,7 @@ import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
 import { Suspense, useRef } from "react";
-import { DoubleSide } from "three";
+import THREE, { DoubleSide } from "three";
 
 const comicNeue = Comic_Neue({
   weight: ["700"],
@@ -22,7 +22,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={css("bg-[#4893ca]", "h-screen", "w-screen")}>
+      <main
+        className={css(
+          "bg-[#4893ca]",
+          "h-screen",
+          "w-screen",
+          "bg-cover",
+          "bg-center"
+        )}
+        style={{ backgroundImage: `url(images/cloud.png)` }}
+      >
         <div className={css("relative", "h-screen", "w-screen")}>
           <Canvas camera={{ position: [0, 0, 20] }} className={css("grow")}>
             <Suspense fallback={null}>
