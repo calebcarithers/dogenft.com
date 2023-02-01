@@ -32,7 +32,7 @@ export default function Home() {
         )}
         style={{ backgroundImage: `url(images/cloud.png)` }}
       >
-        <div className={css("relative", "h-screen", "w-screen")}>
+        <div className={css("relative", "h-screen", "w-screen", "fadeIn")}>
           <Canvas camera={{ position: [0, 0, 20] }} className={css("grow")}>
             <Suspense fallback={null}>
               <PivotControls visible={false} lineWidth={1} depthTest={false}>

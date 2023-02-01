@@ -20,23 +20,22 @@ const ColoredText: React.FC<PropsWithChildren<ColoredTextProps>> = ({
 }) => {
   return (
     <span className={css(className)}>
-      {Array.isArray(children) &&
-        [...children].map((char, index) => {
-          const colorName =
-            dogeColorNames[Math.floor(Math.random() * dogeColorNames.length)];
-          const color = dogeColors[colorName];
-          return (
-            <span
-              className={css({
-                "font-bold": bold,
-              })}
-              key={`nav-item-selection-${char}-${index}`}
-              style={{ color: color }}
-            >
-              {char}
-            </span>
-          );
-        })}
+      {[...children].map((char, index) => {
+        const colorName =
+          dogeColorNames[Math.floor(Math.random() * dogeColorNames.length)];
+        const color = dogeColors[colorName];
+        return (
+          <span
+            className={css({
+              "font-bold": bold,
+            })}
+            key={`nav-item-selection-${char}-${index}`}
+            style={{ color: color }}
+          >
+            {char}
+          </span>
+        );
+      })}
     </span>
   );
 };
