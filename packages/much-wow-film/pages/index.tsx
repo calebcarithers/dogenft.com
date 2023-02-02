@@ -72,6 +72,7 @@ const Video = () => {
     muted: true,
     defaultMuted: true,
     preload: "auto",
+    crossOrigin: "anonymous",
   });
   const ref = useRef<THREE.Mesh | null>(null);
   useFrame(() => {
