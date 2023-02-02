@@ -16,7 +16,9 @@ const comicNeue = Comic_Neue({
 export default function Home() {
   const [isLowPower, setIsLowPower] = useState(false);
   const node = useCallback((node: HTMLVideoElement) => {
-    node.addEventListener("suspend", () => setIsLowPower(true));
+    if (node) {
+      node.addEventListener("suspend", () => setIsLowPower(true));
+    }
   }, []);
 
   return (
@@ -63,8 +65,10 @@ export default function Home() {
               something is coming
             </ColoredText>
           </div>
-          <div className={css("hidden")}>
-            <video ref={node} />
+          <div className={css("absolute", "inset-0", "opacity-0")}>
+            <video ref={node} autoPlay playsInline>
+              <source src="./videos/wow.mp4" width={10} height={10} />
+            </video>
           </div>
         </div>
       </main>
