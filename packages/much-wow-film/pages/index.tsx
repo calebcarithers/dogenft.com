@@ -4,7 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
-import { Suspense, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import THREE, { DoubleSide } from "three";
 
 const comicNeue = Comic_Neue({
@@ -65,13 +65,26 @@ export default function Home() {
 }
 
 const Video = () => {
-  const texture = useVideoTexture("./videos/wow.mp4", { autoplay: true });
+  const texture = useVideoTexture("./videos/wow.mp4", {
+    autoplay: true,
+    playsInline: true,
+    loop: true,
+    muted: true,
+    defaultMuted: true,
+    preload: "auto",
+  });
   const ref = useRef<THREE.Mesh | null>(null);
   useFrame(() => {
     if (ref.current !== null) {
       ref.current.rotation.y += 0.02;
     }
   });
+
+  useEffect(() => {
+    if (ref.current !== null) {
+      console.log(ref.current.material);
+    }
+  }, []);
 
   const aspectRatio = 1.777777778;
   const height = 10;
