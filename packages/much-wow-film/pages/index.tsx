@@ -4,7 +4,7 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
-import { Suspense, useCallback, useRef, useState } from "react";
+import { Suspense, useRef } from "react";
 import THREE, { DoubleSide, TextureLoader } from "three";
 
 const comicNeue = Comic_Neue({
@@ -14,12 +14,12 @@ const comicNeue = Comic_Neue({
 });
 
 export default function Home() {
-  const [isLowPower, setIsLowPower] = useState(false);
-  const node = useCallback((node: HTMLVideoElement) => {
-    if (node) {
-      node.addEventListener("suspend", () => setIsLowPower(true));
-    }
-  }, []);
+  // const [isLowPower, setIsLowPower] = useState(false);
+  // const node = useCallback((node: HTMLVideoElement) => {
+  //   if (node) {
+  //     node.addEventListener("suspend", () => setIsLowPower(true));
+  //   }
+  // }, []);
 
   return (
     <>
@@ -43,7 +43,7 @@ export default function Home() {
           <Canvas camera={{ position: [0, 0, 20] }} className={css("grow")}>
             <Suspense fallback={null}>
               <PivotControls visible={false} lineWidth={1} depthTest={false}>
-                <Video isLowPower={isLowPower} />
+                <Video isLowPower={false} />
               </PivotControls>
               <ambientLight intensity={0.5} />
             </Suspense>
@@ -65,11 +65,11 @@ export default function Home() {
               something is coming
             </ColoredText>
           </div>
-          <div className={css("absolute", "inset-0", "opacity-0")}>
+          {/* <div className={css("absolute", "inset-0", "opacity-0")}>
             <video ref={node} autoPlay playsInline>
               <source src="./videos/wow.mp4" width={10} height={10} />
             </video>
-          </div>
+          </div> */}
         </div>
       </main>
     </>
