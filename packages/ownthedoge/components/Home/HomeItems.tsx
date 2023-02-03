@@ -422,7 +422,7 @@ export const BarkTank = () => {
   return (
     <div>
       <div className={css("bg-pixels-yellow-100")}>
-        Bark Tank acts an an incubator for the expansion of The Doge NFT
+        Bark Tank acts as an incubator for the expansion of The Doge NFT
         ecosystem. Submit your ideas here. Great ideas, favored by the
         community, are eligible to receive funding from the DAOge.
       </div>
