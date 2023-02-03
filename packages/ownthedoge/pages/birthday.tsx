@@ -154,7 +154,7 @@ const SoulBound: React.FC = () => {
         console.error({ err });
       }
     } else {
-      console.error("debug:: no contract found");
+      console.error("no contract found");
     }
     setIsClaiming(false);
   };

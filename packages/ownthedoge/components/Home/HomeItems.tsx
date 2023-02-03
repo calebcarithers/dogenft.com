@@ -102,7 +102,7 @@ export const Doge = () => {
         >
           prominence
         </Link>{" "}
-        in the early {"2010's"} when Atsuko Sato posted 8 photos to{" "}
+        in the early 2010s when Atsuko Sato posted 8 photos to{" "}
         <Link bold href={"https://kabochan.blog.jp/"} isExternal>
           her blog
         </Link>{" "}
@@ -232,8 +232,8 @@ export const DogeNFT = () => {
         </div>
       </div>
       <div className={css("mt-6", "bg-pixels-yellow-100")}>
-        In 2021, Ms. Satō minted the famous photos on Ethereum as NFTs. The most
-        iconic image &quot;Doge&quot;, was purchased by{" "}
+        In 2021, Atsuko Sato minted the famous photos on Ethereum as NFTs. The
+        most iconic image &quot;Doge&quot;, was purchased by{" "}
         <Link bold isExternal href={"https://pleasr.org/"}>
           PleasrDAO
         </Link>{" "}
@@ -242,7 +242,7 @@ export const DogeNFT = () => {
           auction
         </Link>{" "}
         for 1696.9 ETH ($4.8 M at the time), making it the most valuable meme
-        NFT.
+        NFT and the third most expensive photo ever sold.
       </div>
       <div className={css("mt-6")}>
         <HelperContent>
@@ -314,8 +314,16 @@ export const Dog = () => {
         >
           fractionalized
         </Link>{" "}
-        The Doge NFT into a governance token, $DOG, allowing any and all to own
-        a piece of the meme.
+        The Doge NFT into a governance token called{" "}
+        <Link
+          bold
+          isExternal
+          href={"https://www.coingecko.com/en/coins/the-doge-nft"}
+        >
+          DOG
+        </Link>
+        , allowing any and all to own the most famous meme of all time and thus
+        a piece of Internet history.
       </div>
       <HelperContent>
         Fractionalization? Learn more{" "}
@@ -393,13 +401,18 @@ export const Daoge = () => {
         </div>
       </div>
       <div className={css("bg-pixels-yellow-100")}>
-        After fractionalization,{" "}
-        <Link bold isExternal href={"https://dao.ownthedoge.com"}>
-          DAOge
+        After fractionalization, the{" "}
+        <Link bold isExternal href={"https://dao.ge/"}>
+          Doge DAO
         </Link>{" "}
-        was formed to manage the community fund and guide The Doge NFT
-        ecosystem. DOG allows holders to govern where The Doge NFT should go
-        next.
+        (DAOge.eth) was formed to collectively manage the community fund and
+        build The Doge ecosystem.
+        <br />
+        <br /> DOG allows holders to govern where Doge should go next. Submit a{" "}
+        <Link bold isExternal href={"https://dao.ownthedoge.com"}>
+          proposal
+        </Link>{" "}
+        of what you{"'"}d like to see Doge do.
       </div>
       <HelperContent>
         Check out our{" "}
@@ -424,7 +437,7 @@ export const BarkTank = () => {
       <div className={css("bg-pixels-yellow-100")}>
         Bark Tank acts as an incubator for the expansion of The Doge NFT
         ecosystem. Submit your ideas here. Great ideas, favored by the
-        community, are eligible to receive funding from the DAOge.
+        community, are eligible to receive funding from the Doge DAO.
       </div>
       <div className={css("mt-5")}>
         <div>
