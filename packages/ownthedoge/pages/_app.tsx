@@ -1,9 +1,11 @@
 import { lightTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
+import Link, { LinkType } from "dsl/components/Link/Link";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
+import Marquee from "react-fast-marquee";
 import { WagmiConfig } from "wagmi";
 import { ConnectButton } from "../../dsl/components/Button/Button";
 import { vars } from "../environment/vars";
@@ -66,6 +68,46 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Script>
       <Background />
       <WagmiConfig client={wagmiClient}>
+        <Marquee speed={55} pauseOnHover gradient={false}>
+          <div
+            className={css(
+              "font-bold",
+              "bg-pixels-yellow-100",
+              "text-pixels-yellow-400",
+              "text-xl",
+              "pt-1"
+            )}
+          >
+            <div>
+              Own the Doge ... Own a piece of internet history ...{" "}
+              <Link
+                type={LinkType.Black}
+                isExternal
+                href={
+                  "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"
+                }
+              >
+                Buy $DOG
+              </Link>{" "}
+              for very fun ...{" "}
+              <Link
+                type={LinkType.Black}
+                isExternal
+                href={"https://pixels.ownthedoge.com"}
+              >
+                Mint Doge Pixels
+              </Link>{" "}
+              for much wow ... Help guide where the Doge goes next in the{" "}
+              <Link
+                type={LinkType.Black}
+                isExternal
+                href={"https://dao.ownthedoge.com"}
+              >
+                Doge DAO
+              </Link>
+            </div>
+          </div>
+        </Marquee>
         <RainbowKitProvider chains={chains} theme={theme}>
           {showConnectButton && (
             <div
