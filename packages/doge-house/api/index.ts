@@ -15,7 +15,7 @@ if (isProd()) {
   baseUrl = "https://staging.api.ownthedoge.com/ph";
 }
 
-export const getLeaderboard = (): Promise<LeaderboardDonation> => {
+export const getLeaderboard = (): Promise<Array<LeaderboardDonation>> => {
   return fetch(baseUrl + "/leaderboard").then((res) => res.json());
 };
 
