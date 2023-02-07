@@ -1,3 +1,4 @@
+import { dogeAddress } from "@/environment/vars";
 import {
   useAccount,
   useConnect,
@@ -24,10 +25,12 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
       className={css(
         "border-[1px]",
         "border-black",
-        "p-1",
+        "px-2.5",
+        "py-1",
         "bg-white",
         "font-bold",
-        "disabled:opacity-50"
+        "disabled:opacity-50",
+        "rounded-md"
       )}
       onClick={onClick}
     >
@@ -41,22 +44,22 @@ export const ConnectButton = () => {
   const { connect, isConnected, isConnecting } = useConnect();
   const { account, balance } = useAccount();
   const { disconnect } = useDisconnect();
-  const {
-    sendTx,
-    txId,
-    isLoading: isTxLoading,
-  } = useTx({
-    recipientAddress: "DNk1wuxV4DqiPMvqnwXU6R1AirdB7YZh32",
-    dogeAmount: 5,
-  });
   return (
     <>
       {!isConnected && isMyDogeInstalled && (
         <Button disabled={isConnecting} onClick={() => connect()}>
-          {isConnecting ? "✨ connecting ✨" : "connect"}
+          {isConnecting ? (
+            <div className={css("flex", "items-center", "gap-2")}>
+              <span className={css("text-xl")}>✨</span>
+              <div>connecting</div>
+              <span className={css("text-xl")}>✨</span>
+            </div>
+          ) : (
+            "connect"
+          )}
         </Button>
       )}
-      {isConnected && (
+      {/* {isConnected && (
         <div>
           <Button onClick={() => disconnect()}>disconnect</Button>
           <div>{account}</div>
@@ -66,8 +69,31 @@ export const ConnectButton = () => {
           </Button>
           {txId && <div>{txId}</div>}
         </div>
-      )}
+      )} */}
     </>
+  );
+};
+
+export const DisconnectButton = () => {
+  const { disconnect } = useDisconnect();
+  return <Button onClick={() => disconnect()}>disconnect</Button>;
+};
+
+export const Send5DogeButton = () => {
+  const dogeAmount = 5;
+  const {
+    sendTx,
+    txId,
+    isLoading: isTxLoading,
+  } = useTx({
+    recipientAddress: dogeAddress,
+    dogeAmount,
+  });
+
+  return (
+    <Button onClick={() => sendTx()}>
+      donate {dogeAmount} <span>Ɖ</span>
+    </Button>
   );
 };
 
