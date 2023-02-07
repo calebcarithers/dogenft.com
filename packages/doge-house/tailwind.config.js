@@ -3,12 +3,18 @@ const baseConfig = require("dsl/tailwind.config.cjs");
 module.exports = {
   ...baseConfig,
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "../dsl/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    ...baseConfig.theme,
+    extend: {
+      ...baseConfig.theme.extend,
+      fontFamily: {
+        ...baseConfig.theme.extend.fontFamily,
+        ComicNeue: ["var(--font-comic-neue)", "sans-serif"],
+      },
+    },
   },
-  plugins: [],
 };
