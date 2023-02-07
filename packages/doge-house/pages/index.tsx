@@ -1,10 +1,7 @@
 import { getLeaderboard } from "@/api";
-import { Inter } from "@next/font/google";
 import { useQuery } from "@tanstack/react-query";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { isLoading, data, isError } = useQuery(

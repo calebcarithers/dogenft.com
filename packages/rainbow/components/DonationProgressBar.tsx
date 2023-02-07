@@ -60,7 +60,6 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
   const _max = 1_000_000;
   const _now = now ? now.usdNotional : 0;
   const _min = 0;
-  //@ts-ignore
   const dogecoinPrice = now ? now?.dogecoin?.[0]?.usdPrice : 0;
   const getSteps = useCallback(() => {
     return [
@@ -183,9 +182,10 @@ const DonationProgressBar: React.FC<{}> = ({}) => {
             <div className={css("flex", "items-center", "gap-1")}>
               <div className={css("font-normal")}>~Ɖ</div>
               <div className={css("font-bold")}>
-                {parseInt(
-                  Number(now.usdNotional / dogecoinPrice).toString()
-                )?.toLocaleString()}
+                {dogecoinPrice &&
+                  parseInt(
+                    Number(now.usdNotional / dogecoinPrice).toString()
+                  )?.toLocaleString()}
               </div>
             </div>
           )}
