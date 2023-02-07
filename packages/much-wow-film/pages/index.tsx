@@ -55,15 +55,34 @@ export default function Home() {
               "w-full",
               "h-full",
               "flex",
-              "justify-center",
-              "items-center"
+              "flex-col",
+              "p-4"
+              // "items-center"
             )}
           >
-            <ColoredText
-              className={css(comicNeue.className, "text-3xl", "md:text-5xl")}
-            >
-              something is coming
-            </ColoredText>
+            <div className={css("grow")} />
+            <div className={css("grow", "text-center", "flex", "flex-col")}>
+              <ColoredText
+                className={css(comicNeue.className, "text-3xl", "md:text-5xl")}
+              >
+                something is coming
+              </ColoredText>
+              <div
+                className={css("grow", "flex", "items-end", "justify-center")}
+              >
+                <a
+                  href="mailto:wow@ownthedoge.com"
+                  className={css(
+                    "hover:text-red-700",
+                    "cursor-pointer",
+                    "text-white",
+                    "opacity-85"
+                  )}
+                >
+                  get in contact
+                </a>
+              </div>
+            </div>
           </div>
           {/* <div className={css("absolute", "inset-0", "opacity-0")}>
             <video ref={node} autoPlay playsInline>
