@@ -51,7 +51,7 @@ export default function Home() {
           comicNeue.className,
           "grow",
           "text-bold",
-          "p-2",
+          "p-4",
           "font-normal",
           "bg-[#5c96dd00]",
           "bg-no-repeat",
@@ -156,7 +156,7 @@ const SendDirectly = () => {
   return (
     <div>
       <div>send Dogecoin to:</div>
-      <div>{dogeAddress}</div>
+      <div className={css("break-all")}>{dogeAddress}</div>
     </div>
   );
 };
@@ -268,7 +268,7 @@ const Title = () => {
     <div className={css("flex", "items-center", "gap-4")}>
       <span className={css("text-3xl", "md:text-5xl")}>🛋️</span>
       <ColoredText
-        className={css("font-bold", "text-stroke", "text-5xl", "md:text-7xl")}
+        className={css("font-bold", "text-stroke", "text-4xl", "md:text-7xl")}
       >
         dogecouch.house
       </ColoredText>
