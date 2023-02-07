@@ -152,3 +152,8 @@ export const useTx = (params: RequestTransactionParams) => {
     isLoading,
   };
 };
+
+export const useIsMyDogeInstalled = () => {
+  const { myDoge } = useContext(MyDogeContext);
+  return !!myDoge;
+};

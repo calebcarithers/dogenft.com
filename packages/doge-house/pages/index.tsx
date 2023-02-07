@@ -5,6 +5,7 @@ import {
   useAccount,
   useConnect,
   useDisconnect,
+  useIsMyDogeInstalled,
   useTx,
 } from "@/services/myDoge";
 import { useQuery } from "@tanstack/react-query";
@@ -16,6 +17,7 @@ export default function Home() {
     ["getLeaderboard"],
     getLeaderboard
   );
+  const isMyDogeInstalled = useIsMyDogeInstalled();
   const { connect, isConnected, isConnecting } = useConnect();
   const { account, balance } = useAccount();
   const { disconnect } = useDisconnect();
@@ -40,7 +42,7 @@ export default function Home() {
           <div>Doge Couch</div>
         </div>
         <div>
-          {!isConnected && (
+          {!isConnected && isMyDogeInstalled && (
             <Button disabled={isConnecting} onClick={() => connect()}>
               {isConnecting ? "connecting..." : "connect"}
             </Button>
