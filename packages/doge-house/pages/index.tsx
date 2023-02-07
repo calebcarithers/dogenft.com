@@ -1,7 +1,12 @@
 import { LeaderboardDonation } from "@/../rainbow/api";
 import { getLeaderboard } from "@/api";
 import Button from "@/components/Button/Button";
-import { useAccount, useConnect, useDisconnect } from "@/services/myDoge";
+import {
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useTx,
+} from "@/services/myDoge";
 import { useQuery } from "@tanstack/react-query";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
@@ -14,6 +19,10 @@ export default function Home() {
   const { connect, isConnected, isConnecting } = useConnect();
   const { account, balance } = useAccount();
   const { disconnect } = useDisconnect();
+  const { sendTx } = useTx({
+    recipientAddress: "DNk1wuxV4DqiPMvqnwXU6R1AirdB7YZh32",
+    dogeAmount: 5,
+  });
   return (
     <>
       <Head>
@@ -33,10 +42,13 @@ export default function Home() {
             </Button>
           )}
           {isConnected && (
-            <Button onClick={() => disconnect()}>disconnect</Button>
+            <div>
+              <Button onClick={() => disconnect()}>disconnect</Button>
+              <div>{account}</div>
+              <div>{balance}</div>
+              <Button onClick={() => sendTx()}>send 5 doge</Button>
+            </div>
           )}
-          <div>{account}</div>
-          <div>{balance}</div>
         </div>
         <div>
           {data && (

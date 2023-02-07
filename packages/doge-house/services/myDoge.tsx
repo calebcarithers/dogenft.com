@@ -18,13 +18,18 @@ const init = () => {
 };
 export default init;
 
+interface RequestTransactionParams {
+  recipientAddress: string;
+  dogeAmount: number;
+}
+
 interface MyDoge {
   connect: (
     onConnect?: (data: any) => void,
     onError?: (err: any) => void
   ) => Promise<any>;
   getBalance: () => Promise<any>;
-  requestTransaction: () => Promise<any>;
+  requestTransaction: (params: RequestTransactionParams) => Promise<any>;
   disconnect: () => Promise<any>;
 }
 
@@ -136,5 +141,17 @@ export const useDisconnect = () => {
           setBalance(null);
         })
         .catch((e) => console.error(e)),
+  };
+};
+
+export const useTx = (params: RequestTransactionParams) => {
+  const { myDoge } = useContext(MyDogeContext);
+  const [isError, setIsError] = useState(false);
+  return {
+    sendTx: () =>
+      myDoge
+        ?.requestTransaction(params)
+        .then()
+        .catch((e) => setIsError(true)),
   };
 };
