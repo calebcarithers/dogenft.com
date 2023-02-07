@@ -6,17 +6,7 @@ import {
   useState,
 } from "react";
 
-const init = () => {
-  let myDogeMask = null;
-  window.addEventListener(
-    "doge#initialized",
-    () => {
-      myDogeMask = (window as any).doge;
-    },
-    { once: true }
-  );
-};
-export default init;
+// https://github.com/mydoge-com/mydogemask-next-example
 
 interface RequestTransactionParams {
   recipientAddress: string;
@@ -147,11 +137,18 @@ export const useDisconnect = () => {
 export const useTx = (params: RequestTransactionParams) => {
   const { myDoge } = useContext(MyDogeContext);
   const [isError, setIsError] = useState(false);
+  const [txId, setTxId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   return {
-    sendTx: () =>
-      myDoge
+    sendTx: () => {
+      setIsLoading(true);
+      return myDoge
         ?.requestTransaction(params)
-        .then()
-        .catch((e) => setIsError(true)),
+        .then((res) => setTxId(res.txId))
+        .catch((e) => setIsError(true))
+        .finally(() => setIsLoading(false));
+    },
+    txId,
+    isLoading,
   };
 };
