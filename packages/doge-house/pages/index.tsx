@@ -132,7 +132,7 @@ export default function Home() {
             <div className={css("max-w-lg", "w-full")}>
               <div className={css("text-xl")}>Leaderboard</div>
               {data && (
-                <div className={css("w-full")}>
+                <div className={css("w-full", "flex", "flex-col", "gap-2")}>
                   {data.map((item, index) => {
                     return (
                       <LeaderboardItem

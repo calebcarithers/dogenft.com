@@ -8,11 +8,13 @@ let baseUrl: string;
 if (isProd()) {
   baseUrl = "https://api.ownthedoge.com/ph";
 } else if (isStaging()) {
-  baseUrl = "https://staging.api.ownthedoge.com/ph";
+  // baseUrl = "https://staging.api.ownthedoge.com/ph";
+  baseUrl = "https://api.ownthedoge.com/ph";
 } else if (proxyBaseUrl) {
   baseUrl = proxyBaseUrl;
 } else {
-  baseUrl = "https://staging.api.ownthedoge.com/ph";
+  // baseUrl = "https://staging.api.ownthedoge.com/ph";
+  baseUrl = "https://api.ownthedoge.com/ph";
 }
 
 export const getLeaderboard = (): Promise<Array<LeaderboardDonation>> => {
