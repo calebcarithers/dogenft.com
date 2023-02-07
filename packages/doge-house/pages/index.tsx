@@ -1,5 +1,6 @@
 import { LeaderboardDonation } from "@/../rainbow/api";
 import { getLeaderboard } from "@/api";
+import Button from "@/components/Button/Button";
 import { useAccount, useConnect, useDisconnect } from "@/services/myDoge";
 import { useQuery } from "@tanstack/react-query";
 import { css } from "dsl/helpers/css";
@@ -10,10 +11,9 @@ export default function Home() {
     ["getLeaderboard"],
     getLeaderboard
   );
-  const { connect, isConnected } = useConnect();
+  const { connect, isConnected, isConnecting } = useConnect();
   const { account, balance } = useAccount();
   const { disconnect } = useDisconnect();
-  console.log("debug:: isConnected", isConnected);
   return (
     <>
       <Head>
@@ -27,15 +27,18 @@ export default function Home() {
           <div>Doge Couch</div>
         </div>
         <div>
-          {!isConnected && <button onClick={() => connect()}>connect</button>}
+          {!isConnected && (
+            <Button disabled={isConnecting} onClick={() => connect()}>
+              {isConnecting ? "connecting..." : "connect"}
+            </Button>
+          )}
           {isConnected && (
-            <button onClick={() => disconnect()}>disconnect</button>
+            <Button onClick={() => disconnect()}>disconnect</Button>
           )}
           <div>{account}</div>
           <div>{balance}</div>
         </div>
         <div>
-          {isLoading && <div>loading</div>}
           {data && (
             <div>
               <div>

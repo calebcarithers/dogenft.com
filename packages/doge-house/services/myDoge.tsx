@@ -89,23 +89,31 @@ interface ConnectedData {
 export const useConnect = () => {
   const { myDoge, setAccount, setBalance, isConnected, setIsConnected } =
     useContext(MyDogeContext);
+
+  const [isConnecting, setIsConnecting] = useState(false);
+
   if (!myDoge) {
     return {
       connect: () => console.log(),
       isConnected,
+      isConnecting,
     };
   } else {
     return {
       isConnected,
-      connect: () =>
-        myDoge
+      isConnecting,
+      connect: () => {
+        setIsConnecting(true);
+        return myDoge
           .connect()
           .then((res: ConnectedData) => {
             setIsConnected(true);
             setAccount(res.address);
             setBalance(res.balance);
           })
-          .catch((e) => setIsConnected(false)),
+          .catch((e) => setIsConnected(false))
+          .then(() => setIsConnecting(false));
+      },
     };
   }
 };
