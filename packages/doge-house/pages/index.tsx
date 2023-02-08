@@ -75,8 +75,25 @@ export default function Home() {
           </div>
           <div className={css("flex", "justify-between", "items-center")}>
             <DogePaw />
-            <div className={css("text-center", "md:text-3xl", "text-xl")}>
-              Top 10 donors will receive a 3D printed Doge pawprint.
+            <div className={css("flex", "items-center", "flex-col", "gap-3")}>
+              <div
+                className={css(
+                  "text-center",
+                  "md:text-3xl",
+                  "text-xl",
+                  "font-bold"
+                )}
+              >
+                🎁 Rewards 🎁
+              </div>
+              <div className={css("text-center", "md:text-3xl", "text-xl")}>
+                <span className={css("font-bold")}>Top 10:</span> 3D print of
+                Kabosu{"'"}s Paw + Doge bandana
+              </div>
+              <div className={css("text-center", "md:text-3xl", "text-xl")}>
+                <span className={css("font-bold")}>Top 5:</span> Kabosu paw +
+                Doge bandana + pins & envelope from Atsuko
+              </div>
             </div>
 
             <DogePaw />
