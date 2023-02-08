@@ -166,7 +166,7 @@ export const Leaderboard = () => {
   return (
     <div className={css("flex", "justify-center")}>
       <div className={css("max-w-lg", "w-full")}>
-        <div className={css("text-xl")}>Leaderboard</div>
+        <div className={css("text-xl")}>Leaderbork</div>
         {data && (
           <div
             className={css(
