@@ -328,7 +328,7 @@ const Donation: React.FC<DonationProps> = ({ donation }) => {
       iconSize={14}
       href={`https://sochain.com/tx/DOGE/${donation.txHash}`}
       key={`donation-${donation.txHash}`}
-      className={css("text-black", "opacity-80")}
+      className={css("text-gray-700")}
     >
       <div className={css("grid", "grid-cols-3")}>
         <div>{donation.amount} Ɖ</div>
