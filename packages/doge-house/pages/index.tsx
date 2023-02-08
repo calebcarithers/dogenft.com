@@ -1,10 +1,6 @@
 import { Donation, LeaderboardDonation } from "@/../rainbow/api";
 import { getLeaderboard } from "@/api";
-import {
-  ConnectButton,
-  DisconnectButton,
-  Send5DogeButton,
-} from "@/components/Button/Button";
+import { DisconnectButton } from "@/components/Button/Button";
 import ExternalLink from "@/components/ExternalLink/ExternalLink";
 import { dogeAddress } from "@/environment/vars";
 import { useConnect, useIsMyDogeInstalled } from "@/services/myDoge";
@@ -19,9 +15,11 @@ import {
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { Divider } from "dsl/components/Divider/Divider";
 import { css } from "dsl/helpers/css";
+import { abbreviate } from "dsl/helpers/strings";
 import Head from "next/head";
 import { useState } from "react";
 import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
+import QRCode from "react-qr-code";
 
 const comicNeue = Comic_Neue({
   weight: ["400", "700"],
@@ -41,8 +39,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Doge Couch</title>
-        <meta name="description" content="Le Doge Couch" />
+        <title>dogecouch.house</title>
+        <meta
+          name="description"
+          content="Win IRL Doge relics by donating Dogecoin to charity."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -66,7 +67,7 @@ export default function Home() {
         <div
           className={css("max-w-6xl", "w-full", "flex", "flex-col", "gap-20")}
         >
-          <div className={css("flex", "justify-center", "relative")}>
+          <div className={css("flex", "justify-center", "relative", "mt-6")}>
             <Title />
             {isMyDogeInstalled && isConnected && (
               <div
@@ -82,13 +83,20 @@ export default function Home() {
             )}
           </div>
           <div>
-            <div className={css("text-4xl", "text-center", "font-normal")}>
+            <div
+              className={css(
+                "text-3xl",
+                "md:text-4xl",
+                "text-center",
+                "font-normal"
+              )}
+            >
               <div>Help Save The Children, by donating Dogecoin.</div>
-              <div>Top 5 donors receive IRL Kabosu rewards.</div>
+              <div>Top 10 donors receive a 3D printed Kabosu paw.</div>
             </div>
           </div>
           <div className={css("text-center", "text-4xl")}>
-            {isMyDogeInstalled && (
+            {/* {isMyDogeInstalled && (
               <div>
                 {!isConnected && (
                   <div
@@ -126,8 +134,9 @@ export default function Home() {
                 )}
                 {isConnected && <Send5DogeButton />}
               </div>
-            )}
-            {!isMyDogeInstalled && <SendDirectly />}
+            )} */}
+            {/* {!isMyDogeInstalled && <SendDirectly />} */}
+            <SendDirectly />
           </div>
           <div className={css("flex", "justify-center")}>
             <div className={css("max-w-lg", "w-full")}>
@@ -154,10 +163,37 @@ export default function Home() {
 }
 
 const SendDirectly = () => {
+  const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   return (
-    <div>
-      <div>send Dogecoin to:</div>
-      <div className={css("break-all")}>{dogeAddress}</div>
+    <div className={css("text-3xl", "md:text-4xl")}>
+      <div>To donate send Dogecoin to:</div>
+      <div className={css("flex", "justify-center", "my-6")}>
+        <div
+          className={css(
+            "bg-white",
+            "p-4",
+            "border-[1px]",
+            "border-black",
+            "rounded-md"
+          )}
+        >
+          <QRCode value={`dogecoin:${dogeAddress}?amount=69`} size={150} />
+        </div>
+      </div>
+      <div
+        className={css("break-all", "cursor-pointer", "hover:text-red-600")}
+        onClick={() =>
+          navigator.clipboard.writeText(dogeAddress).then(() => {
+            console.log("copied doge address:", dogeAddress);
+            setShowCopiedMessage(true);
+          })
+        }
+      >
+        {abbreviate(dogeAddress)}
+      </div>
+      <div className={css("text-base", "opacity-60", "h-[12px]")}>
+        {showCopiedMessage && "✨ address copied ✨"}
+      </div>
     </div>
   );
 };
@@ -199,7 +235,9 @@ const LeaderboardItem: React.FC<{
           </ExternalLink>
         </div>
         <div className={css("flex", "items-center", "gap-2")}>
-          <div>{item.usdNotional}</div>
+          <div className={css("text-black", "opacity-80")}>
+            ~${item.usdNotional?.toFixed(2)}
+          </div>
           <div
             className={css("cursor-pointer")}
             onClick={() => setIsOpen(!isOpen)}
