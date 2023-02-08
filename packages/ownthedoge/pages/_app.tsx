@@ -104,7 +104,24 @@ function MyApp({ Component, pageProps }: AppProps) {
                 href={"https://dao.ownthedoge.com"}
               >
                 Doge DAO
-              </Link>
+              </Link>{" "}
+              ... Get a chance to{" "}
+              <Link
+                type={LinkType.Black}
+                isExternal
+                href={"https://meethedoge.com"}
+              >
+                Meet the Doge
+              </Link>{" "}
+              ...{" "}
+              <Link
+                type={LinkType.Black}
+                isExternal
+                href={"https://muchwowfilm.com"}
+              >
+                Watch the Doge
+              </Link>{" "}
+              on the big screen ...{" "}
             </div>
           </div>
         </Marquee>
