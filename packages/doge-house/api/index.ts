@@ -1,8 +1,9 @@
 import { isDev, isProd, isStaging } from "@/environment/vars";
 import { LeaderboardDonation } from "./../../rainbow/api/index";
 
-const proxyBaseUrl = "https://api.ownthedoge.com/ph";
-// const proxyBaseUrl = null;
+// const proxyBaseUrl = "https://api.ownthedoge.com/ph";
+// const proxyBaseUrl = "http://localhost:3003/ph";
+const proxyBaseUrl = null;
 let baseUrl: string;
 
 if (isProd()) {
@@ -18,8 +19,18 @@ if (isProd()) {
   throw new Error("Unknown environment");
 }
 
+interface Total {
+  totalReceived: number;
+  dogePrice: number;
+  usdNotional: number;
+}
+
 export const getLeaderboard = (): Promise<Array<LeaderboardDonation>> => {
   return fetch(baseUrl + "/leaderboard").then((res) => res.json());
+};
+
+export const getTotal = (): Promise<Total> => {
+  return fetch(baseUrl + "/total").then((res) => res.json());
 };
 
 export const getConfirm = (): Promise<{

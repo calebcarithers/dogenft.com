@@ -1,5 +1,5 @@
 import { Donation, LeaderboardDonation } from "@/../rainbow/api";
-import { getLeaderboard } from "@/api";
+import { getLeaderboard, getTotal } from "@/api";
 import { DisconnectButton } from "@/components/Button/Button";
 import ExternalLink from "@/components/ExternalLink/ExternalLink";
 import { dogeAddress } from "@/environment/vars";
@@ -32,6 +32,8 @@ export default function Home() {
     ["getLeaderboard"],
     getLeaderboard
   );
+
+  const { data: total } = useQuery(["getTotal"], getTotal);
 
   const isMyDogeInstalled = useIsMyDogeInstalled();
   const { isConnected } = useConnect();
@@ -83,14 +85,7 @@ export default function Home() {
           </div>
           <div className={css("flex", "flex-col", "gap-8", "mt-10")}>
             <div>
-              <div
-                className={css(
-                  "text-3xl",
-                  "md:text-3xl",
-                  "text-center",
-                  "font-normal"
-                )}
-              >
+              <div className={css("text-3xl", "text-center", "font-normal")}>
                 <div
                   className={css(
                     "flex",
@@ -107,13 +102,28 @@ export default function Home() {
                 <div>by donating Doge.</div>
               </div>
             </div>
+            {total && (
+              <div>
+                <div
+                  className={css(
+                    "text-center",
+                    "text-6xl",
+                    "font-bold",
+                    "text-doge-orange",
+                    "text-stroke"
+                  )}
+                >
+                  {total.totalReceived} Ɖ raised
+                </div>
+                <div className={css("text-center")}>~${total.usdNotional}</div>
+              </div>
+            )}
             <div className={css("text-center", "text-3xl")}>
               Top 10 donors will receive a 3D printed Doge pawprint.
             </div>
-            <div className={css("text-center", "text-4xl")}>
+            <div className={css("text-center", "text-3xl")}>
               {/* {isMyDogeInstalled && (
-              <div>
-                {!isConnected && (
+                <div>
                   <div
                     className={css(
                       "flex",
@@ -122,9 +132,16 @@ export default function Home() {
                       "justify-center"
                     )}
                   >
-                    <div>
-                      <ConnectButton /> to Donate
-                    </div>
+                    {!isConnected && (
+                      <div>
+                        <ConnectButton />
+                      </div>
+                    )}
+                    {isConnected && (
+                      <div>
+                        <Send5DogeButton />
+                      </div>
+                    )}
                     <div className={css("flex", "justify-center")}>
                       <div
                         className={css(
@@ -146,10 +163,8 @@ export default function Home() {
                     </div>
                     <SendDirectly />
                   </div>
-                )}
-                {isConnected && <Send5DogeButton />}
-              </div>
-            )} */}
+                </div>
+              )} */}
               {/* {!isMyDogeInstalled && <SendDirectly />} */}
               <SendDirectly />
             </div>
@@ -207,9 +222,9 @@ const SendDirectly = () => {
     return () => clearInterval(timeout);
   }, [animationClass]);
   return (
-    <div className={css("text-3xl", "md:text-3xl")}>
+    <div className={css("text-3xl")}>
       <div>To donate, send Doge to:</div>
-      <div className={css("flex", "justify-center", "my-3")}>
+      <div className={css("flex", "justify-center", "mt-3", "mb-1")}>
         <div
           className={css(
             "bg-white",
@@ -227,7 +242,7 @@ const SendDirectly = () => {
           "break-all",
           "cursor-pointer",
           "hover:text-red-600",
-          "text-2xl",
+          "text-xl",
           "inline-block"
         )}
         onClick={() =>
@@ -239,8 +254,8 @@ const SendDirectly = () => {
       >
         {abbreviate(dogeAddress)}
       </div>
-      <div className={css("text-base", "opacity-60", "h-[12px]")}>
-        <span className={css(animationClass)}>✨ copied ✨</span>
+      <div className={css("text-base", "h-[12px]")}>
+        <span className={css(animationClass, "text-black")}>✨ copied ✨</span>
       </div>
     </div>
   );
