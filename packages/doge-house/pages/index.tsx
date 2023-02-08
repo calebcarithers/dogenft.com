@@ -98,12 +98,12 @@ export default function Home() {
                     "gap-2"
                   )}
                 >
-                  <div>Help</div>
+                  <div>Help raise for</div>
                   <ExternalLink href={"https://www.savethechildren.org/"}>
                     Save The Children
                   </ExternalLink>
                 </div>
-                <div>by donating Dogecoin.</div>
+                <div>by donating Doge.</div>
               </div>
             </div>
             <div className={css("text-center", "text-3xl")}>
