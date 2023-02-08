@@ -19,7 +19,7 @@ const MyDogeSend = () => {
   return (
     <div className={css("text-3xl")}>
       {!isTxConfirming && !tx && (
-        <div className={css("flex", "flex-col", "gap-2")}>
+        <div className={css("flex", "flex-col", "gap-2", "items-center")}>
           <div>
             henlo, {username ? username : account && abbreviate(account)}
           </div>
@@ -89,7 +89,7 @@ const MyDogeSend = () => {
       )}
 
       {isTxConfirming && !tx && (
-        <div className={css("flex", "gap-2")}>
+        <div className={css("flex", "gap-2", "justify-center")}>
           <Spinner size={16} />
           <div className={css("text-3xl", "text-gray-800")}>tx confirming</div>
         </div>

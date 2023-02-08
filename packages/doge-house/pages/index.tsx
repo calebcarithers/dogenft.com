@@ -110,6 +110,7 @@ export default function Home() {
                 >
                   {!isConnected && (
                     <div>
+                      <div className={css("mb-2")}>To donate:</div>
                       <ConnectButton />
                     </div>
                   )}
