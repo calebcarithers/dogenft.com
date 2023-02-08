@@ -1,20 +1,21 @@
-import { isProd, isStaging } from "@/environment/vars";
+import { isDev, isProd, isStaging } from "@/environment/vars";
 import { LeaderboardDonation } from "./../../rainbow/api/index";
 
-// const proxyBaseUrl = "http://localhost:3003/ph";
-const proxyBaseUrl = null;
+const proxyBaseUrl = "https://api.ownthedoge.com/ph";
+// const proxyBaseUrl = null;
 let baseUrl: string;
 
 if (isProd()) {
   baseUrl = "https://api.ownthedoge.com/ph";
 } else if (isStaging()) {
-  // baseUrl = "https://staging.api.ownthedoge.com/ph";
-  baseUrl = "https://api.ownthedoge.com/ph";
-} else if (proxyBaseUrl) {
-  baseUrl = proxyBaseUrl;
+  baseUrl = "https://staging.api.ownthedoge.com/ph";
+} else if (isDev()) {
+  baseUrl = "https://staging.api.ownthedoge.com/ph";
+  if (proxyBaseUrl) {
+    baseUrl = proxyBaseUrl;
+  }
 } else {
-  // baseUrl = "https://staging.api.ownthedoge.com/ph";
-  baseUrl = "https://api.ownthedoge.com/ph";
+  throw new Error("Unknown environment");
 }
 
 export const getLeaderboard = (): Promise<Array<LeaderboardDonation>> => {
