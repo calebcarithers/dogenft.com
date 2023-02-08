@@ -275,11 +275,13 @@ const LeaderboardItem: React.FC<{
         <div className={css("flex", "items-center", "gap-4", "text-4xl")}>
           <div className={css()}>{place}</div>
           <ExternalLink
-            href={`https://mydoge.com/${
-              item.myDogeName ? item.myDogeName : item.address
-            }`}
+            href={
+              item.myDogeName
+                ? `https://mydoge.com/${item.myDogeName}`
+                : `https://sochain.com/address/DOGE/${item.address}`
+            }
           >
-            {item.myDogeName ? item.myDogeName : item.address}
+            {item.myDogeName ? item.myDogeName : abbreviate(item.address)}
           </ExternalLink>
         </div>
         <div className={css("flex", "items-center", "gap-2")}>
