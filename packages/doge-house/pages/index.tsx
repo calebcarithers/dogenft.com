@@ -156,7 +156,19 @@ export default function Home() {
               <div className={css("max-w-lg", "w-full")}>
                 <div className={css("text-xl")}>Leaderboard</div>
                 {data && (
-                  <div className={css("w-full", "flex", "flex-col", "gap-2")}>
+                  <div
+                    className={css(
+                      "w-full",
+                      "flex",
+                      "flex-col",
+                      "gap-2",
+                      "max-h-[500px]",
+                      "overflow-y-auto",
+                      "overflow-x-hidden",
+                      "pb-4",
+                      "pr-2"
+                    )}
+                  >
                     {data.map((item, index) => {
                       return (
                         <LeaderboardItem
@@ -166,10 +178,20 @@ export default function Home() {
                         />
                       );
                     })}
+                    {/* {data.map((item, index) => {
+                      return (
+                        <LeaderboardItem
+                          key={item.address}
+                          item={item}
+                          place={index + 1}
+                        />
+                      );
+                    })} */}
                   </div>
                 )}
               </div>
             </div>
+            <div className={css("h-[200px]")}></div>
           </div>
         </div>
       </main>
