@@ -34,12 +34,13 @@ export default function Home() {
         className={css(
           "grow",
           "bg-pixels-yellow-100",
-          "p-1.5",
+          "p-4",
+          "pb-14",
           "justify-center",
           "items-center",
           "flex",
           "text-6xl",
-          "md:text-8xl"
+          "md:text-4xl"
         )}
       >
         <div
@@ -51,8 +52,52 @@ export default function Home() {
         </div>
         {!showOkay && (
           <div className={css("flex", "flex-col", "items-center", "gap-12")}>
+            <div className={css("border-[1px]", "border-black", "max-w-xl")}>
+              <Image
+                alt={"you with doge"}
+                src={"/images/doge.png"}
+                width={1428}
+                height={592}
+              />
+            </div>
+            <div
+              className={css(
+                "text-xl",
+                "max-w-xl",
+                "flex",
+                "flex-col",
+                "gap-4"
+              )}
+            >
+              <div>
+                Henlo fellow Doge lovers. Are you a meme enthusiast? Or a
+                DogeCoin Whale? Do you value your Pixel from the Doge NFT more
+                than your first born? Do you like making new Dogely friends and
+                want to hang out in Tokyo for a week?
+              </div>
+              <div>
+                OwnTheDoge is pleased to announce our latest epic adventure. As
+                custodians of the original Doge meme, purchased by PleasrDAO in
+                2021, we want to take you to the Doge.
+              </div>
+              <div>
+                That{"'"}s right, we{"'"}re putting together an all inclusive
+                pilgrimage to meet Kabosu the Doge, as well as her human, Atsuko
+                Sato. You{"'"}ll be with the OwnTheDoge crew and other Shiba
+                fans, doing only good everyday, in the home of the Doge.
+              </div>
+              <div>
+                Kabosu has been sick lately, and we want to make sure her
+                biggest fans have the opportunity to meet her while her tail is
+                still wagging.
+              </div>
+              <div>
+                If you{"'"}re interested in joining us, fill in the form below
+                to stay connected.
+              </div>
+            </div>
             <div className={css("font-bold", "text-center", "max-w-4xl")}>
-              DO YOU WANT TO TAKE A VOYAGE TO MEET THE DOGE?
+              are you interested in meeting the Doge?
             </div>
             <div
               className={css(
