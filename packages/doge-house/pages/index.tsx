@@ -87,7 +87,14 @@ export default function Home() {
           </div>
           <div className={css("flex", "flex-col", "gap-8", "mt-10")}>
             <div>
-              <div className={css("text-3xl", "text-center", "font-normal")}>
+              <div
+                className={css(
+                  "md:text-3xl",
+                  "text-xl",
+                  "text-center",
+                  "font-normal"
+                )}
+              >
                 <div
                   className={css(
                     "flex",
@@ -132,26 +139,12 @@ export default function Home() {
               )}
             </div>
             <div className={css("flex", "justify-between", "items-center")}>
-              <div className={css("max-w-xs", "w-full")}>
-                <Image
-                  src={"/images/paw.gif"}
-                  width={1080}
-                  height={1080}
-                  alt={"Kabosu Paw"}
-                />
-              </div>
-              <div className={css("text-center", "text-3xl")}>
+              <DogePaw />
+              <div className={css("text-center", "md:text-3xl", "text-xl")}>
                 Top 10 donors will receive a 3D printed Doge pawprint.
               </div>
 
-              <div className={css("max-w-xs", "w-full")}>
-                <Image
-                  src={"/images/paw.gif"}
-                  width={1080}
-                  height={1080}
-                  alt={"Kabosu Paw"}
-                />
-              </div>
+              <DogePaw />
             </div>
             <div className={css("text-center", "text-3xl")}>
               {/* {isMyDogeInstalled && (
@@ -237,6 +230,20 @@ export default function Home() {
   );
 }
 
+const DogePaw = () => {
+  return (
+    <div className={css("max-w-xs", "w-full")}>
+      <Image
+        src={"/images/paw.gif"}
+        width={1080}
+        height={1080}
+        alt={"Kabosu Paw"}
+        priority
+      />
+    </div>
+  );
+};
+
 const SendDirectly = () => {
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   const [animationClass, setAnimationClass] = useState("hidden");
@@ -254,7 +261,7 @@ const SendDirectly = () => {
     return () => clearInterval(timeout);
   }, [animationClass]);
   return (
-    <div className={css("text-3xl")}>
+    <div className={css("md:text-3xl", "text-xl")}>
       <div>To donate, send Doge to:</div>
       <div className={css("flex", "justify-center", "mt-3", "mb-1")}>
         <div
