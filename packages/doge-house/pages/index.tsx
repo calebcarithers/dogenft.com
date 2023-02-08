@@ -153,7 +153,12 @@ export default function Home() {
 }
 
 export const TotalRaised = () => {
-  const { data: total } = useQuery(["getTotal"], getTotal);
+  const { data: total } = useQuery(
+    ["getTotal"],
+    getTotal,
+
+    { refetchInterval: 5000 }
+  );
   return (
     <>
       {total && (
@@ -178,7 +183,8 @@ export const TotalRaised = () => {
 export const Leaderboard = () => {
   const { isLoading, data, isError } = useQuery(
     ["getLeaderboard"],
-    getLeaderboard
+    getLeaderboard,
+    { refetchInterval: 5000 }
   );
   return (
     <div className={css("flex", "justify-center")}>
