@@ -1,8 +1,9 @@
 import { css } from "@/../dsl/helpers/css";
 import { abbreviate } from "@/../dsl/helpers/strings";
+import { baseUrl } from "@/api";
 import { dogeAddress } from "@/environment/vars";
 import { useAccount, useTx, useWaitForTransaction } from "@/services/myDoge";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import ExternalLink from "../ExternalLink/ExternalLink";
 import Spinner from "../Spinner/Spinner";
@@ -13,15 +14,26 @@ const MyDogeSend = () => {
     recipientAddress: dogeAddress,
     dogeAmount: amount === "" ? 0 : Number(amount),
   });
-  const { account, username, balance } = useAccount();
+  const { account, balance } = useAccount();
+  const [username, setUsername] = useState<string | null>(null);
   const formattedBalance = balance === null ? null : Number(balance) / 10 ** 8;
   const { isLoading: isTxConfirming, tx } = useWaitForTransaction(txId);
+
+  useEffect(() => {
+    if (account) {
+      console.log("fetch account");
+      fetch(`${baseUrl}/mydoge/${account}`)
+        .then((res) => res.text())
+        .then((res) => setUsername(res))
+        .catch((e) => {});
+    }
+  }, [account]);
   return (
     <div className={css("text-3xl")}>
       {!isTxConfirming && !tx && (
         <div className={css("flex", "flex-col", "gap-2", "items-center")}>
           <div>
-            henlo, {username ? username : account && abbreviate(account)}
+            henlo {username ? username : abbreviate(account as string)},
           </div>
           <div>input amount</div>
           <div

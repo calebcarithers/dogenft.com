@@ -42,11 +42,9 @@ interface MyDogeContext {
   account: string | null;
   balance: string | null;
   isConnected: boolean;
-  username: string | null;
   setAccount: (account: string | null) => void;
   setBalance: (balance: string | null) => void;
   setIsConnected: (isConnected: boolean) => void;
-  setUsername: (username: string | null) => void;
 }
 
 const MyDogeContext = createContext<MyDogeContext>({
@@ -54,11 +52,9 @@ const MyDogeContext = createContext<MyDogeContext>({
   account: null,
   balance: null,
   isConnected: false,
-  username: null,
   setAccount: () => {},
   setBalance: () => {},
   setIsConnected: () => {},
-  setUsername: () => {},
 });
 
 export const MyDogeProvider: React.FC<PropsWithChildren> = ({ children }) => {
@@ -84,8 +80,6 @@ export const MyDogeProvider: React.FC<PropsWithChildren> = ({ children }) => {
         account,
         balance,
         isConnected,
-        username,
-        setUsername,
         setAccount,
         setBalance,
         setIsConnected,
@@ -103,14 +97,8 @@ interface ConnectedData {
 }
 
 export const useConnect = () => {
-  const {
-    myDoge,
-    setAccount,
-    setBalance,
-    isConnected,
-    setIsConnected,
-    setUsername,
-  } = useContext(MyDogeContext);
+  const { myDoge, setAccount, setBalance, isConnected, setIsConnected } =
+    useContext(MyDogeContext);
 
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -129,14 +117,9 @@ export const useConnect = () => {
         return myDoge
           .connect()
           .then((res: ConnectedData) => {
-            console.log("debug:: res", res);
             setIsConnected(true);
             setAccount(res.address);
             setBalance(res.balance);
-            fetch("https://api.mydoge.com/wallet/" + res.address + "/profile")
-              .then((res) => res.json())
-              .then((res) => setUsername(res.username))
-              .catch((e) => setUsername(null));
           })
           .catch((e) => setIsConnected(false))
           .then(() => setIsConnecting(false));
@@ -146,8 +129,8 @@ export const useConnect = () => {
 };
 
 export const useAccount = () => {
-  const { account, balance, username } = useContext(MyDogeContext);
-  return { account, balance, username };
+  const { account, balance } = useContext(MyDogeContext);
+  return { account, balance };
 };
 
 export const useDisconnect = () => {
