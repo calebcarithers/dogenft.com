@@ -1,7 +1,7 @@
 import { css } from "@/../dsl/helpers/css";
 import { abbreviate } from "@/../dsl/helpers/strings";
 import { dogeAddress } from "@/environment/vars";
-import { useTx } from "@/services/myDoge";
+import { useTx, useWaitForTransaction } from "@/services/myDoge";
 import { useState } from "react";
 import Button from "../Button/Button";
 import ExternalLink from "../ExternalLink/ExternalLink";
@@ -12,6 +12,7 @@ const MyDogeSend = () => {
     recipientAddress: dogeAddress,
     dogeAmount: amount,
   });
+  const { isLoading: isTxConfirming, tx } = useWaitForTransaction(txId);
   return (
     <div
       className={css("text-3xl", "flex", "flex-col", "gap-2", "items-center")}
@@ -62,10 +63,11 @@ const MyDogeSend = () => {
       <div>
         <Button
           className={css("hover:bg-doge-blue", "disabled:hover:bg-white")}
+          isLoading={isLoading || isTxConfirming}
           disabled={isLoading || amount === 0}
           onClick={() => sendTx()}
         >
-          {isLoading ? "✨ loading ✨" : "send"}
+          send
         </Button>
       </div>
       {txId && (

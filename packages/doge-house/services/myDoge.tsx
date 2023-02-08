@@ -13,6 +13,15 @@ interface RequestTransactionParams {
   dogeAmount: number;
 }
 
+interface GetTransactionStatusReturn {
+  address: string;
+  blockTime: number;
+  confirmations: number;
+  dogeAmount: string;
+  status: "pending" | "confirmed";
+  txId: string;
+}
+
 interface MyDoge {
   connect: (
     onConnect?: (data: any) => void,
@@ -21,6 +30,11 @@ interface MyDoge {
   getBalance: () => Promise<any>;
   requestTransaction: (params: RequestTransactionParams) => Promise<any>;
   disconnect: () => Promise<any>;
+  getTransactionStatus: ({
+    txId,
+  }: {
+    txId: string;
+  }) => Promise<GetTransactionStatusReturn>;
 }
 
 interface MyDogeContext {
@@ -157,3 +171,39 @@ export const useIsMyDogeInstalled = () => {
   const { myDoge } = useContext(MyDogeContext);
   return !!myDoge;
 };
+
+export const useWaitForTransaction = (txId?: string | null) => {
+  const { myDoge } = useContext(MyDogeContext);
+  const [tx, setTx] = useState<null | GetTransactionStatusReturn>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    if (txId && myDoge) {
+      setIsLoading(true);
+      const interval = setInterval(async () => {
+        const tx = await myDoge.getTransactionStatus({ txId });
+        if (tx.status === "confirmed") {
+          setTx(tx);
+          setIsLoading(false);
+          clearInterval(interval);
+        }
+        console.log("debug:: res", tx);
+      }, 10_000);
+    }
+  }, [txId, myDoge]);
+  return { isLoading, tx };
+};
+
+// Poll to get the transaction status
+// setInterval(async () => {
+//   const txStatusRes = await myDogeMask.getTransactionStatus({
+//     txId: txReqRes.txId,
+//   });
+//   console.log("transaction status result", txStatusRes);
+//   /*{
+//       "txId": "b9fc04f226b194684fe24c786be89cae26abf8fcebbf90ff7049d5bc7fa003f0",
+//       "confirmations": 0,
+//       "dogeAmount": "420000000",
+//       "blockTime": 1675217503,
+//       "status": "pending"
+//     }*/
+// }, 10000);
