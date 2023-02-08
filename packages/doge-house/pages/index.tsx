@@ -123,7 +123,7 @@ export default function Home() {
                       "text-stroke"
                     )}
                   >
-                    {total.totalReceived} Ɖ raised
+                    {Number(total.totalReceived).toFixed(0)} Ɖ raised
                   </div>
                   {/* <div
                     className={css(
