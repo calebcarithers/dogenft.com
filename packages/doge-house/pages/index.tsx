@@ -326,7 +326,15 @@ const LeaderboardItem: React.FC<{
           "justify-between"
         )}
       >
-        <div className={css("flex", "items-center", "gap-4", "text-4xl")}>
+        <div
+          className={css(
+            "flex",
+            "items-center",
+            "gap-4",
+            "text-2xl",
+            "md:text-4xl"
+          )}
+        >
           <div className={css()}>{place}</div>
           <ExternalLink
             href={
