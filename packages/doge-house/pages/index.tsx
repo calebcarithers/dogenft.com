@@ -171,7 +171,8 @@ export const TotalRaised = () => {
               "text-stroke"
             )}
           >
-            {Number(total.totalReceived).toFixed(0)} Ɖ raised
+            {Number(Number(total.totalReceived).toFixed(0)).toLocaleString()} Ɖ
+            raised
           </div>
         </div>
       )}
