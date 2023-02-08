@@ -5,6 +5,7 @@ import {
   DisconnectButton,
   Send5DogeButton,
 } from "@/components/Button/Button";
+import ExternalLink from "@/components/ExternalLink/ExternalLink";
 import { dogeAddress } from "@/environment/vars";
 import { useConnect, useIsMyDogeInstalled } from "@/services/myDoge";
 import { Comic_Neue } from "@next/font/google";
@@ -180,27 +181,35 @@ const LeaderboardItem: React.FC<{
       )}
     >
       <div
-        onClick={() => setIsOpen(!isOpen)}
         className={css(
           "break-words",
           "flex",
           "items-center",
-          "justify-between",
-          "cursor-pointer"
+          "justify-between"
         )}
       >
-        <div className={css("flex", "items-center", "gap-4")}>
-          <div className={css("text-4xl", "font-bold")}>{place}</div>
-          <div className={css("text-4xl")}>
+        <div className={css("flex", "items-center", "gap-4", "text-4xl")}>
+          <div className={css()}>{place}</div>
+          <ExternalLink
+            href={`https://mydoge.com/${
+              item.myDogeName ? item.myDogeName : item.address
+            }`}
+          >
             {item.myDogeName ? item.myDogeName : item.address}
-          </div>
+          </ExternalLink>
         </div>
-        <div>
-          {isOpen ? (
-            <HiOutlineChevronUp size={24} />
-          ) : (
-            <HiOutlineChevronDown size={24} />
-          )}
+        <div className={css("flex", "items-center", "gap-2")}>
+          <div>{item.usdNotional}</div>
+          <div
+            className={css("cursor-pointer")}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? (
+              <HiOutlineChevronUp size={24} />
+            ) : (
+              <HiOutlineChevronDown size={24} />
+            )}
+          </div>
         </div>
       </div>
       {isOpen && (
@@ -242,24 +251,18 @@ const Donation: React.FC<DonationProps> = ({ donation }) => {
     }
   }
   return (
-    <a
-      target={"_blank"}
-      rel={"noreferrer"}
+    <ExternalLink
+      iconSize={14}
       href={`https://sochain.com/tx/DOGE/${donation.txHash}`}
       key={`donation-${donation.txHash}`}
-      className={css(
-        "grid",
-        "grid-cols-3",
-        "hover:text-red-600",
-        "cursor-pointer",
-        "text-black",
-        "opacity-80"
-      )}
+      className={css("text-black", "opacity-80")}
     >
-      <div>{donation.amount} Ɖ</div>
-      <div>${donation.currencyUSDNotional.toFixed(2)}</div>
-      <div>{diffFormatted} ago</div>
-    </a>
+      <div className={css("grid", "grid-cols-3")}>
+        <div>{donation.amount} Ɖ</div>
+        <div>${donation.currencyUSDNotional.toFixed(2)}</div>
+        <div>{diffFormatted} ago</div>
+      </div>
+    </ExternalLink>
   );
 };
 
