@@ -61,7 +61,8 @@ export default function Home() {
           "flex-col",
           "bg-bottom",
           "items-center",
-          "bg-cover"
+          "bg-cover",
+          "pb-12"
         )}
       >
         <div className={css("max-w-6xl", "w-full", "flex", "flex-col")}>
@@ -178,20 +179,10 @@ export default function Home() {
                         />
                       );
                     })}
-                    {/* {data.map((item, index) => {
-                      return (
-                        <LeaderboardItem
-                          key={item.address}
-                          item={item}
-                          place={index + 1}
-                        />
-                      );
-                    })} */}
                   </div>
                 )}
               </div>
             </div>
-            <div className={css("h-[200px]")}></div>
           </div>
         </div>
       </main>
