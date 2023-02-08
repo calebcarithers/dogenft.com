@@ -106,6 +106,9 @@ export default function Home() {
                 <div>by donating Dogecoin.</div>
               </div>
             </div>
+            <div className={css("text-center", "text-3xl")}>
+              Top 10 donors will receive a 3D printed Doge pawprint.
+            </div>
             <div className={css("text-center", "text-4xl")}>
               {/* {isMyDogeInstalled && (
               <div>
@@ -181,6 +184,9 @@ const SendDirectly = () => {
     const timeout = setInterval(() => {
       if (animationClass === "fade-in") {
         setAnimationClass("fade-out");
+      } else if (animationClass === "fade-out") {
+        setAnimationClass("hidden");
+      } else if (animationClass === "hidden") {
       } else {
         setAnimationClass("fade-in");
       }
@@ -208,7 +214,8 @@ const SendDirectly = () => {
           "break-all",
           "cursor-pointer",
           "hover:text-red-600",
-          "text-2xl"
+          "text-2xl",
+          "inline-block"
         )}
         onClick={() =>
           navigator.clipboard.writeText(dogeAddress).then(() => {
