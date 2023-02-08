@@ -1,7 +1,9 @@
 import ColoredText from "@/../dsl/components/ColoredText/ColoredText";
 import { css } from "@/../dsl/helpers/css";
+import { useConnect, useIsMyDogeInstalled } from "@/services/myDoge";
 import { Comic_Neue } from "@next/font/google";
 import { PropsWithChildren } from "react";
+import { DisconnectButton } from "../Button/Button";
 
 const comicNeue = Comic_Neue({
   weight: ["400", "700"],
@@ -10,6 +12,8 @@ const comicNeue = Comic_Neue({
 });
 
 const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
+  const isMyDogeInstalled = useIsMyDogeInstalled();
+  const { isConnected } = useConnect();
   return (
     <main
       style={{ backgroundImage: "url('/images/cloud.png')" }}
@@ -32,7 +36,7 @@ const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
       <div className={css("max-w-6xl", "w-full", "flex", "flex-col")}>
         <div className={css("flex", "justify-center", "relative", "mt-6")}>
           <Title />
-          {/* {isMyDogeInstalled && isConnected && (
+          {isMyDogeInstalled && isConnected && (
             <div
               className={css(
                 "absolute",
@@ -43,7 +47,7 @@ const AppLayout: React.FC<PropsWithChildren> = ({ children }) => {
             >
               <DisconnectButton />
             </div>
-          )} */}
+          )}
         </div>
         {children}
       </div>

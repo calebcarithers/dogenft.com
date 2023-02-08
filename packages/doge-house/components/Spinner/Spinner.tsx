@@ -1,10 +1,10 @@
 import { css } from "@/../dsl/helpers/css";
 import MoonLoader from "react-spinners/MoonLoader";
 
-const Spinner = () => {
+const Spinner = ({ size = 22 }: { size?: number }) => {
   return (
     <div className={css("flex", "justify-center", "items-center")}>
-      <MoonLoader size={20} />
+      <MoonLoader size={size} loading={true} color={"black"} />
     </div>
   );
 };

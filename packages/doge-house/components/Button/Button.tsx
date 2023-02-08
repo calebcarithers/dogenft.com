@@ -9,10 +9,11 @@ import { PropsWithChildren } from "react";
 import Spinner from "../Spinner/Spinner";
 
 interface ButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   className?: string;
   isLoading?: boolean;
+  submit?: boolean;
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
@@ -21,20 +22,25 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   onClick,
   className,
   isLoading,
+  submit,
 }) => {
   return (
     <button
       disabled={disabled || isLoading}
+      type={submit ? "submit" : "button"}
       className={css(
         "border-[1px]",
-        "border-black",
         "px-2.5",
         "py-1",
         "bg-white",
         "font-bold",
+        "border-black",
         "disabled:cursor-not-allowed",
         "disabled:hover:bg-white",
-        // "disabled:text-gray-300",
+        "disabled:bg-gray-300",
+        "hover:disabled:bg-gray-300",
+        "disabled:border-gray-400",
+        "disabled:text-gray-400",
         "rounded-md",
         "relative",
         className
@@ -50,8 +56,9 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
               "h-full",
               "absolute",
               "inset-0",
-              "bg-black",
-              "opacity-40"
+              "bg-white",
+              "opacity-20",
+              "rounded-md"
             )}
           />
           <div
@@ -62,7 +69,8 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
               "inset-0",
               "flex",
               "justify-center",
-              "items-center"
+              "items-center",
+              "text-left"
             )}
           >
             <Spinner />
@@ -95,7 +103,12 @@ export const ConnectButton = () => {
 
 export const DisconnectButton = () => {
   const { disconnect } = useDisconnect();
-  return <Button onClick={() => disconnect()}>disconnect</Button>;
+  const { account, balance } = useAccount();
+  return (
+    <Button onClick={() => disconnect()}>
+      <div>disconnect</div>
+    </Button>
+  );
 };
 
 export default Button;

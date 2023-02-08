@@ -7,7 +7,9 @@ import { Comic_Neue } from "@next/font/google";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
+import { ConnectButton } from "@/components/Button/Button";
 import AppLayout from "@/components/Layouts/AppLayout";
+import MyDogeSend from "@/components/MyDogeSend/MyDogeSend";
 import {
   differenceInDays,
   differenceInHours,
@@ -99,51 +101,47 @@ export default function Home() {
             <DogePaw />
           </div>
           <div className={css("text-center", "text-3xl")}>
-            {/* {isMyDogeInstalled && (
-                <div>
-                  <div
-                    className={css(
-                      "flex",
-                      "flex-col",
-                      "gap-4",
-                      "justify-center"
-                    )}
-                  >
-                    {!isConnected && (
-                      <div>
-                        <ConnectButton />
-                      </div>
-                    )}
-                    {isConnected && (
-                      <div>
-                        <MyDogeSend />
-                      </div>
-                    )}
-                    <div className={css("flex", "justify-center")}>
-                      <div
-                        className={css(
-                          "flex",
-                          "items-center",
-                          "gap-4",
-                          "max-w-sm",
-                          "w-full"
-                        )}
-                      >
-                        <Divider
-                          className={css("!border-black", "!opacity-20")}
-                        />
-                        <span>or</span>
-                        <Divider
-                          className={css("!border-black", "!opacity-20")}
-                        />
-                      </div>
+            {isMyDogeInstalled && (
+              <div
+                className={css("flex", "flex-col", "gap-4", "justify-center")}
+              >
+                <div
+                  className={css("flex", "flex-col", "gap-4", "justify-center")}
+                >
+                  {!isConnected && (
+                    <div>
+                      <ConnectButton />
                     </div>
-                    <SendDirectly />
+                  )}
+                  {isConnected && (
+                    <div>
+                      <MyDogeSend />
+                    </div>
+                  )}
+                  <div className={css("flex", "justify-center")}>
+                    <div
+                      className={css(
+                        "flex",
+                        "items-center",
+                        "gap-4",
+                        "max-w-sm",
+                        "w-full"
+                      )}
+                    >
+                      <Divider
+                        className={css("!border-black", "!opacity-20")}
+                      />
+                      <span>or</span>
+                      <Divider
+                        className={css("!border-black", "!opacity-20")}
+                      />
+                    </div>
                   </div>
+                  <SendDirectly title={"send Doge directly to"} />
                 </div>
-              )}
-              {!isMyDogeInstalled && <SendDirectly />} */}
-            <SendDirectly />
+              </div>
+            )}
+            {!isMyDogeInstalled && <SendDirectly />}
           </div>
           <Leaderboard />
         </div>
@@ -234,7 +232,11 @@ const DogePaw = () => {
   );
 };
 
-const SendDirectly = () => {
+const SendDirectly = ({
+  title = "To donate, send Doge to:",
+}: {
+  title?: string;
+}) => {
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   const [animationClass, setAnimationClass] = useState("hidden");
   useEffect(() => {
@@ -252,7 +254,7 @@ const SendDirectly = () => {
   }, [animationClass]);
   return (
     <div className={css("md:text-3xl", "text-xl")}>
-      <div>To donate, send Doge to:</div>
+      <div>{title}</div>
       <div className={css("flex", "justify-center", "mt-3", "mb-1")}>
         <div
           className={css(
