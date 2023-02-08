@@ -89,17 +89,19 @@ export default function Home() {
                 <div
                   className={css(
                     "flex",
+                    "flex-col",
+                    "md:flex-row",
                     "items-center",
                     "justify-center",
-                    "gap-2"
+                    "gap-0",
+                    "md:gap-2"
                   )}
                 >
-                  <div>Help raise for</div>
+                  <div>Donate Doge to help raise for</div>
                   <ExternalLink href={"https://www.savethechildren.org/"}>
                     Save The Children
                   </ExternalLink>
                 </div>
-                <div>by donating Doge.</div>
               </div>
             </div>
             {total && (
@@ -115,7 +117,9 @@ export default function Home() {
                 >
                   {total.totalReceived} Ɖ raised
                 </div>
-                <div className={css("text-center")}>~${total.usdNotional}</div>
+                <div className={css("text-center", "text-xl", "opacity-85")}>
+                  ~${total.usdNotional}
+                </div>
               </div>
             )}
             <div className={css("text-center", "text-3xl")}>
