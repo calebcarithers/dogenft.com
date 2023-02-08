@@ -1,6 +1,5 @@
 import { Donation, LeaderboardDonation } from "@/../rainbow/api";
 import { getLeaderboard, getTotal } from "@/api";
-import { ConnectButton, DisconnectButton } from "@/components/Button/Button";
 import ExternalLink from "@/components/ExternalLink/ExternalLink";
 import { dogeAddress } from "@/environment/vars";
 import { useConnect, useIsMyDogeInstalled } from "@/services/myDoge";
@@ -8,14 +7,13 @@ import { Comic_Neue } from "@next/font/google";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
-import MyDogeSend from "@/components/MyDogeSend/MyDogeSend";
+import AppLayout from "@/components/Layouts/AppLayout";
 import {
   differenceInDays,
   differenceInHours,
   differenceInMinutes,
   differenceInSeconds,
 } from "date-fns";
-import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { Divider } from "dsl/components/Divider/Divider";
 import { css } from "dsl/helpers/css";
 import { abbreviate } from "dsl/helpers/strings";
@@ -31,13 +29,6 @@ const comicNeue = Comic_Neue({
 });
 
 export default function Home() {
-  const { isLoading, data, isError } = useQuery(
-    ["getLeaderboard"],
-    getLeaderboard
-  );
-
-  const { data: total } = useQuery(["getTotal"], getTotal);
-
   const isMyDogeInstalled = useIsMyDogeInstalled();
   const { isConnected } = useConnect();
 
@@ -52,93 +43,46 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main
-        style={{ backgroundImage: "url('/images/cloud.png')" }}
-        className={css(
-          comicNeue.className,
-          "grow",
-          "text-bold",
-          "p-4",
-          "font-normal",
-          "bg-[#5c96dd00]",
-          "bg-no-repeat",
-          "flex",
-          "flex-col",
-          "bg-bottom",
-          "items-center",
-          "bg-cover",
-          "pb-12"
-        )}
-      >
-        <div className={css("max-w-6xl", "w-full", "flex", "flex-col")}>
-          <div className={css("flex", "justify-center", "relative", "mt-6")}>
-            <Title />
-            {isMyDogeInstalled && isConnected && (
-              <div
-                className={css(
-                  "absolute",
-                  "right-0",
-                  "top-1/2",
-                  "-translate-y-[50%]"
-                )}
-              >
-                <DisconnectButton />
-              </div>
-            )}
-          </div>
-          <div className={css("flex", "flex-col", "gap-8", "mt-10")}>
-            <div>
-              <div
-                className={css(
-                  "md:text-3xl",
-                  "text-xl",
-                  "text-center",
-                  "font-normal"
-                )}
-              >
-                <div
-                  className={css(
-                    "flex",
-                    "flex-col",
-                    "md:flex-row",
-                    "items-center",
-                    "justify-center",
-                    "gap-0",
-                    "md:gap-2"
-                  )}
-                >
-                  <div>Donate Doge to help raise for</div>
-                  <ExternalLink href={"https://www.savethechildren.org/"}>
-                    Save The Children
-                  </ExternalLink>
-                </div>
-              </div>
-              {total && (
-                <div className={css("mt-2")}>
-                  <div
-                    className={css(
-                      "text-center",
-                      "text-6xl",
-                      "font-bold",
-                      "text-doge-orange",
-                      "text-stroke"
-                    )}
-                  >
-                    {Number(total.totalReceived).toFixed(0)} Ɖ raised
-                  </div>
-                </div>
+      <AppLayout>
+        <div className={css("flex", "flex-col", "gap-8", "mt-10")}>
+          <div>
+            <div
+              className={css(
+                "md:text-3xl",
+                "text-xl",
+                "text-center",
+                "font-normal"
               )}
-            </div>
-            <div className={css("flex", "justify-between", "items-center")}>
-              <DogePaw />
-              <div className={css("text-center", "md:text-3xl", "text-xl")}>
-                Top 10 donors will receive a 3D printed Doge pawprint.
+            >
+              <div
+                className={css(
+                  "flex",
+                  "flex-col",
+                  "md:flex-row",
+                  "items-center",
+                  "justify-center",
+                  "gap-0",
+                  "md:gap-2"
+                )}
+              >
+                <div>Donate Doge to help raise for</div>
+                <ExternalLink href={"https://www.savethechildren.org/"}>
+                  Save The Children
+                </ExternalLink>
               </div>
-
-              <DogePaw />
             </div>
-            <div className={css("text-center", "text-3xl")}>
-              {isMyDogeInstalled && (
+            <TotalRaised />
+          </div>
+          <div className={css("flex", "justify-between", "items-center")}>
+            <DogePaw />
+            <div className={css("text-center", "md:text-3xl", "text-xl")}>
+              Top 10 donors will receive a 3D printed Doge pawprint.
+            </div>
+
+            <DogePaw />
+          </div>
+          <div className={css("text-center", "text-3xl")}>
+            {/* {isMyDogeInstalled && (
                 <div>
                   <div
                     className={css(
@@ -181,45 +125,77 @@ export default function Home() {
                   </div>
                 </div>
               )}
-              {!isMyDogeInstalled && <SendDirectly />}
-              {/* <SendDirectly /> */}
-            </div>
-            <div className={css("flex", "justify-center")}>
-              <div className={css("max-w-lg", "w-full")}>
-                <div className={css("text-xl")}>Leaderboard</div>
-                {data && (
-                  <div
-                    className={css(
-                      "w-full",
-                      "flex",
-                      "flex-col",
-                      "gap-2",
-                      "max-h-[500px]",
-                      "overflow-y-auto",
-                      "overflow-x-hidden",
-                      "pb-4",
-                      "pr-2"
-                    )}
-                  >
-                    {data.map((item, index) => {
-                      return (
-                        <LeaderboardItem
-                          key={item.address}
-                          item={item}
-                          place={index + 1}
-                        />
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
+              {!isMyDogeInstalled && <SendDirectly />} */}
+            <SendDirectly />
           </div>
+          <Leaderboard />
         </div>
-      </main>
+      </AppLayout>
     </>
   );
 }
+
+export const TotalRaised = () => {
+  const { data: total } = useQuery(["getTotal"], getTotal);
+  return (
+    <>
+      {total && (
+        <div className={css("mt-2")}>
+          <div
+            className={css(
+              "text-center",
+              "text-6xl",
+              "font-bold",
+              "text-doge-orange",
+              "text-stroke"
+            )}
+          >
+            {Number(total.totalReceived).toFixed(0)} Ɖ raised
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export const Leaderboard = () => {
+  const { isLoading, data, isError } = useQuery(
+    ["getLeaderboard"],
+    getLeaderboard
+  );
+  return (
+    <div className={css("flex", "justify-center")}>
+      <div className={css("max-w-lg", "w-full")}>
+        <div className={css("text-xl")}>Leaderboard</div>
+        {data && (
+          <div
+            className={css(
+              "w-full",
+              "flex",
+              "flex-col",
+              "gap-2",
+              "max-h-[500px]",
+              "overflow-y-auto",
+              "overflow-x-hidden",
+              "pb-4",
+              "pr-2"
+            )}
+          >
+            {data.map((item, index) => {
+              return (
+                <LeaderboardItem
+                  key={item.address}
+                  item={item}
+                  place={index + 1}
+                />
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const DogePaw = () => {
   return (
@@ -404,19 +380,5 @@ const Donation: React.FC<DonationProps> = ({ donation }) => {
         <div>{diffFormatted} ago</div>
       </div>
     </ExternalLink>
-  );
-};
-
-const Title = () => {
-  return (
-    <div className={css("flex", "items-center", "gap-4")}>
-      <span className={css("text-3xl", "md:text-5xl")}>🛋️</span>
-      <ColoredText
-        className={css("font-bold", "text-stroke", "text-4xl", "md:text-7xl")}
-      >
-        dogecouch.house
-      </ColoredText>
-      <span className={css("text-3xl", "md:text-5xl")}>🛋️</span>
-    </div>
   );
 };
