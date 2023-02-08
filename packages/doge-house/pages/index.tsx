@@ -6,6 +6,8 @@ import { dogeAddress } from "@/environment/vars";
 import { useConnect, useIsMyDogeInstalled } from "@/services/myDoge";
 import { Comic_Neue } from "@next/font/google";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+
 import {
   differenceInDays,
   differenceInHours,
@@ -103,27 +105,53 @@ export default function Home() {
                   </ExternalLink>
                 </div>
               </div>
+              {total && (
+                <div className={css("mt-2")}>
+                  <div
+                    className={css(
+                      "text-center",
+                      "text-6xl",
+                      "font-bold",
+                      "text-doge-orange",
+                      "text-stroke"
+                    )}
+                  >
+                    {total.totalReceived} Ɖ raised
+                  </div>
+                  {/* <div
+                    className={css(
+                      "text-center",
+                      "text-2xl",
+                      "opacity-50",
+                      "text-doge-orange"
+                    )}
+                  >
+                    ~${total.usdNotional}
+                  </div> */}
+                </div>
+              )}
             </div>
-            {total && (
-              <div>
-                <div
-                  className={css(
-                    "text-center",
-                    "text-6xl",
-                    "font-bold",
-                    "text-doge-orange",
-                    "text-stroke"
-                  )}
-                >
-                  {total.totalReceived} Ɖ raised
-                </div>
-                <div className={css("text-center", "text-xl", "opacity-85")}>
-                  ~${total.usdNotional}
-                </div>
+            <div className={css("flex", "justify-between", "items-center")}>
+              <div className={css("max-w-xs", "w-full")}>
+                <Image
+                  src={"/images/paw.gif"}
+                  width={1080}
+                  height={1080}
+                  alt={"Kabosu Paw"}
+                />
               </div>
-            )}
-            <div className={css("text-center", "text-3xl")}>
-              Top 10 donors will receive a 3D printed Doge pawprint.
+              <div className={css("text-center", "text-3xl")}>
+                Top 10 donors will receive a 3D printed Doge pawprint.
+              </div>
+
+              <div className={css("max-w-xs", "w-full")}>
+                <Image
+                  src={"/images/paw.gif"}
+                  width={1080}
+                  height={1080}
+                  alt={"Kabosu Paw"}
+                />
+              </div>
             </div>
             <div className={css("text-center", "text-3xl")}>
               {/* {isMyDogeInstalled && (
