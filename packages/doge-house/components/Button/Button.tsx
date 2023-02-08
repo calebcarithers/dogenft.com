@@ -12,12 +12,14 @@ import { PropsWithChildren } from "react";
 interface ButtonProps {
   onClick: () => void;
   disabled?: boolean;
+  className?: string;
 }
 
 const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
   children,
   disabled,
   onClick,
+  className,
 }) => {
   return (
     <button
@@ -31,7 +33,9 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
         "font-bold",
         "disabled:opacity-50",
         "disabled:cursor-not-allowed",
-        "rounded-md"
+        "disabled:hover:bg-white",
+        "rounded-md",
+        className
       )}
       onClick={onClick}
     >
@@ -48,7 +52,11 @@ export const ConnectButton = () => {
   return (
     <>
       {!isConnected && isMyDogeInstalled && (
-        <Button disabled={isConnecting} onClick={() => connect()}>
+        <Button
+          className={css("hover:bg-doge-green", "disabled:hover:bg-white")}
+          disabled={isConnecting}
+          onClick={() => connect()}
+        >
           {isConnecting ? (
             <div className={css("flex", "items-center", "gap-2")}>
               <span className={css("text-xl")}>✨</span>

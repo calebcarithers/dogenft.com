@@ -18,21 +18,53 @@ const MyDogeSend = () => {
     >
       <div>Amount: {amount}</div>
       <div className={css("flex", "gap-2", "justify-center")}>
-        <Button disabled={isLoading} onClick={() => setAmount(5)}>
+        <Button
+          className={css(
+            { "bg-doge-green": amount === 5 },
+            "hover:bg-doge-green"
+          )}
+          disabled={isLoading}
+          onClick={() => setAmount(5)}
+        >
           5 Ɖ
         </Button>
-        <Button disabled={isLoading} onClick={() => setAmount(60)}>
+        <Button
+          className={css(
+            { "bg-doge-orange": amount === 69 },
+            "hover:bg-doge-orange"
+          )}
+          disabled={isLoading}
+          onClick={() => setAmount(69)}
+        >
           69 Ɖ
         </Button>
-        <Button disabled={isLoading} onClick={() => setAmount(169)}>
+        <Button
+          className={css(
+            { "bg-doge-magenta": amount === 169 },
+            "hover:bg-doge-magenta"
+          )}
+          disabled={isLoading}
+          onClick={() => setAmount(169)}
+        >
           169 Ɖ
         </Button>
-        <Button disabled={isLoading} onClick={() => setAmount(1690)}>
+        <Button
+          className={css(
+            { "bg-doge-red": amount === 1690 },
+            "hover:bg-doge-red"
+          )}
+          disabled={isLoading}
+          onClick={() => setAmount(1690)}
+        >
           1690 Ɖ
         </Button>
       </div>
       <div>
-        <Button disabled={isLoading || amount === 0} onClick={() => sendTx()}>
+        <Button
+          className={css("hover:bg-doge-blue", "disabled:hover:bg-white")}
+          disabled={isLoading || amount === 0}
+          onClick={() => sendTx()}
+        >
           {isLoading ? "✨ loading ✨" : "send"}
         </Button>
       </div>
