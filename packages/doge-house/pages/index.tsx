@@ -332,7 +332,7 @@ const LeaderboardItem: React.FC<{
             "items-center",
             "gap-4",
             "text-2xl",
-            "md:text-4xl"
+            "md:text-3xl"
           )}
         >
           <div className={css()}>{place}</div>
