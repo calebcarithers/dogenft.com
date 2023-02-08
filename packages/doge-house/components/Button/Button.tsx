@@ -30,6 +30,7 @@ const Button: React.FC<PropsWithChildren<ButtonProps>> = ({
         "bg-white",
         "font-bold",
         "disabled:opacity-50",
+        "disabled:cursor-not-allowed",
         "rounded-md"
       )}
       onClick={onClick}
@@ -81,18 +82,14 @@ export const DisconnectButton = () => {
 
 export const Send5DogeButton = () => {
   const dogeAmount = 5;
-  const {
-    sendTx,
-    txId,
-    isLoading: isTxLoading,
-  } = useTx({
+  const { sendTx, txId, isLoading } = useTx({
     recipientAddress: dogeAddress,
     dogeAmount,
   });
 
   return (
-    <Button onClick={() => sendTx()}>
-      donate {dogeAmount} <span>Ɖ</span>
+    <Button disabled={isLoading} onClick={() => sendTx()}>
+      {isLoading ? "loading" : `send ${dogeAmount} doge`}
     </Button>
   );
 };

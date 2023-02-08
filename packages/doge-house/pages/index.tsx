@@ -1,6 +1,6 @@
 import { Donation, LeaderboardDonation } from "@/../rainbow/api";
 import { getLeaderboard, getTotal } from "@/api";
-import { DisconnectButton } from "@/components/Button/Button";
+import { ConnectButton, DisconnectButton } from "@/components/Button/Button";
 import ExternalLink from "@/components/ExternalLink/ExternalLink";
 import { dogeAddress } from "@/environment/vars";
 import { useConnect, useIsMyDogeInstalled } from "@/services/myDoge";
@@ -8,6 +8,7 @@ import { Comic_Neue } from "@next/font/google";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
+import MyDogeSend from "@/components/MyDogeSend/MyDogeSend";
 import {
   differenceInDays,
   differenceInHours,
@@ -125,16 +126,6 @@ export default function Home() {
                   >
                     {Number(total.totalReceived).toFixed(0)} Ɖ raised
                   </div>
-                  {/* <div
-                    className={css(
-                      "text-center",
-                      "text-2xl",
-                      "opacity-50",
-                      "text-doge-orange"
-                    )}
-                  >
-                    ~${total.usdNotional}
-                  </div> */}
                 </div>
               )}
             </div>
@@ -147,7 +138,7 @@ export default function Home() {
               <DogePaw />
             </div>
             <div className={css("text-center", "text-3xl")}>
-              {/* {isMyDogeInstalled && (
+              {isMyDogeInstalled && (
                 <div>
                   <div
                     className={css(
@@ -164,7 +155,7 @@ export default function Home() {
                     )}
                     {isConnected && (
                       <div>
-                        <Send5DogeButton />
+                        <MyDogeSend />
                       </div>
                     )}
                     <div className={css("flex", "justify-center")}>
@@ -173,25 +164,25 @@ export default function Home() {
                           "flex",
                           "items-center",
                           "gap-4",
-                          "max-w-lg",
+                          "max-w-sm",
                           "w-full"
                         )}
                       >
                         <Divider
-                          className={css("border-white", "opacity-50")}
+                          className={css("!border-black", "!opacity-20")}
                         />
                         <span>or</span>
                         <Divider
-                          className={css("border-white", "opacity-50")}
+                          className={css("!border-black", "!opacity-20")}
                         />
                       </div>
                     </div>
                     <SendDirectly />
                   </div>
                 </div>
-              )} */}
-              {/* {!isMyDogeInstalled && <SendDirectly />} */}
-              <SendDirectly />
+              )}
+              {!isMyDogeInstalled && <SendDirectly />}
+              {/* <SendDirectly /> */}
             </div>
             <div className={css("flex", "justify-center")}>
               <div className={css("max-w-lg", "w-full")}>
