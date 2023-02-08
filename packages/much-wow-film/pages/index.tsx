@@ -76,7 +76,8 @@ export default function Home() {
                     "hover:text-red-700",
                     "cursor-pointer",
                     "text-white",
-                    "opacity-85"
+                    "opacity-85",
+                    comicNeue.className
                   )}
                 >
                   get in contact

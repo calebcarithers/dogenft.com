@@ -1,7 +1,7 @@
 import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
-  const description = "Win IRL Doge relics by donating Dogecoin to charity.";
+  const description = "Win IRL Doge relics by donating Doge to charity.";
   const name = "dogecouch.house";
   const twitterCardUrl = "https://dogecouch.house/images/twitter-card.png";
   const url = "https://dogecouch.house";

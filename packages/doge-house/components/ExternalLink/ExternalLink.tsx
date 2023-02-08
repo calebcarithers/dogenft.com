@@ -6,12 +6,14 @@ interface ExternalLinkProps extends PropsWithChildren {
   href: string;
   className?: string;
   iconSize?: number;
+  showIcon?: boolean;
 }
 
 const ExternalLink: React.FC<ExternalLinkProps> = ({
   children,
   href,
   className,
+  showIcon = true,
   iconSize = 20,
 }) => {
   return (
@@ -30,14 +32,16 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
       )}
     >
       <div className={css("grow")}>{children}</div>
-      <div
-        className={css("inline-block", "mt-1")}
-        style={{ width: iconSize, height: iconSize }}
-      >
-        <div className={css("group-hover:block", "hidden")}>
-          <BsArrowUpRight size={iconSize} />
+      {showIcon && (
+        <div
+          className={css("inline-block", "mt-1")}
+          style={{ width: iconSize, height: iconSize }}
+        >
+          <div className={css("group-hover:block", "hidden")}>
+            <BsArrowUpRight size={iconSize} />
+          </div>
         </div>
-      </div>
+      )}
     </a>
   );
 };

@@ -17,7 +17,7 @@ import { Divider } from "dsl/components/Divider/Divider";
 import { css } from "dsl/helpers/css";
 import { abbreviate } from "dsl/helpers/strings";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
 import QRCode from "react-qr-code";
 
@@ -42,7 +42,7 @@ export default function Home() {
         <title>dogecouch.house</title>
         <meta
           name="description"
-          content="Win IRL Doge relics by donating Dogecoin to charity."
+          content="Win IRL Doge relics by donating Doge to charity."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -57,16 +57,14 @@ export default function Home() {
           "font-normal",
           "bg-[#5c96dd00]",
           "bg-no-repeat",
-          "bg-bottom",
           "flex",
           "flex-col",
+          "bg-bottom",
           "items-center",
           "bg-cover"
         )}
       >
-        <div
-          className={css("max-w-6xl", "w-full", "flex", "flex-col", "gap-20")}
-        >
+        <div className={css("max-w-6xl", "w-full", "flex", "flex-col")}>
           <div className={css("flex", "justify-center", "relative", "mt-6")}>
             <Title />
             {isMyDogeInstalled && isConnected && (
@@ -82,21 +80,34 @@ export default function Home() {
               </div>
             )}
           </div>
-          <div>
-            <div
-              className={css(
-                "text-3xl",
-                "md:text-4xl",
-                "text-center",
-                "font-normal"
-              )}
-            >
-              <div>Help Save The Children, by donating Dogecoin.</div>
-              <div>Top 10 donors receive a 3D printed Kabosu paw.</div>
+          <div className={css("flex", "flex-col", "gap-8", "mt-10")}>
+            <div>
+              <div
+                className={css(
+                  "text-3xl",
+                  "md:text-3xl",
+                  "text-center",
+                  "font-normal"
+                )}
+              >
+                <div
+                  className={css(
+                    "flex",
+                    "items-center",
+                    "justify-center",
+                    "gap-2"
+                  )}
+                >
+                  <div>Help</div>
+                  <ExternalLink href={"https://www.savethechildren.org/"}>
+                    Save The Children
+                  </ExternalLink>
+                </div>
+                <div>by donating Dogecoin.</div>
+              </div>
             </div>
-          </div>
-          <div className={css("text-center", "text-4xl")}>
-            {/* {isMyDogeInstalled && (
+            <div className={css("text-center", "text-4xl")}>
+              {/* {isMyDogeInstalled && (
               <div>
                 {!isConnected && (
                   <div
@@ -135,25 +146,26 @@ export default function Home() {
                 {isConnected && <Send5DogeButton />}
               </div>
             )} */}
-            {/* {!isMyDogeInstalled && <SendDirectly />} */}
-            <SendDirectly />
-          </div>
-          <div className={css("flex", "justify-center")}>
-            <div className={css("max-w-lg", "w-full")}>
-              <div className={css("text-xl")}>Leaderboard</div>
-              {data && (
-                <div className={css("w-full", "flex", "flex-col", "gap-2")}>
-                  {data.map((item, index) => {
-                    return (
-                      <LeaderboardItem
-                        key={item.address}
-                        item={item}
-                        place={index + 1}
-                      />
-                    );
-                  })}
-                </div>
-              )}
+              {/* {!isMyDogeInstalled && <SendDirectly />} */}
+              <SendDirectly />
+            </div>
+            <div className={css("flex", "justify-center")}>
+              <div className={css("max-w-lg", "w-full")}>
+                <div className={css("text-xl")}>Leaderboard</div>
+                {data && (
+                  <div className={css("w-full", "flex", "flex-col", "gap-2")}>
+                    {data.map((item, index) => {
+                      return (
+                        <LeaderboardItem
+                          key={item.address}
+                          item={item}
+                          place={index + 1}
+                        />
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -164,10 +176,21 @@ export default function Home() {
 
 const SendDirectly = () => {
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+  const [animationClass, setAnimationClass] = useState("hidden");
+  useEffect(() => {
+    const timeout = setInterval(() => {
+      if (animationClass === "fade-in") {
+        setAnimationClass("fade-out");
+      } else {
+        setAnimationClass("fade-in");
+      }
+    }, 4000);
+    return () => clearInterval(timeout);
+  }, [animationClass]);
   return (
-    <div className={css("text-3xl", "md:text-4xl")}>
-      <div>To donate send Dogecoin to:</div>
-      <div className={css("flex", "justify-center", "my-6")}>
+    <div className={css("text-3xl", "md:text-3xl")}>
+      <div>To donate, send Doge to:</div>
+      <div className={css("flex", "justify-center", "my-3")}>
         <div
           className={css(
             "bg-white",
@@ -181,18 +204,23 @@ const SendDirectly = () => {
         </div>
       </div>
       <div
-        className={css("break-all", "cursor-pointer", "hover:text-red-600")}
+        className={css(
+          "break-all",
+          "cursor-pointer",
+          "hover:text-red-600",
+          "text-2xl"
+        )}
         onClick={() =>
           navigator.clipboard.writeText(dogeAddress).then(() => {
             console.log("copied doge address:", dogeAddress);
-            setShowCopiedMessage(true);
+            setAnimationClass("fade-in");
           })
         }
       >
         {abbreviate(dogeAddress)}
       </div>
       <div className={css("text-base", "opacity-60", "h-[12px]")}>
-        {showCopiedMessage && "✨ address copied ✨"}
+        <span className={css(animationClass)}>✨ copied ✨</span>
       </div>
     </div>
   );
