@@ -7,9 +7,7 @@ import { Comic_Neue } from "@next/font/google";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
-import { ConnectButton } from "@/components/Button/Button";
 import AppLayout from "@/components/Layouts/AppLayout";
-import MyDogeSend from "@/components/MyDogeSend/MyDogeSend";
 import {
   differenceInDays,
   differenceInHours,
@@ -105,7 +103,7 @@ export default function Home() {
               <div
                 className={css("flex", "flex-col", "gap-4", "justify-center")}
               >
-                <div
+                {/* <div
                   className={css("flex", "flex-col", "gap-4", "justify-center")}
                 >
                   {!isConnected && (
@@ -139,7 +137,7 @@ export default function Home() {
                     </div>
                   </div>
                   <SendDirectly title={"send Doge directly to"} />
-                </div>
+                </div> */}
               </div>
             )}
             {!isMyDogeInstalled && <SendDirectly />}

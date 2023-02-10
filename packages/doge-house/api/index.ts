@@ -2,8 +2,8 @@ import { isDev, isProd, isStaging } from "@/environment/vars";
 import { LeaderboardDonation } from "./../../rainbow/api/index";
 
 // const proxyBaseUrl = "https://api.ownthedoge.com/ph";
-const proxyBaseUrl = "http://localhost:3003/ph";
-// const proxyBaseUrl = null;
+// const proxyBaseUrl = "http://localhost:3003/ph";
+const proxyBaseUrl = null;
 export let baseUrl: string;
 
 if (isProd()) {
