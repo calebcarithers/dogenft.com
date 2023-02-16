@@ -81,10 +81,10 @@ export default function Home() {
                 2021, we want to take you to the Doge.
               </div>
               <div>
-                That{"'"}s right, we{"'"}re putting together an all inclusive
-                pilgrimage to meet Kabosu the Doge, as well as her human, Atsuko
-                Sato. You{"'"}ll be with the OwnTheDoge crew and other Shiba
-                fans, doing only good everyday, in the home of the Doge.
+                That{"'"}s right, we{"'"}re putting together a pilgrimage to
+                meet Kabosu the Doge, as well as her human, Atsuko Sato. You
+                {"'"}ll be with the OwnTheDoge crew and other Shiba fans, doing
+                only good everyday, in the home of the Doge.
               </div>
               <div>
                 Kabosu has been sick lately, and we want to make sure her
