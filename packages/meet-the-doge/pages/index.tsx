@@ -1,4 +1,6 @@
 import Button from "dsl/components/Button/Button";
+import ColoredText from "dsl/components/ColoredText/ColoredText";
+import { Divider } from "dsl/components/Divider/Divider";
 import Link from "dsl/components/Link/Link";
 import { css } from "dsl/helpers/css";
 import { getRandomIntInclusive } from "dsl/helpers/numbers";
@@ -51,11 +53,26 @@ export default function Home() {
           <Image alt={"lmao you would"} src={image} priority />
         </div>
         {!showOkay && (
-          <div className={css("flex", "flex-col", "items-center", "gap-12")}>
+          <div
+            className={css(
+              "flex",
+              "flex-col",
+              "items-center",
+              "gap-12",
+              "mt-8"
+            )}
+          >
+            <ColoredText className={css("font-bold", "text-6xl")}>
+              Meet The Doge
+            </ColoredText>
+            <div className={css("text-center", "text-2xl", "font-bold")}>
+              OwnTheDoge presents a once-in-a-lifetime opportunity to go to
+              Japan and meet the actual Doge
+            </div>
             <div className={css("border-[1px]", "border-black", "max-w-xl")}>
               <Image
                 alt={"you with doge"}
-                src={"/images/doge.png"}
+                src={"/images/pilgrims.png"}
                 width={1428}
                 height={592}
               />
@@ -70,34 +87,64 @@ export default function Home() {
               )}
             >
               <div>
-                Henlo fellow Doge lovers. Are you a meme enthusiast? Or a
-                DogeCoin Whale? Do you value your Pixel from the Doge NFT more
-                than your first born? Do you like making new Dogely friends and
-                want to hang out in Tokyo for a week?
+                Are you a fan of the internet sensation, Doge? Do you want to
+                meet the adorable doge in person and click a selfie with her?
+                Well, you{"'"}re in luck! OwnTheDoge presents a
+                once-in-a-lifetime opportunity to go on a trip to Japan and meet
+                the actual Doge.
+              </div>
+              <Divider />
+              <div>
+                This five-day trip to Japan is not just about meeting the Doge.
+                You{"'"}ll get to experience the culture, food, and
+                entertainment of Japan while exploring the beautiful and serene
+                land. You{"'"}ll be staying at the iconic Godzilla Hotel in
+                Shinjuku (Hotel Gracery), and the itinerary includes a bespoke
+                tour of Tokyo, a trip to the Hachiko statue, karaoke, sake, and
+                other much WOW activities like go-karting through the city
+                streets. Plus you{"'"}ll get some never-before-seen OwnTheDoge
+                merch AND you{"'"}ll rub shoulders with meme legend and our
+                honorary guest, Bad Luck Brian!
+              </div>
+              <div className={css("border-[1px]", "border-black", "max-w-xl")}>
+                <Image
+                  alt={"you with doge"}
+                  src={"/images/gokarts.jpg"}
+                  width={1428}
+                  height={592}
+                />
               </div>
               <div>
-                OwnTheDoge is pleased to announce our latest epic adventure. As
-                custodians of the original Doge meme, purchased by PleasrDAO in
-                2021, we want to take you to the Doge.
+                Of course the main event will be a day in Sakura with Kabosu the
+                Doge and her hooman, Atsuko Sato. You can walk the Doge, pet the
+                Doge, take photos with the Doge, and see the site where Kabosu
+                {"'"}s Bronze Statue will be erected. Never before have Doge
+                fans been able to get up close and personal with the world{"'"}s
+                favourite Shiba.
               </div>
+              <Divider />
               <div>
-                That{"'"}s right, we{"'"}re putting together a pilgrimage to
-                meet Kabosu the Doge, as well as her human, Atsuko Sato. You
-                {"'"}ll be with the OwnTheDoge crew and other Shiba fans, doing
-                only good everyday, in the home of the Doge.
-              </div>
-              <div>
-                Kabosu has been sick lately, and we want to make sure her
-                biggest fans have the opportunity to meet her while her tail is
-                still wagging.
-              </div>
-              <div>
-                If you{"'"}re interested in joining us, fill in the form below
-                to stay connected.
+                The Doge pilgrimage will begin on May 3rd and end on May 8th,
+                and all you need to bring is your love for Doge, flight tickets,
+                a passport, and $4200. The $4200 ticket to this Pilgrimage is an
+                all-inclusive package for everything you{"'"}ll on the ground in
+                Japan. In legal terms, it would include hotel, meals,
+                translator, in-town transit and entry/ reservations in places
+                that will be mentioned in the itinerary. A part of this amount
+                will also go towards sponsoring a community member{"'"}s trip to
+                meet the doge, the criteria for whose selection shall be soon
+                disclosed!
               </div>
             </div>
-            <div className={css("font-bold", "text-center", "max-w-4xl")}>
-              are you interested in meeting the Doge?
+            <div>
+              <div className={css("flex", "items-center", "gap-4", "mb-4")}>
+                <Divider />
+                <div className={css("text-center", "font-bold")}>SO</div>
+                <Divider />
+              </div>
+              <div className={css("font-bold", "text-center", "max-w-4xl")}>
+                are you interested in meeting the Doge?
+              </div>
             </div>
             <div
               className={css(
