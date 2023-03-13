@@ -95,7 +95,7 @@ export default function Home() {
               </div>
               <Divider />
               <div>
-                This five-day trip to Japan is not just about meeting the Doge.
+                This five day trip to Japan is not just about meeting the Doge.
                 You{"'"}ll get to experience the culture, food, and
                 entertainment of Japan while exploring the beautiful and serene
                 land. You{"'"}ll be staying at the iconic Godzilla Hotel in
