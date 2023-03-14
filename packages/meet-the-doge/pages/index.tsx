@@ -126,14 +126,14 @@ export default function Home() {
               <div>
                 The Doge pilgrimage will begin on May 3rd and end on May 8th,
                 and all you need to bring is your love for Doge, flight tickets,
-                a passport, and $4200. The $4200 ticket to this Pilgrimage is an
-                all-inclusive package for everything you{"'"}ll on the ground in
-                Japan. In legal terms, it would include hotel, meals,
+                a passport, and $4,200. The $4,200 ticket to this Pilgrimage is
+                an all-inclusive package for everything you{"'"}ll on the ground
+                in Japan. In legal terms, it would include hotel, meals,
                 translator, in-town transit and entry/ reservations in places
                 that will be mentioned in the itinerary. A part of this amount
                 will also go towards sponsoring a community member{"'"}s trip to
                 meet the doge, the criteria for whose selection shall be soon
-                disclosed!
+                disclosed! *Non-transferable, the ticket has no value*
               </div>
             </div>
             <div>
