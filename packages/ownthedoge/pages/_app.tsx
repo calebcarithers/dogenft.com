@@ -113,7 +113,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               >
                 Meet the Doge
               </Link>{" "}
-              ...{" "}
+              ....{" "}
             </div>
           </div>
         </Marquee>
