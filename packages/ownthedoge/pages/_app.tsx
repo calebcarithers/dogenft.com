@@ -114,14 +114,6 @@ function MyApp({ Component, pageProps }: AppProps) {
                 Meet the Doge
               </Link>{" "}
               ...{" "}
-              <Link
-                type={LinkType.Black}
-                isExternal
-                href={"https://muchwowfilm.com"}
-              >
-                Watch the Doge
-              </Link>{" "}
-              on the big screen ...{" "}
             </div>
           </div>
         </Marquee>
