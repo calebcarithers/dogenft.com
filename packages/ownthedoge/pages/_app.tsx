@@ -79,6 +79,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             )}
           >
             <div>
+              {" "}
               Own the Doge ... Own a piece of internet history ...{" "}
               <Link
                 type={LinkType.Black}
@@ -113,7 +114,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               >
                 Meet the Doge
               </Link>{" "}
-              ....{" "}
+              ...{" "}
             </div>
           </div>
         </Marquee>
