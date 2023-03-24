@@ -1,10 +1,14 @@
+import { Comic_Neue } from "@next/font/google";
 import { css } from "dsl/helpers/css";
-import { Inter } from "next/font/google";
 import Head from "next/head";
 import { PropsWithChildren, useState } from "react";
 import { create } from "zustand";
 
-const inter = Inter({ subsets: ["latin"] });
+const comicNeue = Comic_Neue({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-comic-neue",
+});
 
 export default function Home() {
   const [value, setValue] = useState("");
@@ -23,20 +27,15 @@ export default function Home() {
           "flex",
           "justify-center",
           "grow",
-          "bg-pixels-yellow-100"
+          "bg-pixels-yellow-100",
+          comicNeue.className
         )}
       >
         <div className={css("max-w-3xl", "w-full", "flex", "flex-col")}>
           <div
             className={css("flex", "gap-2", "items-center", "justify-center")}
           >
-            <BlockText className="bg-doge-red">doge</BlockText>
-            <span>--</span>
-            <BlockText className="bg-doge-magenta">gpt</BlockText>
-            <span>--</span>
-            <BlockText className="bg-doge-green">much</BlockText>
-            <span>--</span>
-            <BlockText className="bg-doge-orange">wow</BlockText>
+            <span className={css("font-bold", "text-3xl")}>Doge GPT</span>
           </div>
           <div className={css("grow", "mt-4", "flex", "flex-col")}>
             <div
@@ -86,9 +85,10 @@ export default function Home() {
                     "border-[1px]",
                     "border-black",
                     "px-2",
-                    "py-1"
+                    "py-1",
+                    "outline-none"
                   )}
-                  placeholder={"wow..."}
+                  placeholder={"wow, ask me a question"}
                   value={value}
                   onChange={(e) => setValue(e.target.value)}
                 />
