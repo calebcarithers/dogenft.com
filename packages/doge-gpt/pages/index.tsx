@@ -45,16 +45,26 @@ export default function Home() {
                 "border-[1px]",
                 "border-black",
                 "flex",
-                "flex-col",
-                "gap-1",
-                "p-2"
+                "flex-col"
               )}
             >
               {store.prompts.map((item, index) => (
                 <div key={`${item.prompt}-${index}`}>
-                  <div>{item.prompt}</div>
-                  <div>{item.response}</div>
-                  <div>{item.date.toLocaleString()}</div>
+                  <div className={css("p-2", "bg-pixels-yellow-200")}>
+                    {item.prompt}
+                  </div>
+                  <div className={css("p-2", "bg-pixels-yellow-300")}>
+                    <div>{item.response}</div>
+                    <div
+                      className={css(
+                        "text-xs",
+                        "text-right",
+                        "text-pixels-yellow-500"
+                      )}
+                    >
+                      {item.date.toLocaleString()}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
