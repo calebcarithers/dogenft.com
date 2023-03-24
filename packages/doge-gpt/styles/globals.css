@@ -1,0 +1,17 @@
+@import 'dsl/styles/globals.css';
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Press+Start+2P&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#__next {
+  height: 100%;
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-rk] {
+  flex-grow: 1;
+  display: grid;
+}
