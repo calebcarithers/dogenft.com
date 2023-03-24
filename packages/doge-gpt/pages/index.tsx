@@ -2,6 +2,7 @@ import { Comic_Neue } from "@next/font/google";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
 import { PropsWithChildren, useState } from "react";
+import { PulseLoader } from "react-spinners";
 import { create } from "zustand";
 
 const comicNeue = Comic_Neue({
@@ -12,6 +13,7 @@ const comicNeue = Comic_Neue({
 
 export default function Home() {
   const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const store = useStore();
   return (
     <>
@@ -58,7 +60,8 @@ export default function Home() {
                       className={css(
                         "text-xs",
                         "text-right",
-                        "text-pixels-yellow-500"
+                        "text-pixels-yellow-500",
+                        "mt-0.5"
                       )}
                     >
                       {item.date.toLocaleString()}
@@ -66,6 +69,11 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+              {isLoading && (
+                <div className={css("flex", "justify-center", "mt-4")}>
+                  <PulseLoader size={8} color={"#9c9688"} />
+                </div>
+              )}
             </div>
             <div className={css("mt-2")}>
               <form
@@ -73,7 +81,10 @@ export default function Home() {
                   e.preventDefault();
                   if (value !== "") {
                     console.log("submit values", value);
-                    store.post(value);
+                    setIsLoading(true);
+                    store.post(value).finally(() => {
+                      setIsLoading(false);
+                    });
                     setValue("");
                   }
                 }}
@@ -114,14 +125,14 @@ const BlockText: React.FC<PropsWithChildren<{ className: string }>> = ({
 
 interface Store {
   prompts: { prompt: string; response: string; date: Date }[];
-  post: (prompt: string) => void;
+  post: (prompt: string) => Promise<any>;
 }
 
 const useStore = create<Store>((set) => ({
   prompts: [],
   post: async (prompt: string) => {
     try {
-      const res = await fetch("http://localhost:5000/prompt", {
+      const res = await fetch("http://127.0.0.1:5000/prompt", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
