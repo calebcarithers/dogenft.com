@@ -71,7 +71,7 @@ export default function Home() {
               ))}
               {isLoading && (
                 <div className={css("flex", "justify-center", "mt-4")}>
-                  <PulseLoader size={8} color={"#9c9688"} />
+                  <PulseLoader size={6} color={"#d2cbbb"} />
                 </div>
               )}
             </div>
