@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const showConnectButton = router.pathname !== "/";
   const TITLE = "Own The Doge";
   const DESCRIPTION =
-    "the community that collectively owns The Doge NFT with $DOG";
+    "The community that collectively owns The Doge NFT with $DOG";
   const TWITTER_USERNAME = "ownthedoge";
   const SOCIAL_CARD_URL = "https://ownthedoge.com/images/kabosu.png";
   const URL = "https://ownthedoge.com";
@@ -114,32 +114,40 @@ function MyApp({ Component, pageProps }: AppProps) {
                 }
               >
                 Buy $DOG
-              </Link>{" "}
-              for very fun ...{" "}
+              </Link>
+              {"... "}Own the Doge ... Own a piece of internet history ...{" "}
               <Link
                 type={LinkType.Black}
                 isExternal
-                href={"https://pixels.ownthedoge.com"}
+                href={
+                  "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"
+                }
               >
-                Mint Doge Pixels
-              </Link>{" "}
-              for much wow ... Help guide where the Doge goes next in the{" "}
+                Buy $DOG
+              </Link>
+              {"... "}
+              Own the Doge ... Own a piece of internet history ...{" "}
               <Link
                 type={LinkType.Black}
                 isExternal
-                href={"https://dao.ownthedoge.com"}
+                href={
+                  "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"
+                }
               >
-                Doge DAO
-              </Link>{" "}
-              ... Get a chance to{" "}
+                Buy $DOG
+              </Link>
+              {"... "}
+              Own the Doge ... Own a piece of internet history ...{" "}
               <Link
                 type={LinkType.Black}
                 isExternal
-                href={"https://meethedoge.com"}
+                href={
+                  "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"
+                }
               >
-                Meet the Doge
-              </Link>{" "}
-              ...{" "}
+                Buy $DOG
+              </Link>
+              {"... "}
             </div>
           </div>
         </Marquee>
