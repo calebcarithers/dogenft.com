@@ -2,6 +2,7 @@ import { lightTheme, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import Link, { LinkType } from "dsl/components/Link/Link";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import { useEffect } from "react";
@@ -41,8 +42,32 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   const showConnectButton = router.pathname !== "/";
+  const TITLE = "Own The Doge";
+  const DESCRIPTION =
+    "the community that collectively owns The Doge NFT with $DOG";
+  const TWITTER_USERNAME = "ownthedoge";
+  const SOCIAL_CARD_URL = "https://ownthedoge.com/images/kabosu.png";
+  const URL = "https://ownthedoge.com";
   return (
     <>
+      <Head>
+        <title>{TITLE}</title>
+        <meta name="description" content={DESCRIPTION} key="desc" />
+        <meta property="og:site_name" content={TITLE} />
+        <meta property="og:title" content={TITLE} />
+        <meta property="og:description" content={DESCRIPTION} />
+        <meta property="og:image" content={SOCIAL_CARD_URL} />
+        <meta property="og:url" content={URL} />
+        <meta name="twitter:title" content={TITLE} />
+        <meta name="twitter:description" content={DESCRIPTION} />
+        <meta name="twitter:image" content={SOCIAL_CARD_URL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content={TWITTER_USERNAME} />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
+      </Head>
       <style jsx global>
         {`
           body {
