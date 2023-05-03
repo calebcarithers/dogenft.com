@@ -5,19 +5,19 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta name="description" content="Something is coming." key="desc" />
-        <meta property="og:site_name" content="Much Wow Film" />
-        <meta property="og:title" content="Much Wow Film" />
+        <meta property="og:site_name" content="Doge Film" />
+        <meta property="og:title" content="Doge Film" />
         <meta property="og:description" content="Something is coming." />
         <meta
           property="og:image"
-          content="https://muchwowfilm.com/images/twitter-card.png"
+          content="https://dogefilm.com/images/twitter-card.png"
         />
-        <meta property="og:url" content="https://muchwowfilm.com" />
-        <meta name="twitter:title" content="Meet The Doge" />
+        <meta property="og:url" content="https://dogefilm.com" />
+        <meta name="twitter:title" content="Doge Film" />
         <meta name="twitter:description" content="Something is coming." />
         <meta
           name="twitter:image"
-          content="https://muchwowfilm.com/images/twitter-card.png"
+          content="https://dogefilm.com/images/twitter-card.png"
         />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>

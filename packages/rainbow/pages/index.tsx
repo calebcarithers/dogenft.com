@@ -435,11 +435,11 @@ const Home: NextPage = () => {
                       tab === TabType.Donations ? "Donors" : "Swappers"
                     } (${
                       tab === TabType.Donations
-                        ? donations?.length
-                          ? donations?.length
+                        ? leaderboard?.donations?.length
+                          ? leaderboard?.donations?.length
                           : ""
-                        : swaps?.length
-                        ? swaps?.length
+                        : leaderboard?.swaps?.length
+                        ? leaderboard?.swaps?.length
                         : ""
                     })`,
                     key: tab,
