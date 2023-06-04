@@ -23,8 +23,19 @@ const Home: NextPage<HomeProps> = ({ projects }) => {
   return (
     <>
       <Head>
-        <title>The Doge NFT</title>
-        <meta name="description" content="The Doge NFT" />
+        <title>Own The Doge</title>
+        <meta name="og:title" content="Own The Doge" />
+        <meta name="og:url" content="https://ownthedoge.com" />
+        <meta
+          name="og:image"
+          content="https://www.ownthedoge.com/images/kabosu.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ownthedoge" />
+        <meta
+          name="description"
+          content="The world's most iconic meme has been minted as an NFT by Atsuko Sato and can now be collectively owned with $DOG. Own the meme, own the Doge 🟨."
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomeLayout>
