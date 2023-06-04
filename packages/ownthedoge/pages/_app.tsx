@@ -17,6 +17,13 @@ import { chains, wagmiClient } from "../services/wagmi";
 import "../styles/globals.css";
 const tailwindconfig = require("../tailwind.config");
 
+export const TITLE = "Own The Doge";
+export const DESCRIPTION =
+  "The community that collectively owns The Doge NFT with $DOG";
+export const TWITTER_USERNAME = "ownthedoge";
+export const SOCIAL_CARD_URL = "https://ownthedoge.com/images/kabosu.png";
+export const URL = "https://ownthedoge.com";
+
 function MyApp({ Component, pageProps }: AppProps) {
   const theme = lightTheme({
     borderRadius: "none",
@@ -42,12 +49,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   const showConnectButton = router.pathname !== "/";
-  const TITLE = "Own The Doge";
-  const DESCRIPTION =
-    "The community that collectively owns The Doge NFT with $DOG";
-  const TWITTER_USERNAME = "ownthedoge";
-  const SOCIAL_CARD_URL = "https://ownthedoge.com/images/kabosu.png";
-  const URL = "https://ownthedoge.com";
   return (
     <>
       <Head>

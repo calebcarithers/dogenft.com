@@ -1,65 +1,87 @@
-import {GetServerSideProps} from "next";
-import Head from "next/head"
+import { GetServerSideProps } from "next";
+import Head from "next/head";
 import React from "react";
-import {css} from "../../helpers/css";
-import {BackOrHomeButton} from "../../../dsl/components/Button/Button";
-import {AirtableSubmissionProject} from "../../interfaces";
-import PageLayout from "../../layouts/Page/Page.layout";
+import { BackOrHomeButton } from "../../../dsl/components/Button/Button";
 import ColoredText from "../../../dsl/components/ColoredText/ColoredText";
 import Link from "../../../dsl/components/Link/Link";
-import {oldBarkTankItems} from "../../constants";
+import { oldBarkTankItems } from "../../constants";
+import { css } from "../../helpers/css";
+import { AirtableSubmissionProject } from "../../interfaces";
+import PageLayout from "../../layouts/Page/Page.layout";
+import { TITLE } from "../_app";
 
 interface BarkTankProjectProps {
-  project: AirtableSubmissionProject
+  project: AirtableSubmissionProject;
 }
 
-const BarkTankProject: React.FC<BarkTankProjectProps> = ({project}) => {
-  return <PageLayout>
-    <Head>
-      <title>The Doge NFT | {project.projectName}</title>
-    </Head>
-    <div>
-      <BackOrHomeButton/>
-      <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
-        <div className={css("flex", "justify-center", "text-4xl", "font-bold")}>
-          <ColoredText>{project.projectName}</ColoredText>
-        </div>
-        <div className={css("mt-10")}>
-          {project.imageUrl && <div>
-            <img alt={"bark_tank_image"}
-                 className={css("border-solid", "border-2", "border-black", "max-w-3xl", "w-full")}
-                 src={project.imageUrl}/>
-          </div>}
-          <div className={css("grid", "md:grid-cols-10", "mt-10", "grid-cols-1")}>
-            <div className={css("font-bold", "col-span-2")}>Description:</div>
-            <div className={css("col-span-8")}>{project.description}</div>
+const BarkTankProject: React.FC<BarkTankProjectProps> = ({ project }) => {
+  return (
+    <PageLayout>
+      <Head>
+        <title>
+          {TITLE} | {project.projectName}
+        </title>
+      </Head>
+      <div>
+        <BackOrHomeButton />
+        <div className={css("mt-4", "text-2xl", "max-w-3xl", "m-auto")}>
+          <div
+            className={css("flex", "justify-center", "text-4xl", "font-bold")}
+          >
+            <ColoredText>{project.projectName}</ColoredText>
           </div>
-          {project.link && <div className={css("grid", "grid-cols-10", "mt-6")}>
-            <div className={css("font-bold", "col-span-2")}>Link:</div>
-            <div className={css("col-span-8")}>
-              <Link isExternal href={project.link}>{project.link}</Link>
+          <div className={css("mt-10")}>
+            {project.imageUrl && (
+              <div>
+                <img
+                  alt={"bark_tank_image"}
+                  className={css(
+                    "border-solid",
+                    "border-2",
+                    "border-black",
+                    "max-w-3xl",
+                    "w-full"
+                  )}
+                  src={project.imageUrl}
+                />
+              </div>
+            )}
+            <div
+              className={css("grid", "md:grid-cols-10", "mt-10", "grid-cols-1")}
+            >
+              <div className={css("font-bold", "col-span-2")}>Description:</div>
+              <div className={css("col-span-8")}>{project.description}</div>
             </div>
-          </div>}
+            {project.link && (
+              <div className={css("grid", "grid-cols-10", "mt-6")}>
+                <div className={css("font-bold", "col-span-2")}>Link:</div>
+                <div className={css("col-span-8")}>
+                  <Link isExternal href={project.link}>
+                    {project.link}
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  </PageLayout>
-}
+    </PageLayout>
+  );
+};
 
-export const getServerSideProps: GetServerSideProps<BarkTankProjectProps> = async (context) => {
-  const id = context.params?.id
-  const project = oldBarkTankItems.filter(item => item.id === id)[0]
+export const getServerSideProps: GetServerSideProps<
+  BarkTankProjectProps
+> = async (context) => {
+  const id = context.params?.id;
+  const project = oldBarkTankItems.filter((item) => item.id === id)[0];
   if (!project) {
-    throw new Error("Could not find project")
+    throw new Error("Could not find project");
   }
   return {
     props: {
-      project: project
-    }
-  }
-}
+      project: project,
+    },
+  };
+};
 
-
-export default BarkTankProject
-
-
+export default BarkTankProject;

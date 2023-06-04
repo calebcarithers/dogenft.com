@@ -16,6 +16,7 @@ import PageLayout from "../layouts/Page/Page.layout";
 import SoulBoundAbi from "../services/abis/soulBound.abi";
 import { getProof } from "../services/merkletree";
 import { targetChain } from "../services/wagmi";
+import { TITLE } from "./_app";
 
 interface IMetadata {
   id: number;
@@ -222,7 +223,7 @@ const SoulBound: React.FC = () => {
   return (
     <PageLayout>
       <Head>
-        <title>The Doge NFT | Birthday</title>
+        <title>{TITLE} | Birthday</title>
       </Head>
       <div>
         <BackOrHomeButton />

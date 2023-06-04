@@ -12,12 +12,13 @@ import { isDev, isStaging } from "../environment";
 import { vars } from "../environment/vars";
 import { css } from "../helpers/css";
 import PageLayout from "../layouts/Page/Page.layout";
+import { TITLE } from "./_app";
 
 const DogeMajor = observer(() => {
   return (
     <>
       <Head>
-        <title>The Doge NFT | Doge Major</title>
+        <title>{TITLE} | Doge Major</title>
       </Head>
       <PageLayout
         className={css("bg-repeat")}

@@ -9,12 +9,13 @@ import { isProduction } from "../environment";
 import { vars } from "../environment/vars";
 import { css } from "../helpers/css";
 import PageLayout from "../layouts/Page/Page.layout";
+import { TITLE } from "./_app";
 
 const Nounlet = observer(() => {
   return (
     <>
       <Head>
-        <title>The Doge NFT | Nounlet #69</title>
+        <title>{TITLE} | Nounlet #69</title>
       </Head>
       <PageLayout className={css("bg-[#116082]", "text-white")}>
         <BackOrHomeButton />

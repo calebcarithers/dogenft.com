@@ -16,7 +16,7 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "The Doge NFT",
+  appName: "Own The Doge",
   chains,
 });
 
