@@ -1,6 +1,9 @@
+import Link from "dsl/components/Link/Link";
+import Modal from "dsl/components/Modal/Modal";
 import type { GetServerSideProps, NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Footer } from "../components/Footer/Footer";
 import HomeItems from "../components/Home/HomeItems";
 import { oldBarkTankItems } from "../constants";
@@ -50,6 +53,10 @@ const HomeContent = () => {
       }
     }
   }, []);
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
   return (
     <div
       className={css(
@@ -81,6 +88,40 @@ const HomeContent = () => {
         />
         <Footer />
       </div>
+      <Modal
+        isOpen={isOpen}
+        title={"✨ Doge x Bad Luck Brian ✨"}
+        onChange={(isOpen) => setIsOpen(isOpen)}
+      >
+        <Link
+          isExternal
+          href={
+            "https://zora.co/collect/0x36daf12d18b00389bac65b04bdc9013b1b3514d7"
+          }
+        >
+          <Image
+            className={css("border-[2px]", "border-black", "border-solid")}
+            width={2008}
+            height={1340}
+            alt={"blbxdoge"}
+            src={
+              "https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeifhoqhlgphgva25g55p7r5rzc4pqkseda77lgvkfhdd6ntw5lwqy4&w=3840&q=75"
+            }
+          />
+        </Link>
+        <div className={css("text-2xl", "text-center")}>
+          Kabosu and Bad Luck Brian meet in Japan! Mint this historic moment on{" "}
+          <Link
+            isExternal
+            href={
+              "https://zora.co/collect/0x36daf12d18b00389bac65b04bdc9013b1b3514d7"
+            }
+          >
+            Zora
+          </Link>
+          !
+        </div>
+      </Modal>
     </div>
   );
 };
