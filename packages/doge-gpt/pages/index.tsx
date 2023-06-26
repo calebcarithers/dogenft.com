@@ -22,9 +22,7 @@ export default function Home() {
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (value !== "") {
-      setIsLoading(true);
       store.post(value).finally(() => {
-        setIsLoading(false);
         lastMessageRef.current?.scrollIntoView();
       });
       setValue("");
@@ -105,28 +103,49 @@ export default function Home() {
                       "mt-4"
                     )}
                   >
-                    <div>{item.response}</div>
-                    <div
-                      className={css(
-                        "text-xs",
-                        "text-right",
-                        "text-pixels-yellow-500",
-                        "mt-0.5"
-                      )}
-                    >
-                      {item.date.toLocaleString()}
-                    </div>
+                    {item.isLoading ? (
+                      <PulseLoader size={6} color={"#d2cbbb"} />
+                    ) : (
+                      <div>
+                        <div>{item.response}</div>
+                        <div
+                          className={css(
+                            "text-xs",
+                            "text-right",
+                            "text-pixels-yellow-300",
+                            "mt-0.5"
+                          )}
+                        >
+                          {item.date.toLocaleString()}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
-              {isLoading && (
+              {store.prompts.length === 0 && (
+                <div
+                  className={css(
+                    "w-full",
+                    "h-full",
+                    "flex",
+                    "justify-center",
+                    "items-center"
+                  )}
+                >
+                  <div className={css("text-pixels-yellow-300", "text-xl")}>
+                    ownthedoge.com
+                  </div>
+                </div>
+              )}
+              {/* {isLoading && (
                 <div
                   className={css("flex", "justify-center", "mt-4")}
                   ref={loadingRef}
                 >
                   <PulseLoader size={6} color={"#d2cbbb"} />
                 </div>
-              )}
+              )} */}
             </div>
             <div className={css("mt-2")}>
               <form onSubmit={handleFormSubmit}>
@@ -156,48 +175,28 @@ export default function Home() {
 }
 
 interface Store {
-  prompts: { prompt: string; response: string; date: Date }[];
+  prompts: {
+    prompt: string;
+    response?: string;
+    date: Date;
+    id: number;
+    isLoading: boolean;
+  }[];
   post: (prompt: string) => Promise<any>;
 }
 
 const useStore = create<Store>((set) => ({
-  prompts: [
-    {
-      prompt: "wow! what exactly is this thing??",
-      response:
-        "\n\nWow! Such an amazing thing! Much mystery and intrigue! Very fascinating! So many questions! Amaze!",
-      date: new Date(),
-    },
-    {
-      prompt: "how do you screw in a lightbulb??",
-      response: "\n\nWow! Such lightbulb! Much screw! Very twist! Amaze turn!",
-      date: new Date(),
-    },
-    {
-      prompt: "can you tell me something else pls",
-      response: "\n\nWow! Such amaze! Much fun! Very happy!",
-      date: new Date(),
-    },
-    {
-      prompt: "what about more",
-      response:
-        "\n\nWow, such amaze! Much beauty in this world, very inspiring. Such creativity, so much to see. Wow, much beauty!",
-      date: new Date(),
-    },
-    {
-      prompt: "more more I say more!!!!!",
-      response:
-        "\n\nWow! Such much amaze! Very more I say more! Much enthusiasm! Much excitement! So much to say! Much wow! Much more! Much wow! Much more! Such much more! So much more to say! Much wow! Very much more! Much more I say more! Amaze!",
-      date: new Date(),
-    },
-    {
-      prompt: "give it to me liveeeeee too",
-      response: "\n\nWow, much energy! Such vibes! Very doge! So amaze!",
-      date: new Date(),
-    },
-  ],
+  prompts: [],
   post: async (prompt: string) => {
     try {
+      const id = Math.random();
+      set((prev) => ({
+        prompts: [
+          ...prev.prompts,
+          { prompt, date: new Date(), isLoading: true, id },
+        ],
+      }));
+
       const prodBaseUrl = "https://doge-gpt-cea4f69d8b2b.herokuapp.com";
       const res = await fetch(`${prodBaseUrl}/prompt`, {
         method: "POST",
@@ -206,14 +205,22 @@ const useStore = create<Store>((set) => ({
         },
         body: JSON.stringify({ prompt }),
       });
-      const { data } = await res.json();
-      set((prev) => ({
-        prompts: [
-          ...prev.prompts,
-          { prompt, response: data, date: new Date() },
-        ],
-      }));
-      console.log("debug:: json", data);
-    } catch (e) {}
+      if (res.ok) {
+        const { data } = await res.json();
+        set((prev) => {
+          const prompts = [...prev.prompts];
+          const index = prev.prompts.findIndex((item) => item.id === id);
+          prompts[index].response = data;
+          prompts[index].isLoading = false;
+          return {
+            prompts,
+          };
+        });
+      } else {
+        throw new Error("Response not ok");
+      }
+    } catch (e) {
+      console.error(e);
+    }
   },
 }));
