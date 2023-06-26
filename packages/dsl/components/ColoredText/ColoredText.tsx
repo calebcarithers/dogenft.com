@@ -40,4 +40,4 @@ const ColoredText: React.FC<PropsWithChildren<ColoredTextProps>> = ({
   );
 };
 
-export default ColoredText;
+export default React.memo(ColoredText);

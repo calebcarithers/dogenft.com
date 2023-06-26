@@ -1,7 +1,8 @@
 import { Comic_Neue } from "@next/font/google";
+import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { css } from "dsl/helpers/css";
 import Head from "next/head";
-import { useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { create } from "zustand";
 
@@ -14,7 +15,28 @@ const comicNeue = Comic_Neue({
 export default function Home() {
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef<HTMLDivElement>(null);
+
   const store = useStore();
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (value !== "") {
+      setIsLoading(true);
+      store.post(value).finally(() => {
+        setIsLoading(false);
+        lastMessageRef.current?.scrollIntoView();
+      });
+      setValue("");
+    }
+  };
+
+  useEffect(() => {
+    if (isLoading) {
+      loadingRef.current?.scrollIntoView();
+    }
+  }, [isLoading]);
+
   return (
     <>
       <Head>
@@ -39,7 +61,9 @@ export default function Home() {
           <div
             className={css("flex", "gap-2", "items-center", "justify-center")}
           >
-            <span className={css("font-bold", "text-3xl")}>DogeGPT</span>
+            <ColoredText bold className={css("text-5xl")}>
+              ✨ DogeGPT ✨
+            </ColoredText>
           </div>
           <div className={css("grow", "mt-4", "flex", "flex-col")}>
             <div
@@ -55,8 +79,11 @@ export default function Home() {
                 "max-h-[80vh]"
               )}
             >
-              {store.prompts.map((item, index) => (
-                <div key={`${item.prompt}-${index}`}>
+              {store.prompts.map((item, index, arr) => (
+                <div
+                  key={`${item.prompt}-${index}`}
+                  ref={arr.length - 1 === index ? lastMessageRef : undefined}
+                >
                   <div
                     className={css(
                       "p-3",
@@ -93,25 +120,16 @@ export default function Home() {
                 </div>
               ))}
               {isLoading && (
-                <div className={css("flex", "justify-center", "mt-4")}>
+                <div
+                  className={css("flex", "justify-center", "mt-4")}
+                  ref={loadingRef}
+                >
                   <PulseLoader size={6} color={"#d2cbbb"} />
                 </div>
               )}
             </div>
             <div className={css("mt-2")}>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (value !== "") {
-                    console.log("submit values", value);
-                    setIsLoading(true);
-                    store.post(value).finally(() => {
-                      setIsLoading(false);
-                    });
-                    setValue("");
-                  }
-                }}
-              >
+              <form onSubmit={handleFormSubmit}>
                 <input
                   name={"search"}
                   className={css(
