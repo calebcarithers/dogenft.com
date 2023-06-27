@@ -15,9 +15,7 @@ const comicNeue = Comic_Neue({
 
 export default function Home() {
   const [value, setValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const lastMessageRef = useRef<HTMLDivElement>(null);
-  const loadingRef = useRef<HTMLDivElement>(null);
 
   const store = useStore();
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -35,10 +33,11 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (isLoading) {
-      loadingRef.current?.scrollIntoView();
-    }
-  }, [isLoading]);
+    const scrollToMostRecent = () => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    scrollToMostRecent();
+  }, [store.prompts]);
 
   return (
     <>
@@ -58,7 +57,6 @@ export default function Home() {
           "bg-repeat",
           comicNeue.className
         )}
-        // style={{ backgroundImage: `url(images/kabosu.png)` }}
       >
         <div className={css("max-w-3xl", "w-full", "flex", "flex-col")}>
           <div
@@ -80,16 +78,7 @@ export default function Home() {
             <OpactityBg />
           </div>
           <div className={css("grow", "mt-4", "flex", "flex-col")}>
-            <div
-              className={css(
-                "grow",
-                "flex",
-                "flex-col",
-                "p-4",
-                "overflow-y-auto",
-                "relative"
-              )}
-            >
+            <div className={css("grow", "flex", "flex-col", "p-4", "relative")}>
               <div
                 className={css(
                   "grow",
@@ -97,7 +86,9 @@ export default function Home() {
                   "flex",
                   "flex-col",
                   "z-10",
-                  "gap-4"
+                  "gap-4",
+                  "h-[1px]",
+                  "overflow-y-auto"
                 )}
               >
                 {store.prompts.map((item, index, arr) => (
@@ -203,7 +194,7 @@ export default function Home() {
                     )}
                     onClick={query}
                   >
-                    search
+                    doge
                   </button>
                 </div>
               </form>
@@ -281,3 +272,102 @@ const useStore = create<Store>((set) => ({
     }
   },
 }));
+
+const demoData = [
+  {
+    prompt: "asdfasd",
+    date: new Date(),
+    isLoading: false,
+    id: 0.13464677869326214,
+    response:
+      "\n\nWow, much doge, such style! Very amaze, asdfasd is so cool! Much fun, such amazing! Wow!",
+  },
+  {
+    prompt: "aasdfasdf",
+    date: new Date(),
+    isLoading: false,
+    id: 0.35395498326862485,
+    response:
+      "\n\nWow, such amaze! Very doge. Much style. Much in. Such asdfasdf. Very aasdfasdf. Wow!",
+  },
+  {
+    prompt: "asdf",
+    date: new Date(),
+    isLoading: false,
+    id: 0.011668142907067303,
+    response:
+      "\n\nWow, such asdf, very computer science, much programming, amaze algorithms.",
+  },
+  {
+    prompt: "asdfasdfasdfasdf",
+    date: new Date(),
+    isLoading: false,
+    id: 0.6037445976094804,
+    response:
+      "\n\nwow, such amaze, very doge. much style, so wow. very asdfasdfasdfasdf, much awesome. so much awesome, wow.",
+  },
+  {
+    prompt: "asdfasdfasdf",
+    date: new Date(),
+    isLoading: false,
+    id: 0.4877229747587162,
+    response:
+      "\n\nWow, such doge amaze! Much style, very words. So many wow, much amaze. Such doge, very cool. Much awesome, very fun. Wow!",
+  },
+  {
+    prompt: "wow tell me something super sexy in 100words or less please",
+    date: new Date(),
+    isLoading: false,
+    id: 0.6825256531414252,
+    response:
+      "\n\nWow, such sexy! Much desire! Very alluring! Such temptation! Such sensuality! Much enthralling! Very captivating! Amaze with beauty! Much pleasure! Such seduction! Very inviting! Much passion! Very inviting! Much arousal! Very stimulating! Much pleasure! Very exciting! Much anticipation! Very enthralling! Much pleasure! Very tantalizing!",
+  },
+  {
+    prompt: "asdfasd",
+    date: new Date(),
+    isLoading: false,
+    id: 0.13464677869326214,
+    response:
+      "\n\nWow, much doge, such style! Very amaze, asdfasd is so cool! Much fun, such amazing! Wow!",
+  },
+  {
+    prompt: "aasdfasdf",
+    date: new Date(),
+    isLoading: false,
+    id: 0.35395498326862485,
+    response:
+      "\n\nWow, such amaze! Very doge. Much style. Much in. Such asdfasdf. Very aasdfasdf. Wow!",
+  },
+  {
+    prompt: "asdf",
+    date: new Date(),
+    isLoading: false,
+    id: 0.011668142907067303,
+    response:
+      "\n\nWow, such asdf, very computer science, much programming, amaze algorithms.",
+  },
+  {
+    prompt: "asdfasdfasdfasdf",
+    date: new Date(),
+    isLoading: false,
+    id: 0.6037445976094804,
+    response:
+      "\n\nwow, such amaze, very doge. much style, so wow. very asdfasdfasdfasdf, much awesome. so much awesome, wow.",
+  },
+  {
+    prompt: "asdfasdfasdf",
+    date: new Date(),
+    isLoading: false,
+    id: 0.4877229747587162,
+    response:
+      "\n\nWow, such doge amaze! Much style, very words. So many wow, much amaze. Such doge, very cool. Much awesome, very fun. Wow!",
+  },
+  {
+    prompt: "wow tell me something super sexy in 100words or less please",
+    date: new Date(),
+    isLoading: false,
+    id: 0.6825256531414252,
+    response:
+      "\n\nWow, such sexy! Much desire! Very alluring! Such temptation! Such sensuality! Much enthralling! Very captivating! Amaze with beauty! Much pleasure! Such seduction! Very inviting! Much passion! Very inviting! Much arousal! Very stimulating! Much pleasure! Very exciting! Much anticipation! Very enthralling! Much pleasure! Very tantalizing!",
+  },
+];
