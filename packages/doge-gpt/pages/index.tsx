@@ -1,4 +1,3 @@
-import demoData from "@/demoData";
 import { Comic_Neue } from "@next/font/google";
 import ColoredText from "dsl/components/ColoredText/ColoredText";
 import { css } from "dsl/helpers/css";
@@ -235,7 +234,7 @@ interface Store {
 }
 
 const useStore = create<Store>((set) => ({
-  prompts: demoData,
+  prompts: [],
   post: async (prompt: string) => {
     try {
       const id = Math.random();
