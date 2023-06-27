@@ -101,7 +101,7 @@ export default function Home() {
                     <div
                       className={css(
                         "p-3",
-                        "bg-pixels-yellow-300",
+                        "bg-pixels-yellow-200",
                         "rounded-2xl",
                         "md:mr-24",
                         "mr-4"
@@ -112,7 +112,7 @@ export default function Home() {
                     <div
                       className={css(
                         "p-3",
-                        "bg-pixels-yellow-200",
+                        "bg-white",
                         "rounded-2xl",
                         "md:ml-24",
                         "ml-4",
