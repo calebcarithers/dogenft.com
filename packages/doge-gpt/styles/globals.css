@@ -6,6 +6,7 @@
 
 html, body {
   background-image: url("/images/kabosu.png");
+  min-height: 100dvh;
 }
 
 #__next {

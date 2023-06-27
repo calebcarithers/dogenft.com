@@ -21,6 +21,10 @@ export default function Home() {
   const store = useStore();
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    query();
+  };
+
+  const query = () => {
     if (value !== "") {
       store.post(value).finally(() => {
         lastMessageRef.current?.scrollIntoView();
@@ -66,7 +70,10 @@ export default function Home() {
               "relative"
             )}
           >
-            <ColoredText bold className={css("text-5xl", "z-10")}>
+            <ColoredText
+              bold
+              className={css("text-3xl", "md:text-5xl", "z-10")}
+            >
               ✨ DogeGPT ✨
             </ColoredText>
             <OpactityBg />
@@ -81,8 +88,7 @@ export default function Home() {
                 "flex-col",
                 "p-4",
                 "gap-4",
-                "overflow-y-auto",
-                "max-h-[80vh]"
+                "overflow-y-auto"
               )}
             >
               {store.prompts.map((item, index, arr) => (
@@ -97,6 +103,7 @@ export default function Home() {
                       "rounded-2xl",
                       "md:mr-24",
                       "mr-4"
+                      // "shadow-md"
                     )}
                   >
                     {item.prompt}
@@ -109,6 +116,7 @@ export default function Home() {
                       "md:ml-24",
                       "ml-4",
                       "mt-4"
+                      // "shadow-md"
                     )}
                   >
                     {item.isLoading ? (
@@ -146,19 +154,10 @@ export default function Home() {
                   </div>
                 </div>
               )}
-              {/* {isLoading && (
-                <div
-                  className={css("flex", "justify-center", "mt-4")}
-                  ref={loadingRef}
-                >
-                  <PulseLoader size={6} color={"#d2cbbb"} />
-                </div>
-              )} */}
             </div>
             <div className={css("mt-2")}>
               <form onSubmit={handleFormSubmit}>
-                <input
-                  name={"search"}
+                <div
                   className={css(
                     "w-full",
                     "px-4",
@@ -166,13 +165,36 @@ export default function Home() {
                     "outline-none",
                     "bg-[#efe8d3]",
                     "rounded-2xl",
-                    "placeholder:text-pixels-yellow-400",
-                    "font-bold"
+                    "font-bold",
+                    "flex",
+                    "items-center",
+                    "gap-4"
                   )}
-                  placeholder={"wow, you can ask me anything"}
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
+                >
+                  <input
+                    name={"search"}
+                    className={css(
+                      "grow",
+                      "bg-[#efe8d3]",
+                      "outline-none",
+                      "placeholder:text-pixels-yellow-400"
+                    )}
+                    placeholder={"wow, you can ask me anything"}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                  <button
+                    className={css(
+                      "rounded-2xl",
+                      "hover:bg-pixels-yellow-300",
+                      "px-3",
+                      "py-1.5"
+                    )}
+                    onClick={query}
+                  >
+                    search
+                  </button>
+                </div>
               </form>
             </div>
           </div>
