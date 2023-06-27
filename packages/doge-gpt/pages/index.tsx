@@ -53,15 +53,33 @@ export default function Home() {
           "bg-repeat",
           comicNeue.className
         )}
-        style={{ backgroundImage: `url(images/kabosu.png)` }}
+        // style={{ backgroundImage: `url(images/kabosu.png)` }}
       >
         <div className={css("max-w-3xl", "w-full", "flex", "flex-col")}>
           <div
-            className={css("flex", "gap-2", "items-center", "justify-center")}
+            className={css(
+              "flex",
+              "gap-2",
+              "items-center",
+              "justify-center",
+              "p-4",
+              "relative"
+            )}
           >
-            <ColoredText bold className={css("text-5xl")}>
+            <ColoredText bold className={css("text-5xl", "z-10")}>
               ✨ DogeGPT ✨
             </ColoredText>
+            <div
+              className={css(
+                "absolute",
+                "inset-0",
+                "w-full",
+                "h-full",
+                "opacity-90",
+                "rounded-2xl",
+                "bg-pixels-yellow-100"
+              )}
+            />
           </div>
           <div className={css("grow", "mt-4", "flex", "flex-col")}>
             <div
