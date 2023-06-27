@@ -75,85 +75,87 @@ export default function Home() {
             <div
               className={css(
                 "grow",
-                "rounded-2xl",
-                "bg-[#efe8d3]",
                 "flex",
                 "flex-col",
                 "p-4",
-                "gap-4",
                 "overflow-y-auto",
-                "max-h-[80vh]"
+                "max-h-[80vh]",
+                "relative"
               )}
             >
-              {store.prompts.map((item, index, arr) => (
-                <div
-                  key={`${item.prompt}-${index}`}
-                  ref={arr.length - 1 === index ? lastMessageRef : undefined}
-                >
+              <div
+                className={css(
+                  "grow",
+                  "rounded-2xl",
+                  "flex",
+                  "flex-col",
+                  "z-10",
+                  "gap-4"
+                )}
+              >
+                {store.prompts.map((item, index, arr) => (
                   <div
-                    className={css(
-                      "p-3",
-                      "bg-pixels-yellow-300",
-                      "rounded-2xl",
-                      "md:mr-24",
-                      "mr-4"
-                    )}
+                    key={`${item.prompt}-${index}`}
+                    ref={arr.length - 1 === index ? lastMessageRef : undefined}
                   >
-                    {item.prompt}
-                  </div>
-                  <div
-                    className={css(
-                      "p-3",
-                      "bg-pixels-yellow-100",
-                      "rounded-2xl",
-                      "md:ml-24",
-                      "ml-4",
-                      "mt-4"
-                    )}
-                  >
-                    {item.isLoading ? (
-                      <PulseLoader size={6} color={"#d2cbbb"} />
-                    ) : (
-                      <div>
-                        <div>{item.response}</div>
-                        <div
-                          className={css(
-                            "text-xs",
-                            "text-right",
-                            "text-pixels-yellow-300",
-                            "mt-0.5"
-                          )}
-                        >
-                          {item.date.toLocaleString()}
+                    <div
+                      className={css(
+                        "p-3",
+                        "bg-pixels-yellow-300",
+                        "rounded-2xl",
+                        "md:mr-24",
+                        "mr-4"
+                      )}
+                    >
+                      {item.prompt}
+                    </div>
+                    <div
+                      className={css(
+                        "p-3",
+                        "bg-pixels-yellow-200",
+                        "rounded-2xl",
+                        "md:ml-24",
+                        "ml-4",
+                        "mt-4"
+                      )}
+                    >
+                      {item.isLoading ? (
+                        <PulseLoader size={6} color={"#d2cbbb"} />
+                      ) : (
+                        <div>
+                          <div>{item.response}</div>
+                          <div
+                            className={css(
+                              "text-xs",
+                              "text-right",
+                              "text-pixels-yellow-400",
+                              "mt-0.5"
+                            )}
+                          >
+                            {item.date.toLocaleString()}
+                          </div>
                         </div>
-                      </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                {store.prompts.length === 0 && (
+                  <div
+                    className={css(
+                      "w-full",
+                      "h-full",
+                      "flex",
+                      "justify-center",
+                      "items-center"
                     )}
+                  >
+                    <div className={css("text-pixels-yellow-300", "text-xl")}>
+                      ownthedoge.com
+                    </div>
                   </div>
-                </div>
-              ))}
-              {store.prompts.length === 0 && (
-                <div
-                  className={css(
-                    "w-full",
-                    "h-full",
-                    "flex",
-                    "justify-center",
-                    "items-center"
-                  )}
-                >
-                  <div className={css("text-pixels-yellow-300", "text-xl")}>
-                    ownthedoge.com
-                  </div>
-                </div>
-              )}
-              {/* {isLoading && (
-                <div
-                  className={css("flex", "justify-center", "mt-4")}
-                  ref={loadingRef}
-                >
-                  <PulseLoader size={6} color={"#d2cbbb"} />
-                </div>
-              )} */}
+                )}
+              </div>
+              <OpactityBg />
             </div>
             <div className={css("mt-2")}>
               <form onSubmit={handleFormSubmit}>
