@@ -12,20 +12,20 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      {/* <Script
+      <Script
         id={"gatag"}
         strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${vars.gaId}`}
-      /> */}
+      />
 
-      {/* <Script id={"gatagsomethingelse"} strategy="lazyOnload">
+      <Script id={"gatagsomethingelse"} strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${vars.gaId}');
               `}
-      </Script> */}
+      </Script>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <Component {...pageProps} />
