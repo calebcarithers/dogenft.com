@@ -220,7 +220,7 @@ const Home: NextPage = () => {
                   Doge Pound, Rainbow and frens.
                 </p>
 
-                <p>Website is coming back soon...</p>
+                <p>More coming soon...</p>
               </div>
             </section>
           </div>
