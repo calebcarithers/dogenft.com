@@ -217,7 +217,7 @@ const Home: NextPage = () => {
               >
                 <p>
                   Brought to you by: Own The Doge, Dogecoin Foundation, NFD,
-                  Doge Pound, Rainbow and frens.
+                  Doge Pound, Rainbow and the Sakura City Council.
                 </p>
 
                 <p>Website is coming back soon...</p>
