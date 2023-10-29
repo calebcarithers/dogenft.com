@@ -1,0 +1,77 @@
+{
+  "navBar": {
+    "history": "HISTORY",
+    "donors": "DONORS",
+    "contact": "CONTACT"
+  },
+  "hero": {
+    "title.hidden": "THE STATUE IS COMING",
+    "title.revealed": "THE STATUE IS REVEALED"
+  },
+  "countDown": {
+    "days": "DAYS",
+    "hours": "HOURS",
+    "minutes": "MINUTES",
+    "seconds": "SECONDS"
+  },
+  "donorsSection": {
+    "article": {
+      "title": "MUCH THANKS\nMUCH LOVE",
+      "content": "To the generous Doge pack who made the Bronze Doge statue possible,\n\nYour support and belief turned our vision into a reality. Thanks to your unwavering contributions, we raised over USD100,000 to create this magnificent tribute! Your names are forever etched in history, a testament to your faith in community and our furry friend."
+    },
+    "table": {
+      "headings": {
+        "donor": "Donor",
+        "amountDonated": "Amount Donated"
+      }
+    }
+  },
+  "contactSection": {
+    "credits": {
+      "prefix": "built with",
+      "love": "love",
+      "suffix": "by"
+    }
+  },
+  "timeline": {
+    "articles": {
+      "photograph": {
+        "title": "Photograph",
+        "content": "In the year 2010, a moment of serendipity was captured through the lens, forever imprinted in time. Atsuko Sato, with a heart full of love, clicked the shutter, capturing the essence of a shiba inu named Kabosu. "
+      },
+      "meme10": {
+        "title": "Meme 1.0",
+        "content": "From that single photograph, a phenomenon was born. The internet embraced Kabosu's endearing gaze, as comic sans text danced upon the image, giving birth to a sensation known as 'Doge.' A language of its own, broken yet charming, Doge found its way into the hearts of millions."
+      },
+      "memecoin": {
+        "title": "Memecoin",
+        "content": "But Doge's journey didn't stop there; it transcended the realm of pixels and spilled into the realm of innovation. Billy Markus and Jackson Palmer, fueled by the spirit of laughter and audacity, birthed a cryptocurrency embodying the very essence of Kabosu's visage. Dogecoin, a playful jest transformed into a digital currency, sparked a revolution of its own. The world witnessed the birth of the first meme-inspired cryptocurrency, creating waves of possibility. "
+      },
+      "trademark": {
+        "title": "Trademark",
+        "content": "Yet, fame often carries its burdens. Trademark controversies emerged, questioning the ownership and utilization of an animal's image linked to an entity. Kabosu's iconic face became a symbol of a larger debate, navigating the intersection of art, commerce, and the ethereal nature of internet culture."
+      },
+      "meme20": {
+        "title": "Meme 2.0",
+        "content": "Doge had evolved from a simple meme to a global phenomenon. Its impact stretched far beyond comedic relief and financial gain. The image carried with it a collective belief, a spark of inspiration that ignited philosophies and spurred financial endeavors. In a world where even a frog named Pepe could influence political tides, Doge stood tall, unyielding in its ability to capture hearts and minds."
+      },
+      "reclamation": {
+        "title": "Reclamation",
+        "content": "Amidst the ever-evolving digital landscape, Atsuko, the guardian of Kabosu's legacy, embarked on a path of reclamation. She immortalized her original photograph as an NFT, a testament to the enduring power of Kabosu's presence. In an auction, the essence of Doge was sold for a staggering $4 million, finding its new home within PleasrDAO. As the winds of change swept through the virtual realms, Own the Doge, a beacon of empowerment for Doge enthusiasts around the globe took birth. Communities united, forming an alliance to carry the torch, nurturing the essence of Doge's spirit with consistent Do Only Good Everyday initiatives."
+      },
+      "viralityAndInfluence": {
+        "title": "Virality and Influence",
+        "content": "A titan of innovation, Elon Musk, championed the cause of Dogecoin. With his charismatic fervor, he propelled Doge into the stratosphere of recognition. As he acquired Twitter, the world watched in awe as the bird's wings unfurled, transforming into the iconic figure of Doge. Doge had become a household name, a symbol of vitality and influence. Yet, amidst the zenith of Doge's triumphs, a somber cloud cast its shadow. Kabosu, the very embodiment of Doge, faced a formidable adversary—cancer. The fragility of life revealed itself, reminding us that even legends are bound by mortal threads."
+      },
+      "bronzeTheDogeDogePilgrimageandDogeDocumentary": {
+        "title": "Bronze The Doge, Doge Pilgrimage and Doge Documentary",
+        "content": "In an act of devotion, Own the Doge orchestrated a grand pilgrimage, a journey of profound significance. Doge communities from far and wide converged upon Japan, seeking solace and connection. At the heart of this gathering, Atsuko and Kabosu stood, embodying the unity of their shared love for Doge. A monumental bronze sculpture, larger than life, was proposed to rise from the earth, honoring the indelible mark left by Kabosu's presence. The filming of the Doge Documentary began with the objective of spreading the lore of Doge to the worlds far and beyond! The community stood as strong as ever, for now it wasn’t just a meme, it had become a phenomenon."
+      },
+      "dogeLegacy": {
+        "title": "Doge Legacy",
+        "content": "In the embrace of time's passage, the fateful moment arrived. With heavy hearts, the world bid farewell to Kabosu, the gentle soul who had touched millions. A cascade of emotions swept across the globe—a tapestry woven from love, laughter, and shared memories. The legacy of Doge continued to shine bright, a testament to the power of connection forged through the unlikeliest of mediums."
+      }
+    },
+    "title": "HISTORY"
+  }
+}

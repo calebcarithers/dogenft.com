@@ -13,6 +13,18 @@ const nextConfig = {
     // for more information.
     hideSourceMaps: true,
   },
+  i18n: {
+    locales: ["en-US", "ja"],
+    defaultLocale: "en-US",
+  },
+  // experimental: {
+  //   // Enable React 18 features
+  //   reactMode: "concurrent",
+  //   runtime: "edge",
+  //   serverComponents: true,
+  //   // Enable Suspense on the server
+  //   serverComponentsRenderServer: true,
+  // },
 };
 
 const withTm = require("next-transpile-modules")([
