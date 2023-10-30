@@ -5,10 +5,14 @@ import { HistorySection } from "../components/pages/home/history-section";
 import { SiteFooter } from "../components/pages/site-footer";
 import { SiteNav } from "../components/pages/site-nav";
 import { WaveSeparator } from "../components/wave-separator";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>Bronze the Doge</title>
+      </Head>
       <header className="site-header">
         <SiteNav />
         <HeroSection />

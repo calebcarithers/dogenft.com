@@ -45,12 +45,12 @@ html {
 }
 
 .site-nav {
-  @apply container mx-auto;
   @apply grid grid-cols-[1fr_1fr_theme('spacing.64')_1fr_1fr] place-items-center;
   @apply py-4 md:py-8;
 }
 
 .site-nav-mobile {
+  @apply w-full;
   @apply flex flex-col;
   @apply md:hidden;
 }
@@ -88,6 +88,10 @@ html {
 
 .site-nav-mobile--menu-open .site-nav-mobile__links {
   @apply flex;
+}
+
+.site-nav-desktop {
+  @apply container mx-auto;
 }
 
 .burger-button {
@@ -147,6 +151,7 @@ html {
   @apply flex flex-col items-center;
   @apply flex-1;
   @apply overflow-hidden;
+  @apply relative;
 }
 
 .hero-section .countdown-renderer {
@@ -198,6 +203,18 @@ html {
 }
 
 .hero-section__image--hidden {
+}
+
+.hero-section__play-button-wrapper {
+  @apply absolute top-0 left-1/2;
+  @apply container mx-auto h-full;
+  @apply -translate-x-1/2;
+  @apply flex items-end justify-start md:justify-end;
+  @apply px-6 py-20 md:p-24;
+}
+
+.hero-section__play-button img {
+  @apply w-24 h-24;
 }
 
 /* Wave separator */
@@ -423,7 +440,12 @@ html {
 }
 
 .donors-section__table-cell {
-  @apply px-4 md:px-8 py-4 overflow-hidden;
+  @apply px-4 md:px-8 py-4 overflow-hidden relative;
+}
+
+.overflow-hider {
+  @apply bg-gradient-to-r from-transparent via-rainbow-yellow to-rainbow-yellow;
+  @apply absolute w-12 h-full top-0 right-0;
 }
 
 .donors-section__table-cell:not(:first-child) {

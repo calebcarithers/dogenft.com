@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Leaderboard } from "../../../api/index";
 import { useTranslation } from "../../../hooks/use-translation";
 import classNames from "classnames";
+import ReactTooltip from "react-tooltip";
 
 export function DonorsSection({ className }: { className?: string }) {
   return (
@@ -51,7 +52,6 @@ function DonorLeaderboard() {
   useEffect(() => {
     if (!ref.current) return;
     const scrollbarWidth = getScrollbarWidth();
-    console.log(scrollbarWidth);
     ref.current.style.width = `${scrollbarWidth}px`;
   });
 
@@ -77,42 +77,56 @@ function DonorLeaderboard() {
         <div className="speech-bubble">
           <strong className="speech-bubble__title">Holy smokes!</strong>
           <span className="speech-bubble__message">
-            Something seriously bad happened.
+            Unable to fetch the leaderboard.
           </span>
         </div>
       </div>
     );
 
   return (
-    <table className={"donors-section__table"}>
-      <thead>
-        <tr>
-          <th className={"donors-section__table-header"}>
-            {translations.donorsSection.table.headings.donor}
-          </th>
-          <th className={"donors-section__table-header"}>
-            {translations.donorsSection.table.headings.amountDonated}
-          </th>
-          {/* hidden element to compensate for scrollbar causing layout shift */}
-          <th ref={ref} aria-hidden="true" />
-        </tr>
-      </thead>
-      <tbody className="w-full">
-        {(data?.donations || []).map((d) => (
-          <tr key={d.address} className={"donors-section__table-row"}>
-            <td className={"donors-section__table-cell"}>
-              {d.myDogeName ||
-                d.ens ||
-                shortenString(d.address) ||
-                "Anonymous Hero"}
-            </td>
-            <td className={"donors-section__table-cell"}>
-              {`$${d.usdNotional.toFixed(2)}`}
-            </td>
+    <div>
+      <table className={"donors-section__table"}>
+        <thead>
+          <tr>
+            <th className={"donors-section__table-header"}>
+              {translations.donorsSection.table.headings.donor}
+            </th>
+            <th className={"donors-section__table-header"}>
+              {translations.donorsSection.table.headings.amountDonated}
+            </th>
+            {/* hidden element to compensate for scrollbar causing layout shift */}
+            <th ref={ref} aria-hidden="true" />
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody className="w-full">
+          {(data?.donations || []).map((d) => (
+            <tr key={d.address} className={"donors-section__table-row"}>
+              <td
+                className="donors-section__table-cell"
+                data-for="donor-tooltip"
+                data-tip={
+                  d.myDogeName || d.ens || d.address || "Anonymous Hero"
+                }
+                data-iscapture="true"
+              >
+                {/* {d.myDogeName ||
+                  d.ens ||
+                  shortenString(d.address) ||
+                  "Anonymous Hero"} */}
+                {d.myDogeName || d.ens || d.address || "Anonymous Hero"}
+
+                <div className="overflow-hider" />
+              </td>
+
+              <td className={"donors-section__table-cell"}>
+                {`$${d.usdNotional.toFixed(2)}`}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <ReactTooltip id="donor-tooltip" data-scroll-hide="true" />
+    </div>
   );
 }
 
@@ -143,7 +157,7 @@ function getScrollbarWidth() {
   return scrollbarWidth;
 }
 
-function shortenString(str: string, startLength = 6, endLength = 4) {
+function shortenString(str: string, startLength = 5, endLength = 2) {
   if (str.length <= startLength + endLength + 1) {
     return str;
   }
