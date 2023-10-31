@@ -9,14 +9,14 @@ export default function Document() {
       <Head title={"Bronze The Doge"}>
         <meta
           name="description"
-          content="Help us raise funds to build Kabosu a statue in Japan."
+          content="The statue is coming to Japan, 2nd of November 2023."
           key="desc"
         />
         <meta property="og:site_name" content="Bronze The Doge" />
         <meta property="og:title" content="Bronze The Doge" />
         <meta
           property="og:description"
-          content="Help us raise funds to build Kabosu a statue in Japan."
+          content="The statue is coming to Japan, 2nd of November 2023."
         />
         <meta
           property="og:image"
@@ -26,7 +26,7 @@ export default function Document() {
         <meta name="twitter:title" content="Bronze The Doge" />
         <meta
           name="twitter:description"
-          content="Help us raise funds to build Kabosu a statue in Japan."
+          content="The statue is coming to Japan, 2nd of November 2023."
         />
         <meta
           name="twitter:image"
@@ -34,8 +34,19 @@ export default function Document() {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@bronzethedoge" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
-      <body className={css("font-ComicNeue", "!pr-0")}>
+      <body>
         <Main />
         <NextScript />
       </body>

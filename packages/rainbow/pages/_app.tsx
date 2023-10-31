@@ -27,14 +27,14 @@ function MyApp({ Component, pageProps }: AppProps) {
               `}
       </Script>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         <Component {...pageProps} />
       </QueryClientProvider>
-      <ToastContainer
+      {/* <ToastContainer
         position={"bottom-center"}
         autoClose={1500}
         closeButton={<></>}
-      />
+      /> */}
     </>
   );
 }
