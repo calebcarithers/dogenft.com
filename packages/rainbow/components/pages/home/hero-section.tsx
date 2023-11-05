@@ -33,7 +33,6 @@ const CountdownClientComponent = dynamic(
 );
 
 export function HeroSection({ className }: { className?: string }) {
-  const isRevealed = isAfter(new Date(), countdownDate);
   const { translations } = useTranslation();
 
   return (
@@ -41,35 +40,17 @@ export function HeroSection({ className }: { className?: string }) {
       id="hero-section"
       className={classNames("hero-section", className)}
     >
-      {/* <CountdownClientComponent
-        date={countdownDate}
-        renderer={(props) => <CountdownRenderer {...props} />}
-      /> */}
-
       <h1 className="hero-section__title">
         {translations.hero["title.revealed"]}
       </h1>
 
       <div className="hero-section__image-wrapper">
         <img
-          src={`./images/rainbow/bronze-statue-${
-            isRevealed ? "revealed" : "hidden"
-          }.png`}
+          src={`./images/rainbow/bronze-statue-revealed.png`}
           alt="A bronze doge statue."
           className="hero-section__image"
         />
       </div>
-
-      {/* <div className="hero-section__play-button-wrapper">
-        <button className="hero-section__play-button">
-          <img
-            src={`./images/rainbow/play-video-${
-              locale === "ja" ? "ja" : "en"
-            }.svg`}
-            alt="Play video"
-          />
-        </button>
-      </div> */}
 
       <ClientSidePlayVideoDialog />
     </section>
