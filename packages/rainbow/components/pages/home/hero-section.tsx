@@ -34,15 +34,21 @@ const CountdownClientComponent = dynamic(
 
 export function HeroSection({ className }: { className?: string }) {
   const isRevealed = isAfter(new Date(), countdownDate);
+  const { translations } = useTranslation();
+
   return (
     <section
       id="hero-section"
       className={classNames("hero-section", className)}
     >
-      <CountdownClientComponent
+      {/* <CountdownClientComponent
         date={countdownDate}
         renderer={(props) => <CountdownRenderer {...props} />}
-      />
+      /> */}
+
+      <h1 className="hero-section__title">
+        {translations.hero["title.revealed"]}
+      </h1>
 
       <div className="hero-section__image-wrapper">
         <img
