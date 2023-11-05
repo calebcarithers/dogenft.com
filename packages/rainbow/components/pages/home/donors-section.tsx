@@ -95,7 +95,11 @@ function DonorLeaderboard() {
               {translations.donorsSection.table.headings.amountDonated}
             </th>
             {/* hidden element to compensate for scrollbar causing layout shift */}
-            <th ref={ref} aria-hidden="true" />
+            <th
+              ref={ref}
+              aria-hidden="true"
+              className="donors-section__scrollbar-fix"
+            />
           </tr>
         </thead>
         <tbody className="w-full">
@@ -137,7 +141,21 @@ async function fetchLeaderboard() {
   return await (response.json() as Promise<Leaderboard>);
 }
 
+function isIOSDevice(): boolean {
+  // This regex will match iPad, iPhone, and iPod user agent strings
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    // iPad on iOS 13 detection
+    (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  );
+}
+
 function getScrollbarWidth() {
+  if (isIOSDevice()) {
+    // On iOS devices, the scrollbar is overlaid on the content and does not take up space.
+    return 0;
+  }
+
   // Creating invisible container
   const outer = document.createElement("div");
   outer.style.visibility = "hidden";

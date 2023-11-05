@@ -139,22 +139,22 @@ export function HistorySection({ className }: { className?: string }) {
           .bronzeTheDogeDogePilgrimageandDogeDocumentary.title,
       className: "bronzeTheDogeDogePilgrimageandDogeDocumentary",
     },
-    {
-      id: "dogeLegacy",
-      eventImageSrc: "./images/rainbow/timeline-events/2024.png",
-      eventCaption: (
-        <>
-          <span>2</span>
-          <span>0</span>
-          <span>2</span>
-          <span>4</span>
-        </>
-      ),
-      articleImageSrc: "./images/rainbow/decoration/doge-share.png",
-      articleContent: translations.timeline.articles.dogeLegacy.content,
-      articleTitle: translations.timeline.articles.dogeLegacy.title,
-      className: "dogeLegacy",
-    },
+    // {
+    //   id: "dogeLegacy",
+    //   eventImageSrc: "./images/rainbow/timeline-events/2024.png",
+    //   eventCaption: (
+    //     <>
+    //       <span>2</span>
+    //       <span>0</span>
+    //       <span>2</span>
+    //       <span>4</span>
+    //     </>
+    //   ),
+    //   articleImageSrc: "./images/rainbow/decoration/doge-share.png",
+    //   articleContent: translations.timeline.articles.dogeLegacy.content,
+    //   articleTitle: translations.timeline.articles.dogeLegacy.title,
+    //   className: "dogeLegacy",
+    // },
   ];
 
   return (
