@@ -34,7 +34,7 @@ export const Footer = () => {
         <FooterItem title={"Talk"} items={socialLinks} />
         <FooterItem title={"Read"} items={readLinks} />
         <FooterItem title={"Do"} items={actionLinks} />
-        <FooterItem title={"Acquire"} items={tradeLinks} />
+        <FooterItem title={"Buy"} items={tradeLinks} />
       </div>
     </footer>
   );
