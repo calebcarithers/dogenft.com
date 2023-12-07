@@ -36,6 +36,10 @@ export const actionLinks = [
 
 export const tradeLinks = [
   {
+    title: "Defi Llama",
+    link: "https://swap.defillama.com/?chain=ethereum&from=0x0000000000000000000000000000000000000000&to=0xbaac2b4491727d78d2b78815144570b9f2fe8899"
+  },
+  {
     title: "Sushiswap",
     link: "https://app.sushi.com/swap?outputCurrency=0xbaac2b4491727d78d2b78815144570b9f2fe8899",
   },

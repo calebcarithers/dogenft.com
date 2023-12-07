@@ -111,7 +111,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 type={LinkType.Black}
                 isExternal
                 href={
-                  "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"
+                  "https://swap.defillama.com/?chain=ethereum&from=0x0000000000000000000000000000000000000000&to=0xbaac2b4491727d78d2b78815144570b9f2fe8899"
                 }
               >
                 Buy $DOG
@@ -121,7 +121,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 type={LinkType.Black}
                 isExternal
                 href={
-                  "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"
+                  "https://swap.defillama.com/?chain=ethereum&from=0x0000000000000000000000000000000000000000&to=0xbaac2b4491727d78d2b78815144570b9f2fe8899"
                 }
               >
                 Buy $DOG
@@ -132,7 +132,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 type={LinkType.Black}
                 isExternal
                 href={
-                  "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"
+                  "https://swap.defillama.com/?chain=ethereum&from=0x0000000000000000000000000000000000000000&to=0xbaac2b4491727d78d2b78815144570b9f2fe8899"
                 }
               >
                 Buy $DOG
@@ -143,7 +143,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 type={LinkType.Black}
                 isExternal
                 href={
-                  "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0xBAac2B4491727D78D2b78815144570b9f2Fe8899"
+                  "https://swap.defillama.com/?chain=ethereum&from=0x0000000000000000000000000000000000000000&to=0xbaac2b4491727d78d2b78815144570b9f2fe8899"
                 }
               >
                 Buy $DOG
