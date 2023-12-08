@@ -74,7 +74,7 @@ const LinksModal = ({
           </div>
         </div>
         <div>
-          <div className={css("text-lg", "font-bold")}>Acquire</div>
+          <div className={css("text-lg", "font-bold")}>Buy</div>
           <div className={css("flex", "flex-col")}>
             {tradeLinks.map((link) => (
               <Link
