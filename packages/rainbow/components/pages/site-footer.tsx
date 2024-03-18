@@ -26,7 +26,7 @@ const SOCIAL_MEDIA_LINKS: SocialMediaLink[] = [
   {
     icon: <FaDiscord />,
     title: "Discord",
-    href: "https://discord.gg/thedogenft",
+    href: "https://discord.gg/ownthedoge",
   },
   { icon: <FaTelegram />, title: "Telegram", href: "https://t.me/ownthedoge" },
   {
