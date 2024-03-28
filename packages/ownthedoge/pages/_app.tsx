@@ -17,6 +17,7 @@ import { chains, wagmiClient } from "../services/wagmi";
 import "../styles/globals.css";
 const tailwindconfig = require("../tailwind.config");
 
+// placeholder note
 export const TITLE = "Own The Doge";
 export const DESCRIPTION =
   "The community that collectively owns The Doge NFT with $DOG";
