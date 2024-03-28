@@ -165,7 +165,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 "top-0"
               )}
             >
-              <ConnectButton />
+              {/* <ConnectButton /> */}
             </div>
           )}
           <Component {...pageProps} />
