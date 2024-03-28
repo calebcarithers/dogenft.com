@@ -93,7 +93,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 `}
       </Script>
       <Background />
-      <WagmiConfig client={wagmiClient}>
+      {/* <WagmiConfig client={wagmiClient}> */}
         <Marquee speed={55} pauseOnHover gradient={false}>
           <div
             className={css(
@@ -152,7 +152,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </div>
           </div>
         </Marquee>
-        <RainbowKitProvider chains={chains} theme={theme}>
+        {/* <RainbowKitProvider chains={chains} theme={theme}> */}
           {showConnectButton && (
             <div
               className={css(
@@ -168,8 +168,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             </div>
           )}
           <Component {...pageProps} />
-        </RainbowKitProvider>
-      </WagmiConfig>
+        {/* </RainbowKitProvider> */}
+      {/* </WagmiConfig> */}
     </>
   );
 }
