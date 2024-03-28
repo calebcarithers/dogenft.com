@@ -17,6 +17,7 @@ import { chains, wagmiClient } from "../services/wagmi";
 import "../styles/globals.css";
 const tailwindconfig = require("../tailwind.config");
 
+// placeholder note
 export const TITLE = "Own The Doge";
 export const DESCRIPTION =
   "The community that collectively owns The Doge NFT with $DOG";
@@ -93,7 +94,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 `}
       </Script>
       <Background />
-      <WagmiConfig client={wagmiClient}>
+      {/* <WagmiConfig client={wagmiClient}> */}
         <Marquee speed={55} pauseOnHover gradient={false}>
           <div
             className={css(
@@ -152,7 +153,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </div>
           </div>
         </Marquee>
-        <RainbowKitProvider chains={chains} theme={theme}>
+        {/* <RainbowKitProvider chains={chains} theme={theme}> */}
           {showConnectButton && (
             <div
               className={css(
@@ -164,12 +165,12 @@ function MyApp({ Component, pageProps }: AppProps) {
                 "top-0"
               )}
             >
-              <ConnectButton />
+              {/* <ConnectButton /> */}
             </div>
           )}
           <Component {...pageProps} />
-        </RainbowKitProvider>
-      </WagmiConfig>
+        {/* </RainbowKitProvider> */}
+      {/* </WagmiConfig> */}
     </>
   );
 }
